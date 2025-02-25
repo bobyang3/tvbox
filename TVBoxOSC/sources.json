@@ -6,27 +6,27 @@
   "urls": [
     {
       "url": "http://www1.RobYang.ggff.net/VodLive/jb8ffa", //jsm　　
-      "name": "🏠RobYang 點直播(備1)"
+      "name": "🏠RobYang 點直播"
     },
-        {
-      "url": "http://www1.RobYang.rr.nu/VodLive/jb8ffa", //jsm　
-      "name": "🏠RobYang 點直播(備2)"
-    },    
+    //     {
+    //   "url": "http://www1.RobYang.rr.nu/VodLive/jb8ffa", //jsm　
+    //   "name": "🏠RobYang 點直播(備2)"
+    // },    
     {
       "url": "http://www1.RobYang.us.kg/VodLive/jb8ffa", //jsm　　
-      "name": "🏠RobYang 點直播"
+      "name": "🏠RobYang 點直播(備1)"
     },
     {
       "url": "http://RobYang.runasp.net/VodLive/jb8ffa", //jsm　　
-      "name": "🏠RobYang 點直播(備3)"
+      "name": "🏠RobYang 點直播(備2)"
     },
     {
       "url": "http://RobYang.us.kg", // -> https://robyang.serv00.net/ -> https://www1.RobYang.us.kg/VodLive/sb8ffa，　"https://RobYang.serv00.net/VodLive/ b8ffa.php",　//Doesn't work correctly because missing jar json js...etc
-      "name": "🏘️🏘️RobYang 總源 http://RobYang.us.kg"
+      "name": "🏘️🏘️RobYang 總源(備1) http://RobYang.us.kg"
     },
     {
       "url": "http://RobYang.ggff.net", //source htts://RobYang.runasp.net/VodLive/sb8ffa
-      "name": "🏘️🏘️RobYang 總源(備1) http://RobYang.ggff.net"
+      "name": "🏘️🏘️RobYang 總源 http://RobYang.ggff.net"
     },
     {
       "url": "http://RobYang.rr.nu", //source http://www1.RobYang.rr.nu/VodLive/sb8ffa
@@ -86,15 +86,13 @@
     //   "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/qist/tvbox/master/9918.json",
     //   "name": "🔞Qist AV 限制級"
     // },
-    {
-      "url": "http://www1.RobYang.us.kg/VodLive/xb8ffa",
-      "name": "🔞RobYang AV 限制級"
-    },
+    // {
+    //   "url": "http://www1.RobYang.us.kg/VodLive/xb8ffa",
+    //   "name": "🔞RobYang AV 限制級 (備1)"
+    // },
     {
       "url": "http://www1.RobYang.ggff.net/VodLive/xb8ffa",
-      "name": "🔞RobYang AV 限制級 (備1)"
+      "name": "🔞RobYang AV 限制級"
     }
-
-
 
   ]}
