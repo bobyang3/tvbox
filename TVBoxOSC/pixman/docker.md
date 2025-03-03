@@ -42,15 +42,27 @@ echo "litv.yaml 更新成功，Docker 容器已重启。"
          - Thetvapp: http://[IP:PORT]/thetvapp.m3u
          - Tubi: http://[IP:PORT]/tubi-us.m3u (美国线路)
          - http://[IP:PORT]/tubi-ca.m3u (加拿大线路)
+一键修复:
+curl -sL https://x.tt8.us.kg/update_fourgtv.sh | bash
+
+修复now 获取新的mpd key。 整合多了个 now-self.m3u 等于free列表 详情 https://t.me/livednowgroup/386393
+目录更正 https://t.me/livednowgroup/387376
+网友的备份1: https://t.me/livednowgroup/387476
+备份2: ru2025/fourgtv
+
 
 
 
 ## 2. 4GTV FastAPI （taiwan IP only, ofiii + 4GTV整合版）https://hub.docker.com/r/mybtjson/fastapi-4gtv: 
 ======
    1. docker镜像拉取:
-         sudo docker pull mybtjson/fastapi-4gtv:1.0.3
+         sudo docker pull mybtjson/fastapi-4gtv:1.0.5
    2. docker镜像运行:
-         sudo docker run -d --name=fastapi-4gtv -p 50012:5000 --restart=always mybtjson/fastapi-4gtv:1.0.3
+         sudo docker run -d --name=fastapi-4gtv -p 50012:5000 --restart=always mybtjson/fastapi-4gtv:1.0.5
+http://ip:50007/help
+http://ip:50007/?type=txt
+http://ip:50007/?type=m3u
+
 
 
 
@@ -59,16 +71,32 @@ echo "litv.yaml 更新成功，Docker 容器已重启。"
 台湾直播的docker镜像 ofiii直播镜像
 Author --by( 沐辰&&Doubebly )
 
-docker镜像拉取: 
-   sudo docker pull doubebly/doube-ofiii:latest
+docker镜像拉取:    sudo docker pull doubebly/doube-ofiii:latest
 
-docker镜像运行: 
-   sudo docker run -d --name=doube-ofiii -p 50002:5000 --restart=always doubebly/doube-ofiii:latest
+docker镜像运行:    sudo docker run -d --name=doube-ofiii -p 50002:5000 --restart=always doubebly/doube-ofiii:latest
+
+OR docker镜像运行 配置token和User-Agent:    docker run -d --name=doube-ofiii -p 50002:5000 -v /home/doubebly.json:/app/config/doubebly.json --restart=always doubebly/doube-ofiii:latest
+doubebly.json文件内容如下：
+{
+"Token_enabled": false,
+"Token": ["Double001", "Double001"],
+"User-agent_enabled": false,
+"User-agent": "PotPlayer/24.12.16"
+}
+Token_enabled和User-agent_enabled为布尔值，true为开启，false为关闭
+Token的值是一个数组可以添加多个
+User-agent的值是你自定义个ua
+
 
 访问 http://ip:port/help (示例：http://127.0.0.1:50002/help)，可以看到txt和m3u的订阅链接
 
 技术反馈群，https://t.me/doubebly003
 https://t.me/livednowgroup/357610
+
+
+txt: http://ip:port/Sub?type=m3u&sd=1080&proxy=true
+m3u: http://ip:port/Sub?type=m3u&sd=1080&proxy=true
+token，订阅地址请加token参数: http://ip:port/Sub?type=m3u&sd=1080&proxy=true&token=Double001
 
 
 
