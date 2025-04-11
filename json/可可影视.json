@@ -47,7 +47,7 @@
     "搜索链接": "https://www.keke1.app/search?t=WW5AHhthr8MiVanVv36Xgw%3D%3D&k={wd}",
     "POST请求数据": "",
     "搜索截取模式": "1",
-    "搜索列表数组规则": ".search-result-list&&a",
+    "搜索列表数组规则": ".search-result-list&&.search-result-item",
     "搜索片单是否Jsoup写法": "是",
     "搜索片单图片": "'https://vres1.ipvav.cn'+.lazyload&&data-original",
     "搜索片单标题": "img&&title",
