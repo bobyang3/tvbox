@@ -1,5 +1,5 @@
 {
-  "spider":"./jar/fan.txt;md5;cb6bb81c2d89c2bb28c9fb7a11e200bb",
+  "spider":"./jar/fan.txt;md5;2c6500c44ee7e7b915f8c0afb0723e50",
   //"spider":"./jar/pg.jar",
   "note":"FROM: http://RobYang.dpdns.org, http://RobYang.DPDNS.org",
   "note2":"FROM: http://www1.RobYang.dpdns.org/VodLive/jb8ffa",
@@ -26,7 +26,7 @@
 //{"key":"csp_新可可影视","name":"可可","type":3,"api":"csp_XBPQ","jar":"./jar/xyqxbpq.jar","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/新可可影視-直連.json"},
 {"key":"兄弟","name":"🍊水星┃多线","type":3,"api":"csp_AppSxGuard","timeout":10,"searchable":1,"quickSearch":1,"filterable":1,"ext":"rfOb1uAWbkRHp7hdxprG9un3+SLP183q3ik3cJDiAwlFdF8L6SIvrvc9LrpTyIg76T7QJZdEkWNj43wiSaA0TJyQpu2IF2jsSLWFx7WkAmG40hFxJ1tI+Jf+EVG8DtoDRcNi+TtVGULnWrSz3EWnVcxR3EJhXnrwYWe1kJtNW5txuHAO"},
 {"key":"热播","name":"📺热播┃多线","type":3,"api":"csp_AppTTGuard","timeout":10,"playerType":2,"searchable":1,"quickSearch":1,"changeable":1,"ext":"uqGL1bNENExT7/hGxpSE5qU="},
-{"key":"神车","name":"🐻小熊┃秒播","type":3,"api":"csp_AppSKGuard","timeout":10,"searchable":1,"quickSearch":0,"changeable":0,"ext":"rfOX1voDIQhH8epBwtCFsq+8syyZ18T30GkibomjS1xHcE9fpWU7oKJ1cO9K0M5hrnOHZ9dKjiJz5HEyTr57RZHCqunfFT7jH/mEy+uqVyo="},
+{"key":"神车","name":"🐻小熊┃秒播","type":3,"api":"csp_AppSxGuard","timeout":10,"searchable":1,"quickSearch":0,"changeable":0,"ext":"rfOX1voDIQhH8epBwpmIsuS8oz/VnNfnxigtaMviCwldcRBVvSwnsuM5MM4OgfA64zPRJJ0UnjpsuU0yDQ=="},
 {"key":"溢彩","name":"💡流光┃秒播","type":3,"api":"csp_AppSxGuard","timeout":10,"searchable":1,"quickSearch":1,"changeable":1,"ext":"rfOb1uAWbkRHp7hdxprG9un3+T/f19e82TUvZMviAElDfhsS/jcju7U0fe1MnN1h63CTaYIPjmEw9C0qVsgBO8um85+eGlSkG/r2q6m0DA=="},
 {"key":"厂长","name":"📔厂长┃不卡","type":3,"api":"csp_NewCzGuard","timeout":10,"playerType":2,"searchable":1,"quickSearch":1,"changeable":1},
 {"key":"海纳TV","name":"影視| 海纳","type":3,"api":"csp_XBPQ","jar":"./jar/xyqxbpq.jar","searchable":1,"quickSearch":1,"filterable":1,"ext":"./json/海纳TV.json"},
