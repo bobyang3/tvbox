@@ -134,16 +134,18 @@
       "name": "越南资源",
       "type": 1,
       "api": "https://api.sexnguon.com/api.php/provide/vod/?ac=list",
-      "api3": "./json/vietnam.json",      
+      "api3 no preview": "./json/vietnam.json",      
       "searchable": 1,
       "quickSearch": 0
     },
-// {"key":"155zy.com","name":"155","type":1,"api":"https://155api.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
-{"key":"155api.com", "type":1,"api2": "https://155api.com/api.php/provide/vod/","api": "./json/155api.json", "isLock": true, "name": "155","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}}, 
+
+
+    // {"key":"155zy.com","name":"155","type":1,"api":"https://155api.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
+// {"key":"155api.com", "type":1,"api2": "https://155api.com/api.php/provide/vod/","api": "./json/155api.json", "isLock": true, "name": "155","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}}, 
 // {"key":"155api.com2", "type":1,"api": "https://155api.com/api.php/provide/vod/at/json", "isLock": true, "name": "155","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}}, 
 
 //{"key":"tantanzy.com","name":"探探","type":1,"api":"https://apittzy.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
-{"key":"jkunzy.com","name":"jkun","type":1,"api2":"https://jkunzyapi.com/api.php/provide/vod/?ac=list","api":"./json/jkunzy.json","searchable":1,"filterable":1},
+{"key":"jkunzy.com","name":"jkun","type":1,"api":"https://jkunzyapi.com/api.php/provide/vod/?ac=list","api3 no preview":"./json/jkunzy.json","searchable":1,"filterable":1},
 // {"key":"gqzy.me","name":"搞起","type":1,"api":"https://caiji.gqjiexi.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 
 
@@ -156,10 +158,10 @@
 // {"key":"haosezyw.com","name":"好色","type":1,"api":"https://haosezyw.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 // {"key":"vnzyz.com","name":"越南","type":1,"api":"https://vnzyz.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 // {"key":"lyhzyw.com","name":"狼友会","type":1,"api":"https://api.lyhapi.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
-{"key":"jingpinx.com","name":"★精品下","type":1,"api":"https://www.jingpinx.com//api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
-{"key":"avre.club","name":"★黄瓜","type":1,"api":"https://www.avre06.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
+{"key":"jingpinx.com","name":"精品下","type":1,"api":"https://www.jingpinx.com//api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
+{"key":"avre.club","name":"黄瓜","type":1,"api":"https://www.avre06.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 // {"key":"sesehuzy.com","name":"色虎","type":1,"api":"https://apisesehuzy.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
-{"key":"naixxzy.com","name":"★奶香香","type":1,"api":"https://naixxzy.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
+{"key":"naixxzy.com","name":"奶香香","type":1,"api":"https://naixxzy.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 {"key":"laosebizy.com","name":"老色逼","type":1,"api":"https://apilsbzy1.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 //{"key":"www.caoliuzyw.com","name":"★草榴","type":1,"api":"https://www.caoliuzyw.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 
@@ -217,7 +219,7 @@
 // {"note":"list but won't play","key":"maozyapi","name":"?色猫", "type":0,"api":"https://api.maozyapi.com/inc/api.php/provide/vod/at/xml/","playUrl":"https://jx.kujiexi.net/m3u8.php?url=","searchable":1,"quickSearch":1,"filterable":1}, 
 
 
-{"key":"apittzy.com","name":"成人18 探探","type":1,"api":"https://apittzy.com/api.php/provide/vod/","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}},
+// {"key":"apittzy.com","name":"成人18 探探","type":1,"api":"https://apittzy.com/api.php/provide/vod/","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}},
 // {"key":"探探","name":"探探","type":0,"api":"https://apittzy.com/api.php/provide/vod/at/xml","playUrl":"https://jiexi.ttbfp1.com/m3u8/?url="}, 
 // {"key":"探探","name":"探探","type":1,"api":"https://apittzy.com/api.php/provide/vod","searchable":1,"quickSearch":1}, 
 // {"key":"apittzy.com","name":"成人47","type":1,"api":"https://apittzy.com/api.php/provide/vod/","quickSearch":1,"searchable":1,"filterable":1}, 
@@ -768,6 +770,7 @@
       "searchable": 0,
       "changeable": 0
     },
+																																							
     {
          "key":"大地X资源站",
          "name":"大地X资源站",
@@ -1282,11 +1285,13 @@
                 "ratio": 1.5
             }
         },
+																																																
                 {
             "key": "松视开通1",
             "name": "松视1",
             "type": 0,
             "api": "https://www.xrbsp.com/api/xml.php",
+										
             "searchable": 0,
             "quickSearch": 0
         },
@@ -1295,6 +1300,7 @@
             "name": "松视2",
             "type": 0,
             "api": "https://www.gdlsp.com/api/xml.php",
+										
             "searchable": 0,
             "quickSearch": 0
         },
@@ -2083,6 +2089,27 @@
             }
         },
 
+		
+																																								 
+																																																	   
+																																																		  
+																																								   
+																																		 
+																																								  
+																																																	   
+																																	 
+																																																			
+																																											   
+																																									
+																																																			
+																																										
+																																											
+																																					   
+																																		
+																																																	  
+																																																			
+																																																																						   
+																																																																						   
 
 {"key":"push_agent","name":"推送","type":3,"api":"csp_Push","searchable":1,"changeable":0,"ext":"./lib/token.json"}
 ],
