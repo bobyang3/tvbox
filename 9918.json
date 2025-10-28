@@ -47,14 +47,15 @@
       "key": "py_Miss",
       "name": "MissAV(T4)",
       "type": 4,
-      "api": "https://py.doube.eu.org/spider?site=Miss",
+      "api2": "https://py.doube.eu.org/spider?site=Miss",
+      "api": "./json/missavtv.json",
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
       "changeable": 0
     },
         {
-            "key": "csp_XYQHiker_missav.app",
+            "key": "csp_XYQHiker_missav.app2",
             "name": "MissAV.app",
             "type": 3,
             "api": "csp_XYQHiker",
@@ -62,7 +63,8 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/missav.app.json",
+            "ext2": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/missav.app.json",
+            "ext": "./json/missav.app.json",            
             "style": {
                 "type": "rect",
                 "ratio": 1.6
@@ -93,7 +95,8 @@
       "key": "py_AiDou",
       "name": "AiDou(T4)",
       "type": 4,
-      "api": "https://py.doube.eu.org/spider?site=AiDou",
+      "api2": "https://py.doube.eu.org/spider?site=AiDou",
+      "api": "./json/aidou4t.json",      
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
@@ -107,7 +110,8 @@
       "key": "py_rou",
       "name": "Rou(T3)",
       "type": 3,
-      "api": "https://d.kstore.dev/download/14756/python/vod_rou.py",
+      "api2": "https://d.kstore.dev/download/14756/python/vod_rou.py",
+      "api": "./py/vod_rou.py",       
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
@@ -122,23 +126,24 @@
             "searchable": 1,
             "quickSearch": 1,
             "filterable": 1,
-            "ext": "./XYQHiker/AV6K.json",
-            "jar": "./jar/XYQ.jar;md5;7f11d950239d38c975561a0a673e78e5"
+            "ext": "./json/AV6K.json",
+            "jar": "./jar/XYQ.jar"
     },
     {
       "key": "越南资源",
       "name": "越南资源",
       "type": 1,
       "api": "https://api.sexnguon.com/api.php/provide/vod/?ac=list",
+      "api3": "./json/vietnam.json",      
       "searchable": 1,
       "quickSearch": 0
     },
 // {"key":"155zy.com","name":"155","type":1,"api":"https://155api.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
-{"key":"155api.com", "type":1,"api": "https://155api.com/api.php/provide/vod/", "isLock": true, "name": "155","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}}, 
+{"key":"155api.com", "type":1,"api2": "https://155api.com/api.php/provide/vod/","api": "./json/155api.json", "isLock": true, "name": "155","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}}, 
 // {"key":"155api.com2", "type":1,"api": "https://155api.com/api.php/provide/vod/at/json", "isLock": true, "name": "155","playUrl": "json:http://127.0.0.1:10079/parse/?thread=0&proxy=&url=","searchable":1,"recordable":0,"style":{"type":"rect","ratio":1.33},"header":{"User-Agent":"Mozilla/5.0(WindowsNT10.0;Win64;x64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/117.0.0.0Safari/537.36"}}, 
 
 //{"key":"tantanzy.com","name":"探探","type":1,"api":"https://apittzy.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
-{"key":"jkunzy.com","name":"jkun","type":1,"api":"https://jkunzyapi.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
+{"key":"jkunzy.com","name":"jkun","type":1,"api2":"https://jkunzyapi.com/api.php/provide/vod/?ac=list","api":"./json/jkunzy.json","searchable":1,"filterable":1},
 // {"key":"gqzy.me","name":"搞起","type":1,"api":"https://caiji.gqjiexi.com/api.php/provide/vod/?ac=list","searchable":1,"filterable":1},
 
 
@@ -1014,7 +1019,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/ggjav.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/ggjav.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.6
@@ -1397,7 +1402,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/bad.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/bad.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.8
@@ -1412,7 +1417,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/bad搜索1.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/bad搜索1.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.8
@@ -1427,7 +1432,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/52av2.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/52av2.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.8
@@ -1442,7 +1447,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/javday.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/javday.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.6
@@ -1457,7 +1462,7 @@
             "searchable": 1,
             "quickSearch": 1,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/18jtv.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/18jtv.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.6
@@ -1472,7 +1477,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/xnxx.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/xnxx.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.6
@@ -1487,7 +1492,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/njavtv.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/njavtv.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.6
@@ -1503,7 +1508,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/nowavtv.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/nowavtv.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.6
@@ -1937,7 +1942,7 @@
             "searchable": 1,
             "quickSearch": 0,
             "filterable": 0,
-            "ext": "https://ghfast.top/https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/av6k.json",
+            "ext": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/av6k.json",
             "style": {
                 "type": "rect",
                 "ratio": 1.6
