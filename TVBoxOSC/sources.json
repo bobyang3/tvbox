@@ -5,31 +5,35 @@
  // "logo": "https://www1.RobYang.ggff.net/RobYang.jpg",
   "urls": [
     {
-      "url": "http://www1.robyang.dpdns.org/VodLive/jb8ffa", //jsm　　
+      "url": "http://www1.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　　
       "name": "🏠RobYang 點直播"
     },
     {
-      "url": "http://www2.robyang.dpdns.org/VodLive/jb8ffa", //jsm　　
+      "url": "http://www2.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　　
       "name": "🏠RobYang 點直播(備1)"
     },
     {
-      "url": "http://www1.RobYang.ggff.net/VodLive/jb8ffa", //jsm　　
+      "url": "http://www4.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　　
       "name": "🏠RobYang 點直播(備2)"
     },
     {
-      "url": "http://RobYang.runasp.net/VodLive/jb8ffa", //jsm　　
+      "url": "http://www3.RobYang.ggff.net/VodLive/jb8ffa", //jsm　　
       "name": "🏠RobYang 點直播(備3)"
     },
+    {
+      "url": "http://www1.RobYang.ggff.net/VodLive/jb8ffa", //jsm　　
+      "name": "🏠RobYang 點直播(備4)"
+    },
    {
-      "url": "http://robyang.dpdns.org", //source http://www1.RobYang.rr.nu/VodLive/sb8ffa
+      "url": "http://RobYang.dpdns.org", //source http://robyang3/VodLive/sb8ffa
       "name": "🏘️🏘️RobYang 總源 http://RobYang.dpdns.org"
     },
         {
-      "url": "http://RobYang.ggff.net", //source htts://RobYang.runasp.net/VodLive/sb8ffa
+      "url": "http://RobYang.ggff.net", //source htts://robyang2/VodLive/sb8ffa
       "name": "🏘️🏘️RobYang 總源(備1) http://RobYang.ggff.net"
     },
     {
-      "url": "http://robyang.zone.id", //source http://www1.RobYang.rr.nu/VodLive/sb8ffa
+      "url": "http://RobYang.zone.id", //source http://www1.RobYang.rr.nu/VodLive/sb8ffa
       "name": "🏘️🏘️RobYang 總源(備2) http://RobYang.zone.id"
     },
     // {
