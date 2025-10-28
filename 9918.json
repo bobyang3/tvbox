@@ -47,8 +47,8 @@
       "key": "py_Miss",
       "name": "MissAV(T4)",
       "type": 4,
-      "api": "https://py.doube.eu.org/spider?site=Miss",
-      "api3": "./json/missavtv.jsonmissavtv.json",
+      "api2": "https://py.doube.eu.org/spider?site=Miss",
+      "api": "./json/missavtv.json",
       "searchable": 1,
       "quickSearch": 0,
       "filterable": 0,
@@ -64,7 +64,7 @@
             "quickSearch": 0,
             "filterable": 0,
             "ext2": "https://raw.githubusercontent.com/xwyjc/lwang/main/XYQHike/missav.app.json",
-            "ext": "./jsonmissav.app.json",            
+            "ext": "./json/missav.app.json",            
             "style": {
                 "type": "rect",
                 "ratio": 1.6
