@@ -21,15 +21,20 @@
 
 
 ## 安裝方式：
-1. 電視上先裝 downloader. https://www.aftvnews.com/downloader/
-2. 然後使用短碼383716，裝emotn商店 
-3. 啟動 emotn輸入分享碼 emotn 分享碼796233 
-4. 安裝 OK影視 或 影視TV
+1. 電視上先裝 downloader (使用Google play 或 https://www.aftvnews.com/downloader)
+2. 選擇以下APP安裝:
+   
+   |  App | 版本  | Downloader 碼  |  鏈接 |   |
+   |---|---|---|---|---|
+   |  蜂蜜影視TV | 電視版 v7a  | 5012184  |  http://aftv.news/5012184 |   |
+   |  OK影視TV | 電視版 v7a   |  2673286 |  http://aftv.news/2673286 |   |
+   |  OK pro影視TV | 電視版 v7a   |  1557364 | http://aftv.news/1557364  |   |
+
 
 
 
 ## 點播接口：
-1. Rob Yang 點直播線源: http://RobYang.ggff.net 或 http://RobYang.dpdns.org 或 https://RobYang.serv00.net
+1. Rob Yang 點直播線源: http://RobYang.ggff.net 或 http://RobYang.dpdns.org 或 https://RobYang.zone.id 或 https://RobYang.serv00.net
 2. AnBox http://tv.anbox.ip-ddns.com/vod
 4. 沐晨: https://py.doube.eu.org/static/t4.json 
 5. 寶盒=欧乐,泥巴　https://raw.githubusercontent.com/guot55/yg/main/pg/jsm.json
@@ -166,6 +171,38 @@
 
 --------------------------------------------------------------------
 
+## 每年需要在json, js, xml 新增年度:
+```
+1.
+2025&2024&
+2026&2025&2024&
+
+2.
+"2025", "2024"
+"2026", "2025", "2024"
+
+3.
+,{"n":"2025","v":"/year/2025"}
+,{"n":"2026","v":"/year/2026"},{"n":"2025","v":"/year/2025"}
+
+4.
+,{n:"2025",v:"2025"}
+,{n:"2026",v:"2026"},{n:"2025",v:"2025"}
+
+5.
+, {"n": "2025", "v": "2025"}
+, {"n": "2026", "v": "2026"}, {"n": "2025", "v": "2025"}
+
+6.
+{"n":"2025","v":"2025"},
+{"n":"2026","v":"2026"},{"n":"2025","v":"2025"},
+
+
+```
+
+
+--------------------------------------------------------------------
+
 格式說明 http://www.sharerw.com/a/ziyuan/444.html:
 1. 《分享者tv》 《百川影音》自定义直播源的分类写法为: ### $c_start央视$c_end
 2. 《DIYP影音》《视米趣播》: ### 央视,#genre#
@@ -175,9 +212,6 @@
     
 CCTV-1HD,http://stream.guihet.com/hd/ccav1.m3u8,cntv-cctv1
 CCTV-1HD,http://stream.guihet.com/hd/ccav1.m3u8,tvming-CCTV1HD
-
-
-
 
 
 
