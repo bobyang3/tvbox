@@ -1818,6 +1818,15 @@
             "filterable": 1,
             "ext": "./json/91速播.json"
         },
+            {
+      "key": "CK资源采集",
+      "name": "CK資源採集",
+      "type": 1,
+      "api": "https://ckzy.me/api.php/provide/vod/?ac=list",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
         {
             "key": "404",
             "name": "404xsvc",

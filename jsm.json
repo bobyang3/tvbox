@@ -4309,15 +4309,6 @@
       }
     },
     {
-      "key": "CK资源采集",
-      "name": "CK資源採集",
-      "type": 1,
-      "api": "https://ckzy.me/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "鸭鸭资源采集",
       "name": "鴨鴨資源採集",
       "type": 1,
@@ -4758,29 +4749,6 @@
         "分类url": "https://www.139ys.com/vodshow/{cateId}--time------{catePg}---{year}.html",
         "分类": "電視劇$lianxuju#電影$dianying#動漫$dongman#綜藝$zongyi"
       }
-    },
-    {
-      "key": "热播之家",
-      "name": "熱播之家(濾 to 2024)",
-      "type": 3,
-      "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "order_num": 0,
-      "ext": "./js/热播之家.js"
-    },
-    {
-      "key": "热播2",
-      "name": "影視| 熱播(無濾)",
-      "type": 3,
-      "api": "csp_AppTTGuard",
-      "timeout": 10,
-      "playerType": 2,
-      "searchable": 0,
-      "quickSearch": 0,
-      "changeable": 1,
-      "ext": "uqGL1bNENExT7/hGxpSE5qU="
     },
     {
       "key": "nyys2",
