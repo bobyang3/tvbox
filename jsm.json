@@ -5822,36 +5822,10 @@
     "cms.qdwght.com"
   ],
   "lives": [    
-      {
-      "name": "🏠RobYang4| http://www4.RobYang.dpdns.org",
-      "source": "Azure",
-      "url": "http://www4.RobYang.dpdns.org/VodLive/lb8ffa",
-      "type": 0,
-      "url": "http://www4.RobYang.dpdns.org/VodLive/lb8ffa",
-      "header": {
-        "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
-        "X-FORWARDED-FOR": "127.0.0.1"
-      },
-      "timeout": 5,
-      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
-      "logo": "https://epg.112114.xyz/logo/{name}.png"
-    },   
     {
       "name": "🏠RobYang6| http://www6.RobYang.dpdns.org",
       "type": 0,
       "url": "http://www6.RobYang.dpdns.org/VodLive/lb8ffa",
-      "header": {
-        "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
-        "X-FORWARDED-FOR": "127.0.0.1"
-      },
-      "timeout": 5,
-      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
-      "logo": "https://epg.112114.xyz/logo/{name}.png"
-    },
-          {
-      "name": "🏠RobYang3| http://www3.RobYang.dpdns.org",
-      "type": 0,
-      "url": "http://www3.RobYang.dpdns.org/VodLive/lb8ffa",
       "header": {
         "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
         "X-FORWARDED-FOR": "127.0.0.1"
@@ -5872,6 +5846,33 @@
       "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
       "logo": "https://epg.112114.xyz/logo/{name}.png"
     },
+    {
+      "name": "🏠RobYang4| http://www4.RobYang.dpdns.org",
+      "source": "Azure",
+      "url": "http://www4.RobYang.dpdns.org/VodLive/lb8ffa",
+      "type": 0,
+      "url": "http://www4.RobYang.dpdns.org/VodLive/lb8ffa",
+      "header": {
+        "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
+        "X-FORWARDED-FOR": "127.0.0.1"
+      },
+      "timeout": 5,
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },  
+    {
+      "name": "🏠RobYang3| http://www3.RobYang.dpdns.org",
+      "type": 0,
+      "url": "http://www3.RobYang.dpdns.org/VodLive/lb8ffa",
+      "header": {
+        "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
+        "X-FORWARDED-FOR": "127.0.0.1"
+      },
+      "timeout": 5,
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+
     // {
     //   "name": "🏠RobYang備1| http://RobYang.ggff.net",
     //   "type": 0,
@@ -5894,7 +5895,7 @@
     //   }
     // },
     {
-      "name": "🏠RobYang備2| http://robyang.zone.id",
+      "name": "🏠RobYang備1| http://robyang.zone.id",
       "type": 0,
       "url": "http://RobYang.runasp.net/VodLive/lb8ffa",
       "header": {
