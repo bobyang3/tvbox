@@ -16,31 +16,32 @@
 高點綜合,http://?id=toptv_twn
 JET綜合,http://?id=jet
 壹新聞,http://?id=yinews
-
+amc電影,http://?id=starmoviesgold_twn
 緯來育樂,http://?id=videolandmax
+NHK,http://?id=NHK
 
 
-
-
+AXN, http://?id=axn_twn
+CINEMAX, http://?id=cinemax_twn
 EYE戲劇, http://?id=eyetvxiju_twn
 EYE旅遊, http://?id=eyetvtravel_twn
-
-
+HBO, http://?id=hbohd_twn
+HBO Family, http://?id=fyi_twn
 好萊塢電影台, http://?id=hollywoodmovies_twn
-
+MTV Live, http://?id=mtvhd_twn
 TLC旅遊生活, http://?id=tlc_twn
 東森新聞, http://?id=ettvnews
-
-
-
+TVBS HD, http://?id=tvbs
+TVBS新聞, http://?id=tvbs_n
+TVBS歡樂台, http://?id=tvbshuanle_twn
 三立台灣台, http://?id=sanlitaiwan
 三立戲劇台, http://?id=sanlixiju_twn
 三立綜合台, http://?id=sanlizhonghe
-
+三立都会台, http://?id=sanlidouhui
 中天亞洲台, http://?id=ctiasia_twn
-
+中天娱樂, http://?id=ctient
 中天新聞HD, http://?id=ctinews
-
+中天綜合, http://?id=ctizhonghe
 亞洲旅遊台, http://?id=asiatravel_twn
 亞洲美食, http://?id=afc_twn
 八大戲劇, http://?id=badadrama
@@ -100,7 +101,7 @@ BBC World News, http://?id=bbcnews_twn
 Bloomberg News, http://?id=bloomberg_twn
 Fox News, http://?id=foxnews_twn
 阿里郎, http://?id=arirang_twn
-
+CN卡通, http://?id=momo1_twn
 靖天卡通台, http://?id=jingtiancartoon_twn
 靖天國際台, http://?id=jingtianintl_twn
 非凡新聞, http://?id=feifannews_twn
@@ -444,7 +445,7 @@ BBC Earth HD, http://?id=bbcearth_twn
 BBC Earth Lifestyle, http://?id=bbclifestyle_twn
 CI, http://?id=ci_twn
 Discovery Asia, http://?id=discoverytwn_twn
-
+Discovery HD, http://?id=discoveryhd_twn
 Fashion TV, http://?id=fashiontv_twn
 Foodnetwork Hd, http://?id=Foodnetwork_mega
 HGTV, http://?id=HGTV
@@ -592,23 +593,3 @@ YTN Korean, http://?id=ytnkorean_korea
 YTN Science, http://?id=ytnscience_korea
 YTN, http://?id=ytn_korea
 Yonhap News, http://?id=yonhapnews_korea
-
-日本 Japan,#genre#
-NHK,http://?id=NHK
-
-測試 Test,#genre#
-amc電影,http://?id=starmoviesgold_twn
-NHK,http://?id=NHK
-AXN, http://?id=axn_twn
-CINEMAX, http://?id=cinemax_twn
-HBO, http://?id=hbohd_twn
-HBO Family, http://?id=fyi_twn
-MTV Live, http://?id=mtvhd_twn
-CN卡通, http://?id=momo1_twn
-TVBS HD, http://?id=tvbs
-TVBS新聞, http://?id=tvbs_n
-TVBS歡樂台, http://?id=tvbshuanle_twn
-三立都会台, http://?id=sanlidouhui
-中天娱樂, http://?id=ctient
-中天綜合, http://?id=ctizhonghe
-
