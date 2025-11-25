@@ -1,0 +1,154 @@
+4GTV 综合,#genre#
+民視第一台,https://4gtv.iill.top/4gtv/1
+民視台灣台,https://4gtv.iill.top/4gtv/2
+民視,https://4gtv.iill.top/4gtv/3
+TVBS,https://4gtv.iill.top/4gtv/183
+中視,https://4gtv.iill.top/4gtv/4
+華視,https://4gtv.iill.top/4gtv/6
+原住民族電視台,https://4gtv.iill.top/4gtv/273
+大愛電視,https://4gtv.iill.top/4gtv/209
+新唐人亞太台,https://4gtv.iill.top/4gtv/223
+國會頻道2,https://4gtv.iill.top/4gtv/171
+國會頻道1,https://4gtv.iill.top/4gtv/170
+中視菁采台,https://4gtv.iill.top/4gtv/123
+三立綜合台,https://4gtv.iill.top/4gtv/169
+靖天日本台,https://4gtv.iill.top/4gtv/22
+達文西頻道,https://4gtv.iill.top/4gtv/11
+ARIRANG阿里郎頻道,https://4gtv.iill.top/4gtv/189
+中視經典台,https://4gtv.iill.top/4gtv/124
+客家電視台,https://4gtv.iill.top/4gtv/107
+好消息,https://4gtv.iill.top/4gtv/9
+好消息2台,https://4gtv.iill.top/4gtv/8
+大愛二台,https://4gtv.iill.top/4gtv/230
+人間衛視,https://4gtv.iill.top/4gtv/210
+FRANCE24 英文台,https://4gtv.iill.top/4gtv/316
+4GTV 新闻,#genre#
+民視新聞台,https://4gtv.iill.top/4gtv/31
+TVBS新聞,https://4gtv.iill.top/4gtv/291
+東森新聞台,https://4gtv.iill.top/4gtv/292
+中視新聞,https://4gtv.iill.top/4gtv/33
+華視新聞,https://4gtv.iill.top/4gtv/34
+寰宇新聞台灣台,https://4gtv.iill.top/4gtv/280
+寰宇新聞台,https://4gtv.iill.top/4gtv/36
+鏡電視新聞台,https://4gtv.iill.top/4gtv/268
+中天新聞台,https://4gtv.iill.top/4gtv/30
+三立新聞iNEWS,https://4gtv.iill.top/4gtv/229
+半島國際新聞台,https://4gtv.iill.top/4gtv/462
+東森財經新聞台,https://4gtv.iill.top/4gtv/293
+SBN全球財經台,https://4gtv.iill.top/4gtv/224
+KLT-靖天國際台,https://4gtv.iill.top/4gtv/84
+靖天資訊台,https://4gtv.iill.top/4gtv/88
+NHK WORLD-JAPAN,https://4gtv.iill.top/4gtv/461
+鳳梨直擊台,https://4gtv.iill.top/4gtv/93
+香蕉直擊台,https://4gtv.iill.top/4gtv/94
+CNBC Asia 財經台,https://4gtv.iill.top/4gtv/235
+4GTV 体育,#genre#
+TRACE Sport Stars,https://4gtv.iill.top/4gtv/57
+時尚運動X,https://4gtv.iill.top/4gtv/69
+GINX Esports TV,https://4gtv.iill.top/4gtv/179
+智林體育台,https://4gtv.iill.top/4gtv/58
+4GTV 购物,#genre#
+東森購物一台,https://4gtv.iill.top/4gtv/173
+東森購物二台,https://4gtv.iill.top/4gtv/174
+東森購物三台,https://4gtv.iill.top/4gtv/287
+東森購物四台,https://4gtv.iill.top/4gtv/286
+4GTV 综艺,#genre#
+民視綜藝台,https://4gtv.iill.top/4gtv/16
+TVBS綜藝台,https://4gtv.iill.top/4gtv/284
+Love Nature,https://4gtv.iill.top/4gtv/139
+靖天綜合台,https://4gtv.iill.top/4gtv/21
+TVBS歡樂台,https://4gtv.iill.top/4gtv/184
+韓國娛樂台 KMTV,https://4gtv.iill.top/4gtv/446
+八大綜藝台,https://4gtv.iill.top/4gtv/114
+TVBS精采台,https://4gtv.iill.top/4gtv/227
+豬哥亮歌廳秀,https://4gtv.iill.top/4gtv/113
+愛爾達娛樂台,https://4gtv.iill.top/4gtv/19
+Nice TV 靖天歡樂台,https://4gtv.iill.top/4gtv/119
+fun探索娛樂台,https://4gtv.iill.top/4gtv/274
+4GTV 戏剧,#genre#
+TVBS台劇台,https://4gtv.iill.top/4gtv/285
+民視影劇台,https://4gtv.iill.top/4gtv/24
+八大精彩台,https://4gtv.iill.top/4gtv/172
+靖天戲劇台,https://4gtv.iill.top/4gtv/116
+靖洋戲劇台,https://4gtv.iill.top/4gtv/118
+靖天映畫,https://4gtv.iill.top/4gtv/42
+公視戲劇,https://4gtv.iill.top/4gtv/7
+靖天育樂台,https://4gtv.iill.top/4gtv/83
+尼克兒童頻道,https://4gtv.iill.top/4gtv/185
+霹靂布袋戲,https://4gtv.iill.top/4gtv/301
+金光布袋戲,https://4gtv.iill.top/4gtv/236
+戲劇免費看 1台,https://4gtv.iill.top/4gtv/270
+精選動漫台,https://4gtv.iill.top/4gtv/204
+DreamWorks 夢工廠動畫,https://4gtv.iill.top/4gtv/282
+MOMO親子台,https://4gtv.iill.top/4gtv/231
+靖天卡通台,https://4gtv.iill.top/4gtv/15
+靖洋卡通Nice Bingo,https://4gtv.iill.top/4gtv/59
+經典卡通台,https://4gtv.iill.top/4gtv/202
+Nick Jr. 兒童頻道,https://4gtv.iill.top/4gtv/219
+采昌影劇台,https://4gtv.iill.top/4gtv/25
+4GTV 电影,#genre#
+amc電影台,https://4gtv.iill.top/4gtv/39
+My Cinema Europe HD 我的歐洲電影,https://4gtv.iill.top/4gtv/463
+靖天電影台,https://4gtv.iill.top/4gtv/82
+經典電影台,https://4gtv.iill.top/4gtv/201
+影迷數位電影台,https://4gtv.iill.top/4gtv/40
+ROCK Entertainment,https://4gtv.iill.top/4gtv/275
+ROCK Action,https://4gtv.iill.top/4gtv/180
+4GTV 记录,#genre#
+History 歷史頻道,https://4gtv.iill.top/4gtv/214
+Lifetime 娛樂頻道,https://4gtv.iill.top/4gtv/217
+Global Trekker,https://4gtv.iill.top/4gtv/252
+ELTV生活英語台,https://4gtv.iill.top/4gtv/106
+LiveABC互動英語頻道,https://4gtv.iill.top/4gtv/188
+CinemaWorld,https://4gtv.iill.top/4gtv/225
+視納華仁紀實頻道,https://4gtv.iill.top/4gtv/38
+HITS頻道,https://4gtv.iill.top/4gtv/186
+TV5MONDE STYLE HD 生活時尚,https://4gtv.iill.top/4gtv/178
+LUXE TV Channel,https://4gtv.iill.top/4gtv/175
+民視旅遊台,https://4gtv.iill.top/4gtv/61
+幸福空間居家台,https://4gtv.iill.top/4gtv/168
+DW德國之聲,https://4gtv.iill.top/4gtv/226
+愛爾達生活旅遊台,https://4gtv.iill.top/4gtv/237
+亞洲旅遊台,https://4gtv.iill.top/4gtv/261
+Bloomberg TV,https://4gtv.iill.top/4gtv/283
+亞洲旅遊台,https://4gtv.iill.top/4gtv/250
+滾動力rollor,https://4gtv.iill.top/4gtv/249
+電影原聲台CMusic,https://4gtv.iill.top/4gtv/218
+TRACE Urban,https://4gtv.iill.top/4gtv/78
+MTV Live HD 音樂頻道,https://4gtv.iill.top/4gtv/213
+Mezzo Live HD,https://4gtv.iill.top/4gtv/79
+CLASSICA 古典樂,https://4gtv.iill.top/4gtv/80
+INULTRA,https://4gtv.iill.top/4gtv/444
+車迷TV,https://4gtv.iill.top/4gtv/160
+MagellanTV頻道 (麥哲倫頻道) ,https://4gtv.iill.top/4gtv/450
+CI 罪案偵查頻道,https://4gtv.iill.top/4gtv/215
+影迷數位紀實台,https://4gtv.iill.top/4gtv/445
+4GTV 综艺点播,#genre#
+HahaTai 哈哈台-FastTV飛速看,https://4gtv.iill.top/4gtv/466
+天才衝衝衝-FastTV飛速看,https://4gtv.iill.top/4gtv/343
+一字千金-FastTV飛速看,https://4gtv.iill.top/4gtv/344
+食尚玩家-FastTV飛速看,https://4gtv.iill.top/4gtv/348
+威廉沈歡樂送-FastTV飛速看,https://4gtv.iill.top/4gtv/435
+我的成長-FastTV飛速看,https://4gtv.iill.top/4gtv/390
+綜藝大集合-FastTV飛速看,https://4gtv.iill.top/4gtv/345
+女人我最大-FastTV飛速看,https://4gtv.iill.top/4gtv/347
+姊妹亮起來-FastTV飛速看,https://4gtv.iill.top/4gtv/377
+中國傳奇故事-FastTV飛速看,https://4gtv.iill.top/4gtv/458
+武媚娘傳奇-FastTV飛速看,https://4gtv.iill.top/4gtv/455
+花千骨-FastTV飛速看,https://4gtv.iill.top/4gtv/397
+台灣傳奇-FastTV飛速看,https://4gtv.iill.top/4gtv/419
+女力故事館-FastTV飛速看,https://4gtv.iill.top/4gtv/456
+怪獸之王-FastTV飛速看,https://4gtv.iill.top/4gtv/438
+以家人之名-FastTV飛速看,https://4gtv.iill.top/4gtv/383
+加油喜事-FastTV飛速看,https://4gtv.iill.top/4gtv/384
+去有風的地方-FastTV飛速看,https://4gtv.iill.top/4gtv/386
+別打擾我種田-FastTV飛速看,https://4gtv.iill.top/4gtv/398
+5566偶像劇-FastTV飛速看,https://4gtv.iill.top/4gtv/399
+不敗愛情偶像劇-FastTV飛速看,https://4gtv.iill.top/4gtv/401
+小資女孩向前衝-FastTV飛速看,https://4gtv.iill.top/4gtv/420
+以愛為營-FastTV飛速看,https://4gtv.iill.top/4gtv/424
+新兵日記-FastTV飛速看,https://4gtv.iill.top/4gtv/382
+台灣靈異事件-FastTV飛速看,https://4gtv.iill.top/4gtv/326
+戲說台灣-FastTV飛速看,https://4gtv.iill.top/4gtv/342
+飛龍在天-FastTV飛速看,https://4gtv.iill.top/4gtv/417
+花系列戲劇-FastTV飛速看,https://4gtv.iill.top/4gtv/329
