@@ -24,11 +24,13 @@
 1. 電視上先裝 downloader (使用Google play 或 https://www.aftvnews.com/downloader)
 2. 選擇以下APP安裝:
    
-   |  App | 版本  | Downloader 碼  |  鏈接 |   |
-   |---|---|---|---|---|
-   |  蜂蜜影視TV | 電視版 v7a  | 5012184  |  http://aftv.news/5012184 |   |
-   |  OK影視TV | 電視版 v7a   |  2673286 |  http://aftv.news/2673286 |   |
-   |  OK pro影視TV | 電視版 v7a   |  1557364 | http://aftv.news/1557364  |   |
+   | App          | 版本       | Downloader 碼 | 鏈接                     |     |
+   | ------------ | ---------- | ------------- | ------------------------ | --- |
+   | 蜂蜜影視TV   | 電視版 v7a | 5012184       | http://aftv.news/5012184 |     |
+   | OK影視TV     | 電視版 v7a | 2673286       | http://aftv.news/2673286 |     |
+   | OK pro影視TV | 電視版 v7a | 1557364       | http://aftv.news/1557364 |     |
+   | SmartTube    | Stable     | 94257         | http://aftv.news/94257   |     |
+   | SmartTube    | Beta       | 62740         | http://aftv.news/62740   |     |
 
 
 
