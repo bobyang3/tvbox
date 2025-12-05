@@ -1,0 +1,930 @@
+[
+    {
+        "_id": "1920f93b-376e-4eee-a228-ebb86b63b29b",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://www.thunderclient.io/welcome",
+        "url": "https://www.thunderclient.io/welcome",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2021-10-07T04:45:25.576Z",
+        "modified": "2021-10-07T04:45:26.527Z",
+        "headers": [],
+        "params": [],
+        "tests": []
+    },
+    {
+        "_id": "c5a23f88-e987-4d80-adc9-718cecd60160",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://www.thunderclient.io/",
+        "url": "https://www.thunderclient.io/",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2021-10-07T04:45:49.135Z",
+        "modified": "2021-10-07T04:45:50.080Z",
+        "headers": [],
+        "params": [],
+        "tests": []
+    },
+    {
+        "_id": "67755755-0c5f-41a8-90db-a9e20f43d777",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://192.168.1.1/Main_Login.asp?login_username=admin&login_passwd=Password123!",
+        "url": "http://192.168.1.1/Main_Login.asp?login_username=admin&login_passwd=Password123!",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2022-06-24T23:52:23.018Z",
+        "modified": "2022-06-24T23:52:23.327Z",
+        "headers": [],
+        "params": [
+            {
+                "name": "login_username",
+                "value": "admin",
+                "isPath": false
+            },
+            {
+                "name": "login_passwd",
+                "value": "Password123!",
+                "isPath": false
+            }
+        ],
+        "tests": []
+    },
+    {
+        "_id": "02e6cab0-7e8b-4038-91d1-f41536eabd50",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://192.168.1.1/Main_Login.asp?login_username=admin&login_passwd=Password123!",
+        "url": "http://192.168.1.1/Main_Login.asp?login_username=admin&login_passwd=Password123!",
+        "method": "POST",
+        "sortNum": 0,
+        "created": "2022-06-24T23:52:41.258Z",
+        "modified": "2022-06-24T23:52:41.604Z",
+        "headers": [],
+        "params": [
+            {
+                "name": "login_username",
+                "value": "admin",
+                "isPath": false
+            },
+            {
+                "name": "login_passwd",
+                "value": "Password123!",
+                "isPath": false
+            }
+        ],
+        "tests": []
+    },
+    {
+        "_id": "3d55cb46-2055-4e40-bbc5-524578ac152a",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://hoanayang@gmail.com:8089263290@updates.dnsomatic.com/nic/update?hostname=all.dnsomatic.com\\ &myip=ipaddress&wildcard=NOCHG&mx=NOCHG&backmx=NOCHG ",
+        "url": "https://hoanayang@gmail.com:8089263290@updates.dnsomatic.com/nic/update?hostname=all.dnsomatic.com\\ &myip=ipaddress&wildcard=NOCHG&mx=NOCHG&backmx=NOCHG ",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2023-01-09T23:49:10.571Z",
+        "modified": "2023-01-09T23:49:10.571Z",
+        "headers": [],
+        "params": [
+            {
+                "name": "hostname",
+                "value": "all.dnsomatic.com\\",
+                "isPath": false
+            },
+            {
+                "name": "myip",
+                "value": "ipaddress",
+                "isPath": false
+            },
+            {
+                "name": "wildcard",
+                "value": "NOCHG",
+                "isPath": false
+            },
+            {
+                "name": "mx",
+                "value": "NOCHG",
+                "isPath": false
+            },
+            {
+                "name": "backmx",
+                "value": "NOCHG",
+                "isPath": false
+            }
+        ],
+        "tests": []
+    },
+    {
+        "_id": "5c7d5a06-73a4-4569-9c63-3c3e8db2f75b",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!okhttp7",
+        "url": "https://files.catbox.moe/cot2fe.m3u",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-07-26T18:29:00.974Z",
+        "modified": "2024-09-24T17:42:02.574Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/3.15"
+            }
+        ]
+    },
+    {
+        "_id": "c85c5e3d-86c4-4688-8837-977b84f2c55b",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://www.thunderclient.com/welcome",
+        "url": "https://tang.hz.cz/zb/stv?token=97c5285f",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-07-26T18:41:38.275Z",
+        "modified": "2024-07-26T18:46:27.903Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/5.2.0"
+            }
+        ],
+        "params": [
+            {
+                "name": "token",
+                "value": "97c5285f",
+                "isPath": false
+            }
+        ]
+    },
+    {
+        "_id": "96cb5aeb-6471-4cb1-a3c1-32a6b608e1ff",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://0tt118.getenjoyment.net/m3u.php",
+        "url": "http://0tt118.getenjoyment.net/m3u.php",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-07-30T17:49:14.209Z",
+        "modified": "2024-07-30T17:49:47.475Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/3.15"
+            }
+        ]
+    },
+    {
+        "_id": "b82eb80e-8253-4e62-a6e9-0d25ce1ab3e2",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://files.catbox.moe/2r4ru2.txt",
+        "url": "https://files.catbox.moe/2r4ru2.txt",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-08-01T23:14:20.327Z",
+        "modified": "2024-08-01T23:14:20.327Z",
+        "headers": []
+    },
+    {
+        "_id": "4776259a-23d3-45e7-8bd4-3716cd3502f7",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://anbox118.serv00.net/iptv.php",
+        "url": "https://anbox118.serv00.net/iptv.php",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-08-01T23:21:40.273Z",
+        "modified": "2024-08-01T23:21:40.273Z",
+        "headers": []
+    },
+    {
+        "_id": "68bdebb1-2227-4ae9-b457-2688b298b659",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://www.dussl.icu/4gtv_dussl.m3u",
+        "url": "https://gitee.com/tvkj/tw/raw/main/svip.json",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-08-02T03:27:34.762Z",
+        "modified": "2024-08-02T17:11:51.317Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/3.15"
+            }
+        ]
+    },
+    {
+        "_id": "f6094c1a-3745-4801-b553-f1e02ccadf77",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://xg.52sw.top:5000/litv/4gtv-4gtv003",
+        "url": "https://github.moeyy.xyz/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-08-03T04:46:26.799Z",
+        "modified": "2024-08-04T17:48:15.081Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/3.15"
+            }
+        ]
+    },
+    {
+        "_id": "4ff1251c-1e5c-443c-a699-52aadd6d15e9",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://yingshi.fongmi.eu.org",
+        "url": "https://raw.githubusercontent.com/bobyang3/X/main/X.json",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-08-05T05:29:53.179Z",
+        "modified": "2024-08-05T20:11:21.899Z",
+        "headers": []
+    },
+    {
+        "_id": "c159cd11-d03d-450d-a6ab-c9b89cce6e66",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://t4.doube.eu.org/site/xp_olehdtv.json",
+        "url": "https://raw.githubusercontent.com/qist/tvbox/master/jsm.json",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-08-06T05:45:38.321Z",
+        "modified": "2024-08-06T05:56:32.471Z",
+        "headers": []
+    },
+    {
+        "_id": "866e95f7-4e44-495a-b7ad-fe0827cbee0c",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://tv.iill.top/m3u/Gather",
+        "url": "https://raw.githubusercontent.com/HeChengChaXiu/tvbox/main/hccx.json",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-08-07T16:10:41.284Z",
+        "modified": "2024-09-20T21:04:56.889Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/4.12.0"
+            }
+        ]
+    },
+    {
+        "_id": "5781d284-695a-4246-8da9-876abcdf566a",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!okhttp6",
+        "url": "http://zhangqun66.xyz/zh/网剧独播.txt",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-09-17T21:55:17.293Z",
+        "modified": "2024-09-30T21:47:05.821Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/4.12.0"
+            },
+            {
+                "name": "t1",
+                "value": "robyang.bsite.net/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "t2",
+                "value": "http://localhost:5080/VodLive/jb8ffa",
+                "isDisabled": true
+            }
+        ]
+    },
+    {
+        "_id": "b89ca035-c60c-4fd8-aac5-7e906f4e064d",
+        "colId": "091aea73-9555-4a08-892e-e5ec932453e2",
+        "containerId": "",
+        "name": "!!okhttp5",
+        "url": "https://smart.pendy.dpdns.org/m3u/Smart.m3u",
+        "method": "GET",
+        "sortNum": 10000,
+        "created": "2024-09-24T17:51:13.158Z",
+        "modified": "2025-05-07T17:23:06.876Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp"
+            },
+            {
+                "name": "CLIENT-IP",
+                "value": "127.0.0.1",
+                "isDisabled": true
+            },
+            {
+                "name": "X-FORWARDED-FOR",
+                "value": "127.0.0.1"
+            }
+        ]
+    },
+    {
+        "_id": "3f6b73b7-cdbc-467c-b6c0-7f0291a37c39",
+        "colId": "091aea73-9555-4a08-892e-e5ec932453e2",
+        "containerId": "",
+        "name": "!!okhttp4",
+        "url": "http://robyang.runasp.net/VodLive/jb8ffa-",
+        "method": "GET",
+        "sortNum": 20000,
+        "created": "2024-09-30T17:38:54.881Z",
+        "modified": "2025-05-20T16:11:59.058Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp"
+            },
+            {
+                "name": "t1",
+                "value": "https://robyang.bsite.net/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "t2",
+                "value": "http://localhost:5080/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "clear cache",
+                "value": "https://robyang.bsite.net/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "CLIENT-IP",
+                "value": "127.0.0.1",
+                "isDisabled": true
+            },
+            {
+                "name": "X-FORWARDED-FOR",
+                "value": "127.0.0.1"
+            }
+        ]
+    },
+    {
+        "_id": "e88fcdaf-c17f-4649-885a-86231003305c",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!okhttp3",
+        "url": "https://clun.top/",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-09-30T21:05:17.359Z",
+        "modified": "2025-12-05T04:23:53.491Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/3.2.0"
+            },
+            {
+                "name": "bsite",
+                "value": "robyang.bsite.net/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "local",
+                "value": "http://localhost:5080/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "serv00",
+                "value": "https://robyang.serv00.net/VodLive/jb8ffa.php",
+                "isDisabled": true
+            },
+            {
+                "name": "bsite2",
+                "value": "robyang.bsite.net/VodLive/lb8ffa-",
+                "isDisabled": true
+            }
+        ]
+    },
+    {
+        "_id": "5a3e1487-04f7-4cda-998b-d406c1189839",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!Mozilla1",
+        "url": "https://RobYang.bsite.net/TxtM3u?url=https://aktv.top/live.m3u",
+        "method": "GET",
+        "sortNum": 10000,
+        "created": "2024-10-05T07:33:50.776Z",
+        "modified": "2024-11-20T05:32:53.934Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "Mozilla/5.0"
+            }
+        ],
+        "params": [
+            {
+                "name": "url",
+                "value": "https://aktv.top/live.m3u",
+                "isPath": false
+            }
+        ]
+    },
+    {
+        "_id": "2e4229f5-8574-4150-a6bb-af23b1a16cd3",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!Mozilla2",
+        "url": "https://RobYang.bsite.net/TxtM3u?url=https://aktv.top/live.m3u",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-10-05T07:33:50.776Z",
+        "modified": "2024-11-20T05:32:53.934Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "Mozilla/5.0"
+            }
+        ],
+        "params": [
+            {
+                "name": "url",
+                "value": "https://aktv.top/live.m3u",
+                "isPath": false
+            }
+        ]
+    },
+    {
+        "_id": "f824aabf-756b-49bc-ad9b-69e0c0a9db69",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!Mozilla3",
+        "url": "http://robyang.000.pe/dream.php",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-10-05T07:34:51.254Z",
+        "modified": "2024-11-19T06:01:31.814Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "Mozilla/5.0"
+            }
+        ]
+    },
+    {
+        "_id": "ef0610a6-8ae7-4112-ba83-ab56f84a8643",
+        "colId": "091aea73-9555-4a08-892e-e5ec932453e2",
+        "containerId": "",
+        "name": "!!okhttp2",
+        "url": "http://www1.robyang.ggff.net/VodLive/jb8ffa-",
+        "method": "GET",
+        "sortNum": 30000,
+        "created": "2024-10-19T21:43:59.858Z",
+        "modified": "2025-07-31T17:23:50.907Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/4.12.0"
+            },
+            {
+                "name": "t1",
+                "value": "http://www1.robyang.ggff.net/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "clear cache",
+                "value": "http://www1.robyang.dpdns.org/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "t2",
+                "value": "http://localhost:5080/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "影视直播接口",
+                "value": "https://live.ykq001.cloud/",
+                "isDisabled": true
+            },
+            {
+                "name": "爱看TV",
+                "value": "https://test.iptv8k.top/block.php",
+                "isDisabled": true
+            },
+            {
+                "name": "anbox118",
+                "value": "https://livetv.anbox118.workers.dev/",
+                "isDisabled": true
+            },
+            {
+                "name": "恒星育华",
+                "value": "http://yuhuahx.com/dsj66.txt",
+                "isDisabled": true
+            },
+            {
+                "name": "天天 Litv AKTV mix",
+                "value": "http://kxrj.site:55/lib/kx2024.txt",
+                "isDisabled": true
+            },
+            {
+                "name": "AKTV",
+                "value": "https://aktv.top/live.txt, http://aktv.top/live.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "4GTV",
+                "value": "http://www.myrealgod.cloudns.be:5000/4gtv.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "USA",
+                "value": "http://www.myrealgod.cloudns.be:5000/thetv.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "mytvsuper all",
+                "value": "http://www.mytvsuper.xyz/m3u/Live.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "mytvsuper 4gtv",
+                "value": "https://www.mytvsuper.xyz/m3u/4GTV.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "沐辰",
+                "value": "https://json.doube.eu.org/t4.php",
+                "isDisabled": true
+            },
+            {
+                "name": "沐辰",
+                "value": "https://json.doube.eu.org/live/tw/Sub.php",
+                "isDisabled": true
+            },
+            {
+                "name": "沐辰",
+                "value": "https://RobYang.bsite.net/TxtM3u?url=https://json.doube.eu.org/live/tw/Sub.php",
+                "isDisabled": true
+            },
+            {
+                "name": "US.KG",
+                "value": "http://robyang.us.kg/VodLive/sb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "老王 ",
+                "value": "https://github.com/fastbuild7099/fastbuild7099/blob/main/recha-media.json.bak",
+                "isDisabled": true
+            },
+            {
+                "name": "老王　　raw",
+                "value": "https://raw.githubusercontent.com/fastbuild7099/fastbuild7099/refs/heads/main/recha-media.json.bak",
+                "isDisabled": true
+            },
+            {
+                "name": "老王",
+                "value": "https://www1.robyang.us.kg/VodLive/s78skx",
+                "isDisabled": true
+            },
+            {
+                "name": "txt",
+                "value": "http://www1.robyang.us.kg/TxtM3u?url=https://www.mytvsuper.com.mp/m3u/4GTV.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "http://RobYang.runasp.net",
+                "value": "http://RobYang.runasp.net/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "txt2",
+                "value": "https://fanmingming.com/txt?url=http://yiwo.hz.cz/pantv/local/happytv.php",
+                "isDisabled": true
+            },
+            {
+                "name": "ggff.net Live",
+                "value": "http://www1.robyang.ggff.net/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "rr.nu Live",
+                "value": "http://www1.robyang.rr.nu/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "runasp.net Live",
+                "value": "http://robyang.runasp.net/VodLive/lb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "to txt",
+                "value": "https://www1.RobYang.ggff.net/TxtM3u?url=http://live1.robyang.ggff.net:50008/?type=m3u%26proxy%3Dtrue",
+                "isDisabled": true
+            },
+            {
+                "name": "live m3u",
+                "value": "http://www1.RobYang.ggff.net/TxtM3u?to=m3u&url=https://www1.robyang.ggff.net/VodLive/lb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "youtube 收集",
+                "value": "https://raw.githubusercontent.com/zzq1234567890/epg/refs/heads/main/youtubelive.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "!!should not see",
+                "value": "#EXTM3U",
+                "isDisabled": true
+            }
+        ]
+    },
+    {
+        "_id": "cc2507b4-d6de-40c8-9c5d-dce7e49b3b21",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://www1.robyang.ggff.net/VodLive/sb8ffa",
+        "url": "https://www1.robyang.ggff.net/VodLive/lb8ffa",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-04-24T15:34:21.927Z",
+        "modified": "2025-04-24T19:51:02.928Z",
+        "headers": []
+    },
+    {
+        "_id": "db738181-7e2c-4ebe-aaec-e5d5418d2de7",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://live1.robyang.ggff.net:50008/li-4gtv-4gtv075/index.m3u8?proxy=true",
+        "url": "http://live1.robyang.ggff.net:50008/4gtv-4gtv156/index.m3u8",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-04-30T04:05:38.995Z",
+        "modified": "2025-04-30T04:09:44.350Z",
+        "headers": []
+    },
+    {
+        "_id": "c6b931ab-bce0-4a70-b190-09e2426dbfa6",
+        "colId": "history",
+        "containerId": "",
+        "name": "robyang.zone.id",
+        "url": "http://robyang.zone.id",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-05-01T21:48:09.019Z",
+        "modified": "2025-05-01T21:48:22.461Z",
+        "headers": []
+    },
+    {
+        "_id": "faa3f154-0463-4bfe-9022-85aba90656d4",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!okhttp1",
+        "url": "http://www1.robyang.ggff.net/VodLive/lb8ffa",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-05-10T06:09:44.002Z",
+        "modified": "2025-12-05T05:47:39.869Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "okhttp/4.12.0"
+            },
+            {
+                "name": "t1",
+                "value": "http://www1.robyang.ggff.net/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "clear cache",
+                "value": "http://www1.robyang.dpdns.org/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "t2",
+                "value": "http://localhost:5080/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "影视直播接口",
+                "value": "https://live.ykq001.cloud/",
+                "isDisabled": true
+            },
+            {
+                "name": "爱看TV",
+                "value": "https://test.iptv8k.top/block.php",
+                "isDisabled": true
+            },
+            {
+                "name": "anbox118",
+                "value": "https://livetv.anbox118.workers.dev/",
+                "isDisabled": true
+            },
+            {
+                "name": "恒星育华",
+                "value": "http://yuhuahx.com/dsj66.txt",
+                "isDisabled": true
+            },
+            {
+                "name": "天天 Litv AKTV mix",
+                "value": "http://kxrj.site:55/lib/kx2024.txt",
+                "isDisabled": true
+            },
+            {
+                "name": "AKTV",
+                "value": "https://aktv.top/live.txt, http://aktv.top/live.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "4GTV",
+                "value": "http://www.myrealgod.cloudns.be:5000/4gtv.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "USA",
+                "value": "http://www.myrealgod.cloudns.be:5000/thetv.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "mytvsuper all",
+                "value": "http://www.mytvsuper.xyz/m3u/Live.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "mytvsuper 4gtv",
+                "value": "https://www.mytvsuper.xyz/m3u/4GTV.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "沐辰",
+                "value": "https://json.doube.eu.org/t4.php",
+                "isDisabled": true
+            },
+            {
+                "name": "沐辰",
+                "value": "https://json.doube.eu.org/live/tw/Sub.php",
+                "isDisabled": true
+            },
+            {
+                "name": "沐辰",
+                "value": "https://RobYang.bsite.net/TxtM3u?url=https://json.doube.eu.org/live/tw/Sub.php",
+                "isDisabled": true
+            },
+            {
+                "name": "US.KG",
+                "value": "http://robyang.us.kg/VodLive/sb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "老王 ",
+                "value": "https://github.com/fastbuild7099/fastbuild7099/blob/main/recha-media.json.bak",
+                "isDisabled": true
+            },
+            {
+                "name": "老王　　raw",
+                "value": "https://raw.githubusercontent.com/fastbuild7099/fastbuild7099/refs/heads/main/recha-media.json.bak",
+                "isDisabled": true
+            },
+            {
+                "name": "老王",
+                "value": "https://www1.robyang.us.kg/VodLive/s78skx",
+                "isDisabled": true
+            },
+            {
+                "name": "txt",
+                "value": "http://www1.robyang.us.kg/TxtM3u?url=https://www.mytvsuper.com.mp/m3u/4GTV.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "http://RobYang.runasp.net",
+                "value": "http://RobYang.runasp.net/VodLive/jb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "txt2",
+                "value": "https://fanmingming.com/txt?url=http://yiwo.hz.cz/pantv/local/happytv.php",
+                "isDisabled": true
+            },
+            {
+                "name": "ggff.net Live",
+                "value": "http://www1.robyang.ggff.net/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "rr.nu Live",
+                "value": "http://www1.robyang.rr.nu/VodLive/lb8ffa-",
+                "isDisabled": true
+            },
+            {
+                "name": "runasp.net Live",
+                "value": "http://robyang.runasp.net/VodLive/lb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "to txt",
+                "value": "https://www1.RobYang.ggff.net/TxtM3u?url=http://live1.robyang.ggff.net:50008/?type=m3u%26proxy%3Dtrue",
+                "isDisabled": true
+            },
+            {
+                "name": "live m3u",
+                "value": "http://www1.RobYang.ggff.net/TxtM3u?to=m3u&url=https://www1.robyang.ggff.net/VodLive/lb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "youtube 收集",
+                "value": "https://raw.githubusercontent.com/zzq1234567890/epg/refs/heads/main/youtubelive.m3u",
+                "isDisabled": true
+            },
+            {
+                "name": "!!should not see",
+                "value": "#EXTM3U",
+                "isDisabled": true
+            },
+            {
+                "name": "X-FORWARDED-FOR",
+                "value": "127.0.0.1"
+            },
+            {
+                "name": "dpdns.org",
+                "value": "http://www1.robyang.dpdns.org/VodLive/lb8ffa",
+                "isDisabled": true
+            },
+            {
+                "name": "Azure",
+                "value": "vodlive-bhfvbagjd0fge9ew.eastasia-01.azurewebsites.net",
+                "isDisabled": true
+            }
+        ]
+    },
+    {
+        "_id": "8c102f98-646c-4d2d-b97e-6474625ca24e",
+        "colId": "history",
+        "containerId": "",
+        "name": "!!SmartTv-RobYang",
+        "url": "http://RobYang.serv00.net/smart2.php",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-08-22T18:21:07.039Z",
+        "modified": "2025-08-28T20:12:25.455Z",
+        "headers": []
+    },
+    {
+        "_id": "501f1dc2-5874-4a6f-919b-4092ed772e2f",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://yang01.dns.army:9999",
+        "url": "https://yang01.ddnsfree.com:9999",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-10-10T16:58:24.474Z",
+        "modified": "2025-10-10T16:59:22.601Z",
+        "headers": []
+    },
+    {
+        "_id": "28e71768-97ec-4393-84fb-9b964be936e6",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://live.catvod.com/live.php?id=ettvsuper&token=24a5925faa7f718e92f20d42c4e8092d6876138887fe521657aff559f6714250%3A1760467898%3AMjYwMzo4MDAxOjhlMDA6MzU3NjpjOGFiOjViMTM6NzdlMjoxYTU3",
+        "url": "https://live.catvod.com/live.php?id=ettvsuper&token=24a5925faa7f718e92f20d42c4e8092d6876138887fe521657aff559f6714250%3A1760467898%3AMjYwMzo4MDAxOjhlMDA6MzU3NjpjOGFiOjViMTM6NzdlMjoxYTU3",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-10-14T18:54:59.746Z",
+        "modified": "2025-10-14T18:55:08.872Z",
+        "headers": [
+            {
+                "name": "User-Agent",
+                "value": "Thunder Client (https://www.thunderclient.com)",
+                "isDisabled": true
+            }
+        ],
+        "params": [
+            {
+                "name": "id",
+                "value": "ettvsuper",
+                "isPath": false
+            },
+            {
+                "name": "token",
+                "value": "24a5925faa7f718e92f20d42c4e8092d6876138887fe521657aff559f6714250%3A1760467898%3AMjYwMzo4MDAxOjhlMDA6MzU3NjpjOGFiOjViMTM6NzdlMjoxYTU3",
+                "isPath": false
+            }
+        ]
+    },
+    {
+        "_id": "96d41a13-5ebb-4860-bf13-5d2653ae3277",
+        "colId": "history",
+        "containerId": "",
+        "name": "https://yang01.dns.navy:9999",
+        "url": "http://live1.robyang.ggff.net:50009/?type=m3u",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2025-10-17T03:25:23.748Z",
+        "modified": "2025-10-17T03:53:47.509Z",
+        "headers": [],
+        "params": [
+            {
+                "name": "type",
+                "value": "m3u",
+                "isPath": false
+            }
+        ]
+    }
+]
