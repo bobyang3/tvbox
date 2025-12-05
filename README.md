@@ -1,179 +1,175 @@
-# 這裏所有資料與碼僅供研究，測試，與學習． 請勿用於非法用途，否則後果自負!!!
+# 這裏所有資料與碼僅供研究，測試，與學習． 請勿用於非法用途，否則後果自負
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
- 
+----------------------------------------------------------
+
 ![alt text](setting.png)
-
 
 # 蜂蜜 & TVBoxOSC
 
 ## 兩大系統："FongMi 蜂蜜與唐三維護: 影視ＴＶ, 蜂蜜影視"　與　"TVBoxOSC"　基礎概念
+
 1. 接口　（源）－＞線路－＞站源　（一個接口可以包含很多線路，一個線路可以包含很多站源）
    1. 搜尋時，可以會自動搜尋同一個線路的所有站源的片
    2. 片上長按，可以搜尋所有站源的片
    3. ＂蜂蜜＂影視ＴＶ系列的下游播放器，　如: 寶盒，西夏，開心，天微，木魚，猫TV，春盈天下，三林，欧歌，星辰...
    4. 每條線路有自己的歷史記錄
-2. 推薦：　蜂蜜影視ＴＶ　與　ＯＫＴＶ．　同Fongmi蜂蜜系列，支援注音輸入，直播多線路選擇，有英文，繁中，簡中選項，支援直播多線、自動換源、直播倍速，Ai去廣告等功能，手機投影螢幕等　
-   1. 蜂蜜影視ＴＶ 唐三 https://xhdwc.tk/ or https://github.com/FongMi/Release or https://github.com/FongMi/TV or https://github.com/FongMi/Release/tree/fongmi/apk
-   2. ＯＫＴＶ https://github.com/FongMi/Release/tree/main/apk
-3. 常見版本：　https://github.com/dlgt7/TVbox-interface/blob/main/tvbox%E5%B8%B8%E8%A7%81%E7%89%88%E6%9C%AC.md
-4. https://www.wmdz.com/tvboxFM.html (List of many apps)
+2. 推薦：　蜂蜜影視ＴＶ　與　ＯＫＴＶ．　同Fongmi蜂蜜系列，支援注音輸入，直播多線路選擇，有英文，繁中，簡中選項，支援直播多線、自動換源、直播倍速，Ai去廣告等功能，手機投影螢幕等
+   1. 蜂蜜影視ＴＶ 唐三 <https://xhdwc.tk/> or <https://github.com/FongMi/Release> or <https://github.com/FongMi/TV> or <https://github.com/FongMi/Release/tree/fongmi/apk>
+   2. ＯＫＴＶ <https://github.com/FongMi/Release/tree/main/apk>
+3. 常見版本：　<https://github.com/dlgt7/TVbox-interface/blob/main/tvbox%E5%B8%B8%E8%A7%81%E7%89%88%E6%9C%AC.md>
+4. <https://www.wmdz.com/tvboxFM.html> (List of many apps)
 
+## 安裝方式
 
-## 安裝方式：
-1. 電視上先裝 downloader (使用Google play 或 https://www.aftvnews.com/downloader)
+1. 電視上先裝 downloader (使用Google play 或 <https://www.aftvnews.com/downloader>)
 2. 選擇以下APP安裝:
-   
+
    | App          | 版本       | Downloader 碼 | 鏈接                     |     |
    | ------------ | ---------- | ------------- | ------------------------ | --- |
-   | 蜂蜜影視TV   | 電視版 v7a | 5012184       | http://aftv.news/5012184 |     |
-   | OK影視TV     | 電視版 v7a | 2673286       | http://aftv.news/2673286 |     |
-   | OK pro影視TV | 電視版 v7a | 1557364       | http://aftv.news/1557364 |     |
-   | SmartTube    | Stable     | 94257         | http://aftv.news/94257   |     |
-   | SmartTube    | Beta       | 62740         | http://aftv.news/62740   |     |
+   | 蜂蜜影視TV   | 電視版 v7a | 5012184       | <http://aftv.news/5012184> |     |
+   | OK影視TV     | 電視版 v7a | 2673286       | <http://aftv.news/2673286> |     |
+   | OK pro影視TV | 電視版 v7a | 1557364       | <http://aftv.news/1557364> |     |
+   | SmartTube    | Stable     | 94257         | <http://aftv.news/94257>   |     |
+   | SmartTube    | Beta       | 62740         | <http://aftv.news/62740>   |     |
 
+## 點播接口
 
+1. Rob Yang 點直播線源: <http://RobYang.ggff.net> 或 <http://RobYang.dpdns.org> 或 <https://RobYang.zone.id> 或 <https://RobYang.serv00.net>
+2. AnBox <http://tv.anbox.ip-ddns.com/vod>
+4. 沐晨: <https://py.doube.eu.org/static/t4.json>
+5. 寶盒=欧乐,泥巴　<https://raw.githubusercontent.com/guot55/yg/main/pg/jsm.json>
+6. 泥巴,独播库,小宝,欧乐,腐剧　<https://raw.githubusercontent.com/qist/tvbox/master/jsm.json> (<https://github.com/qist/tvbox>)
+7. <https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json> （<https://github.com/gaotianliuyun/gao/tree/master）>
+8. <http://home.jundie.top:81/top98.json>
+9. <https://raw.githubusercontent.com/jake3737/tvbox/master/js.json>
+10. 教學 <https://gitlab.com/xmbjm/omg/-/raw/main/omg.json>
+11. 欧乐,泥巴 (online js) <https://gitlab.com/-/snippets/2343779/raw/main/snippetfile1.txt>
 
+## 直播接口
 
-## 點播接口：
-1. Rob Yang 點直播線源: http://RobYang.ggff.net 或 http://RobYang.dpdns.org 或 https://RobYang.zone.id 或 https://RobYang.serv00.net
-2. AnBox http://tv.anbox.ip-ddns.com/vod
-4. 沐晨: https://py.doube.eu.org/static/t4.json 
-5. 寶盒=欧乐,泥巴　https://raw.githubusercontent.com/guot55/yg/main/pg/jsm.json
-6. 泥巴,独播库,小宝,欧乐,腐剧　https://raw.githubusercontent.com/qist/tvbox/master/jsm.json (https://github.com/qist/tvbox)
-7. https://raw.githubusercontent.com/gaotianliuyun/gao/master/js.json （https://github.com/gaotianliuyun/gao/tree/master） 
-8. http://home.jundie.top:81/top98.json
-9. https://raw.githubusercontent.com/jake3737/tvbox/master/js.json 
-10. 教學 https://gitlab.com/xmbjm/omg/-/raw/main/omg.json
-11. 欧乐,泥巴 (online js) https://gitlab.com/-/snippets/2343779/raw/main/snippetfile1.txt
+1. Rob Yang 點直播線源: <http://RobYang.ggff.net> 或 <http://RobYang.dpdns.org> 或 <https://RobYang.serv00.net> 或 <http://robyang.zone.id> 或 <http://RobYang.runasp.net>
+2. AnBox <http://tv.anbox.ip-ddns.com/live>
+3. Jack直播: <https://php.946985.filegear-sg.me/jackTV.m3u>  (Taiwan IP only)
+4. <https://www.juwanhezi.com/more/live>
+5. <http://晓峰.azip.dpdns.org:5008/?type=m3u> (Taiwan IP only)
+6. Judy: <https://raw.githubusercontent.com/judy-gotv/iptv/refs/heads/main/4GTV.m3u>  (Taiwan IP only)
+7. <https://php.946985.filegear-sg.me/jackTV.m3u> (slow.. change channels)
 
+## 多接口List
 
-## 直播接口： 
-1. Rob Yang 點直播線源: http://RobYang.ggff.net 或 http://RobYang.dpdns.org 或 https://RobYang.serv00.net 或 http://robyang.zone.id 或 http://RobYang.runasp.net 
-2. AnBox http://tv.anbox.ip-ddns.com/live
-3. Jack直播: https://php.946985.filegear-sg.me/jackTV.m3u  (Taiwan IP only)
-4. https://www.juwanhezi.com/more/live 
-5. http://晓峰.azip.dpdns.org:5008/?type=m3u (Taiwan IP only)
-6. Judy: https://raw.githubusercontent.com/judy-gotv/iptv/refs/heads/main/4GTV.m3u  (Taiwan IP only)
-7. https://php.946985.filegear-sg.me/jackTV.m3u (slow.. change channels)
+1. <https://yang-1989.eu.org/>
+2. <https://raw.githubusercontent.com/cyalias/mytvs-github/refs/heads/main/myjk.json>
+3. <https://tvbox.youdu.fan>
+4. <https://www.upx8.com/4021>
+5. <https://xn--qoqw77q.top/dcjk.html>
+6. <http://www.52sw.top:678/play/oj1381/index.php?get=159169>
+7. <https://tianyastudio.blogspot.com/search/label/TV>
+8. <https://github.com/li5bo5/TVBox?tab=readme-ov-file>
+9. International: <https://iptv-org.github.io/iptv/index.m3u> (<https://github.com/iptv-org/iptv>)
+10.
 
+## 特別解析json
 
-## 多接口List：
-1. https://yang-1989.eu.org/
-2. https://raw.githubusercontent.com/cyalias/mytvs-github/refs/heads/main/myjk.json
-3. https://tvbox.youdu.fan
-4. https://www.upx8.com/4021
-5. https://xn--qoqw77q.top/dcjk.html
-6. http://www.52sw.top:678/play/oj1381/index.php?get=159169
-7. https://tianyastudio.blogspot.com/search/label/TV 
-8. https://github.com/li5bo5/TVBox?tab=readme-ov-file
-9. International: https://iptv-org.github.io/iptv/index.m3u (https://github.com/iptv-org/iptv)
-10. 
+1. <https://github.com/wnddwc/daiweichun>
 
-## 特別解析json:
-1. https://github.com/wnddwc/daiweichun
+## PG包　（本地包）
 
-
-## PG包　（本地包）：
-1. https://github.com/gaotianliuyun/gao/tree/master
-
-
+1. <https://github.com/gaotianliuyun/gao/tree/master>
 
 ## 如何為影視倉設定內建來源介面？
 
-1. https://tianyastudio.blogspot.com/search/label/TVBOX
-2. https://www.youtube.com/watch?v=WI9dwvzNBkY
+1. <https://tianyastudio.blogspot.com/search/label/TVBOX>
+2. <https://www.youtube.com/watch?v=WI9dwvzNBkY>
 
 -----
 
-## TVbox Info:
+## TVbox Info
 
-1. https://github.com/FongMi/TV
-2. http://m.wmsio.cn/nd.jsp?mid=324&id=30&groupId=0
-3. https://github.com/qist/tvbox
+1. <https://github.com/FongMi/TV>
+2. <http://m.wmsio.cn/nd.jsp?mid=324&id=30&groupId=0>
+3. <https://github.com/qist/tvbox>
 
+## Emoji
 
-## Emoji:
-1. https://emojiterra.com/
-2. https://emojipedia.org/
-3. https://symbl.cc/cn/unicode-table/
+1. <https://emojiterra.com/>
+2. <https://emojipedia.org/>
+3. <https://symbl.cc/cn/unicode-table/>
 
+## 直播網站
 
-## 直播網站：
-1. 電視直播：http://tonkiang.us/
-2. 夜視直播：https://yeslivetv.com/
+1. 電視直播：<http://tonkiang.us/>
+2. 夜視直播：<https://yeslivetv.com/>
 3. 港台直播(VPN)：www.stream-link.org/
-4. https://www.ofiii.com/channel/watch/4gtv-4gtv040
-5. 國外 m3u： https://tinyurl.com/multiservice21?region=us&service=Plex&sort=name （作者: https://github.com/dtankdempse/free-iptv-channels）
-
+4. <https://www.ofiii.com/channel/watch/4gtv-4gtv040>
+5. 國外 m3u： <https://tinyurl.com/multiservice21?region=us&service=Plex&sort=name> （作者: <https://github.com/dtankdempse/free-iptv-channels）>
 
 ## GitHub Proxy 代理加速
-1. https://gh.con.sh/https://raw.githubusercontent.com/
-2. https://github.moeyy.xyz/https://raw.githubusercontent.com/
-3. https://mirror.ghproxy.com/raw.githubusercontent.com/
-4. https://ghproxy.com/https://raw.githubusercontent.com/
-5. https://ghproxy.net/https://raw.githubusercontent.com/
-6. https://mirror.ghproxy.com/https://raw.githubusercontent.com/
-8. https://already.free.hr/
-9. https://raw.gitmirror.com/
-10. https://gh-proxy.com/https://raw.githubusercontent.com/ 
-11. https://a.ouhuang.onflashdrive.app/https://raw.githubusercontent.com/
-12. https://githubfd.deno.dev/
-13. https://ghp.ci/https://raw.githubusercontent.com/ 
+
+1. <https://gh.con.sh/https://raw.githubusercontent.com/>
+2. <https://github.moeyy.xyz/https://raw.githubusercontent.com/>
+3. <https://mirror.ghproxy.com/raw.githubusercontent.com/>
+4. <https://ghproxy.com/https://raw.githubusercontent.com/>
+5. <https://ghproxy.net/https://raw.githubusercontent.com/>
+6. <https://mirror.ghproxy.com/https://raw.githubusercontent.com/>
+8. <https://already.free.hr/>
+9. <https://raw.gitmirror.com/>
+10. <https://gh-proxy.com/https://raw.githubusercontent.com/>
+11. <https://a.ouhuang.onflashdrive.app/https://raw.githubusercontent.com/>
+12. <https://githubfd.deno.dev/>
+13. <https://ghp.ci/https://raw.githubusercontent.com/>
 
 --------------------------------------------------------------------
 
-## 其他 Tools:
-1.  txt 轉 繁體m3u: http://www1.RobYang.ggff.net/TxtM3u?to=m3u&l=taiwan&url=https://2912.kstore.space/520.txt
-13. txt 轉 m3u: http://www1.RobYang.ggff.net/TxtM3u?to=m3u&l=china&url=https://2912.kstore.space/520.txt
-14. m3u 轉 繁體txt: http://www1.RobYang.ggff.net/TxtM3u?url=https://www.stream-link.org/stream-link.m3u
-13. m3u 轉 txt: http://www1.RobYang.ggff.net/TxtM3u?l=china&sortChannel=false&url=https://www.stream-link.org/stream-link.m3u
-14. m3u 轉 txt: https://fanmingming.com/txt?url=https://www.stream-link.org/stream-link.m3u
-15. txt m3u 轉換工具 https://guihet.com/convert-m3u-js.html
-16. Other link Source https://beatsingdrama.blogspot.com/p/xt-playlist-txt.html?m=1
-17. detect good urls and remove old https://hub.docker.com/r/2011820123/tvbox
+## 其他 Tools
+
+1. txt 轉 繁體m3u: <http://www1.RobYang.ggff.net/TxtM3u?to=m3u&l=taiwan&url=https://2912.kstore.space/520.txt>
+13. txt 轉 m3u: <http://www1.RobYang.ggff.net/TxtM3u?to=m3u&l=china&url=https://2912.kstore.space/520.txt>
+14. m3u 轉 繁體txt: <http://www1.RobYang.ggff.net/TxtM3u?url=https://www.stream-link.org/stream-link.m3u>
+13. m3u 轉 txt: <http://www1.RobYang.ggff.net/TxtM3u?l=china&sortChannel=false&url=https://www.stream-link.org/stream-link.m3u>
+14. m3u 轉 txt: <https://fanmingming.com/txt?url=https://www.stream-link.org/stream-link.m3u>
+15. txt m3u 轉換工具 <https://guihet.com/convert-m3u-js.html>
+16. Other link Source <https://beatsingdrama.blogspot.com/p/xt-playlist-txt.html?m=1>
+17. detect good urls and remove old <https://hub.docker.com/r/2011820123/tvbox>
 18. Emotn: 331026, 796233, 202096
-19. downloader App https://www.aftvnews.com/downloader/, 383716 to download emotn 
+19. downloader App <https://www.aftvnews.com/downloader/>, 383716 to download emotn
 20. [WebGrab + Plus](http://www.webgrabplus.com/) 多站点增量XMLTV EPG采集器。
 21. [IPTV Checker](https://www.npmjs.com/package/iptv-checker) — Node.js的IPTV播放列表检查器
 22. [Streamtest](https://streamtest.in/) 免费且易于使用的基于Web的流测试器实用程序。
-23. [M3U Edit](https://www.gtrigonakis.com/m3u-edit) 
+23. [M3U Edit](https://www.gtrigonakis.com/m3u-edit)
 24. [直播源在线监测工具](http://cha.znds.com)
-25. Decoder: https://shixiong.alwaysdata.net/
-
-
-
+25. Decoder: <https://shixiong.alwaysdata.net/>
 
 --------------------------------------------------------------------
 
-## EPG:
-1.  https://assets.livednow.com/epg.xml
-2.  https://diyp.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-3.  https://diyp1.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-1.  https://diyp2.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-6.  https://epg.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-7.  https://epg.112114.free.hr/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-8.  https://epg.112114.eu.org/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-9.  https://skytv.serv00.net/epg.php?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date} 
-10. https://epg.v1.mk/json?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date} (https://epg.v1.mk/json?serverTimeZone=Asia/Hong_Kong&ch=cctv1&date=20240604)
-11. http://hk.doube.eu.org/EPG/epg.php?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-12. https://cdn.1678520.xyz/epg/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-13. https://epg.mxdyeah.top/api/diyp/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-14. https://epg.0472.org/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
-15. http://epg.51zmt.top:8000/e.xml
-16. http://epg.diyp.top/diyp/epg.php?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}
+## EPG
+
+1. <https://assets.livednow.com/epg.xml>
+2. <https://diyp.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+3. <https://diyp1.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+1. <https://diyp2.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+6. <https://epg.112114.xyz/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+7. <https://epg.112114.free.hr/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+8. <https://epg.112114.eu.org/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+9. <https://skytv.serv00.net/epg.php?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+10. <https://epg.v1.mk/json?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}> (<https://epg.v1.mk/json?serverTimeZone=Asia/Hong_Kong&ch=cctv1&date=20240604>)
+11. <http://hk.doube.eu.org/EPG/epg.php?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+12. <https://cdn.1678520.xyz/epg/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+13. <https://epg.mxdyeah.top/api/diyp/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+14. <https://epg.0472.org/?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
+15. <http://epg.51zmt.top:8000/e.xml>
+16. <http://epg.diyp.top/diyp/epg.php?serverTimeZone=Asia/Hong_Kong&ch={name}&date={date}>
 17. [EPG for IPTV](https://www.iptv-epg.com/) - EPG服务提供商，为全球IPTV提供个性化的电子节目指南。
 18. [epg.streamstv.me](http://epg.streamstv.me/epg/) 欧亚大陆和北美频道的节目指南。
 19. [IPTVX|one](https://iptvx.one/viewtopic.php?f=12&t=4&sid=5d7f43099b396af229d5961ec746fc14) 主要用于CIS频道的节目指南。
 20. [i.mjh.nz](http://i.mjh.nz/) 来自澳大利亚，新西兰和南非的频道的节目指南。
-21. https://epg.iill.top/epg
-22. 日本頻道 http://epg.pw/xmltv/epg_JP.xml
-23. 台灣頻道 http://epg.pw/xmltv/epg_TW.xml
-
+21. <https://epg.iill.top/epg>
+22. 日本頻道 <http://epg.pw/xmltv/epg_JP.xml>
+23. 台灣頻道 <http://epg.pw/xmltv/epg_TW.xml>
 
 --------------------------------------------------------------------
 
-## 每年需要在json, js, xml 新增年度:
+## 每年需要在json, js, xml 新增年度
+
 ```
 1.
 2025&2024&
@@ -202,25 +198,20 @@
 
 ```
 
-
 --------------------------------------------------------------------
 
-格式說明 http://www.sharerw.com/a/ziyuan/444.html:
+格式說明 <http://www.sharerw.com/a/ziyuan/444.html>:
+
 1. 《分享者tv》 《百川影音》自定义直播源的分类写法为: ### $c_start央视$c_end
 2. 《DIYP影音》《视米趣播》: ### 央视,#genre#
-3. 節目名,地址1#地址2,epg-id(比如CCTV1它的ID是cntv-cctv1) : 工具: http://epg.51zmt.top:8000/
+3. 節目名,地址1#地址2,epg-id(比如CCTV1它的ID是cntv-cctv1) : 工具: <http://epg.51zmt.top:8000/>
 
-    即在原來的播放列表的每一個項後面加上EPG-ID，舉個例子: 
-    
-CCTV-1HD,http://stream.guihet.com/hd/ccav1.m3u8,cntv-cctv1
-CCTV-1HD,http://stream.guihet.com/hd/ccav1.m3u8,tvming-CCTV1HD
+    即在原來的播放列表的每一個項後面加上EPG-ID，舉個例子:
 
-
+CCTV-1HD,<http://stream.guihet.com/hd/ccav1.m3u8,cntv-cctv1>
+CCTV-1HD,<http://stream.guihet.com/hd/ccav1.m3u8,tvming-CCTV1HD>
 
 --------------------------------------------------------------------
-
-
-
 
 OK影视、TVBox、猫影视配置文件。所有资源均来自于各路大神无私分享，如有侵权，请联系删除。
 
@@ -256,8 +247,7 @@ OK影视、TVBox、猫影视配置文件。所有资源均来自于各路大神�
 
 （11）cat.json  cat源，资源来源于网络各路大佬。/cat/js配合猫影视可直接食用；
 
-（12） jsm.json 来自js.json + 0826.json 合集 家庭电视可用 删除YouTube 直播，OK影视 可用 电视建议使用OK影视 https://github.com/FongMi/Release 支持多直播选择。
- 
+（12） jsm.json 来自js.json + 0826.json 合集 家庭电视可用 删除YouTube 直播，OK影视 可用 电视建议使用OK影视 <https://github.com/FongMi/Release> 支持多直播选择。
 
 猫影视使用github 配置
 
@@ -293,33 +283,33 @@ V1.1.2版本以下
 
 （6）手机版本  项目地址：<https://github.com/XiaoRanLiu3119/TVBoxOS-Mobile> 竖屏
 
-（7）q215613905 takagen99 编译apk 项目地址：https://github.com/o0HalfLife0o/TVBoxOSC
+（7）q215613905 takagen99 编译apk 项目地址：<https://github.com/o0HalfLife0o/TVBoxOSC>
 
 3. TVBox各路大佬配置（排名不分先后）：
 
-（1）饭太硬：http://www.饭太硬.top/tv/
+（1）饭太硬：<http://www.饭太硬.top/tv/>
 
-（2）okjack：https://jihulab.com/okcaptain/kko/raw/main/ok.txt
+（2）okjack：<https://jihulab.com/okcaptain/kko/raw/main/ok.txt>
 
-（3）王二小放牛娃：http://tvbox.王二小放牛娃.xyz
+（3）王二小放牛娃：<http://tvbox.王二小放牛娃.xyz>
 
-（4）摸鱼儿：http://我不是.摸鱼儿.top
+（4）摸鱼儿：<http://我不是.摸鱼儿.top>
 
-（5）霜辉月明py：https://999740.xyz/raw.githubusercontent.com/lm317379829/PyramidStore/pyramid/py.json
+（5）霜辉月明py：<https://999740.xyz/raw.githubusercontent.com/lm317379829/PyramidStore/pyramid/py.json>
 
-（6）小米小爆脾气：http://xhww.fun/小米/DEMO.json
+（6）小米小爆脾气：<http://xhww.fun/小米/DEMO.json>
 
-（7）南风：https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json
+（7）南风：<https://agit.ai/Yoursmile7/TVBox/raw/branch/master/XC.json>
 
-（8）神器：https://神器每日推送.tk/pz.json
+（8）神器：<https://神器每日推送.tk/pz.json>
 
-（9）巧技：http://pandown.pro/tvbox/tvbox.json
+（9）巧技：<http://pandown.pro/tvbox/tvbox.json>
 
-（10）Ray：https://100km.top/0
+（10）Ray：<https://100km.top/0>
 
-（11）俊于：http://home.jundie.top:81/top98.json
+（11）俊于：<http://home.jundie.top:81/top98.json>
 
-（12）橘子柚：https://mirror.ghproxy.com/https://raw.githubusercontent.com/hackyjso/box/main/jzy.txt
+（12）橘子柚：<https://mirror.ghproxy.com/https://raw.githubusercontent.com/hackyjso/box/main/jzy.txt>
 
 （13）电视（自用）： <https://github.moeyy.xyz/raw.githubusercontent.com/qist/tvbox/master/jsm.json>
 
@@ -340,7 +330,6 @@ V1.1.2版本以下
 提示：如果遇到极速GO原画反复快速报错，不一定是被封号，可尝试杀掉播放器重启，或重启整个播放设备解决。
 
 提示2：如果遇到“转存原画”速度被限制在2M左右，那麽请尝试在阿里云盘APP里退出登录，然后重新登录，然后删除播放设备SD卡的TV目
-
 
 ```json
 {
