@@ -5,35 +5,35 @@
   // "logo": "https://www1.RobYang.ggff.net/RobYang.jpg",
   "urls": [
     {
-      "url": "http://www1.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　　
+      "url": "http://www1.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　bsite3　
       "name": "🏠RobYang 點直播"
     },
     {
-      "url": "http://www4.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　　
+      "url": "http://www4.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　azure　
       "name": "🏠RobYang 點直播(備1)"
     },
     {
-      "url": "http://www6.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　　
+      "url": "http://www6.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　docker
       "name": "🏠RobYang 點直播(備2)"
     },
     {
-      "url": "http://www3.RobYang.ggff.net/VodLive/jb8ffa", //jsm　　
+      "url": "http://www3.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　runasp1
       "name": "🏠RobYang 點直播(備3)"
     },
-    {
-      "url": "http://www1.RobYang.ggff.net/VodLive/jb8ffa", //jsm　　
-      "name": "🏠RobYang 點直播(備4)"
-    },
+    // {
+    //   "url": "http://www1.RobYang.ggff.net/VodLive/jb8ffa", //jsm　　
+    //   "name": "🏠RobYang 點直播(備4)"
+    // },
     {
       "url": "http://RobYang.dpdns.org", //source http://robyang3/VodLive/sb8ffa
       "name": "🏘️🏘️RobYang 總源 http://RobYang.dpdns.org"
     },
     {
-      "url": "http://RobYang.ggff.net", //source htts://robyang2/VodLive/sb8ffa
-      "name": "🏘️🏘️RobYang 總源(備1) http://RobYang.ggff.net"
+      "url": "http://RobYang.runasp.net",
+      "name": "🏘️🏘️RobYang 總源(備1) http://RobYang.runasp.net"
     },
     {
-      "url": "http://RobYang.zone.id", //source http://www1.RobYang.rr.nu/VodLive/sb8ffa
+      "url": "http://RobYang.zone.id",
       "name": "🏘️🏘️RobYang 總源(備2) http://RobYang.zone.id"
     },
     // {
@@ -89,10 +89,10 @@
     {
       "url": "http://www1.RobYang.dpdns.org/VodLive/xb8ffa",
       "name": "🔞RobYang AV 限制級"
-    },
-    {
-      "url": "http://www1.RobYang.ggff.net/VodLive/xb8ffa",
-      "name": "🔞RobYang AV 限制級 (備1)"
     }
+    // {
+    //   "url": "http://www1.RobYang.ggff.net/VodLive/xb8ffa",
+    //   "name": "🔞RobYang AV 限制級 (備1)"
+    // }
   ]
 }
