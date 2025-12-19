@@ -22,7 +22,7 @@
 ## 安裝方式
 
 1. 電視上先裝 downloader (使用Google play 或 <https://www.aftvnews.com/downloader>)
-2. 選擇以下APP安裝:
+2. 選擇以下APP安裝: (https://go.aftvnews.com/)
 
    | App          | 版本       | Downloader 碼 | 鏈接                       |     |
    | ------------ | ---------- | ------------- | -------------------------- | --- |
