@@ -1,13 +1,10 @@
 {
   "spider": "./jar/fan.txt",
-  //"spider":"./jar/pg.jar",
   "note": "FROM: http://RobYang.dpdns.org",
   "note12": "Source: http://www1.RobYang.dpdns.org/VodLive/sb8ffa",
   "note10": "Source: http://www2.RobYang.dpdns.org",
   "note11": "Source: http://www3.RobYang.dpdns.org",
-  //"spider":"https://raw.githubusercontent.com/bobyang3/tvbox/own/jar/fan.txt",
   "logo": "https://RobYang.serv00.net/RobYang.jpg",
-  //"logo": "https://RobYang.serv00.net/RobYang.jpg", //https://www1.RobYang.dpdns.org/RobYang.jpg
   "wallpaper": "https://jianbian.chuqiuyu.workers.dev",
   "name_Note": "? = Cannot load Page ; ?? = cannot play movie",
   "sites": [
@@ -106,9 +103,9 @@
       "type": 3,
       "api": "./py/荐片.py",
       "searchable": 1,
-      "changeable": 0,
+      "changeable": 1,
       "quickSearch": 1,
-      "filterable": 0,
+      "filterable": 1,
       "playerType": 2
     },
     {
@@ -127,9 +124,9 @@
       "name": "影視| 兩個BT py(濾)",
       "type": 3,
       "api": "./py/两个BT.py",
-      "searchable": 0,
+      "searchable": 1,
       "changeable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 1
     },
     {
@@ -356,7 +353,7 @@
       "timeout": 10,
       "searchable": 1,
       "quickSearch": 1,
-      "changeable": 0,
+      "changeable": 1,
       "ext": "https://www.xb6v.com/",
       "2ext": "./json/新6V电影.json",
       "2jar": "./jar/zy.jar",
@@ -396,8 +393,7 @@
         "港台动漫",
         "海外动漫"
       ],
-      "jar": "./jar/Yoursmile.jar;md5;97796a79a781055669f2d5442439dc5f",
-      "quickSearch": 1
+      "jar": "./jar/Yoursmile.jar;md5;97796a79a781055669f2d5442439dc5f"
     },
     {
       "key": "影视工厂2",
@@ -449,8 +445,7 @@
         "悬疑片",
         "犯罪片",
         "短剧"
-      ],
-      "quickSearch": 1
+      ]
     },
     {
       "key": "冠建影视2",
@@ -514,16 +509,6 @@
       "quickSearch": 1,
       "filterable": 1,
       "ext": "./js/网飞啦[自动].js"
-    },
-    {
-      "key": "py_DianYingTanTang2",
-      "name": "電影天堂(T4)(無濾)",
-      "type": 4,
-      "api": "https://py.doube.eu.org/spider?site=DianYingTanTang",
-      "searchable": 1,
-      "quickSearch": 0,
-      "filterable": 0,
-      "changeable": 1
     },
     {
       "key": "drpy_js_我播",
@@ -635,8 +620,8 @@
       "type": 0,
       "api": "https://cj.lziapi.com/api.php/provide/vod/at/xml/",
       "jar": "./jar/panda.jar",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "categories": [
         "国产剧",
@@ -670,8 +655,8 @@
       "name": "影視| 愛看機器人3[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "changeable": 1,
       "ext": "./js/ikanbot3.js"
     },
@@ -681,7 +666,7 @@
       "type": 0,
       "api": "https://caiji.moduapi.cc/api.php/provide/vod/at/xml/",
       "searchable": 1,
-      "changeable": 0,
+      "changeable": 1,
       "categories": [
         "国产动漫",
         "日韩动漫",
@@ -689,8 +674,7 @@
         "港台动漫",
         "动漫电影",
         "里番动漫"
-      ],
-      "quickSearch": 1
+      ]
     },
     {
       "key": "魔都资源",
@@ -698,9 +682,8 @@
       "type": 1,
       "api": "https://caiji.moduapi.cc/api.php/provide/vod",
       "jar": "./jar/panda.jar",
-      "searchable": 0,
-      "changeable": 1,
-      "quickSearch": 0
+      "searchable": 1,
+      "changeable": 1
     },
     {
       "key": "Anime1",
@@ -710,16 +693,6 @@
       "timeout": 10,
       "searchable": 1,
       "quickSearch": 1,
-      "changeable": 1
-    },
-    {
-      "key": "py_Dm84",
-      "name": "📔動漫巴士(T4)",
-      "type": 4,
-      "api": "https://py.doube.eu.org/spider?site=Dm84",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
       "changeable": 1
     },
     {
@@ -738,8 +711,8 @@
       "name": "📔動漫| 異界",
       "type": 3,
       "api": "csp_Ysj",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "changeable": 1,
       "jar": "./jar/fan20250401.txt"
     },
@@ -748,8 +721,8 @@
       "name": "📔動漫| 異世界",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "ext": "./js/异世界.js"
     },
     {
@@ -758,17 +731,16 @@
       "type": 3,
       "api": "csp_Ysj",
       "jar": "./jar/pg.jar",
-      "searchable": 0,
-      "changeable": 0,
-      "quickSearch": 0
+      "searchable": 1,
+      "changeable": 1
     },
     {
       "key": "Anime11",
       "name": "📔動漫| 日本",
       "type": 3,
       "api": "csp_Anime1",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "changeable": 1,
       "jar": "./jar/fan20250401.txt"
     },
@@ -802,27 +774,21 @@
       "name": "60. 📔動漫 | Anime1動畫[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "ext": "./js/Anime1动畫.js",
-      "searchable": 0,
-      "quickSearch": 0
+      "ext": "./js/Anime1动畫.js"
     },
     {
       "key": "drpy_js_NT动漫",
       "name": "📔動漫 | NT動漫[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "ext": "./js/NT动漫.js",
-      "searchable": 1,
-      "quickSearch": 1
+      "ext": "./js/NT动漫.js"
     },
     {
       "key": "NT动漫",
       "name": "📔動漫|NT",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "ext": "./js/NTDM.js",
-      "searchable": 0,
-      "quickSearch": 0
+      "ext": "./js/NTDM.js"
     },
     {
       "key": "drpy_js_去看吧",
@@ -1052,8 +1018,8 @@
       "type": 1,
       "api": "https://www.hongniuzy2.com/api.php/provide/vod/from/hnm3u8/",
       "jar": "./jar/panda.jar",
-      "searchable": 0,
-      "quickSearch": 0
+      "searchable": 1,
+      "quickSearch": 1
     },
     {
       "key": "暴风资源",
@@ -1069,8 +1035,8 @@
       "name": "暴風資源[資]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/暴风资源[资].js"
@@ -1080,9 +1046,9 @@
       "name": "暴風資源採集",
       "type": 1,
       "api": "https://bfzyapi.com/api.php/provide/vod/",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
     },
     {
       "key": "光速资源",
@@ -1090,8 +1056,8 @@
       "type": 1,
       "api": "https://api.guangsuapi.com/api.php/provide/vod/",
       "jar": "./jar/panda.jar",
-      "searchable": 1,
-      "quickSearch": 1
+      "searchable": 0,
+      "quickSearch": 0
     },
     {
       "key": "光速资源(gsm3u8)",
@@ -1118,8 +1084,8 @@
       "type": 0,
       "api": "https://ikunzyapi.com/api.php/seaxml/vod/at/xml",
       "jar": "./jar/panda.jar",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1
     },
     {
@@ -1134,37 +1100,33 @@
       "name": "🎧音樂| DJ音樂[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1
       },
-      "ext": "./js/DJ音乐.js",
-      "searchable": 1,
-      "quickSearch": 1
+      "ext": "./js/DJ音乐.js"
     },
     {
       "key": "drpy_js_清风DJ",
       "name": "🎧音樂| 清風DJ[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1
       },
-      "ext": "./js/清风DJ.js",
-      "searchable": 1,
-      "quickSearch": 1
+      "ext": "./js/清风DJ.js"
     },
     {
       "key": "drpy_js_DJ音乐",
       "name": "🎧DJ音樂[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
-      "searchable": 0,
-      "quickSearch": 0,
+      "changeable": 1,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "ext": "./js/DJ音乐.js"
     },
@@ -1173,8 +1135,8 @@
       "name": "🎧清風DJ[聽]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/清风DJ[听].js"
@@ -1209,7 +1171,7 @@
       "jar": "./jar/spider.jar",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 0,
+      "filterable": 1,
       "ext": {
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt",
         "json": "./json/哔哩哔哩演唱会.json"
@@ -1224,7 +1186,7 @@
       "name": "🎧廣播| 廣播迷FM[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/广播迷FM.js"
     },
     {
@@ -1232,19 +1194,17 @@
       "name": "🎧廣播| 蜻蜓FM[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
-      "ext": "./js/蜻蜓FM.js",
-      "searchable": 1,
-      "quickSearch": 1
+      "changeable": 1,
+      "ext": "./js/蜻蜓FM.js"
     },
     {
       "key": "drpy_js_蜻蜓FM",
       "name": "🎧蜻蜓FM[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
-      "searchable": 0,
-      "quickSearch": 0,
+      "changeable": 1,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "ext": "./js/蜻蜓FM.js"
     },
@@ -1257,7 +1217,7 @@
         "type": "oval"
       },
       "searchable": 1,
-      "changeable": 0,
+      "changeable": 1,
       "quickSearch": 1,
       "filterable": 1,
       "ext": "./js/lf_live.txt"
@@ -1271,7 +1231,7 @@
         "type": "rect",
         "ratio": 1.597
       },
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/斗鱼直播.js"
     },
     {
@@ -1283,7 +1243,7 @@
         "type": "rect",
         "ratio": 1.333
       },
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/好趣网.js"
     },
     {
@@ -1295,7 +1255,7 @@
         "type": "rect",
         "ratio": 1.597
       },
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/虎牙直播.js"
     },
     {
@@ -1318,10 +1278,8 @@
         "type": "rect",
         "ratio": 1.597
       },
-      "changeable": 0,
-      "ext": "./js/哔哩影视.js",
-      "searchable": 1,
-      "quickSearch": 1
+      "changeable": 1,
+      "ext": "./js/哔哩影视.js"
     },
     {
       "key": "drpy_js_爱弹幕[漫]",
@@ -1338,8 +1296,8 @@
       "name": "嗶哩影視",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "ext": "./js/哔哩影视.js"
     },
@@ -1351,9 +1309,9 @@
       "jar": "./jar/custom_spider.jar",
       "indexs": 1,
       "searchable": 0,
-      "filterable": 0,
+      "filterable": 1,
       "quickSearch": 0,
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./dmlib/"
     },
     {
@@ -1364,8 +1322,8 @@
       "jar": "./jar/spider.jar",
       "searchable": 1,
       "quickSearch": 0,
-      "filterable": 0,
-      "changeable": 0,
+      "filterable": 1,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1.433
@@ -1383,7 +1341,7 @@
       "jar": "./jar/spider.jar",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 0,
+      "filterable": 1,
       "ext": {
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt",
         "json": "./json/哔哩哔哩小品.json"
@@ -1401,7 +1359,7 @@
       "jar": "./jar/spider.jar",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 0,
+      "filterable": 1,
       "ext": {
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt",
         "json": "./json/哔哩哔哩戏曲.json"
@@ -1419,7 +1377,7 @@
       "jar": "./jar/spider.jar",
       "searchable": 0,
       "quickSearch": 0,
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 3.8
@@ -1436,30 +1394,28 @@
         "type": "rect",
         "ratio": 1
       },
-      "searchable": 1,
-      "quickSearch": 1,
-      "changeable": 0
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 1
     },
     {
       "key": "drpy_js_博看听书",
       "name": "📚聽書| 博看聽書[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1
       },
-      "ext": "./js/博看听书.js",
-      "searchable": 1,
-      "quickSearch": 1
+      "ext": "./js/博看听书.js"
     },
     {
       "key": "drpy_js_海洋听书",
       "name": "📚聽書| 海洋聽書[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1
@@ -1471,14 +1427,12 @@
       "name": "📚聽書| 有聲小說[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1
       },
-      "ext": "./js/有声小说吧.js",
-      "searchable": 0,
-      "quickSearch": 0
+      "ext": "./js/有声小说吧.js"
     },
     {
       "key": "酷我听书[听]",
@@ -1496,8 +1450,8 @@
       "name": "🎧博看聽書[聽]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/博看听书[听].js"
@@ -1521,7 +1475,7 @@
       "jar": "./jar/spider.jar",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 0,
+      "filterable": 1,
       "ext": {
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt",
         "json": "./json/哔哩哔哩听书.json"
@@ -1536,7 +1490,7 @@
       "name": "📚相聲| 相聲隨身聽[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/相声随身听.js"
     },
     {
@@ -1544,7 +1498,7 @@
       "name": "📚評書| 評書隨身聽[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/评书随身听.js"
     },
     {
@@ -1555,7 +1509,7 @@
       "jar": "./jar/spider.jar",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 0,
+      "filterable": 1,
       "ext": {
         "cookie": "http://127.0.0.1:9978/file/TVBox/bili_cookie.txt",
         "json": "./json/哔哩哔哩相声.json"
@@ -1574,7 +1528,7 @@
         "type": "rect",
         "ratio": 1.597
       },
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/兔小贝.js"
     },
     {
@@ -1613,7 +1567,7 @@
       "api": "./lib/drpy2.min.js",
       "searchable": 0,
       "quickSearch": 0,
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1.597
@@ -1743,15 +1697,14 @@
         "海外动漫",
         "影视解说"
       ],
-      "jar": "./jar/Yoursmile.jar;md5;97796a79a781055669f2d5442439dc5f",
-      "quickSearch": 1
+      "jar": "./jar/Yoursmile.jar;md5;97796a79a781055669f2d5442439dc5f"
     },
     {
       "key": "ikun资源",
       "name": "影視 | ikun資源[直連]",
       "type": 1,
       "api": "https://www.ikunzy.com/api.php/provide/vod/",
-      "searchable": 0,
+      "searchable": 1,
       "categories": [
         "动作片",
         "喜剧片",
@@ -1778,8 +1731,7 @@
         "港台综艺",
         "日韩综艺",
         "欧美综艺"
-      ],
-      "quickSearch": 0
+      ]
     },
     {
       "key": "无尽",
@@ -1822,8 +1774,7 @@
       ],
       "header": {
         "User-Agent": "Mozilla/5.0"
-      },
-      "quickSearch": 1
+      }
     },
     {
       "key": "U酷资源風",
@@ -1907,8 +1858,7 @@
       ],
       "header": {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
-      },
-      "quickSearch": 1
+      }
     },
     {
       "key": "极速资源2",
@@ -1986,9 +1936,8 @@
       "name": "影視 | 暴風[直連]",
       "type": 1,
       "api": "https://bfzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "changeable": 1,
-      "quickSearch": 0
+      "searchable": 1,
+      "changeable": 1
     },
     {
       "key": "csp_If101",
@@ -2134,22 +2083,6 @@
       }
     },
     {
-      "key": "csp_XBPQ_白嫖者",
-      "name": "白嫖者影視(XB)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": {
-        "分类url": "https://www.qyzf88.com/qyvodshow/{cateId}-{area}-{by}-{class}-----{catePg}---{year}.html",
-        "分类": "電視劇$2#電影$1#動漫$4#綜藝$3",
-        "副标题": "class=\"pic-text text-right\"&&</span>",
-        "简介": "剧情介绍：&&</p >"
-      }
-    },
-    {
       "key": "csp_XBiu無極影視",
       "name": "無極影視(XB)",
       "type": 3,
@@ -2187,15 +2120,6 @@
       "ext": "./js/539影视.js"
     },
     {
-      "key": "阿里影视",
-      "name": "阿里影視(聚)",
-      "type": 1,
-      "api": "http://aliys.cn:90/api.php/provide/vod/",
-      "jar": "./jar/panda.jar",
-      "searchable": 1,
-      "quickSearch": 1
-    },
-    {
       "key": "4K影视.py",
       "name": "4K影視.py",
       "type": 3,
@@ -2211,8 +2135,8 @@
       "name": "界影視.py",
       "type": 3,
       "api": "./py/界影视.py",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "order_num": 0,
       "ext": ""
@@ -2234,9 +2158,9 @@
       "type": 3,
       "api": "./py/柯南影视.py",
       "searchable": 1,
-      "changeable": 0,
+      "changeable": 1,
       "quickSearch": 1,
-      "filterable": 0,
+      "filterable": 1,
       "playerType": 2
     },
     {
@@ -2309,7 +2233,7 @@
       "api": "./lib/drpy2.min.js",
       "searchable": 1,
       "quickSearch": 0,
-      "filterable": 0,
+      "filterable": 1,
       "ext": "./js/豆瓣[官].js"
     },
     {
@@ -2341,7 +2265,7 @@
       "type": 1,
       "api": "https://api.apibdzy.com/api.php/provide/vod?ac=list",
       "searchable": 1,
-      "filterable": 0,
+      "filterable": 1,
       "categories": [
         "国产动漫",
         "日韩动漫",
@@ -2435,14 +2359,12 @@
       "name": "⚽體育| 88看球[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1
       },
-      "ext": "./js/88看球.js",
-      "searchable": 0,
-      "quickSearch": 0
+      "ext": "./js/88看球.js"
     },
     {
       "key": "88",
@@ -2452,11 +2374,10 @@
       "jar": "./jar/fan.txt",
       "timeout": 10,
       "searchable": 0,
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "list"
-      },
-      "quickSearch": 0
+      }
     },
     {
       "key": "MTV2",
@@ -2470,7 +2391,7 @@
       },
       "searchable": 1,
       "quickSearch": 1,
-      "changeable": 0,
+      "changeable": 1,
       "ext": "https://gitlab.com/fantaiying/ext/-/raw/main/MTV.json"
     },
     {
@@ -2484,7 +2405,7 @@
       },
       "searchable": 0,
       "quickSearch": 0,
-      "changeable": 0,
+      "changeable": 1,
       "ext": {
         "json": "https://im.feelec.com.cn/res/file.html?id=2c9a91099584ed490195f7bf50ac60b9"
       }
@@ -2521,7 +2442,7 @@
       "name": "聚合| 網易公版[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "style": {
         "type": "rect",
         "ratio": 1.597
@@ -2537,7 +2458,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "jar": "./jar/fty.jar",
-      "changeable": 0
+      "changeable": 1
     },
     {
       "key": "Itv",
@@ -2548,7 +2469,7 @@
       "jar": "./jar/fty.jar",
       "searchable": 0,
       "quickSearch": 0,
-      "changeable": 0
+      "changeable": 1
     },
     {
       "key": "Mtv",
@@ -2559,7 +2480,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "jar": "./jar/fty.jar",
-      "changeable": 0
+      "changeable": 1
     },
     {
       "key": "drpy_js_磁力熊搜索",
@@ -2578,7 +2499,7 @@
       "searchable": 0,
       "changeable": 1,
       "quickSearch": 0,
-      "filterable": 0,
+      "filterable": 1,
       "api": "./lib/lf_search3_min.js"
     },
     {
@@ -2587,8 +2508,8 @@
       "type": 3,
       "api": "./lib/drpy2.min.js",
       "ext": "./js/xb6v.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "changeable": 1,
       "timeout": 30
     },
@@ -2597,9 +2518,9 @@
       "name": "磁力| 新版6V[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
-      "changeable": 0,
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
       "ext": "./js/6V新版[磁].js",
       "timeout": 30
     },
@@ -2630,7 +2551,7 @@
       "api": "./lib/drpy2.min.js",
       "searchable": 1,
       "quickSearch": 1,
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/磁力熊[磁].js",
       "timeout": 30
     },
@@ -2640,8 +2561,8 @@
       "type": 4,
       "api": "http://zhangqun66.xyz/sn.php",
       "jar": "./jar/fm.jar",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1
     },
     {
@@ -2669,8 +2590,8 @@
       "name": "影視| 無盡",
       "type": 1,
       "api": "https://api.wujinapi.me/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "categories": [
         "动作片",
@@ -2804,9 +2725,7 @@
         "港台综艺",
         "日韩综艺",
         "欧美综艺"
-      ],
-      "searchable": 0,
-      "quickSearch": 0
+      ]
     },
     {
       "key": "csp_VSYY",
@@ -2838,7 +2757,7 @@
       "jar": "./jar/xyqxbpq.jar",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0,
+      "filterable": 1,
       "ext": "./json/buxiutv.json"
     },
     {
@@ -3047,9 +2966,7 @@
       "type": 3,
       "api": "csp_XBPQ",
       "jar": "./jar/xyqxbpq.jar",
-      "ext": "./json/555電影.json",
-      "searchable": 1,
-      "quickSearch": 1
+      "ext": "./json/555電影.json"
     },
     {
       "key": "csp_琥珀影院",
@@ -3366,8 +3283,8 @@
       "type": 3,
       "api": "csp_XBPQ",
       "jar": "./jar/xyqxbpq.jar",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "ext": {
         "分类url": "https://777drama.cc/list/{cateId}/{catePg}",
@@ -3380,8 +3297,8 @@
       "type": 3,
       "api": "csp_XBPQ",
       "jar": "./jar/xyqxbpq.jar",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "ext": {
         "分类url": "https://www.555zxdy.com/vod/show/by/{by}/id/{cateId}/page/{catePg}/year/{year}.html",
@@ -3502,8 +3419,8 @@
       "name": "飯糰",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "ext": "./js/饭团影视.js"
     },
@@ -3553,8 +3470,8 @@
       "type": 0,
       "api": "https://cj.lziapi.com/api.php/provide/vod/from/liangzi/at/xml/",
       "jar": "./jar/panda.jar",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "categories": [
         "国产剧",
@@ -3588,8 +3505,8 @@
       "type": 1,
       "api": "https://360zy.com/api.php/seaxml/vod",
       "jar": "./jar/panda.jar",
-      "searchable": 0,
-      "quickSearch": 0
+      "searchable": 1,
+      "quickSearch": 1
     },
     {
       "key": "最大",
@@ -3606,8 +3523,8 @@
       "type": 1,
       "api": "https://bfzyapi.com/api.php/provide/vod/?ac=list",
       "jar": "./jar/xyqxbpq.jar",
-      "searchable": 0,
-      "quickSearch": 0
+      "searchable": 1,
+      "quickSearch": 1
     },
     {
       "key": "csp_Voflix",
@@ -3638,7 +3555,7 @@
       "jar": "./jar/pg.jar",
       "searchable": 1,
       "quickSearch": 0,
-      "changeable": 0,
+      "changeable": 1,
       "timeout": 60,
       "playerType": 2,
       "ext": {
@@ -3675,7 +3592,7 @@
       "jar": "./jar/spider.jar",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0,
+      "filterable": 1,
       "ext": {
         "url": "http://v.lkuys.cn"
       }
@@ -4067,7 +3984,7 @@
       "api": "csp_AppLY",
       "jar": "./jar/spider.jar",
       "searchable": 1,
-      "changeable": 0
+      "changeable": 1
     },
     {
       "key": "看360（jar）",
@@ -4076,7 +3993,7 @@
       "api": "csp_AuthKAN360",
       "jar": "./jar/spider.jar",
       "searchable": 1,
-      "changeable": 0
+      "changeable": 1
     },
     {
       "key": "永乐视频.py",
@@ -4128,9 +4045,9 @@
       "type": 3,
       "api": "./py/优酷视频.py",
       "searchable": 1,
-      "changeable": 0,
+      "changeable": 1,
       "quickSearch": 1,
-      "filterable": 0,
+      "filterable": 1,
       "playerType": 2
     },
     {
@@ -4145,9 +4062,7 @@
       "name": "優酷｜視頻",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "ext": "./js/优酷视频.js",
-      "searchable": 0,
-      "quickSearch": 0
+      "ext": "./js/优酷视频.js"
     },
     {
       "key": "芒果视频",
@@ -4198,8 +4113,8 @@
       "name": "iKun採集視頻",
       "type": 1,
       "api": "https://ikunzyapi.com/api.php/provide/vod",
-      "searchable": 0,
-      "filterable": 0,
+      "searchable": 1,
+      "filterable": 1,
       "categories": [
         "爽文短剧",
         "灾难片",
@@ -4213,8 +4128,7 @@
         "恐怖片",
         "剧情片",
         "战争片"
-      ],
-      "quickSearch": 0
+      ]
     },
     {
       "key": "极速资源",
@@ -4232,24 +4146,22 @@
       "name": "光速┃採集",
       "type": 0,
       "api": "https://api.guangsuapi.com/api.php/provide/vod/at/xml/",
-      "searchable": 0,
+      "searchable": 1,
       "changeable": 1,
       "header": {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      },
-      "quickSearch": 0
+      }
     },
     {
       "key": "红牛资源",
       "name": "440. 紅牛┃採集",
       "type": 1,
       "api": "https://www.hongniuzy2.com/api.php/provide/vod/from/hnm3u8/at/josn/",
-      "searchable": 0,
+      "searchable": 1,
       "changeable": 1,
       "header": {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      },
-      "quickSearch": 0
+      }
     },
     {
       "key": "豪华资源采集",
@@ -4269,7 +4181,7 @@
       "api": "https://caiji.maotaizy.cc/api.php/provide/vod/from/mtm3u8/at/josn/",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "豆瓣采集",
@@ -4278,25 +4190,25 @@
       "api": "https://caiji.dbzy5.com/api.php/provide/vod/at/josn/",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "索尼采集",
       "name": "索尼采集",
       "type": 1,
       "api": "https://suoniapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
     },
     {
       "key": "无尽采集",
       "name": "無盡採集",
       "type": 1,
       "api": "https://wjzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
     },
     {
       "key": "速播采集",
@@ -4310,31 +4222,13 @@
       }
     },
     {
-      "key": "U酷采集",
-      "name": "U酷採集",
-      "type": 1,
-      "api": "https://api.ukuapi88.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "百度云采集",
-      "name": "百度雲採集",
-      "type": 1,
-      "api": "https://api.apibdzy.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "新浪资源采集",
       "name": "新浪資源採集",
       "type": 1,
       "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod/josn",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "快车资源采集",
@@ -4354,16 +4248,16 @@
       "api": "https://cj.yayazy.net/api.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "非凡资源采集",
       "name": "非凡資源採集",
       "type": 1,
       "api": "http://api.ffzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
     },
     {
       "key": "爱奇艺资源采集",
@@ -4372,25 +4266,7 @@
       "api": "https://iqiyizyapi.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "魔爪资源网",
-      "name": "魔爪資源網",
-      "type": 1,
-      "api": "https://mozhuazy.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "牛牛资源",
-      "name": "牛牛資源",
-      "type": 1,
-      "api": "https://api2.niuniuzy.me/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "猫眼资源采集",
@@ -4399,54 +4275,25 @@
       "api": "https://api.maoyanapi.top/api.php/provide/vod/at/json",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "虎牙资源网",
-      "name": "虎牙資源網",
-      "type": 1,
-      "api": "https://www.huyaapi.com/api.php/provide/vod/at/json",
-      "searchable": 1,
-      "quickSearch": 1,
-      "header": {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      }
+      "filterable": 1
     },
     {
       "key": "魔都资源网",
       "name": "魔都資源網",
       "type": 1,
       "api": "https://www.mdzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
-    {
-      "key": "360资源",
-      "name": "460. 360資源",
-      "type": 1,
-      "api": "https://360zyzz.com/api.php/provide/vod/at/json",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
-    {
-      "key": "优质资源库",
-      "name": "優質資源庫",
-      "type": 1,
-      "api": "https://api.yzzy-api.com/inc/apijson.php?ac=list",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "猫眼资源",
       "name": "貓眼資源",
       "type": 1,
       "api": "https://api.maoyanapi.top/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
     },
     {
       "key": "OK资源",
@@ -4455,7 +4302,7 @@
       "api": "https://api.okzyw.net/api.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "建安解析",
@@ -4464,25 +4311,16 @@
       "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "小绵羊资源",
-      "name": "小綿羊資源",
-      "type": 1,
-      "api": "https://vs.okcdn100.top/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "飘零影院",
       "name": "飄零影院",
       "type": 1,
       "api": "https://p2100.net/api.php/provide/vod/",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
     },
     {
       "key": "如意资源",
@@ -4491,24 +4329,15 @@
       "api": "https://cj.rycjapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "白狐资源",
-      "name": "白狐資源",
-      "type": 1,
-      "api": "https://baihuzy.com/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "key": "优酷[官]",
       "name": "470. 優酷[官]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/优酷[官].js"
@@ -4584,8 +4413,8 @@
       "name": "泥視頻高清(py)",
       "type": 3,
       "api": "./py/py_nivod_cc.py",
-      "searchable": 0,
-      "quickSearch": 0,
+      "searchable": 1,
+      "quickSearch": 1,
       "filterable": 1,
       "changeable": 1
     },
@@ -4616,9 +4445,9 @@
       "name": "小雞暴走",
       "type": 3,
       "api": "./py/小鸡暴走.py",
-      "searchable": 0,
+      "searchable": 1,
       "changeable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 1,
       "playerType": 2
     },
@@ -4627,9 +4456,9 @@
       "name": "4K影院.py",
       "type": 3,
       "api": "./py/4K影院.py",
-      "searchable": 0,
+      "searchable": 1,
       "changeable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 1,
       "playerType": 2
     },
@@ -4638,9 +4467,9 @@
       "name": "嗷嗚4K影院.py",
       "type": 3,
       "api": "./py/嗷呜4K影院.py",
-      "searchable": 0,
+      "searchable": 1,
       "changeable": 1,
-      "quickSearch": 0,
+      "quickSearch": 1,
       "filterable": 1,
       "playerType": 2
     },
@@ -4702,9 +4531,7 @@
         "线路数组": "sb-ico-playerico-Azhan\">&&</li>",
         "分类url": "https://www.cpldq.com/cptype/{cateId}-{catePg}.html",
         "分类": "短剧$30#电视剧$2#国产剧$13#香港剧$14#台湾剧$32#韩剧$16#日剧$33#欧美剧$15#电影$1#动作片$5#爱情片$6#科幻片$7#恐怖片$8#战争片$9#喜剧片$10#剧情片$12#动漫$4#综艺$3"
-      },
-      "searchable": 1,
-      "quickSearch": 1
+      }
     },
     {
       "key": "夕云影视2",
@@ -4744,17 +4571,6 @@
       "quickSearch": 1,
       "filterable": 1,
       "playerType": 2
-    },
-    {
-      "key": "小苹果2",
-      "name": "小蘋果",
-      "type": 4,
-      "api": "http://zhangqun1818.serv00.net/pingguo.php",
-      "style": {
-        "type": "rect",
-        "ratio": 1.33
-      },
-      "changeable": 1
     },
     {
       "key": "drpy_js_量子资源",
@@ -4895,16 +4711,6 @@
       ]
     },
     {
-      "key": "py_OleVod",
-      "name": "影視| 歐樂(無濾)",
-      "type": 4,
-      "api": "https://py.doube.eu.org/spider?site=OleVod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "changeable": 1
-    },
-    {
       "note": "main page only",
       "key": "海纳TV",
       "name": "影視| 海納",
@@ -4922,8 +4728,8 @@
       "name": "影視| 嫖者盟",
       "type": 3,
       "api": "csp_XYQHiker",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "ext": "./json/白嫖者联盟.json",
       "jar": "./jar/zy.jar"
@@ -4948,7 +4754,7 @@
       "api": "https://collect.wolongzy.cc/api.php/provide/vod/?ac=list",
       "searchable": 0,
       "quickSearch": 0,
-      "filterable": 0
+      "filterable": 1
     },
     {
       "note": "main page only",
@@ -5042,7 +4848,7 @@
       "name": "網盤| Alist[js]",
       "type": 3,
       "api": "./lib/alist.min.js",
-      "changeable": 0,
+      "changeable": 1,
       "ext": "./js/alist.json"
     },
     {
@@ -5112,7 +4918,7 @@
       "api": "csp_Youtube",
       "searchable": 1,
       "quickSearch": 1,
-      "changeable": 0,
+      "changeable": 1,
       "timeout": 240,
       "jar": "./jar/pg.jar",
       "ext": {
