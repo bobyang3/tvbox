@@ -1,17 +1,15 @@
 📺YouTube 新聞,#genre#
 鏡新聞,https://www.youtube.com/live/5n0y6b0Q25o?si=UhF9OL7jduRXteiF
-三立新聞,https://www.youtube.com/live/MV9mI0GChwo?si=znH9MBSQtvCvrqvt
-三立新聞,https://www.youtube.com/watch?v=MV9mI0GChwo
-三立iNEWS+,https://www.youtube.com/live/pF507BLtbqU?si=Ajqr6bitgqQQqaun
-三立iNEWS+,https://www.youtube.com/watch?v=pF507BLtbqU
+三立新聞,https://www.youtube.com/live/QsGswQvRmtU?si=znH9MBSQtvCvrqvt
+三立新聞,https://www.youtube.com/watch?v=QsGswQvRmtU
+三立財經新聞,https://www.youtube.com/live/pF507BLtbqU?si=Ajqr6bitgqQQqaun
+三立財經新聞,https://www.youtube.com/watch?v=pF507BLtbqU
 三立新聞海外,https://www.youtube.com/live/hGJkDZDchYI?si=ZevMfRDmU86tccJz
 三立新聞海外,https://www.youtube.com/watch?v=hGJkDZDchYI
 公視新聞,https://www.youtube.com/live/quwqlazU-c8?si=-eMTJ5zFhfWAphbs
 公視新聞,https://www.youtube.com/watch?v=quwqlazU-c8
-公視新聞網,https://www.youtube.com/watch?v=quwqlazU-c8
 民視新聞,https://www.youtube.com/live/ylYJSBUgaMA?si=e-d0Ns2EB36iyW_3
 民視新聞,https://www.youtube.com/watch?v=ylYJSBUgaMA
-民視新聞,https://youtube.livednow.dpdns.org/youtube/ylYJSBUgaMA
 非凡商業,https://www.youtube.com/live/NHQDx8vCrC4?si=e-d0Ns2EB36iyW_3
 非凡商業,https://www.youtube.com/watch?v=NHQDx8vCrC4
 台視新聞,https://www.youtube.com/live/xL0ch83RAK8?si=6PbDs2DOrlT9Og14
@@ -57,13 +55,9 @@ NBC NEW,http://www.youtube.com/watch?v=7-JR7DjKF_c
 NHK WORLD,http://www.youtube.com/watch?v=f0lYkdA-Gtw
 Sky News,http://www.youtube.com/watch?v=w9uJg68CV4g
 TVBS HD,https://m.youtube.com/watch?v=YvdcZ_jpLXE
-TVBS HD,https://clonglii.serv00.net/youtube_d.php?id=YvdcZ_jpLXE&data=normal
-TVBS HD,https://clonglii.serv00.net/youtube_d.php?id=YvdcZ_jpLXE&ln=2&data=normal
 鳳凰資訊,http://www.youtube.com/watch?v=sUISafvOieY
 TVBS56,http://www.youtube.com/watch?v=YvdcZ_jpLXE
 東森Live,http://www.youtube.com/watch?v=S5WOGu2HSes
-
-
 台視新聞,https://www.youtube.com/watch?v=xL0ch83RAK8
 大愛電視,https://www.youtube.com/watch?v=DTNkEm6jaqQ
 中視新聞,https://www.youtube.com/watch?v=TCnaIE_SAtM
@@ -107,8 +101,8 @@ TVBS選新聞,https://www.youtube.com/watch?v=o_-hSMgpAzs
 其他用途皆爲非法行為,abc://a.d67
 任何責任自行負責,abc://a.d91
 
-📺YouTube 兒童,#genre#
 
+📺YouTube 兒童,#genre#
 東森幼幼,https://youtu.be/4O8xAZ5VUGY
 東森幼幼,https://www.youtube.com/watch?v=4O8xAZ5VUGY
 MOMO親子,https://www.youtube.com/live/3OQOWV1K2-4?si=e-d0Ns2EB36iyW_3
@@ -119,7 +113,6 @@ MOMO親子成語,https://www.youtube.com/live/fB7x7fnYtkc?si=JpzxGvcHZ5zUOW5U
 MOMO親子成語,https://youtu.be/fB7x7fnYtkc
 迪士尼最佳歌曲2023,https://youtu.be/dpIbmKroTgA?si=YILikSplg7x284_Y
 貝樂虎兒歌-童謠歌曲,https://www.youtube.com/watch?v=E2E6FHFb7eQ
-
 PBS KIDS,https://www.youtube.com/watch?v=E3NOvf9WNAQ
 Hasbro,https://www.youtube.com/watch?v=TZ3mxF4U__k
 Beep Beep - Nursery Rhymes,https://www.youtube.com/watch?v=-VBxijFm50Y
@@ -141,12 +134,8 @@ Masha and The Bear,https://www.youtube.com/watch?v=k5UuTzRUxuU
 OGGY,https://www.youtube.com/watch?v=gI9mb0R_mX0
 Marvel HQ,https://www.youtube.com/watch?v=13GZtHqYrLY
 Beep Beep - Nursery Rhymes,https://www.youtube.com/watch?v=DJPyt438WX4
-
-
-
 📺YouTube 其他,#genre#
 動物星球,http://61.221.215.25:8800/hls/57/index.m3u8
-亞洲旅遊台,http://37.27.111.214:8080/live/10/hls.m3u8
 探索亞洲,http://61.221.215.25:8800/hls/50/index.m3u8
 民視戲劇,http://www.youtube.com/live/6CQZxYpW9q4
 華視綜藝頻道,http://m.youtube.com/live/IfKO17h4pVE
@@ -164,16 +153,13 @@ momo購物一台,https://www.youtube.com/live/_pZQ1Lk0xMA?si=3IAYc_xFfHsoVO8Z
 momo購物二台,http://www.youtube.com/watch?v=xbNWkUyxQGM
 東森購物台CH34,http://www.youtube.com/watch?v=ViJ3XiN6Q3M
 美好購物二台,http://www.youtube.com/watch?v=lEXITHxcagI
-好消息,https://live.streamingfast.net/osmflivech1.m3u8&data=normal$decoder=2
 大愛二台,https://m.youtube.com/watch?v=DTNkEm6jaqQ
 大愛二台,https://m.youtube.com/watch?v=OKvWtVoDR8I
 華藏,http://www.youtube.com/watch?v=ypmrwYeLAaQ
-希望電視台,https://videodelivery.net/f9fac529ef8cc8f8dc702ac06116ad1b/manifest/video.m3u8&data=normal
 東京新宿,http://www.youtube.com/watch?v=DjdUEyjx8GM
 正德電視台,http://www.youtube.com/watch?v=AfcVHGIRbP8
 CBTV十方法界弘法電視台,https://m.youtube.com/watch?v=77SHFx1c8Lk
 鳳凰衛視資訊,http://www.youtube.com/watch?v=HFib76ySpbU
-
 Sports Central by DRM,https://www.youtube.com/watch?v=FPO4QXEJH8s
 Sports Central by DRM,https://www.youtube.com/watch?v=SYRWPsI4QPY
 FIGHT SHORT,https://www.youtube.com/watch?v=JGQSQvPO-mI
@@ -323,7 +309,6 @@ Happy Jazz Music,https://www.youtube.com/watch?v=ygedg03NpUQ
 MBC WORLD,https://www.youtube.com/watch?v=ggDKdb2oaL4
 
 
-
 📻電台,#genre#
 CityFM台北健康FM 90.1,http://fm901.cityfm.tw:8080/901.mp3
 CityFM大苗栗廣播FM 98.3,http://fm983.cityfm.tw:8080/983.mp3
@@ -335,37 +320,31 @@ CityFM台南之音FM 97.1,http://fm971.cityfm.tw:8080/971.mp3
 RTI中央廣播電台,https://streamak0138.akamaized.net/live0138lh-mbm9/_definst_/rti3/playlist.m3u8
 RTI亞洲語言Live,https://streamak0138.akamaized.net/live0138lh-mbm9/_definst_/rti5/chunklist.m3u8
 RTI閩客粵語和歐美外語Live,https://streamak0138.akamaized.net/live0138lh-mbm9/_definst_/rti6/playlist.m3u8
-AsiaFM亞洲電台FM92.7,https://stream.rcs.revma.com/xpgtqc74hv8uv 
+AsiaFM亞洲電台FM92.7,https://stream.rcs.revma.com/xpgtqc74hv8uv
 AsiaFM亞太電台FM92.3,https://stream.rcs.revma.com/kydend74hv8uv
 FlyRadio飛揚調頻895,https://stream.rcs.revma.com/e0tdah74hv8uv
 News98新聞,http://stream.rcs.revma.com/55tyxsy4qtzuv
-ICRT,http://live.leanstream.co/ICRTFM-MP3
 飛碟電台,http://stream.rcs.revma.com/em90w4aeewzuv
 警廣之聲,http://play-radio-stream3.hndt.com/now/prIgXGFo/playlist.m3u8
 全國治安交通網,http://stream.pbs.gov.tw:1935/live/mp3:PBS/playlist.m3u8
-員警廣播台北分台,http://stream.pbs.gov.tw:1935/live/TPS/playlist.m3u8 
+員警廣播台北分台,http://stream.pbs.gov.tw:1935/live/TPS/playlist.m3u8
 員警廣播高雄分台,http://stream.pbs.gov.tw:1935/live/KSS/playlist.m3u8
 員警廣播台中分台,http://stream.pbs.gov.tw:1935/live/TCS/playlist.m3u8
-員警廣播台南分台,http://stream.pbs.gov.tw:1935/live/TNS/playlist.m3u8 
+員警廣播台南分台,http://stream.pbs.gov.tw:1935/live/TNS/playlist.m3u8
 員警廣播台東分台,http://stream.pbs.gov.tw:1935/live/TTS/playlist.m3u8
 員警廣播新竹分台,http://stream.pbs.gov.tw:1935/live/SCS/playlist.m3u8
-員警廣播花蓮分台,http://stream.pbs.gov.tw:1935/live/HLS/playlist.m3u8 
+員警廣播花蓮分台,http://stream.pbs.gov.tw:1935/live/HLS/playlist.m3u8
 員警廣播宜蘭分台,http://stream.pbs.gov.tw:1935/live/ELS/playlist.m3u8
 台北廣播電台FM93.1,https://stream.ginnet.cloud/live0130lo-yfyo/_definst_/fm/playlist.m3u8
-台北廣播電台AM1134,https://stream.ginnet.cloud/live0130lo-yfyo/_definst_/am/playlist.m3u8 
+台北廣播電台AM1134,https://stream.ginnet.cloud/live0130lo-yfyo/_definst_/am/playlist.m3u8
 國立教育廣播電台台北總台FM台,https://cast.ner.gov.tw/1#http://wowza.ner.gov.tw/live/_definst_/1/playlist.m3u8
 國立教育廣播電台台北總台AM台,https://cast.ner.gov.tw/2
 台灣古典音樂台,http://59.120.88.155:8000/live.mp3
-BravoFM台北都會音樂台,https://onair.bravo913.com.tw:9130/live.mp3
-台中古典音樂台,https://onair.family977.com.tw:8977/live.mp3
-佳音羅東宜蘭FM90.3,http://cdn51.ccdntech.com/live-http/_definst_/vod51_Live/ch02/playlist.m3u8
-佳音經典音樂網,http://cdn51.ccdntech.com/live-http/_definst_/vod51_Live/ch03/playlist.m3u8
-佳音現代音樂網,http://cdn51.ccdntech.com/live-http/_definst_/vod51_Live/ch04/playlist.m3u8
 寶島聯播網|大千電台,http://125.227.87.206:8000/FM99.1
 寶島聯播網|寶島新聲,http://125.227.87.206:8000/FM98.5
 寶島聯播網|主人電台,http://125.227.87.206:8000/FM96.9
 正義電台,http://211.20.119.103:8081
-太陽電台,http://211.20.119.102:8081 
+太陽電台,http://211.20.119.102:8081
 台中廣播電台,http://211.20.119.101:8081
 台灣Lounge Radio音樂電台,http://streaming.radionomy.com/JamendoLounge
 輕鬆電台FM 96.9,http://stream.rcs.revma.com/k41z6wadu5hvv
@@ -373,33 +352,3 @@ BravoFM台北都會音樂台,https://onair.bravo913.com.tw:9130/live.mp3
 正聲FM104.1,http://flv.ccdntech.com/live/_definst_/mp4:vod117_Live/live1/playlist.m3u8
 環宇廣播,http://stream.rcs.revma.com/srn5f9kmwxhvv
 M-Radio全國廣播,http://stream.rcs.revma.com/044q61ha7a0uv/hls.m3u8
-
-
-飛碟電台,https://yeslivetv.com/radio/uforadio/
-中廣新聞網,https://yeslivetv.com/radio/bbc-news-radio/
-中廣流行網 FM103,https://yeslivetv.com/radio/i-like-radio-fm103/
-中廣音樂網 FM96,https://yeslivetv.com/radio/i-radio-fm96/
-中廣鄉親網 COUNTRY,https://yeslivetv.com/radio/bbc-country/
-中廣 I go AM531,https://yeslivetv.com/radio/i-go-am531/
-亞洲電台 FM92.7,https://yeslivetv.com/radio/asia-fm927/
-亞太電台 FM92.3,https://yeslivetv.com/radio/asia-fm923/
-飛揚電台(飛揚調頻)FM89.5,https://yeslivetv.com/radio/asia-fm895/
-愛樂電台 FM99.7,https://yeslivetv.com/radio/fm997/
-國立教育廣播電台(台北總台FM台),https://yeslivetv.com/radio/ner-taipei-fm/
-國立教育廣播電台(台北總台AM台),https://yeslivetv.com/radio/ner-taipei-am/
-國立教育廣播電台(台中AM台),https://yeslivetv.com/radio/ner-taichung-am/
-國立教育廣播電台(彰化分台FM),https://yeslivetv.com/radio/ner-changhua-fm/
-國立教育廣播電台(高雄分台),https://yeslivetv.com/radio/ner-kaohsiung/
-國立教育廣播電台(台東分台FM-1),https://yeslivetv.com/radio/ner-taitung-fm1029/
-國立教育廣播電台(台東分台FM-2),https://yeslivetv.com/radio/ner-taitung-fm1005/
-國立教育廣播電台(花蓮分台FM-1),https://yeslivetv.com/radio/ner-hualien-fm1/
-國立教育廣播電台(花蓮分台FM-2),https://yeslivetv.com/radio/ner-hualien-fm2/
-好事989電台,https://yeslivetv.com/radio/bestradio-fm989/
-好事935電台,https://yeslivetv.com/radio/bestradio-fm935/
-港都983電台,https://yeslivetv.com/radio/bestradio-fm983/
-好事903電台,https://yeslivetv.com/radio/bestradio-fm903/
-愛樂電台(On Air),https://yeslivetv.com/radio/e-classical-on-air/
-愛樂電台(Jazz Online),https://yeslivetv.com/radio/e-classical-jazz-online/
-愛樂電台(OBG Online),https://yeslivetv.com/radio/e-classical-obg-online/
-愛樂電台(Kids Online),https://yeslivetv.com/radio/e-classical-kids-online/
-愛樂電台(UR Classical),https://yeslivetv.com/radio/e-classical-ur-classical/
