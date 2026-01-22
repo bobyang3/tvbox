@@ -5844,21 +5844,6 @@
   ],
   "lives": [
     {
-      "name": "Jack",
-      "ua": "Goiptv/8.8.8",
-      "url": "https://php.946985.filegear-sg.me/jackTV.m3u",
-      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong"
-    },
-    {
-      "name": "香蕉哥| 雜中台港日韓際",
-      "type": 0,
-      "url": "https://tv.iill.top/m3u/Gather",
-      "ua": "okhttp/4.12.0",
-      "timeout": 5,
-      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
-      "logo": "https://epg.112114.xyz/logo/{name}.png"
-    },
-    {
       "name": "🏠RobYang6| http://www6.RobYang.dpdns.org",
       "type": 0,
       "url": "http://www6.RobYang.dpdns.org/VodLive/lb8ffa",
@@ -5883,9 +5868,24 @@
       "logo": "https://epg.112114.xyz/logo/{name}.png"
     },
     {
-      "name": "🏠RobYang2| http://www4.RobYang.dpdns.org",
+      "name": "Jack",
+      "ua": "Goiptv/8.8.8",
+      "url": "https://php.946985.filegear-sg.me/jackTV.m3u",
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong"
+    },
+    {
+      "name": "香蕉哥| 雜中台港日韓際",
+      "type": 0,
+      "url": "https://tv.iill.top/m3u/Gather",
+      "ua": "okhttp/4.12.0",
+      "timeout": 5,
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "🏠RobYang7| http://www7.RobYang.dpdns.org",
       "source": "Azure",
-      "url": "http://www2.RobYang.dpdns.org/VodLive/lb8ffa",
+      "url": "http://www7.RobYang.dpdns.org/VodLive/lb8ffa",
       "type": 0,
       "header": {
         "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
