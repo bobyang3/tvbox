@@ -660,8 +660,8 @@
       "name": "影視| 愛看機器人2[js]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "changeable": 1,
       "ext": "./js/ikanbot2.js"
     },
@@ -1362,7 +1362,7 @@
       "type": 3,
       "api": "csp_Bili",
       "jar": "./jar/spider.jar",
-      "searchable": 1,
+      "searchable": 0,
       "quickSearch": 0,
       "filterable": 0,
       "changeable": 0,
@@ -5945,7 +5945,7 @@
     //   "name": "雷蒙精選| 中台港雜",
     //   "type": 0,
     //   "url": "https://raw.githubusercontent.com/n3rddd/CTVLive/main/litelive.m3u",
-    //   "ua": "okhttp/3.15",
+    //   "ua": "okhttp/3.15",jiqiren
     //   "epg": "http://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Taipei",
     //   "logo": "https://epg.112114.xyz/logo/{name}.png"
     // },
