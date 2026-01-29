@@ -63,7 +63,7 @@ TVBS56,http://www.youtube.com/watch?v=YvdcZ_jpLXE
 中視新聞,https://www.youtube.com/watch?v=TCnaIE_SAtM
 大愛電視,https://www.youtube.com/watch?v=MIqUplvSRWA
 鏡新聞,https://www.youtube.com/watch?v=5n0y6b0Q25o
-民視新聞網,https://www.youtube.com/watch?v=ylYJSBUgaMA
+
 新唐人亞太電視台NTDAPTV,https://www.youtube.com/watch?v=WIhgU_mc05A
 TVBS新聞,https://www.youtube.com/watch?v=2mCSYvcfhtc
 國會頻道,https://www.youtube.com/watch?v=4HysYHJ6GkY
