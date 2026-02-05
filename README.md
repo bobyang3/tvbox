@@ -24,16 +24,16 @@
 1. 電視上先裝 downloader (使用Google play 或 <https://www.aftvnews.com/downloader>)
 2. 選擇以下APP安裝: (https://go.aftvnews.com/)
 
-   | App            | 版本       | Downloader 碼         | 鏈接                       |     |
-   | -------------- | ---------- | --------------------- | -------------------------- | --- |
-   | 蜂蜜影視TV     | 電視版 v7a | 5012184               | <http://aftv.news/5012184> |     |
-   | OK影視TV       | 電視版 v7a | 1746379,2673286 (原)  | <http://aftv.news/1746379> |     |
-   | OK影視TV       | 手機版     | 9413051               | <http://aftv.news/9413051> |     |
-   | OK pro影視TV   | 電視版 v7a | 5933451, 1557364 (原) | <http://aftv.news/5933451> |     |
-   | OK pro影視TV   | 手機版     | 8124419               | <http://aftv.news/8124419> |     |
-   | SmartTube      | Stable     | 94257                 | <http://aftv.news/94257>   |     |
-   | SmartTube      | Beta       | 62740                 | <http://aftv.news/62740>   |     |
-   | OKTV DB Backup | RobYang    | 9676810               | <http://aftv.news/9676810> |     |
+   | App            | 版本       | Downloader 碼 | 鏈接                       |     |
+   | -------------- | ---------- | ------------- | -------------------------- | --- |
+   | 蜂蜜影視TV     | 電視版 v7a | 5012184       | <http://aftv.news/5012184> |     |
+   | OK影視TV       | 電視版 v7a | 4999638       | <http://aftv.news/4999638> |     |
+   | OK影視TV       | 手機版     | 2262073       | <http://aftv.news/2262073> |     |
+   | OK pro影視TV   | 電視版 v7a | 2004596       | <http://aftv.news/2004596> |     |
+   | OK pro影視TV   | 手機版 64  | 7857109       | <http://aftv.news/7857109> |     |
+   | SmartTube      | Stable     | 94257         | <http://aftv.news/94257>   |     |
+   | SmartTube      | Beta       | 62740         | <http://aftv.news/62740>   |     |
+   | OKTV DB Backup | RobYang    | 9676810       | <http://aftv.news/9676810> |     |
 
 
 ## 點播接口
