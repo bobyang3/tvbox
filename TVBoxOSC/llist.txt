@@ -1,5 +1,6 @@
 📺YouTube 新聞,#genre#
 鏡新聞,https://www.youtube.com/live/5n0y6b0Q25o?si=UhF9OL7jduRXteiF
+鏡新聞,https://www.youtube.com/watch?v=5n0y6b0Q25o
 三立新聞,https://www.youtube.com/live/QsGswQvRmtU?si=znH9MBSQtvCvrqvt
 三立新聞,https://www.youtube.com/watch?v=QsGswQvRmtU
 三立財經新聞,https://www.youtube.com/live/pF507BLtbqU?si=Ajqr6bitgqQQqaun
@@ -10,15 +11,14 @@
 公視新聞,https://www.youtube.com/watch?v=quwqlazU-c8
 民視新聞,https://www.youtube.com/live/ylYJSBUgaMA?si=e-d0Ns2EB36iyW_3
 民視新聞,https://www.youtube.com/watch?v=ylYJSBUgaMA
-非凡商業,https://www.youtube.com/live/NHQDx8vCrC4?si=e-d0Ns2EB36iyW_3
-非凡商業,https://www.youtube.com/watch?v=NHQDx8vCrC4
+非凡商業,https://www.youtube.com/live/eA6Aczd3FZM?si=e-d0Ns2EB36iyW_3
+非凡商業,https://www.youtube.com/watch?v=eA6Aczd3FZM
 台視新聞,https://www.youtube.com/live/xL0ch83RAK8?si=6PbDs2DOrlT9Og14
 台視新聞,https://www.youtube.com/watch?v=xL0ch83RAK8
 華視新聞,https://www.youtube.com/live/wM0g8EoUZ_E?si=6PbDs2DOrlT9Og14
 華視新聞,https://www.youtube.com/watch?v=7lxXN3zIr-I
 華視新聞,https://www.youtube.com/watch?v=wM0g8EoUZ_E
 寰宇新聞,https://www.youtube.com/live/6IquAgfvYmc?si=pOtAi2jJyFbMjUNk
-寰宇新聞,https://www.youtube.com/watch?v=6IquAgfvYmc
 寰宇新聞,https://www.youtube.com/watch?v=6IquAgfvYmc
 寰宇新聞台灣台,https://www.youtube.com/live/w87VGpgd90U?si=pOtAi2jJyFbMjUNk
 寰宇新聞台灣台,https://m.youtube.com/live/w87VGpgd90U
@@ -33,7 +33,6 @@
 中視新聞,https://www.youtube.com/watch?v=TCnaIE_SAtM
 TVBS新聞,https://www.youtube.com/watch?v=2mCSYvcfhtc
 TVBS新聞,https://m.youtube.com/watch?v=2mCSYvcfhtc
-TVBS新聞,https://www.youtube.com/watch?v=2mCSYvcfhtcK
 新唐人,http://www.youtube.com/watch?v=WIhgU_mc05A
 澳洲ABCNews,http://www.youtube.com/watch?v=vOTiJkg1voo
 ABC News,http://www.youtube.com/live/-mvUkiILTqI
@@ -60,10 +59,7 @@ TVBS56,http://www.youtube.com/watch?v=YvdcZ_jpLXE
 東森Live,http://www.youtube.com/watch?v=S5WOGu2HSes
 台視新聞,https://www.youtube.com/watch?v=xL0ch83RAK8
 大愛電視,https://www.youtube.com/watch?v=DTNkEm6jaqQ
-中視新聞,https://www.youtube.com/watch?v=TCnaIE_SAtM
 大愛電視,https://www.youtube.com/watch?v=MIqUplvSRWA
-鏡新聞,https://www.youtube.com/watch?v=5n0y6b0Q25o
-
 新唐人亞太電視台NTDAPTV,https://www.youtube.com/watch?v=WIhgU_mc05A
 TVBS新聞,https://www.youtube.com/watch?v=2mCSYvcfhtc
 國會頻道,https://www.youtube.com/watch?v=4HysYHJ6GkY
@@ -82,7 +78,6 @@ TVBS,https://www.youtube.com/watch?v=m_dhMSvUCIc
 57東森財經新聞,https://www.youtube.com/watch?v=1I2iq41Akmo
 57東森財經新聞,https://www.youtube.com/watch?v=AEBeWMM1atA
 中天深喉嚨,https://www.youtube.com/watch?v=DM_PEM8GrIg
-三立LIVE新聞,https://www.youtube.com/watch?v=hGJkDZDchYI
 寰宇新聞,https://www.youtube.com/watch?v=Ej3LQM_lTEw
 TVBS選新聞,https://www.youtube.com/watch?v=o_-hSMgpAzs
 東森新聞 CH51,https://www.youtube.com/watch?v=E0zhe2gkXBs

@@ -1,0 +1,26 @@
+{
+  "recommendations": [
+    "christian-kohler.path-intellisense",
+    "dotjoshjohnson.xml",
+    "eamodio.gitlens",
+    "google.gemini-cli-vscode-ide-companion",
+    "google.geminicodeassist",
+    "humao.rest-client",
+    "leetcode.vscode-leetcode",
+    "mhutchie.git-graph",
+    "ms-mssql.data-workspace-vscode",
+    "ms-mssql.mssql",
+    "ms-mssql.sql-bindings-vscode",
+    "ms-mssql.sql-database-projects-vscode",
+    "ms-python.debugpy",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.vscode-python-envs",
+    "quicktype.quicktype",
+    "rangav.vscode-thunder-client",
+    "redhat.vscode-yaml",
+    "rioj7.vscode-json-validate",
+    "streetsidesoftware.code-spell-checker",
+    "yzhang.markdown-all-in-one"
+  ]
+}

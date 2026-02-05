@@ -1,0 +1,112 @@
+{
+    "mssql.connectionGroups": [
+        {
+            "name": "ROOT",
+            "id": "4EDF5A03-1CB8-4151-AB90-D578639D7DA4"
+        }
+    ],
+    "mssql.connections": [
+        {
+            "authenticationType": "SqlLogin",
+            "connectTimeout": 30,
+            "applicationName": "vscode-mssql",
+            "applicationIntent": "ReadWrite",
+            "server": "db10521.public.databaseasp.net",
+            "profileName": "MonsterASP-db10521",
+            "trustServerCertificate": true,
+            "database": "db10521",
+            "user": "db10521",
+            "password": "",
+            "savePassword": true,
+            "groupId": "4EDF5A03-1CB8-4151-AB90-D578639D7DA4",
+            "id": "120A7D89-DB0C-440C-B939-0F34CF84D7A3",
+            "commandTimeout": 30,
+            "encrypt": "Mandatory",
+            "profileSource": 0
+        },
+        {
+            "server": "sql.bsite.net\\MSSQL2016",
+            "database": "robyang3_VodLive",
+            "user": "robyang3_VodLive",
+            "password": "",
+            "authenticationType": "SqlLogin",
+            "encrypt": "true",
+            "trustServerCertificate": true,
+            "persistSecurityInfo": true,
+            "connectTimeout": 30,
+            "commandTimeout": 30,
+            "connectRetryCount": 1,
+            "connectRetryInterval": 10,
+            "applicationName": "vscode-mssql",
+            "savePassword": true,
+            "profileName": "robyang3_VodLive",
+            "groupId": "4EDF5A03-1CB8-4151-AB90-D578639D7DA4",
+            "id": "7397F17E-BCAD-4A62-93C6-AB60ABC03533",
+            "profileSource": 0
+        },
+        {
+            "authenticationType": "SqlLogin",
+            "connectTimeout": 30,
+            "applicationName": "vscode-mssql",
+            "applicationIntent": "ReadWrite",
+            "server": "sql.bsite.net\\MSSQL2016",
+            "user": "robyang2_VodLive",
+            "password": "",
+            "savePassword": true,
+            "database": "robyang2_VodLive",
+            "encrypt": "Mandatory",
+            "profileName": "sql.bsite.net\\MSSQL2016",
+            "trustServerCertificate": true,
+            "groupId": "4EDF5A03-1CB8-4151-AB90-D578639D7DA4",
+            "id": "75BBC6AB-35D0-4E97-BB32-DF5ED6E627A4",
+            "commandTimeout": 30,
+            "profileSource": 0
+        },
+        {
+            "server": "vps1.robyang.ggff.net,1433",
+            "port": 1433,
+            "database": "master",
+            "user": "sa",
+            "password": "",
+            "authenticationType": "SqlLogin",
+            "encrypt": "False",
+            "trustServerCertificate": false,
+            "connectTimeout": 30,
+            "commandTimeout": 30,
+            "connectRetryCount": 1,
+            "connectRetryInterval": 10,
+            "applicationName": "vscode-mssql",
+            "profileName": "vps1.robyang.ggff.net",
+            "savePassword": true,
+            "groupId": "4EDF5A03-1CB8-4151-AB90-D578639D7DA4",
+            "id": "267AD34E-548B-4708-A39F-108DA1526605"
+        },
+        {
+            "server": "tcp:rob-mssql.database.windows.net,1433",
+            "port": 1433,
+            "database": "MSVodLive",
+            "user": "robyang",
+            "password": "",
+            "authenticationType": "SqlLogin",
+            "encrypt": "true",
+            "trustServerCertificate": false,
+            "connectTimeout": 30,
+            "commandTimeout": 30,
+            "connectRetryCount": 1,
+            "connectRetryInterval": 10,
+            "applicationName": "vscode-mssql",
+            "profileName": "rob-mssql.database.windows.net",
+            "savePassword": true,
+            "groupId": "4EDF5A03-1CB8-4151-AB90-D578639D7DA4",
+            "id": "E9C9C669-C9D0-439C-8E02-ED6852085470",
+            "profileSource": 0
+        }
+    ],
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "workbench.editorAssociations": {
+        "*.md": "vscode.markdown.preview.editor"
+    },
+    "git.autofetch": true,
+    "mssql.objectExplorer.groupBySchema": false
+}
