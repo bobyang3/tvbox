@@ -5844,6 +5844,18 @@
   ],
   "lives": [
     {
+      "name": "🏠RobYang3| http://www3.RobYang.dpdns.org",
+      "type": 0,
+      "url": "http://www3.RobYang.dpdns.org/VodLive/lb8ffa",
+      "header": {
+        "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
+        "X-FORWARDED-FOR": "127.0.0.1"
+      },
+      "timeout": 5,
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
       "name": "🏠RobYang6| http://www6.RobYang.dpdns.org",
       "type": 0,
       "url": "http://www6.RobYang.dpdns.org/VodLive/lb8ffa",
@@ -5868,6 +5880,20 @@
       "logo": "https://epg.112114.xyz/logo/{name}.png"
     },
     {
+      "name": "tmxk smart",
+      "type": 0,
+      "url": "https://tmxk.pp.ua/smart-cn.m3u",
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
+      "name": "tmxk 4gtv",
+      "type": 0,
+      "url": "https://tmxk.pp.ua/litv.php?token=tmxk",
+      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
+      "logo": "https://epg.112114.xyz/logo/{name}.png"
+    },
+    {
       "name": "Jack",
       "ua": "Goiptv/8.8.8",
       "url": "https://php.946985.filegear-sg.me/jackTV.m3u",
@@ -5887,18 +5913,6 @@
       "source": "Azure",
       "url": "http://www7.RobYang.dpdns.org/VodLive/lb8ffa",
       "type": 0,
-      "header": {
-        "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
-        "X-FORWARDED-FOR": "127.0.0.1"
-      },
-      "timeout": 5,
-      "epg": "https://epg.112114.xyz/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong",
-      "logo": "https://epg.112114.xyz/logo/{name}.png"
-    },
-    {
-      "name": "🏠RobYang3| http://www3.RobYang.dpdns.org",
-      "type": 0,
-      "url": "http://www3.RobYang.dpdns.org/VodLive/lb8ffa",
       "header": {
         "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
         "X-FORWARDED-FOR": "127.0.0.1"
