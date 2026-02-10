@@ -22,8 +22,8 @@ JET綜合,http://?id=jet
 
 
 
-EYE戲劇, http://?id=eyetvxiju_twn
-EYE旅遊, http://?id=eyetvtravel_twn
+~EYE戲劇, http://?id=eyetvxiju_twn
+~EYE旅遊, http://?id=eyetvtravel_twn
 
 
 好萊塢電影台, http://?id=hollywoodmovies_twn
@@ -69,7 +69,7 @@ TLC旅遊生活, http://?id=tlc_twn
 愛爾達體育 1, http://?id=eltasport_twn
 愛爾達體育 2, http://?id=eltasport2_twn
 愛爾達體育 3, http://?id=eltasport3_twn
-ELEVEN 1, http://?id=golfchannel_twn
+~ELEVEN 1, http://?id=golfchannel_twn
 博斯網球, http://?id=bositennis_twn
 博斯運動1, http://?id=bosisport1_twn
 博斯運動2, http://?id=bosisport2_twn
@@ -81,8 +81,8 @@ ELEVEN 1, http://?id=golfchannel_twn
 野生動物, http://?id=natgeowild_twn
 動物星球, http://?id=animalplanet_twn
 時尚, http://?id=fashiontv_twn
-Discovery Asia, http://?id=discoverytwn_twn
-Discovery HD, http://?id=discoveryhd_twn
+~Discovery Asia, http://?id=discoverytwn_twn
+~Discovery HD, http://?id=discoveryhd_twn
 東森戲劇, http://?id=ettvdrama
 東森洋片, http://?id=ettvwestern
 東森綜合, http://?id=ettvzhonghe
@@ -96,8 +96,8 @@ Discovery HD, http://?id=discoveryhd_twn
 緯來育乐,http://?id=videolandyule
 緯來精彩,http://?id=videolandspecial_twn
 美亞電影, http://?id=meiyamovie_twn
-BBC World News, http://?id=bbcnews_twn
-Bloomberg News, http://?id=bloomberg_twn
+~BBC World News, http://?id=bbcnews_twn
+~Bloomberg News, http://?id=bloomberg_twn
 Fox News, http://?id=foxnews_twn
 阿里郎, http://?id=arirang_twn
 
