@@ -274,8 +274,8 @@
       "key": "Cori爱壹帆",
       "name": "影視| 愛壹帆(無濾)",
       "type": 3,
-      "searchable": 1,
-      "changeable": 1,
+      "searchable": 0,
+      "changeable": 0,
       "quickSearch": 0,
       "style": {
         "type": "rect",
@@ -574,8 +574,8 @@
       "name": "影視| iFun[JS](無濾)",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/iFun.js"
@@ -1485,8 +1485,8 @@
       "name": "🎧酷我聽書[聽]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/酷我听书[听].js"
@@ -1863,7 +1863,7 @@
       "name": "影視 | 360資源[直連]",
       "type": 1,
       "api": "https://360zy.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
+      "searchable": 0,
       "categories": [
         "动作片",
         "喜剧片",
@@ -1908,7 +1908,7 @@
       "header": {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
       },
-      "quickSearch": 1
+      "quickSearch": 0
     },
     {
       "key": "极速资源2",
@@ -2181,8 +2181,8 @@
       "name": "5539影視",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "ext": "./js/539影视.js"
     },
@@ -2290,11 +2290,10 @@
       "name": "獵手影視",
       "type": 3,
       "api": "./py/LSYS.py",
-      "searchable": 1,
-      "changeable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "playerType": 2
+      "searchable": 0,
+      "changeable": 0,
+      "quickSearch": 0,
+      "filterable": 1
     },
     {
       "key": "零度",
@@ -2413,8 +2412,8 @@
       "name": "影視| 瓜子",
       "type": 3,
       "api": "csp_Gz360",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "jar": "./jar/spider.jar"
     },
@@ -2424,8 +2423,8 @@
       "type": 3,
       "api": "csp_Guazi",
       "jar": "./jar/pg.jar",
-      "quickSearch": 1,
-      "changeable": 1,
+      "quickSearch": 0,
+      "changeable": 0,
       "filterable": 1,
       "timeout": 60,
       "ext": ""
@@ -2468,8 +2467,8 @@
         "type": "rect",
         "ratio": 1.597
       },
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "changeable": 0,
       "ext": "https://gitlab.com/fantaiying/ext/-/raw/main/MTV.json"
     },
@@ -3936,7 +3935,7 @@
       "key": "爱影",
       "name": "愛影丨APP",
       "type": 3,
-      "quickSearch": 1,
+      "quickSearch": 0,
       "api": "csp_AppGet",
       "jar": "./jar/spider.jar",
       "ext": {
@@ -3985,7 +3984,7 @@
       "key": "灵虎",
       "name": "靈虎｜APP",
       "type": 3,
-      "quickSearch": 1,
+      "quickSearch": 0,
       "api": "csp_AppGet",
       "jar": "./jar/spider.jar",
       "ext": {
@@ -4168,8 +4167,8 @@
       "name": "芒果TV.py",
       "type": 3,
       "api": "./py/Mang.py",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "order_num": 0,
       "ext": ""
@@ -4462,9 +4461,9 @@
       "name": "建安解析",
       "type": 1,
       "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1
     },
     {
       "key": "小绵羊资源",
@@ -5055,7 +5054,7 @@
         "ratio": 1.33
       },
       "ext": "0",
-      "changeable": 1
+      "changeable": 0
     },
     {
       "key": "csp_奇優影院(新)",
