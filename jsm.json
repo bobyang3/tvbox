@@ -66,51 +66,40 @@
       "filterable": 1,
       "recordable": 0
     },
-    {
-      "key": "drpy_js_139影视",
-      "name": "139影視(濾)",
-      "type": 3,
-      "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "./js/139影视.js"
-    },
-    {
-      "key": "csp_XBiu多瑙影視海外",
-      "name": "多瑙影視(XB)(濾)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": {
-        "分类url": "https://t.duonaovod.com/index.php/vod/show/by/time/id/{cateId}/page/{catePg}/year/{year}.html",
-        "分类": "電視劇$2#電影$1#動漫$4#綜藝$3#短劇$60"
-      }
-    },
-    {
-      "key": "糯米",
-      "name": "影視| 糯米(濾)",
-      "type": 3,
-      "api": "csp_NmyswvGuard",
-      "timeout": 10,
-      "searchable": 1,
-      "quickSearch": 1,
-      "changeable": 1
-    },
-    {
-      "key": "荐片2",
-      "name": "薦片 py(濾)",
-      "type": 3,
-      "api": "./py/荐片.py",
-      "searchable": 1,
-      "changeable": 0,
-      "quickSearch": 1,
-      "filterable": 0,
-      "playerType": 2
-    },
+    // {
+    //   "key": "drpy_js_139影视",
+    //   "name": "139影視(濾)",
+    //   "type": 3,
+    //   "api": "./lib/drpy2.min.js",
+    //   "searchable": 1,
+    //   "quickSearch": 1,
+    //   "filterable": 1,
+    //   "ext": "./js/139影视.js"
+    // },
+    // {
+    //   "key": "csp_XBiu多瑙影視海外",
+    //   "name": "多瑙影視(XB)(濾)",
+    //   "type": 3,
+    //   "api": "csp_XBPQ",
+    //   "jar": "./jar/xyqxbpq.jar",
+    //   "searchable": 1,
+    //   "quickSearch": 1,
+    //   "filterable": 1,
+    //   "ext": {
+    //     "分类url": "https://t.duonaovod.com/index.php/vod/show/by/time/id/{cateId}/page/{catePg}/year/{year}.html",
+    //     "分类": "電視劇$2#電影$1#動漫$4#綜藝$3#短劇$60"
+    //   }
+    // },
+    // {
+    //   "key": "糯米",
+    //   "name": "影視| 糯米(濾)",
+    //   "type": 3,
+    //   "api": "csp_NmyswvGuard",
+    //   "timeout": 10,
+    //   "searchable": 1,
+    //   "quickSearch": 1,
+    //   "changeable": 1
+    // },
     {
       "key": "drpy_js_两个BT2",
       "name": "影視| 兩個BT JS(濾)",
@@ -143,18 +132,18 @@
       "filterable": 1,
       "ext": "./json/热播之家.json"
     },
-    {
-      "key": "黑夜影视2",
-      "name": "影視| 黑夜(濾)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "ext": {
-        "线路标题": "[不包含:海外看资源#高清云播放器]",
-        "分类url": "https://darkvod.com/video/{cateId}/area/{area}/class/{class}/page/{catePg}/year/{year}/",
-        "分类": "短剧$shuangwenduanju#电影$dianying#电视剧$lianxuju#综艺$zongyi#动漫$dongman"
-      }
-    },
+    // {
+    //   "key": "黑夜影视2",
+    //   "name": "影視| 黑夜(濾)",
+    //   "type": 3,
+    //   "api": "csp_XBPQ",
+    //   "jar": "./jar/xyqxbpq.jar",
+    //   "ext": {
+    //     "线路标题": "[不包含:海外看资源#高清云播放器]",
+    //     "分类url": "https://darkvod.com/video/{cateId}/area/{area}/class/{class}/page/{catePg}/year/{year}/",
+    //     "分类": "短剧$shuangwenduanju#电影$dianying#电视剧$lianxuju#综艺$zongyi#动漫$dongman"
+    //   }
+    // },
     {
       "key": "蛋蛋赞2",
       "name": "蛋蛋贊(濾)",
@@ -314,6 +303,17 @@
         }
       },
       "jar": "https://github.com/CatVodSpider-GM/SFW-Spiders/raw/refs/heads/main/Spiders-Lib/GM.jar"
+    },
+    {
+      "key": "荐片2",
+      "name": "薦片 py(濾)",
+      "type": 3,
+      "api": "./py/荐片.py",
+      "searchable": 1,
+      "changeable": 0,
+      "quickSearch": 1,
+      "filterable": 0,
+      "playerType": 2
     },
     {
       "key": "比特",
