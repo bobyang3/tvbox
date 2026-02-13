@@ -2255,36 +2255,26 @@
       "name": "人人影視",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 0,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/人人影视.js"
     },
-    {
-      "key": "csp_人人影院",
-      "name": "人人影院| 無篩選",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "changeable": 1,
-      "ext": {
-        "分类url": "https://renren.pro/list/{cateId}?page={catePg}",
-        "分类": "全部$all",
-        "搜索url": "https://renren.pro/search?wd={wd}"
-      }
-    },
-    {
-      "key": "人人电影网",
-      "name": "人人電影網.js",
-      "type": 3,
-      "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "order_num": 0,
-      "ext": "./js/人人电影网.js"
-    },
+    // {
+    //   "key": "csp_人人影院",
+    //   "name": "人人影院| 無篩選",
+    //   "type": 3,
+    //   "api": "csp_XBPQ",
+    //   "jar": "./jar/xyqxbpq.jar",
+    //   "changeable": 1,
+    //   "ext": {
+    //     "分类url": "https://renren.pro/list/{cateId}?page={catePg}",
+    //     "分类": "全部$all",
+    //     "搜索url": "https://renren.pro/search?wd={wd}"
+    //   }
+    // },
     {
       "key": "猎手影视",
       "name": "獵手影視",
@@ -2414,6 +2404,7 @@
       "api": "csp_Gz360",
       "searchable": 0,
       "quickSearch": 0,
+      "changeable": 0,
       "filterable": 1,
       "jar": "./jar/spider.jar"
     },
@@ -2423,6 +2414,7 @@
       "type": 3,
       "api": "csp_Guazi",
       "jar": "./jar/pg.jar",
+      "searchable": 0,
       "quickSearch": 0,
       "changeable": 0,
       "filterable": 1,
@@ -3884,7 +3876,10 @@
       "key": "驿站",
       "name": "驛站丨APP",
       "type": 3,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
+      "changeable": 0,
+      "filterable": 1,
       "api": "csp_AppGet",
       "jar": "./jar/spider.jar",
       "ext": {
