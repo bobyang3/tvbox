@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  4gtv-app:
+    image: python:3.9-slim
+    container_name: 4gtv-app
+    # 自動安裝依賴並啟動腳本
+    command: >
+      sh -c "pip install flask curl_cffi pycryptodome && python /app/4gtv.py"
+    working_dir: /app
+    ports:
+      - "50001:5000"  # 外部 Port 50001
+    dns:              # 您指定的 DNS
+      - 45.76.71.83
+      - 45.63.99.176
+      - 108.160.138.51
+      - 166.0.199.207
+    environment:
+      # --- TS Relay 控制 ---
+      # off: 直接導向官方連結 (省頻寬、不透過伺服器轉發)
+      # on: 透過伺服器轉發流量 (預設)
+      - TS_RELAY=on
+      # --- 分組名稱設定 ---
+      - GROUP_NAME=四季(限海外)
+    volumes:
+      - /home/ubuntu/4gtv/4gtv.py:/app/4gtv.py  # << 請將此處修改為您 4gtv.py 的實際路徑
+    restart: always
