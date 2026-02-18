@@ -15,7 +15,7 @@ $name = $_GET["id"] ?? "";
 
 // 定义多个IP地址
 $serverIPs = [
-    '66.90.99.154',
+    '38.135.24.88',
 ];
 
 // 从可用服务器中选择一个IP
@@ -32,7 +32,7 @@ function selectServer($servers, $name = '') {
 
 // 选择一个服务器IP
 $selectedIP = selectServer($serverIPs, $name);
-$port = "http://{$selectedIP}:8278/";
+$port = "http://{$selectedIP}:11799/";
 
 $ts = $_GET["ts"] ?? "";
 
@@ -71,7 +71,7 @@ function getWithFailover($url, $header, $servers, $port, $name, $path = '') {
             
             // 选择新服务器
             $newIP = array_values($availableServers)[0];
-            $newUrl = "http://{$newIP}:8278/" . $name;
+            $newUrl = "http://{$newIP}:11799/" . $name;
             if (!empty($path)) {
                 $newUrl .= "/" . $path;
             }

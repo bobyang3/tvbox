@@ -8,11 +8,11 @@ date_default_timezone_set("Asia/Shanghai");
 // 核心配置
 const CONFIG = [
     'upstream'   => [
-    'http://livesmart5.robyang.ggff.net:8278/', 
-    'http://livesmart1.robyang.ggff.net:8278/', 
-    'http://livesmart2.robyang.ggff.net:8278/', 
-    'http://livesmart3.robyang.ggff.net:8278/', 
-    'http://livesmart4.robyang.ggff.net:8278/'], 
+    'http://livesmart5.robyang.dpdns.org:11799/', 
+    'http://livesmart1.robyang.dpdns.org:11799/', 
+    'http://livesmart2.robyang.dpdns.org:11799/', 
+    'http://livesmart3.robyang.dpdns.org:11799/', 
+    'http://livesmart4.robyang.dpdns.org:11799/'], 
     'list_url'   => 'https://cdn.jsdelivr.net/gh/hostemail/cdn@main/data/smart.txt',
     'backup_url' => 'https://cdn.jsdelivr.net/gh/hostemail/cdn@main/data/smart1.txt', 
     'token_ttl'  => 2400,  // 40分钟有效期
@@ -24,11 +24,11 @@ const CONFIG = [
 
 // const CONFIG = [
 //     'upstream'   => [
-//     'http://198.16.100.186:8278/', 
-//     'http://50.7.92.106:8278/', 
-//     'http://50.7.234.10:8278/',
-//     'http://50.7.220.170:8278/', 
-//     'http://67.159.6.34:8278/'], 
+//     'http://198.16.100.186:11799/', 
+//     'http://50.7.92.106:11799/', 
+//     'http://50.7.234.10:11799/',
+//     'http://50.7.220.170:11799/', 
+//     'http://67.159.6.34:11799/'], 
 //     'list_url'   => 'https://cdn.jsdelivr.net/gh/hostemail/cdn@main/data/smart.txt',
 //     'backup_url' => 'https://cdn.jsdelivr.net/gh/hostemail/cdn@main/data/smart1.txt', 
 //     'token_ttl'  => 2400,  // 40分钟有效期
