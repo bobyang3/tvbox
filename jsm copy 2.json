@@ -5650,9 +5650,9 @@
   ],
   "lives": [
     {
-      "name": "🏠RobYang6| http://www6.RobYang.dpdns.org",
+      "name": "🏠RobYang6| http://www4.RobYang.dpdns.org",
       "type": 0,
-      "url": "http://www6.RobYang.dpdns.org/VodLive/lb8ffa",
+      "url": "http://www4.RobYang.dpdns.org/VodLive/lb8ffa",
       "header": {
         "User-Agent": "okhttp/4.12.0 RobYang/5.2.1",
         "X-FORWARDED-FOR": "127.0.0.1"
