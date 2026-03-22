@@ -33,9 +33,9 @@
    | OK影視TV       | 手機版     | 2262073       | <http://aftv.news/2262073> |     |
    | OK pro影視TV   | 電視版 v7a | 2004596       | <http://aftv.news/2004596> |     |
    | OK pro影視TV   | 手機版 64  | 7857109       | <http://aftv.news/7857109> |     |
-   | SmartTube      | Stable     | 94257         | <http://aftv.news/94257>   |     |
-   | SmartTube      | Beta       | 62740         | <http://aftv.news/62740>   |     |
-   | OKTV DB Backup | RobYang    | 9676810       | <http://aftv.news/9676810> |     |
+   | SmartTube      | Stable    | 308699        | <http://aftv.news/308699>  |     |
+   | SmartTube      | Beta      | 766033        | <http://aftv.news/766033>  |     |
+   | OKTV DB Backup | RobYang   | 9676810       | <http://aftv.news/9676810> |     |
 
 
 ## 點播接口
