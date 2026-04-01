@@ -10,6 +10,8 @@
   //"logo": "https://RobYang.serv00.net/RobYang.jpg", //https://www1.RobYang.dpdns.org/RobYang.jpg
   "wallpaper": "https://jianbian.chuqiuyu.workers.dev",
   "name_Note": "? = Cannot load Page ; ?? = cannot play movie",
+  "searchable_Note": "全域搜尋,是否可搜尋",
+  "quickSearch_Note": "快速搜尋,邊打邊搜",
   "sites": [
     {
       "key": "robYang9纽约",
@@ -248,17 +250,17 @@
         "分类": "国产剧$lj#电视剧$dsj#电影$dy#动漫$dm"
       }
     },
-    {
-      "key": "drpy_js_剧迷",
-      "name": "影視| 劇迷[JS](無濾)",
-      "type": 3,
-      "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "order_num": 0,
-      "ext": "./js/剧迷.js"
-    },
+    // {
+    //   "key": "drpy_js_剧迷",
+    //   "name": "影視| 劇迷[JS](無濾)",
+    //   "type": 3,
+    //   "api": "./lib/drpy2.min.js",
+    //   "searchable": 1,
+    //   "quickSearch": 1,
+    //   "filterable": 1,
+    //   "order_num": 0,
+    //   "ext": "./js/剧迷.js"
+    // },
     {
       "key": "Cori爱壹帆",
       "name": "影視| 愛壹帆(無濾)",
@@ -961,8 +963,8 @@
       "name": "影視| 黑狐[JS]",
       "type": 3,
       "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "order_num": 0,
       "ext": "./js/黑狐影院.js"
@@ -2065,8 +2067,8 @@
       "type": 3,
       "api": "csp_XBPQ",
       "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "ext": {
         "简介": "+hl-col-xs-12 blurb\">&&</li>",
@@ -2923,8 +2925,8 @@
       "type": 3,
       "api": "csp_XBPQ",
       "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
+      "searchable": 0,
+      "quickSearch": 0,
       "filterable": 1,
       "ext": {
         "分类url": "https://www.trjvod.com/index.php/vod/show/area/{area}/by/{by}/class/{class}/id/{cateId}/page/{catePg}/year/{year}.html",

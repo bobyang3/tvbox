@@ -1,3 +1,7 @@
 
 # Ignore APK files
 *.apk
+.continue/prompts/refactor.prompt
+.continue/prompts/review.prompt
+.continue/prompts/test.prompt
+.kilocode/mcp.json
