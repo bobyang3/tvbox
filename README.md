@@ -33,14 +33,14 @@
    | OK影視TV       | 手機版     | 2262073       | <http://aftv.news/2262073> |     |
    | OK pro影視TV   | 電視版 v7a | 2004596       | <http://aftv.news/2004596> |     |
    | OK pro影視TV   | 手機版 64  | 7857109       | <http://aftv.news/7857109> |     |
-   | SmartTube      | Stable    | 308699        | <http://aftv.news/308699>  |     |
-   | SmartTube      | Beta      | 766033        | <http://aftv.news/766033>  |     |
-   | OKTV DB Backup | RobYang   | 9676810       | <http://aftv.news/9676810> |     |
+   | SmartTube      | Stable     | 308699        | <http://aftv.news/308699>  |     |
+   | SmartTube      | Beta       | 766033        | <http://aftv.news/766033>  |     |
+   | OKTV DB Backup | RobYang    | 9676810       | <http://aftv.news/9676810> |     |
 
 
 ## 點播接口
 
-1. Rob Yang 點直播線源: <http://RobYang.dpdns.org> 或 <https://RobYang.zone.id> 或 <https://RobYang.serv00.net>
+1. Rob Yang 點直播線源: <http://RobYang.eu.cc> 或 <http://RobYang.dpdns.org> 或 <https://RobYang.zone.id> 或 <https://RobYang.serv00.net>
 2. AnBox <http://tv.anbox.ip-ddns.com/vod>
 4. 沐晨: <https://py.doube.eu.org/static/t4.json>
 5. 寶盒=歐樂,泥巴　<https://raw.githubusercontent.com/guot55/yg/main/pg/jsm.json>
