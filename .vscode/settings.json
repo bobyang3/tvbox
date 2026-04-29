@@ -108,5 +108,11 @@
         "*.md": "vscode.markdown.preview.editor"
     },
     "git.autofetch": true,
-    "mssql.objectExplorer.groupBySchema": false
+    "mssql.objectExplorer.groupBySchema": false,
+    "[json]": {
+        "editor.formatOnSave": false
+    },
+    "[jsonc]": {
+        "editor.formatOnSave": false
+    }
 }
