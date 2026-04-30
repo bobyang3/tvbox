@@ -114,5 +114,14 @@
     },
     "[jsonc]": {
         "editor.formatOnSave": false
-    }
+    },
+    "cSpell.words": [
+        "bili",
+        "dokilwss",
+        "drpy",
+        "fypage",
+        "Jpys",
+        "XBPQ",
+        "xyqxbpq"
+    ]
 }
