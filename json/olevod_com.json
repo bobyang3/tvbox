@@ -7,10 +7,6 @@
   "pCfgJsR": "[\\W|\\S|.]*?MacPlayerConfig.player_list[\\W|\\S|.]*?=([\\W|\\S|.]*?),MacPlayerConfig.downer_list",
   "dcShow2Vip": {},
   "dcPlayUrl": "true",
-  "cateNode": "//ul[contains(@class,'top_nav clearfix')]//li/a[contains(@href,'type')and not(contains(@href,'5'))]",
-  "cateName": "/text()",
-  "cateId": "/@href",
-  "cateIdR": "/index.php/vod/type/id/(\\d+).html",
   "cateManual": {
     "电影": "1",
     "国产剧": "202",

@@ -45,7 +45,7 @@
       "quickSearch": 1,
       "filterable": 1,
       "ext": "./json/olevod_com.json",
-      "jar2": "./jar/custom_spiderNY.jar"
+      "jar": "./jar/custom_spiderNY.jar"
     },
     {
       "key": "Guazi",
