@@ -25,6 +25,17 @@
       "filterable": 1,
       "jar": "./jar/spider.jar"
     },
+        {
+      "key": "csp_XBiu歐樂影院ORG",
+      "name": "歐樂 (濾)",
+      "type": 3,
+      "api": "csp_XBPQ",
+      "jar": "./jar/xyqxbpq.jar",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./json/oule.json"
+    },
     {
       "key": "Guazi",
       "name": "瓜子影視(濾)",
@@ -122,21 +133,7 @@
       "order_num": 0,
       "ext": "./js/蛋蛋赞.js"
     },
-    {
-      "key": "csp_XBiu歐樂影院ORG",
-      "name": "20. 影視|歐樂 (濾)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": {
-        "简介": "content_desc context clearfix\">&&</span>",
-        "分类url": "https://www.oulevod.org/index.php/vod/show/by/time/id/{cateId}/page/{catePg}/year/{year}.html",
-        "分类": "電視劇$2#電影$1#動漫$4#綜藝$3#體育$59#短劇$53"
-      }
-    },
+
     {
       "key": "csp_热播之家",
       "name": "熱播之家(濾)",
