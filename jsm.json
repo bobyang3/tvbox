@@ -14,24 +14,14 @@
   "quickSearch_Note": "快速搜尋,邊打邊搜",
   "sites": [
     {
-      "key": "robYang9纽约",
-      "name": "🏘️點直播源 http://RobYang.dpdns.org",
-      "type": 3,
-      "api": "csp_XPathFilter",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "./json/ys.json",
-      "jar": "./jar/custom_spiderNY.jar"
-    },
-    {
       "key": "瓜子影视",
-      "name": "影視| 瓜子(濾)",
+      "name": "🏘️點直播源 http://RobYang.dpdns.org",
+      "name2": "影視| 瓜子(濾)",
       "type": 3,
       "api": "csp_Gz360",
-      "searchable": 0,
-      "quickSearch": 0,
-      "changeable": 0,
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
       "filterable": 1,
       "jar": "./jar/spider.jar"
     },
@@ -61,6 +51,18 @@
       "quickSearch": 0,
       "filterable": 1,
       "ext": "./json/麦田.json"
+    },
+    {
+      "key": "robYang9纽约",
+      "name": "纽约(濾)",
+      "name2": "🏘️點直播源 http://RobYang.dpdns.org",
+      "type": 3,
+      "api": "csp_XPathFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./json/ys.json",
+      "jar": "./jar/custom_spiderNY.jar"
     },
     {
       "key": "drpy_js_腾云驾雾",
@@ -461,7 +463,7 @@
     },
     {
       "key": "艾旦资源",
-      "name": "影視| 艾旦(無濾)",
+      "name": "影視| 艾旦(無濾)(18+)",
       "type": 1,
       "api": "https://lovedan.net/api.php/provide/vod",
       "jar": "./jar/panda.jar",
@@ -3178,8 +3180,7 @@
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
-      "filterable": 1,
-      "playerType": 2
+      "filterable": 1
     },
     {
       "key": "actor.py",
@@ -3189,8 +3190,7 @@
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
-      "filterable": 1,
-      "playerType": 2
+      "filterable": 1
     },
     {
       "key": "骚火影视",
@@ -3200,8 +3200,7 @@
       "searchable": 1,
       "changeable": 1,
       "quickSearch": 1,
-      "filterable": 1,
-      "playerType": 2
+      "filterable": 1
     },
     {
       "key": "优酷视频.py",
@@ -3211,8 +3210,7 @@
       "searchable": 1,
       "changeable": 0,
       "quickSearch": 1,
-      "filterable": 0,
-      "playerType": 2
+      "filterable": 0
     },
     {
       "key": "腾讯视频",
@@ -3239,7 +3237,7 @@
     },
     {
       "key": "爱奇艺",
-      "name": "愛奇異｜視頻",
+      "name": "愛奇異｜視頻(濾)",
       "type": 3,
       "api": "./lib/drpy2.min.js",
       "ext": "./js/爱奇艺.js"
@@ -3257,7 +3255,7 @@
     },
     {
       "key": "红片网",
-      "name": "紅片網",
+      "name": "紅片網(無濾)",
       "type": 3,
       "api": "./py/redflix.py",
       "searchable": 1,
@@ -3265,85 +3263,8 @@
       "filterable": 1,
       "changeable": 1
     },
-    {
-      "key": "天涯资源",
-      "name": "天涯資源",
-      "type": 1,
-      "api": "https://tyyszyapi.com/api.php/provide/vod/at/?ac=list",
-      "playUrl": "",
-      "searchable": 1,
-      "quickSearch": 1
-    },
-    {
-      "key": "视频采集",
-      "name": "iKun採集視頻",
-      "type": 1,
-      "api": "https://ikunzyapi.com/api.php/provide/vod",
-      "searchable": 0,
-      "filterable": 0,
-      "categories": [
-        "爽文短剧",
-        "灾难片",
-        "欧美剧",
-        "韩剧",
-        "日剧",
-        "动作片",
-        "喜剧片",
-        "爱情片",
-        "科幻片",
-        "恐怖片",
-        "剧情片",
-        "战争片"
-      ],
-      "quickSearch": 0
-    },
-    {
-      "key": "极速资源",
-      "name": "極速┃採集",
-      "type": 1,
-      "api": "https://jszyapi.com/api.php/provide/vod/",
-      "searchable": 1,
-      "changeable": 1,
-      "header": {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      }
-    },
-    {
-      "key": "光速资源",
-      "name": "光速┃採集",
-      "type": 0,
-      "api": "https://api.guangsuapi.com/api.php/provide/vod/at/xml/",
-      "searchable": 0,
-      "changeable": 1,
-      "header": {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      },
-      "quickSearch": 0
-    },
-    {
-      "key": "红牛资源",
-      "name": "440. 紅牛┃採集",
-      "type": 1,
-      "api": "https://www.hongniuzy2.com/api.php/provide/vod/from/hnm3u8/at/josn/",
-      "searchable": 0,
-      "changeable": 1,
-      "header": {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      },
-      "quickSearch": 0
-    },
-    {
-      "key": "豪华资源采集",
-      "name": "豪華資源採集",
-      "type": 0,
-      "api": "https://hhzyapi.com/api.php/provide/vod/at/xml",
-      "searchable": 1,
-      "quickSearch": 1,
-      "header": {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      }
-    },
-    {
+
+      {
       "key": "茅台资源",
       "name": "茅臺資源",
       "type": 1,
@@ -3352,33 +3273,9 @@
       "quickSearch": 1,
       "filterable": 0
     },
-    {
-      "key": "豆瓣采集",
-      "name": "豆瓣採集",
-      "type": 1,
-      "api": "https://caiji.dbzy5.com/api.php/provide/vod/at/josn/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "索尼采集",
-      "name": "索尼采集",
-      "type": 1,
-      "api": "https://suoniapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
-    {
-      "key": "无尽采集",
-      "name": "無盡採集",
-      "type": 1,
-      "api": "https://wjzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
+
+ 
+
     {
       "key": "速播采集",
       "name": "速播採集",
@@ -3392,22 +3289,14 @@
     },
     {
       "key": "U酷采集",
-      "name": "U酷採集",
+      "name": "U酷採集(無濾)",
       "type": 1,
       "api": "https://api.ukuapi88.com/api.php/provide/vod/?ac=list",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0
     },
-    {
-      "key": "百度云采集",
-      "name": "百度雲採集",
-      "type": 1,
-      "api": "https://api.apibdzy.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
+
     {
       "key": "新浪资源采集",
       "name": "新浪資源採集",
@@ -3417,74 +3306,10 @@
       "quickSearch": 1,
       "filterable": 0
     },
-    {
-      "key": "快车资源采集",
-      "name": "450. 快車資源採集",
-      "type": 0,
-      "api": "https://caiji.kuaichezy.org/api.php/provide/vod/at/xml/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "header": {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
-      }
-    },
-    {
-      "key": "鸭鸭资源采集",
-      "name": "鴨鴨資源採集",
-      "type": 1,
-      "api": "https://cj.yayazy.net/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "非凡资源采集",
-      "name": "非凡資源採集",
-      "type": 1,
-      "api": "http://api.ffzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
-    {
-      "key": "爱奇艺资源采集",
-      "name": "愛奇藝資源採集",
-      "type": 1,
-      "api": "https://iqiyizyapi.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "魔爪资源网",
-      "name": "魔爪資源網",
-      "type": 1,
-      "api": "https://mozhuazy.com/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "牛牛资源",
-      "name": "牛牛資源",
-      "type": 1,
-      "api": "https://api2.niuniuzy.me/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "猫眼资源采集",
-      "name": "貓眼資源採集",
-      "type": 1,
-      "api": "https://api.maoyanapi.top/api.php/provide/vod/at/json",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
+
     {
       "key": "虎牙资源网",
-      "name": "虎牙資源網",
+      "name": "虎牙資源網(無濾)",
       "type": 1,
       "api": "https://www.huyaapi.com/api.php/provide/vod/at/json",
       "searchable": 1,
@@ -3494,68 +3319,15 @@
       }
     },
     {
-      "key": "魔都资源网",
-      "name": "魔都資源網",
-      "type": 1,
-      "api": "https://www.mdzyapi.com/api.php/provide/vod/?ac=list",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
-    {
-      "key": "360资源",
-      "name": "460. 360資源",
-      "type": 1,
-      "api": "https://360zyzz.com/api.php/provide/vod/at/json",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
-    {
-      "key": "优质资源库",
-      "name": "優質資源庫",
-      "type": 1,
-      "api": "https://api.yzzy-api.com/inc/apijson.php?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "猫眼资源",
-      "name": "貓眼資源",
-      "type": 1,
-      "api": "https://api.maoyanapi.top/api.php/provide/vod",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
-    {
-      "key": "OK资源",
-      "name": "OK資源",
-      "type": 1,
-      "api": "https://api.okzyw.net/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
       "key": "建安解析",
-      "name": "建安解析",
+      "name": "建安解析(無濾)",
       "type": 1,
       "api": "http://154.219.117.232:9981/jacloudapi.php/provide/vod/?ac=list",
       "searchable": 0,
       "quickSearch": 0,
       "filterable": 1
     },
-    {
-      "key": "小绵羊资源",
-      "name": "小綿羊資源",
-      "type": 1,
-      "api": "https://vs.okcdn100.top/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
+
     {
       "key": "飘零影院",
       "name": "飄零影院",
@@ -3565,24 +3337,7 @@
       "quickSearch": 0,
       "filterable": 0
     },
-    {
-      "key": "如意资源",
-      "name": "如意資源",
-      "type": 1,
-      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
-    {
-      "key": "白狐资源",
-      "name": "白狐資源",
-      "type": 1,
-      "api": "https://baihuzy.com/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 0
-    },
+
     {
       "key": "优酷[官]",
       "name": "470. 優酷[官]",
@@ -3605,20 +3360,10 @@
       "order_num": 0,
       "ext": "./js/嘀哩嘀哩.js"
     },
-    {
-      "key": "老王电影[自动]",
-      "name": "老王電影",
-      "type": 3,
-      "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "order_num": 0,
-      "ext": "./js/老王电影[自动].js"
-    },
+
     {
       "key": "美剧窝",
-      "name": "美劇窩",
+      "name": "美劇窩(無濾)",
       "type": 3,
       "api": "./lib/drpy2.min.js",
       "searchable": 1,
@@ -3629,7 +3374,7 @@
     },
     {
       "key": "小鸭子看看.py",
-      "name": "小鴨子看看.py",
+      "name": "小鴨子看看(濾)",
       "type": 3,
       "api": "./py/小鸭子看看.py",
       "searchable": 1,
@@ -3638,28 +3383,8 @@
       "filterable": 1,
       "playerType": 2
     },
-    {
-      "key": "4KVM.py",
-      "name": "4KVM.py",
-      "type": 3,
-      "api": "./py/4KVM.py",
-      "searchable": 1,
-      "changeable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "playerType": 2
-    },
-    {
-      "key": "csp_NIVODvip",
-      "name": "泥視頻(json)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/XBPQ.jar",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "./json/泥视频VIP.json"
-    },
+
+
     {
       "key": "py_NIVOD.CC",
       "name": "泥視頻高清(py)",
@@ -3681,20 +3406,10 @@
       "order_num": 0,
       "ext": "./js/时光影院.js"
     },
-    {
-      "key": "小白菜电影",
-      "name": "小白菜電影",
-      "type": 3,
-      "api": "./lib/drpy2.min.js",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "order_num": 0,
-      "ext": "./js/小白菜电影.js"
-    },
+
     {
       "key": "小鸡暴走",
-      "name": "小雞暴走",
+      "name": "小雞暴走(濾)",
       "type": 3,
       "api": "./py/小鸡暴走.py",
       "searchable": 0,
@@ -3703,28 +3418,7 @@
       "filterable": 1,
       "playerType": 2
     },
-    {
-      "key": "4K影院.py",
-      "name": "4K影院.py",
-      "type": 3,
-      "api": "./py/4K影院.py",
-      "searchable": 0,
-      "changeable": 1,
-      "quickSearch": 0,
-      "filterable": 1,
-      "playerType": 2
-    },
-    {
-      "key": "嗷呜4K影院.py",
-      "name": "嗷嗚4K影院.py",
-      "type": 3,
-      "api": "./py/嗷呜4K影院.py",
-      "searchable": 0,
-      "changeable": 1,
-      "quickSearch": 0,
-      "filterable": 1,
-      "playerType": 2
-    },
+
     {
       "key": "免费影院",
       "name": "免費影院.jar",
@@ -3863,7 +3557,7 @@
     },
     {
       "key": "艾旦影视",
-      "name": "500. 艾旦(無濾)",
+      "name": "500. 艾旦(無濾)(18+)",
       "type": 1,
       "api": "https://lovedan.net/api.php/provide/vod/",
       "jar": "./jar/xyqxbpq.jar",
