@@ -47,6 +47,17 @@
       "ext": "./json/olevod_com.json",
       "jar": "./jar/custom_spiderNY.jar"
     },
+            {
+      "key": "csp_XPath_olevod_com2",
+      "name": "歐樂COM2 (濾)",
+      "type": 3,
+      "api": "csp_XPathMacFilter",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "./json/olevod_com.json",
+      "jar": "./jar/fan.txt"
+    },
     {
       "key": "Guazi",
       "name": "瓜子影視(濾)",
