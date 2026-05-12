@@ -12,7 +12,7 @@
     "连续剧": "2",
     "综艺": "3",
     "动漫": "4",
-
+    // "18+ (hide)": "5",
     "蓝光影院": "6"
   },
   "homeVodNode": "//div[contains(@class, 'pannel')]//ul[contains(@class,'vodlist vodlist_wi list_v12 clearfix')]/li/a[contains(@class,'vodlist_thumb')]",
