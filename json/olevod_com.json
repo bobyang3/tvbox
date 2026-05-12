@@ -12,7 +12,8 @@
     "连续剧": "2",
     "综艺": "3",
     "动漫": "4",
-    "蓝光影院": "5"
+    "18+ (hide)": "5",
+    "蓝光影院": "6"
   },
   "homeVodNode": "//div[contains(@class, 'pannel')]//ul[contains(@class,'vodlist vodlist_wi list_v12 clearfix')]/li/a[contains(@class,'vodlist_thumb')]",
   "homeVodName": "/@title",
@@ -74,7 +75,7 @@
         "name": "排序",
         "value": [
           {
-            "n": "最近",
+            "n": "最新",
             "v": "/by/time"
           },
           {
@@ -340,7 +341,7 @@
         "name": "排序",
         "value": [
           {
-            "n": "最近",
+            "n": "最新",
             "v": "/by/time"
           },
           {
@@ -632,7 +633,7 @@
         "name": "排序",
         "value": [
           {
-            "n": "最近",
+            "n": "最新",
             "v": "/by/time"
           },
           {
@@ -866,7 +867,7 @@
         "name": "排序",
         "value": [
           {
-            "n": "最近",
+            "n": "最新",
             "v": "/by/time"
           },
           {
@@ -1086,13 +1087,13 @@
         ]
       }
     ],
-    "5": [
+    "6": [
       {
         "key": "by",
         "name": "排序",
         "value": [
           {
-            "n": "最近",
+            "n": "最新",
             "v": "/by/time"
           },
           {
