@@ -47,65 +47,17 @@
       "ext": "./json/olevod_com.json",
       "jar": "./jar/custom_spiderNY.jar"
     },
-    	    {
-      "key": "csp_唐人街影视",
-      "name": "唐人街",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 1,
-      "ext": {
-	  "主页url": "https://www.trjvod.com",
-        "分类url": "https://www.trjvod.com/index.php/vod/show/area/{area}/by/{by}/class/{class}/id/{cateId}/page/{catePg}/year/{year}.html",
-        "分类": "电影$1#连续剧$2#动漫$4#综艺$3#体育$59#短剧$53"
-      }
-    },
-	    {
-      "key": "csp_XBiu_Duboku",
-      "name": "獨播庫 (濾)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "./json/独播库.json"
-    },
-    {"key": "独播庫影视","name": "独播庫影视","type": 3,"api": "csp_Duboku"},
-    {
-      "key": "csp_XBiu_Gimy",
-      "name": "Gimy 劇迷 (濾)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "./json/GimyTV劇迷.json"
-    },
-    {
-      "key": "csp_XBiu_Ushipin",
-      "name": "優視頻 (濾)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "jar": "./jar/xyqxbpq.jar",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "./json/优视频.json"
-    },
-    {
-      "key": "csp_XPath_olevod_com2",
-      "name": "歐樂COM2 (濾)",
-      "type": 3,
-      "api": "csp_XBPQ",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "ext": "./json/olevod_com.json"
-    },
+    //         {
+    //   "key": "csp_XPath_olevod_com2",
+    //   "name": "歐樂COM2 (濾)",
+    //   "type": 3,
+    //   "api": "csp_XPathMacFilter",
+    //   "searchable": 1,
+    //   "quickSearch": 1,
+    //   "filterable": 1,
+    //   "ext": "./json/olevod_com.json",
+    //   "jar": "./jar/fan.txt"
+    // },
     {
       "key": "Guazi",
       "name": "瓜子影視(濾)",
@@ -2075,6 +2027,20 @@
       }
     },
     {
+      "key": "csp_唐人影视",
+      "name": "唐人街(滤)",
+      "type": 3,
+      "api": "csp_XBPQ",
+      "jar": "./jar/xyqxbpq.jar",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 1,
+      "ext": {
+        "分类url": "https://www.trjvod.com/index.php/vod/show/area/{area}/by/{by}/class/{class}/id/{cateId}/page/{catePg}/year/{year}.html",
+        "分类": "电影$1#连续剧$2#动漫$4#综艺$3#体育$59#短剧$53"
+      }
+    },
+    {
       "key": "csp_茶杯狐",
       "name": "茶狐",
       "type": 3,
@@ -2463,8 +2429,8 @@
       "quickSearch": 1,
       "filterable": 1,
       "ext": {
-        "主页url": "https://www.trjvod.com",
-        "分类url": "https://www.trjvod.com/index.php/vod/show/area/{area}/by/{by}/class/{class}/id/{cateId}/page/{catePg}/year/{year}.html",
+        "简介": "+display:none;\">&&</span>",
+        "分类url": "https://www.trjvod.com/index.php/vod/show/by/time/id/{cateId}/page/{catePg}/year/{year}.html",
         "分类": "電視劇$2#電影$1#動漫$4#綜藝$3#短劇$53"
       }
     },
