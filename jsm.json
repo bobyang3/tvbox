@@ -13,17 +13,12 @@
   "searchable_Note": "全域搜尋,是否可搜尋",
   "quickSearch_Note": "快速搜尋,邊打邊搜",
   "sites": [
-    { "key": "csp_XPath_olevod_com", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/custom_spiderNY.jar" },
-    { "key": "csp_XPath_olevod_com2", "name": "5🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/panda.jar" },
-    { "key": "csp_XPath_olevod_com3", "name": "6🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/custom_spider.jar"},
-    { "key": "csp_XPath_olevod_com4", "name": "7🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/fty.jar"},
-    { "key": "csp_XPath_olevod_com9", "name": "9🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/spider.jar" },
+    { "key": "csp_XPath_olevod_com", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/fty.jar"},
     { "key": "瓜子影视", "name3": "🏘️點直播源 http://RobYang.dpdns.org", "name": "影視| 瓜子(濾)", "type": 3, "api": "csp_Gz360", "searchable": 0, "quickSearch": 0, "changeable": 1, "filterable": 1, "jar": "./jar/spider.jar" },
     { "key": "csp_XBiu歐樂影院ORG", "name": "歐樂 ORG (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/oule.json" },
     { "key": "csp_vs", "name": "VS秒播 (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/vsys.json" },
     { "key": "Guazi", "name": "瓜子影視(濾)", "type": 3, "api": "csp_Guazi", "jar": "./jar/pg.jar", "searchable": 0, "quickSearch": 0, "changeable": 0, "filterable": 1, "timeout": 60, "ext": "" },
     { "key": "麦田2", "name": "麥田2(濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 0, "style": {"ratio": 1.43}, "quickSearch": 0, "filterable": 1, "ext": "./json/麦田.json" },
-    { "key": "robYang9纽约", "name": "纽约(濾)", "name2": "🏘️點直播源 http://RobYang.dpdns.org", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/ys.json", "jar": "./jar/custom_spiderNY.jar" },
     { "key": "drpy_js_腾云驾雾", "name": "官源 | 騰訊[js] (濾)", "type": 3, "api": "./lib/drpy2.min.js", "ext": "./js/腾云驾雾.js" },
     { "key": "drpy_js_奇珍异兽", "name": "官源 | 愛奇藝[js] (濾)", "type": 3, "api": "./lib/drpy2.min.js", "ext": "./js/奇珍异兽.js" },
     { "key": "drpy_js_菜狗", "name": "官源 | 搜狗[js] (濾)", "type": 3, "api": "./lib/drpy2.min.js", "ext": "./js/菜狗.js" },
@@ -236,6 +231,7 @@
     { "key": "csp_威士影视2", "name": "影視| 威士(濾) 3002??", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 0, "quickSearch": 0, "filterable": 1, "ext": "./json/威士影视.json" },
     { "key": "XBPQ_JQQZX", "name": "影視| 劇圈圈(濾) ??", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "ext": {"分类": "电影$dianying#剧集$juji#综艺$zongyi#动漫$dongman#纪录片$jilupian#爽剧$shuangju", "分类url": "https://www.jqqzx.cc/vodshow/area/{area}/by/{by}/class/{class}/id/{cateId}/lang/{lang}/page/{catePg}/year/{year}.html"} },
     { "key": "csp_一起看", "name": "影視| 一起看JS(濾)3002??", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 0, "quickSearch": 0, "filterable": 1, "ext": "./json/一起看.json", "2 ext, first ext is better": "./js/一起看[优].js" },
+    { "key": "robYang9纽约", "name": "纽约(濾) ?", "name2": "🏘️點直播源 http://RobYang.dpdns.org", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/ys.json", "jar": "./jar/fty.jar" },
     { "key": "Youtube", "name": "Youtube", "type": 3, "api": "csp_Youtube", "searchable": 0, "quickSearch": 0, "changeable": 0, "timeout": 240, "jar": "./jar/pg.jar", "ext": {"token": "./json/tokenm.json", "json": "./json/youtube.json", "type": "直播#新闻#剧集#电影#综艺#纪录片#音乐#体育#动物#风光#放松#4K#HDR#movie#music#documentary#bbc documentary#national geographic documentary", "keywords": "排行榜,HOT,TRENDS,热门话题,热门趋势,热门综艺,热门电影,热门电视剧,小姐姐", "codecs": "", "proxy": "", "danmu": true}, "style": {"type": "rect", "ratio": 1.77} }
   ],
   "parses": [
