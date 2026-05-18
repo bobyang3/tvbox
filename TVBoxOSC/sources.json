@@ -3,19 +3,19 @@
   // "logo": "https://www1.RobYang.ggff.net/RobYang.jpg",
   "urls": [
     {
-      "url": "http://www1.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　bsite3　
+      "url": "http://www3.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　runasp1
       "name": "🏠RobYang 點直播"
     },
     {
-      "url": "http://www2.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　azure　
+      "url": "http://www4.RobYang.qzz.io/VodLive/jb8ffa", //
       "name": "🏠RobYang 點直播(備1)"
     },
     {
-      "url": "http://www4.RobYang.dpdns.org/VodLive/jb8ffa", //
+      "url": "http://www1.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　bsite3　
       "name": "🏠RobYang 點直播(備2)"
     },
     {
-      "url": "http://www3.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　runasp1
+      "url": "http://www2.RobYang.dpdns.org/VodLive/jb8ffa", //jsm　azure　
       "name": "🏠RobYang 點直播(備3)"
     },
     // {
@@ -27,12 +27,21 @@
       "name": "🏘️🏘️RobYang 總源 http://RobYang.dpdns.org"
     },
     {
-      "url": "http://RobYang.runasp.net",
-      "name": "🏘️🏘️RobYang 總源(備1) http://RobYang.runasp.net"
+      "url": "http://RobYang.eu.cc",
+      "name": "🏘️🏘️RobYang 總源(備1) http://RobYang.eu.cc"
     },
     {
       "url": "http://RobYang.zone.id",
       "name": "🏘️🏘️RobYang 總源(備2) http://RobYang.zone.id"
+    },
+    {
+      "url": "http://RobYang.qzz.io",
+      "name": "🏘️🏘️RobYang 總源(備3) http://RobYang.qzz.io",
+      "note1": "T-mobile 5G home may block this"
+    },
+    {
+      "url": "http://RobYang.runasp.net",
+      "name": "🏘️🏘️RobYang 總源(備4) http://RobYang.runasp.net"
     },
     // {
     //   "url": "http://2487.us.kg", //source
