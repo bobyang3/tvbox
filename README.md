@@ -24,21 +24,21 @@
 1. 電視上先裝 downloader (使用Google play 或 <https://www.aftvnews.com/downloader>)
 2. 選擇以下APP安裝: (https://go.aftvnews.com/)
 
-   | App              | 版本       | Downloader 碼 | 鏈接                       |     |
-   | --------------   | ---------- | ------------- | --------------------------| --- |
-   | 1. 蜂蜜影視TV     | 電視版 v7a | 5012184       | <http://aftv.news/5012184> |     |
-   | 1. 蜂蜜影視TV     | 手機版     | 2526465       | <http://aftv.news/2526465> |     |
-   | 1. 蜂蜜影視TV     | 手機版 64  | 6545803       | <http://aftv.news/6545803> |     |
-   | 2. OK影視TV       | 電視版 v7a | 6931895       | <http://aftv.news/6931895> |     |
-   | 2. OK影視TV       | 電視版 v8a | 2695416       | <http://aftv.news/2695416> |     |
-   | 2. OK影視TV       | 手機版 v7a | 8396282       | <http://aftv.news/8396282> |     |
-   | 2. OK影視TV       | 手機版 v8a | 3179144       | <http://aftv.news/3179144> |     |
-   | 3. OK pro影視TV   | 電視版 v7a | 9454479       | <http://aftv.news/9454479> |     |
-   | 3. OK pro影視TV   | 電視版 v8a | 1389234       | <http://aftv.news/1389234> |     |
-   | 3. OK pro影視TV   | 手機版 64  | 2067745       | <http://aftv.news/2067745> |     |
-   | 4. SmartTube      | Stable    | 308699        | <http://aftv.news/308699>  |     |
-   | 4. SmartTube      | Beta      | 766033        | <http://aftv.news/766033>  |     |
-   | 5. OKTV DB Backup | RobYang   | 9676810       | <http://aftv.news/9676810> |     |
+   | App               | 版本       | Downloader 碼 | 鏈接                        |     |
+   | ----------------- | ---------- | ------------- | --------------------------- | --- |
+   | 1. 蜂蜜影視TV     | 電視版 v7a | 5012184       | <https://aftv.news/5012184> |     |
+   | 1. 蜂蜜影視TV     | 手機版     | 2526465       | <https://aftv.news/2526465> |     |
+   | 1. 蜂蜜影視TV     | 手機版 64  | 6545803       | <https://aftv.news/6545803> |     |
+   | 2. OK影視TV       | 電視版 v7a | 7880313       | <https://aftv.news/7880313> |     |
+   | 2. OK影視TV       | 電視版 v8a | 8679516       | <https://aftv.news/8679516> |     |
+   | 2. OK影視TV       | 手機版 v7a | 1826661       | <https://aftv.news/1826661> |     |
+   | 2. OK影視TV       | 手機版 v8a | 8679516       | <https://aftv.news/8679516> |     |
+   | 3. OK pro影視TV   | 電視版 v7a | 3618792       | <https://aftv.news/3618792> |     |
+   | 3. OK pro影視TV   | 電視版 v8a | 6778637       | <https://aftv.news/6778637> |     |
+   | 3. OK pro影視TV   | 手機版 64  | 4504710       | <https://aftv.news/4504710> |     |
+   | 4. SmartTube      | Stable     | 308699        | <https://aftv.news/308699>  |     |
+   | 4. SmartTube      | Beta       | 766033        | <https://aftv.news/766033>  |     |
+   | 5. OKTV DB Backup | RobYang    | 9676810       | <https://aftv.news/9676810> |     |
 
 
 ## 點播接口
