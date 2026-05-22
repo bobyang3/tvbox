@@ -429,6 +429,7 @@
     { "name": "------------以下爲測試直播-------------", "type": 0, "url": "https://www1.RobYang.dpdns.org/VodLive/lb8ffa" },
     // { "name": "fmm| 中", "type": 0, "url": "https://live.fanmingming.com/tv/m3u/ipv6.m3u", "ua": "okhttp/3.8.1", "timeout": 20, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
     // { "name": "live| 中台港雜", "type": 0, "url": "https://epg.pw/test_channels.m3u", "ua": "okhttp/3.8.1", "timeout": 20, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
+    { "name": "live QD| 中台港雜", "type": 0, "url": "https://cdn.qd.je/live.m3u", "timeout": 20, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
     { "name": "ipv6", "type": 0, "url": "https://raw.githubusercontent.com/qist/tvbox/refs/heads/master/tvboxtv.txt", "ua": "okhttp/3.8.1", "timeout": 20, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" }
   ]
 }
