@@ -1,0 +1,26 @@
+var rule = {
+    title: '努努影院',
+    host: 'http://www.ijianpin.com',
+    //url: '/vodshow/fyclass--------fypage---/',
+    url: '/vodshow/fyclass-fyfilter/',
+    searchUrl: '/vodsearch/**----------fypage---/',
+    searchable: 2, quickSearch: 0, filterable: 1,
+    headers: { 'User-Agent': 'MOBILE_UA' },
+    class_parse: '.navbar-items li:gt(0):lt(8);a&&Text;a&&href;.*/(.*?)/',
+    filter_url: '{{fl.area}}-{{fl.by}}-{{fl.class}}-----fypage---{{fl.year}}',
+    play_parse: true, limit: 6, double: true,
+    lazy: "js:\n  let html = request(input);\n  let hconf = html.match(/r player_.*?=(.*?)</)[1];\n  let json = JSON5.parse(hconf);\n  let url = json.url;\n  if (json.encrypt == '1') {\n    url = unescape(url);\n  } else if (json.encrypt == '2') {\n    url = unescape(base64Decode(url));\n  }\n  if (/\\.(m3u8|mp4|m4a|mp3)/.test(url)) {\n    input = {\n      parse: 0,\n      jx: 0,\n      url: url,\n    };\n  } else {\n    input = url && url.startsWith('http') && tellIsJx(url) ? {parse:0,jx:1,url:url}:input;\n  }",
+    推荐: '.tab-list.active;a.module-poster-item.module-item;.module-poster-item-title&&Text;.lazyload&&data-original;.module-item-note&&Text;a&&href',
+    一级: 'body a.module-poster-item.module-item;a&&title;.lazyload&&data-original;.module-item-note&&Text;a&&href',
+    二级: {
+        title: 'h1&&Text;.module-info-tag-link:eq(-1)&&Text',
+        img: '.lazyload&&data-original||data-src||src',
+        desc: '.module-info-item:eq(-2)&&Text;.module-info-tag-link&&Text;.module-info-tag-link:eq(1)&&Text;.module-info-item:eq(2)&&Text;.module-info-item:eq(1)&&Text',
+        content: '.module-info-introduction&&Text',
+        tabs: '.module-tab-item',
+        lists: '.module-play-list:eq(#id) a',
+        tab_text: 'div--small&&Text',
+    },
+    搜索: 'body .module-item;.module-card-item-title&&Text;.lazyload&&data-original;.module-item-note&&Text;a&&href;.module-info-item-content&&Text',
+    filter: 'H4sIAAAAAAAAA+2Y3W4aRxTH7/sUEde+2HWaj+ZVqlzQGDmkCZFM3MqNLNnGECAuYOTgUPBXYxvHNTbYrgtLgZfZmYW36MDM+UAtK9RalhpxBb/z35k958zOObP7NjAXDkaWwpH5wJNv3wa+Dy0FngSevQxGo4GZQCT4KqRQpCoyFlf8Q/DlYmh4XWRgjp/0YyckKlNgecZohbISjNUAaF6yTiMMgCZXc3KlYDQDOGf6xG2XYU4NOGdlUzRbMKcGHMc9NID3S350nRTcTwNoveqx2Dg1mgG8X/rCa4NmgPnpbbXIzwGgdvSO/DSAvlSP3c4++KIBxyXy/eJnGKcBx+2eKs9hnAbU1s68wiZoGlCLpeXaL6BpwPhaWRFvQHwaQOvv5OXHI6MZwDkL73opB+bUgDF0zr2t30W7DmEg4xXZw94nXCkNqGUSInsJmgZcqW5O5RlWSgNlrix3NjFzQ0Btvev9BpEYwAy0N71WecThEdPy08GVer8EF0JBtl3KNbHhjNsuKI5sl8NKv5gARzRguo+LsnEB6dZACavJZgcTNgQMoJMRpTa4rgGX6eoDaQYwme/rpBnAcdtHsnwG4zSgn3ufaZwBWvo/SDNAvtS4L7WRcT/XhHMM4zTguPWsypRIwq4gxkiOul626qWKEAwybdV9+b6rhuFuBcYr4jduCwqSAb70S6HgAlv65rXbao9behT50s9as18b2/Avs98n+31unyX7LLfbZLe53SK7xez2N2hXf5n9Mdkfc/sjsj/i9odkf8jtD8j+gNspXpvHa1O8No/XpnhtHq9N8do8XpvitXm8FsVr8Xgtitfi8VoUr8XjtShei8drUbwWj9eieNVf/vB8t0SPjszkhZP926Mjt2/629dmgjdhdSlM7DqOrG0Z5Xn4TZSe+4t1kYRqEn32eiE0uOvTma/u3QvMRV/cbqP3Kdl+zVX3DbF6I2LZkVaiTfy84HeWEOc3wqmCpmHCHj32LOHXo/3OEn4dyq+fus0D6lAGqEfHZRGKvwG834cE9X0DrHtRzgxMWtL+ezdLxJWALXcIk3SJf9vp/LqSfxcc33l8u2ChphqF2DnAcw7wtGtMu8aX2DV+eh2ZXwrfauPor6S8ygpsdg286q3vsaqnAN087/ZqSdiYGnBcvirTcJ43QEUiLhtQgQ1QUbpymzksSkNgBaT/CXwxgJpzKs53QdOA9ytdsjchDThua09e49uqBhzXaMhk1nXy9EYzYsI8XP+q+gjkQQPOUV/rrW7AaA13VuFV1Vb1GV0fAqvUquZTpR4AamcVlV7QNExr5rRm/l9r5pyqma+CkVstmn6F0e8TmBer9g6g2BrAOTMnXg5iMIBabtc7w89HGqgGjP8k1cvt9DJw8jeAc+4fiBIc2Q1MciyXZYd95tKA9/P5AOT3FiJqKk2w5ga4dnTFNAWYz8OO+yd8OjNArwF7IlnC14Ah0JN0KarQaAzgnKW0LEKlNUB5qYvuNuZlCHd3nC+1XQffvzRMcvT+x4I+PSBPi/0XWOyjzxeDkfkfQ5E59ftikRX9u3Vm+S+V2ba70BkAAA=='
+}
