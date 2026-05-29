@@ -1,6 +1,8 @@
 var rule = {
+    author: 'RobYang',
     title: '努努影院',
     host: 'http://www.ijianpin.com',
+    host2: 'https://nnyy.in but different style, this js wont work',
     //url: '/vodshow/fyclass--------fypage---/',
     url: '/vodshow/fyclass-fyfilter/',
     searchUrl: '/vodsearch/**----------fypage---/',
