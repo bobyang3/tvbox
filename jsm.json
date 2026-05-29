@@ -14,7 +14,7 @@
   "quickSearch_Note": "快速搜尋,邊打邊搜",
   "sites": [
     { "key": "csp_XPath_olevod_com", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/fty.jar"},
-    { "key": "csp_XBiu努努影院", "name": "努努影院(濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/努努影院nnyy.json"},
+    // { "key": "csp_XBiu努努影院", "name": "努努影院(濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/努努影院nnyy.json"},
     { "key": "drpy_js_努努影院1", "name": "努努影院(js)(濾)", "type": 3, "api": "./lib/drpy2.min.js", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./js/努努影院1.js" },
  // { "key": "csp_XBiuMiniJJ", "name": "小雞暴走(濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/小雞暴走影院.json" },
     { "key": "小鸡暴走", "name": "小雞暴走(py)(濾)", "type": 3, "api": "./py/小鸡暴走.py", "searchable": 0, "changeable": 1, "quickSearch": 0, "filterable": 1},
