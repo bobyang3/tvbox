@@ -1,4 +1,8 @@
 📺YouTube 新聞,#genre#
+台視新聞,https://www.youtube.com/live/xL0ch83RAK8?si=6PbDs2DOrlT9Og14
+台視新聞,https://www.youtube.com/watch?v=xL0ch83RAK8
+公視新聞,https://www.youtube.com/live/quwqlazU-c8?si=-eMTJ5zFhfWAphbs
+公視新聞,https://www.youtube.com/watch?v=quwqlazU-c8
 鏡新聞,https://www.youtube.com/live/5n0y6b0Q25o?si=UhF9OL7jduRXteiF
 鏡新聞,https://www.youtube.com/watch?v=5n0y6b0Q25o
 三立新聞,https://www.youtube.com/live/QsGswQvRmtU?si=znH9MBSQtvCvrqvt
@@ -7,14 +11,10 @@
 三立財經新聞,https://www.youtube.com/watch?v=pF507BLtbqU
 三立新聞海外,https://www.youtube.com/live/hGJkDZDchYI?si=ZevMfRDmU86tccJz
 三立新聞海外,https://www.youtube.com/watch?v=hGJkDZDchYI
-公視新聞,https://www.youtube.com/live/quwqlazU-c8?si=-eMTJ5zFhfWAphbs
-公視新聞,https://www.youtube.com/watch?v=quwqlazU-c8
 民視新聞,https://www.youtube.com/live/ylYJSBUgaMA?si=e-d0Ns2EB36iyW_3
 民視新聞,https://www.youtube.com/watch?v=ylYJSBUgaMA
 非凡商業,https://www.youtube.com/live/eA6Aczd3FZM?si=e-d0Ns2EB36iyW_3
 非凡商業,https://www.youtube.com/watch?v=eA6Aczd3FZM
-台視新聞,https://www.youtube.com/live/xL0ch83RAK8?si=6PbDs2DOrlT9Og14
-台視新聞,https://www.youtube.com/watch?v=xL0ch83RAK8
 華視新聞,https://www.youtube.com/live/wM0g8EoUZ_E?si=6PbDs2DOrlT9Og14
 華視新聞,https://www.youtube.com/watch?v=7lxXN3zIr-I
 華視新聞,https://www.youtube.com/watch?v=wM0g8EoUZ_E
