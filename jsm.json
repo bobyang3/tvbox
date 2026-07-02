@@ -428,7 +428,7 @@
     // { "name": "🏠RobYang7| http://www7.RobYang.dpdns.org", "source": "Azure", "url": "http://www7.RobYang.dpdns.org/VodLive/lb8ffa", "type": 0, "header": {"User-Agent": "okhttp/4.12.0 RobYang/5.2.1", "X-FORWARDED-FOR": "127.0.0.1"}, "timeout": 5, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
     { "name": "🏠RobYang備1| http://robyang.zone.id", "type": 0, "url": "http://RobYang.runasp.net/VodLive/lb8ffa", "header": {"User-Agent": "okhttp/4.12.0 RobYang/5.2.1", "X-FORWARDED-FOR": "127.0.0.1"}, "timeout": 5, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
     { "name": "Judy 4GTV| 限台灣內", "type": 0, "url": "https://raw.githubusercontent.com/judy-gotv/iptv/refs/heads/main/4gtv.m3u", "ext": {}, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" },
-    { "name": "Judy Litv| 限台灣內", "type": 0, "url": "https://raw.githubusercontent.com/judy-gotv/iptv/refs/heads/main/litv.m3u", "ext": {}, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" },
+    { "name": "全球| 中台港日韓際", "type": 0, "url": "https://raw.githubusercontent.com/tianze889/tvds/refs/heads/main/tvdc.json", "ext": {}, "epg": "http://epg.52sw.top:668/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" },
     { "name": "18+ 日本", "type": 0, "url": "https://files.catbox.moe/2r4ru2.txt" },
     // { "name": "------------以下可能已經失效-------------", "type": 0, "url": "https://rb.gy/vryc96" },
     { "name": "------------以下爲測試直播-------------", "type": 0, "url": "https://www1.RobYang.dpdns.org/VodLive/lb8ffa" },
