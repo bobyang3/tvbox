@@ -76,7 +76,7 @@
 // {"key":"91黑料","name":"91黑料","type":3,"api":"csp_XBPQ","jar":"./jar/XBPQ.jar;md5;4145467d49e0437dc43e8bbb79e3ff7d","searchable":1,"quickSearch":1,"filterable":1,"ext":"./XBPQ/91黑料.json"},
 // {"key":"色花堂","name":"色花堂","type":3,"api":"csp_XBPQ","searchable":1,"quickSearch":1,"filterable":1,"ext":"./XBPQ/色花堂.json","jar":"./jar/XBPQ.jar;md5;4145467d49e0437dc43e8bbb79e3ff7d"},
 // {"key":"我爱AV","name":"我爱AV","type":3,"api":"csp_XBPQ","searchable":1,"quickSearch":1,"filterable":1,"ext":"./XBPQ/我爱AV.json","jar":"./jar/XBPQ.jar;md5;4145467d49e0437dc43e8bbb79e3ff7d"},
-{"key":"drpy_js_ss直播","name":"ss直播","type":3,"api":"./lib/drpy2.min.js","ext":"./js/ss直播.js","timeout":30},
+{"key":"drpy_js_ss直播","name":"ss直播","type":3,"api":"./lib/drpy2.min.js","ext":"./js/ss直播.js","timeout":30, "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
         	{
 			"key": "36直播",
 			"name": "36直播",
@@ -86,12 +86,12 @@
 			"quickSearch": 1,
 			"filterable": 1,
 			"order_num": 0,
-			"ext": "./js/36直播[密].js"
+			"ext": "./js/36直播[密].js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" 
 		},
 
 //{"key":"drpy_js_Missav","name":"Missav","type":3,"api":"./lib/drpy2.min.js","ext":"./js/Missav.js"},
 // {"key":"drpy_js_玩偶姐姐","name":"玩偶姐姐","type":3,"api":"./lib/drpy2.min.js","ext":"./js/玩偶姐姐.js"},
-{"key":"drpy_js_朱古力","name":"朱古力","type":3,"api":"./lib/drpy2.min.js","ext":"./js/朱古力.js"},
+{"key":"drpy_js_朱古力","name":"朱古力","type":3,"api":"./lib/drpy2.min.js","ext":"./js/朱古力.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
     {
       "key": "py_AiDou",
       "name": "AiDou(T4)",
@@ -674,7 +674,7 @@
             "name": "黄色仓库🍌",
             "type": 3,
             "api": "./lib/drpy2.min.js",
-            "ext": "./js/黄色仓库.js"
+            "ext": "./js/黄色仓库.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" 
         },
 
 			{
@@ -686,7 +686,7 @@
 			"quickSearch": 1,
 			"filterable": 1,
 			"order_num": 0,
-			"ext": "./js/地瓜视频[密].js"
+			"ext": "./js/地瓜视频[密].js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" 
 		},
 		{
 			"key": "一点视频",
@@ -697,7 +697,7 @@
 			"quickSearch": 1,
 			"filterable": 1,
 			"order_num": 0,
-			"ext": "./js/一点视频.js"
+			"ext": "./js/一点视频.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" 
 		},
 		{
 			"key": "UAA[密]",
@@ -708,7 +708,7 @@
 			"quickSearch": 1,
 			"filterable": 1,
 			"order_num": 0,
-			"ext": "./js/UAA.js"
+			"ext": "./js/UAA.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" 
 		},
 		{
 			"key": "javxx",
@@ -719,7 +719,7 @@
 			"quickSearch": 1,
 			"filterable": 1,
 			"order_num": 0,
-			"ext": "./js/JAVXX（优）.js"
+			"ext": "./js/JAVXX（优）.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" 
 		},
                 {
             "key": "月老免翻好色TV",
