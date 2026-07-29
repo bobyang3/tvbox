@@ -72,8 +72,12 @@
       "name": "雨呢"
     },
     {
+      "url": "https://raw.githubusercontent.com/FGBLH/HKL/refs/heads/main/ok%E6%B5%B7%E8%B1%9Apy.json",
+      "name": "海豚"
+    },
+    {
       "url": "http://宝盒接口.top",
-      "name": "宝盒"
+      "name": "寶盒"
     },
     // {
     //   "url": "http://tvbox.xn--4kq62z5rby2qupq9ub.xyz/", 
@@ -104,6 +108,18 @@
     {
       "url": "http://www3.RobYang.dpdns.org/VodLive/xb8ffa",
       "name": "🔞RobYang AV 限制級"
+    },
+    {
+      "url": "https://api.heiapi.cc/api.php/provide/vod/?ac=list",
+      "name": "🔞嘿嘿 限制級"
+    },
+    {
+      "url": "https://paste.c-net.org/MeemsStrut",
+      "name": "🔞成品 限制級"
+    },
+    {
+      "url": "https://api.huosuapi.cc/api.php/provide/vod/?ac=list",
+      "name": "🔞火速 限制級"
     }
     // {
     //   "url": "http://www1.RobYang.ggff.net/VodLive/xb8ffa",
