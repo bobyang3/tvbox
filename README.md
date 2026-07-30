@@ -29,16 +29,27 @@
    | 1. 蜂蜜影視TV     | 電視版 v7a | 5012184       | <https://aftv.news/5012184> |     |
    | 1. 蜂蜜影視TV     | 手機版     | 2526465       | <https://aftv.news/2526465> |     |
    | 1. 蜂蜜影視TV     | 手機版 64  | 6545803       | <https://aftv.news/6545803> |     |
-   | 2. OK影視TV       | 電視版 v7a | 7880313       | <https://aftv.news/7880313> |     |
-   | 2. OK影視TV       | 電視版 v8a | 8679516       | <https://aftv.news/8679516> |     |
-   | 2. OK影視TV       | 手機版 v7a | 1826661       | <https://aftv.news/1826661> |     |
-   | 2. OK影視TV       | 手機版 v8a | 8679516       | <https://aftv.news/8679516> |     |
-   | 3. OK pro影視TV   | 電視版 v7a | 3618792       | <https://aftv.news/3618792> |     |
-   | 3. OK pro影視TV   | 電視版 v8a | 6778637       | <https://aftv.news/6778637> |     |
-   | 3. OK pro影視TV   | 手機版 64  | 4504710       | <https://aftv.news/4504710> |     |
+   | 2. WebHTV (蜂蜜延伸版)  | 電視版 v7a | 7645782 | <https://aftv.news/7645782> |     |
+   | 2. WebHTV (蜂蜜延伸版)  | 電視版 v8a | 6225370      | <https://aftv.news/6225370> |     |
+   | 2. WebHTV (蜂蜜延伸版)  | 手機版 v7a | 9650556      | <https://aftv.news/9650556> |     |
+   | 2. WebHTV (蜂蜜延伸版)  | 手機版 v8a |4414272 | <https://aftv.news/4414272> |     |
    | 4. SmartTube      | Stable     | 308699        | <https://aftv.news/308699>  |     |
    | 4. SmartTube      | Beta       | 766033        | <https://aftv.news/766033>  |     |
    | 5. OKTV DB Backup | RobYang    | 9676810       | <https://aftv.news/9676810> |     |
+
+
+
+### OK 影視TV !!不再更新!!
+   | App               | 版本       | Downloader 碼 | 鏈接                        |     |
+   | ----------------- | ---------- | ------------- | --------------------------- | --- |
+   | 1. OK影視TV (不再更新)       | 電視版 v7a | 7880313       | <https://aftv.news/7880313> |     |
+   | 1. OK影視TV (不再更新)         | 電視版 v8a | 8679516       | <https://aftv.news/8679516> |     |
+   | 1. OK影視TV (不再更新)         | 手機版 v7a | 1826661       | <https://aftv.news/1826661> |     |
+   | 1. OK影視TV (不再更新)         | 手機版 v8a | 8679516       | <https://aftv.news/8679516> |     |
+   | 2. OK pro影視TV (不再更新)     | 電視版 v7a | 3618792       | <https://aftv.news/3618792> |     |
+   | 2. OK pro影視TV (不再更新)     | 電視版 v8a | 6778637       | <https://aftv.news/6778637> |     |
+   | 2. OK pro影視TV (不再更新)     | 手機版 64  | 4504710       | <https://aftv.news/4504710> |     |
+
 
 
 ## 點播接口
