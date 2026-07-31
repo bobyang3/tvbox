@@ -29,10 +29,14 @@
    | 1. 蜂蜜影視TV     | 電視版 v7a | 5012184       | <https://aftv.news/5012184> |     |
    | 1. 蜂蜜影視TV     | 手機版     | 2526465       | <https://aftv.news/2526465> |     |
    | 1. 蜂蜜影視TV     | 手機版 64  | 6545803       | <https://aftv.news/6545803> |     |
-   | 2. WebHTV (蜂蜜延伸版)  | 電視版 v7a | 7645782 | <https://aftv.news/7645782> |     |
-   | 2. WebHTV (蜂蜜延伸版)  | 電視版 v8a | 6225370      | <https://aftv.news/6225370> |     |
-   | 2. WebHTV (蜂蜜延伸版)  | 手機版 v7a | 9650556      | <https://aftv.news/9650556> |     |
-   | 2. WebHTV (蜂蜜延伸版)  | 手機版 v8a |4414272 | <https://aftv.news/4414272> |     |
+   | 2. 魚佬WebHTV (蜂蜜延伸版)  | 電視版 v7a | 7645782 | <https://aftv.news/7645782> |     |
+   | 2. 魚佬WebHTV (蜂蜜延伸版)  | 電視版 v8a | 6225370      | <https://aftv.news/6225370> |     |
+   | 2. 魚佬WebHTV (蜂蜜延伸版)  | 手機版 v7a | 9650556      | <https://aftv.news/9650556> |     |
+   | 2. 魚佬WebHTV (蜂蜜延伸版)  | 手機版 v8a |4414272 | <https://aftv.news/4414272> |     |
+   | 3. WebHTV (魚佬延伸版)  | 電視版 v7a | 6253631 | <https://aftv.news/6253631> |     |
+   | 3. WebHTV (魚佬延伸版)  | 電視版 v8a | 3473900| <https://aftv.news/3473900> |     |
+   | 3. WebHTV (魚佬延伸版)  | 手機版 v7a | 8647017 | <https://aftv.news/8647017> |     |
+   | 3. WebHTV (魚佬延伸版)  | 手機版 v8a | 8825308 | <https://aftv.news/8825308> |     |
    | 4. SmartTube      | Stable     | 308699        | <https://aftv.news/308699>  |     |
    | 4. SmartTube      | Beta       | 766033        | <https://aftv.news/766033>  |     |
    | 5. OKTV DB Backup | RobYang    | 9676810       | <https://aftv.news/9676810> |     |
