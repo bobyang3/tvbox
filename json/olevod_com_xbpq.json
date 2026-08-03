@@ -1,53 +1,14 @@
-{
+    {    
   "作者": "RobYang",
-  "站名": "OLE com影院",
-  "主页url": "https://olevod.com/index.php/vod/show/id/2.html",
-  "UA": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
-
-  "是否开启获取首页数据": "1",
-  "首页推荐链接": "https://olevod.com/index.php/vod/show/id/2.html",
-  "homeVodNode": "//ul[contains(@class,'vodlist')]//li//a[contains(@class,'vodlist_thumb')]",
-  "homeVodName": "/@title",
-  "homeVodId": "/@href",
-  "homeVodIdR": "/index.php/vod/detail/id/(\\w+).html",
-  "homeVodImg": "/@data-original",
-  "homeVodImgR": "\\S+(http\\S+)",
-  "homeVodMark": "/span[@class='pic_text text_right']/em/text()",
-
-  "分类url": "https://olevod.com/index.php/vod/show/id/{cateId}/page/{catePg}.html",
-  "分类": "电影$1#连续剧$2#综艺$3#动漫$4#蓝光影院$6",
-  "分类值": "1&2&3&4&6",
-
-  "cateVodNode": "//ul[contains(@class,'vodlist vodlist_wi')]//li//a[contains(@class,'vodlist_thumb')]",
-  "cateVodName": "/@title",
-  "cateVodId": "/@href",
-  "cateVodIdR": "/index.php/vod/detail/id/(\\w+).html",
-  "cateVodImg": "/@data-original",
-  "cateVodImgR": "\\S+(http\\S+)",
-  "cateVodMark": "/span[@class='pic_text text_right']/em/text()",
-
-  "详情url": "https://olevod.com/index.php/vod/detail/id/{vid}.html",
-
-  "dtNode": "//div[contains(@class,'hot_banner')]",
-  "导演": "//div[contains(@class,'content_detail')]//span[contains(text(), '导演')]/following-sibling::*/text()",
+  "站名": "OLEcom影院",    
+  "主页url":"https://www.olevod.com/",    
+  "简介": "//div[contains(@class,'content_detail')]//span[contains(@class,'left text_muted') and contains(text(), '简介')]/parent::text()",
+ "导演": "//div[contains(@class,'content_detail')]//span[contains(text(), '导演')]/following-sibling::*/text()",
   "主演": "//div[contains(@class,'content_detail')]//span[contains(text(), '主演')]/following-sibling::*/text()",
   "影片状态": "//div[contains(@class,'content_detail')]//span[contains(text(), '状态')]/following-sibling::*/text()",
   "影片类型": "//div[contains(@class,'content_detail')]//span[contains(text(), 'text_muted hidden_xs') and contains(text(), '类型')]/following-sibling::*/text()",
-  "简介": "//div[contains(@class,'content_detail')]//span[contains(@class,'left text_muted') and contains(text(), '简介')]/parent::text()",
-
   "线路数组": "//div[contains(@class,'play_source_tab')]/a",
-  "线路标题": "/@alt",
-  "播放数组": "//div[contains(@class,'playlist_full')]/ul[contains(@class,'content_playlist clearfix')]",
-  "播放列表": "//li/a",
-  "播放标题": "/text()",
-  "播放url": "/@href",
-  "播放urlR": "/index.php/vod/play/id/(\\S+).html",
-  "跳转播放url": "https://olevod.com/index.php/vod/play/id/{playUrl}.html",
-
-  "搜索url": "https://olevod.com/index.php/ajax/suggest?mid=1&wd={wd}&limit=10",
-  "搜索数组": "json:list",
-  "搜索标题": "name",
-  "搜索ID": "id",
-  "搜索图片": "pic",
-  "搜索标记": ""
-}
+  "线路标题": "/@alt",    
+  "分类url": "https://olevod.com/index.php/vod/show/id/{cateId}/page/{catePg}.html",    
+  "分类":"电影$1#连续剧$2#综艺$3#动漫$4#蓝光影院$6"
+  }
