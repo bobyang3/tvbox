@@ -1,6 +1,6 @@
 {
   "author": "RobYang",
-  "主页url": "https://olevod.com/index.php/vod/show/id/2.html",
+  "主页url": "https://www.olevod.com/rank",
   "UA": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
   "dcVipFlag": "true",
   "pCfgJs": "https://olevod.com/static/js/playerconfig.js",
@@ -8,11 +8,12 @@
   "dcShow2Vip": {},
   "dcPlayUrl": "true",
   "cateManual": {
-    "電影": "1",
+
     "連續劇": "2",
     "综艺": "3",
     "动漫": "4",
     // "18+ (hide)": "5",
+        "電影": "1",
     "蓝光影院": "6"
   },
   "是否开启获取首页数据": 1,
