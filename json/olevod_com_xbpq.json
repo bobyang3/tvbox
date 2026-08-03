@@ -1,20 +1,19 @@
 {
   "作者": "RobYang",
-  "站名": "OLE com影院",
-  "主页url": "https://olevod.com/index.php/vod/show/id/2.html",
+  "站名": "OLE COM影院",
+  "主页url": "https://www.olevod.com/",
   "UA": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1",
   
   "是否开启获取首页数据": "1",
-  "首页推荐链接": "https://olevod.com/index.php/vod/show/id/2.html",
-  "homeVodNode": "//ul[contains(@class,'vodlist')]//li//a[contains(@class,'vodlist_thumb')]",
-  "homeVodName": "/@title",
+  "首页推荐链接": "https://www.olevod.com/nav/%E7%94%B5%E5%BD%B1/%E5%85%A8%E9%83%A8%E5%9C%B0%E5%8C%BA/%E5%85%A8%E9%83%A8%E5%B9%B4%E4%BB%BD/%E5%85%A8%E9%83%A8%E7%B1%BB%E5%9E%8B/%E5%85%A8%E9%83%A8/%E5%85%A8%E9%83%A8/%E6%9C%80%E6%96%B0.html",
+  "homeVodNode": "//div[@id='navlist']//a[contains(@class,'pc-case-line')]",
+  "homeVodName": "//div[contains(@class,'case-content')]//h4/text()",
   "homeVodId": "/@href",
-  "homeVodIdR": "/index.php/vod/detail/id/(\\w+).html",
-  "homeVodImg": "/@data-original",
-  "homeVodImgR": "\\S+(http\\S+)",
-  "homeVodMark": "/span[@class='pic_text text_right']/em/text()",
+  "homeVodIdR": "/details-\\d+-(\\d+).html",
+  "homeVodImg": "//div[contains(@class,'case-img')]//img[contains(@class,'el-image__inner')]//@src",
+  "homeVodMark": "//span[contains(@class,'right-score')]/text()",
 
-  "分类url": "https://olevod.com/index.php/vod/show{area}{class}{by}/id/{cateId}/page/{catePg}{year}.html",
+  "分类url": "https://www.olevod.com/nav/电影/全部地区/全部年份/全部类型/全部/全部/最新.html[$--https://olevod.com/index.php/vod/show{area}{class}{by}/id/{cateId}/page/{catePg}{year}.html]",
   "分类": "电影$1#连续剧$2#综艺$3#动漫$4#蓝光影院$6",
   
   "cateVodNode": "//ul[contains(@class,'vodlist vodlist_wi')]//li//a[contains(@class,'vodlist_thumb')]",
@@ -30,7 +29,7 @@
   "导演": "//div[contains(@class,'content_detail')]//span[contains(text(), '导演')]/following-sibling::*/text()",
   "主演": "//div[contains(@class,'content_detail')]//span[contains(text(), '主演')]/following-sibling::*/text()",
   "影片状态": "//div[contains(@class,'content_detail')]//span[contains(text(), '状态')]/following-sibling::*/text()",
-  "影片类型": "//div[contains(@class,'content_detail')]//span[contains(text(), 'text_muted hidden_xs') and contains(text(), '类型')]/following-sibling::*/text()",
+  "影片类型": "//div[contains(@class,'content_detail')]//span[contains(@class,'text_muted hidden_xs') and contains(text(), '类型')]/following-sibling::*/text()",
   "简介": "//div[contains(@class,'content_detail')]//span[contains(@class,'left text_muted') and contains(text(), '简介')]/parent::text()",
 
   "线路数组": "//div[contains(@class,'play_source_tab')]/a",
