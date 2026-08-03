@@ -16,7 +16,7 @@
     "蓝光影院": "6"
   },
   "是否开启获取首页数据": 1,
-  "首页推荐链接": "https://olevod.com/index.php/vod/show/id/2.html",
+  "首页推荐链接": "https://www.olevod.com/rank",
   "homeVodNode": "//ul[contains(@class,'vodlist')]//li//a[contains(@class,'vodlist_thumb')]",
   "homeVodName": "/@title",
   "homeVodId": "/@href",
