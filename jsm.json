@@ -17,7 +17,7 @@
   "quickSearch_Note": "快速搜尋,邊打邊搜",
   "sites": [
     { "key": "csp_XPath_olevod_com", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/fty.jar"},
-    { "key": "csp_XBPQ_olevod_com", "name": "🏘️點直播源8 http://RobYang.dpdns.org", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com_xbpq.json" },
+    { "key": "csp_XBPQ_olevod_com", "name": "🏘️點直播源9 http://RobYang.dpdns.org", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json" },
     { "key": "瓜子影视", "name3": "🏘️點直播源 http://RobYang.dpdns.org", "name": "影視| 瓜子(濾)", "type": 3, "api": "csp_Gz360", "searchable": 0, "quickSearch": 0, "changeable": 1, "filterable": 1, "jar": "./jar/spider.jar" },
     // { "key": "csp_XBiu歐樂影院ORG", "name": "歐樂 ORG (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/oule.json" },
     { "key": "csp_vs", "name": "VS秒播 (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/vsys.json" },
