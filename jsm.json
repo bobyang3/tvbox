@@ -16,16 +16,15 @@
   "searchable_Note": "全域搜尋,是否可搜尋",
   "quickSearch_Note": "快速搜尋,邊打邊搜",
   "sites": [
-    { "key": "csp_XPath_olevod_com", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "OR_api": "csp_XPathMacFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/fty.jar"},
-    { "key": "csp_XBPQ_olevod_com", "name": "🏘️點直播源22 http://RobYang.dpdns.org", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json" },
+    { "key": "csp_vs", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "VS秒播 (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/vsys.json" },
+    { "key": "csp_XPath_olevod_com", "name3": "🏘️點直播源 http://RobYang.dpdns.org", "name": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "OR_api": "csp_XPathMacFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/fty.jar"},
+    { "key": "csp_XBPQ_olevod_com", "name3": "🏘️點直播源22 http://RobYang.dpdns.org", "name": "歐樂COM test (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json" },
     // { "key": "csp_XBPQ_olevod_com2", "name": "🏘️點直播源23test http://RobYang.dpdns.org", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json" },
     //  { "key": "csp_XPath_olevod_com3", "name": "🏘️點直播源24  http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar"},
     //         { "key": "csp_XPath_olevod_com4", "name": "🏘️點直播源25  http://RobYang.dpdns.org", "type": 3, "api": "csp_XYQHiker", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/zy.jar" },
-
-     
-        { "key": "瓜子影视", "name3": "🏘️點直播源 http://RobYang.dpdns.org", "name": "影視| 瓜子(濾)", "type": 3, "api": "csp_Gz360", "searchable": 0, "quickSearch": 0, "changeable": 1, "filterable": 1, "jar": "./jar/spider.jar" },
+    { "key": "瓜子影视", "name3": "🏘️點直播源 http://RobYang.dpdns.org", "name": "影視| 瓜子(濾)", "type": 3, "api": "csp_Gz360", "searchable": 0, "quickSearch": 0, "changeable": 1, "filterable": 1, "jar": "./jar/spider.jar" },
     // { "key": "csp_XBiu歐樂影院ORG", "name": "歐樂 ORG (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/oule.json" },
-    { "key": "csp_vs", "name": "VS秒播 (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/vsys.json" },
+
     { "key": "Guazi", "name": "瓜子影視(濾)", "type": 3, "api": "csp_Guazi", "jar": "./jar/pg.jar", "searchable": 0, "quickSearch": 0, "changeable": 0, "filterable": 1, "timeout": 60, "ext": "" },
     { "key": "麦田2", "name": "麥田2(濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 0, "style": {"ratio": 1.43}, "quickSearch": 0, "filterable": 1, "ext": "./json/麦田.json" },
     { "key": "drpy_js_腾云驾雾", "name": "騰訊[js] (濾)", "type": 3, "api": "./lib/drpy2.min.js", "ext": "./js/腾云驾雾.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
