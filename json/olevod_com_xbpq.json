@@ -1,22 +1,36 @@
   {
   "简介": "content_desc context clearfix\">&&</span>",
-  "分类url": "https://www.olevod.com/index.php/vod/show/area/{area}{by}/id/{cateId}/lang/{lang}/page/{catePg}/year/{year}.html",
-  "cateUrl-test": "https://olevod.com/index.php/vod/show{area}{class}{by}/id/{cateId}/page/{catePg}{year}.html",
-  "分类": "電視劇$2#電影$1#動漫$4#綜藝$3#體育$59#短劇$53",
+  "是否开启获取首页数据": 1,
+  "主页url": "https://www.olehdtv.com/index.php/vod/type/id/2.html",
+  "首页推荐链接": "https://www.olehdtv.com/index.php/vod/type/id/2.htmll",
+  "homeVodNode": "//ul[contains(@class,'vodlist')]//li//a[contains(@class,'vodlist_thumb')]",
+  "homeVodName": "/@title",
+  "homeVodId": "/@href",
+  "homeVodIdR": "/index.php/vod/detail/id/(\\w+).html",
+  "homeVodImg": "/@data-original",
+  "homeVodImgR": "\\S+(http\\S+)",
+  "homeVodMark": "/span[@class='pic_text text_right']/em/text()",
+  "cateUrl": "https://olevod.com/index.php/vod/show{area}{class}{by}/id/{cateId}/page/{catePg}{year}.html",
+  "分类": "電影$1#電視劇$2#動漫$4#綜藝$3#體育$59#短劇$53",
   "筛选": {
-    "2": [
+    "1": [
       {"key":"by","name":"排序","value":[{"n":"時間","v":"/by/time"},{"n":"人氣","v":"/by/hits"},{"n":"評分","v":"/by/score"}]},
       {
         "key": "cateId",
         "name": "分類",
         "value": [
-          {"n": "全部", "v": "2"},
-          {"n": "國產劇", "v": "13"},
-          {"n": "港台劇", "v": "14"},
-          {"n": "日韓劇", "v": "15"},
-          {"n": "歐美劇", "v": "16"},
-          {"n": "海外劇", "v": "20"},
-          {"n": "紀錄片", "v": "5"}
+          {"n": "全部", "v": "1"},
+          {"n": "動作片", "v": "6"},
+          {"n": "喜劇片", "v": "7"},
+          {"n": "愛情片", "v": "8"},
+          {"n": "科幻片", "v": "9"},
+          {"n": "恐怖片", "v": "10"},
+          {"n": "劇情片", "v": "11"},
+          {"n": "奇幻片", "v": "30"},
+          {"n": "犯罪片", "v": "54"},
+          {"n": "动漫电影", "v": "55"},
+          {"n": "伦理片", "v": "34"},
+          {"n": "戰爭片", "v": "12"}
         ]
       },
       {
@@ -74,24 +88,19 @@
         ]
       }
     ],
-    "1": [
+    "2": [
       {"key":"by","name":"排序","value":[{"n":"時間","v":"/by/time"},{"n":"人氣","v":"/by/hits"},{"n":"評分","v":"/by/score"}]},
       {
         "key": "cateId",
         "name": "分類",
         "value": [
-          {"n": "全部", "v": "1"},
-          {"n": "動作片", "v": "6"},
-          {"n": "喜劇片", "v": "7"},
-          {"n": "愛情片", "v": "8"},
-          {"n": "科幻片", "v": "9"},
-          {"n": "恐怖片", "v": "10"},
-          {"n": "劇情片", "v": "11"},
-          {"n": "奇幻片", "v": "30"},
-          {"n": "犯罪片", "v": "54"},
-          {"n": "动漫电影", "v": "55"},
-          {"n": "伦理片", "v": "34"},
-          {"n": "戰爭片", "v": "12"}
+          {"n": "全部", "v": "2"},
+          {"n": "國產劇", "v": "13"},
+          {"n": "港台劇", "v": "14"},
+          {"n": "日韓劇", "v": "15"},
+          {"n": "歐美劇", "v": "16"},
+          {"n": "海外劇", "v": "20"},
+          {"n": "紀錄片", "v": "5"}
         ]
       },
       {
