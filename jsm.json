@@ -19,10 +19,6 @@
    { "key": "csp_XBPQ_olevod_com", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com_xbpq.json" },
     //{ "note 2026-08-03 ":"good but no home page", "key": "csp_XPath_olevod_com", "name": "🏘️點直播源 http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "OR_api": "csp_XPathMacFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/fty.jar"},
    { "key": "csp_vs", "name2": "🏘️點直播源 http://RobYang.dpdns.org", "name": "VS秒播 (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/XBPQ.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/vsys.json" },
-   // { "key": "csp_XBPQ_olevod_com2", "name": "🏘️點直播源23test http://RobYang.dpdns.org", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json" },
-    // { "key": "csp_XPath_olevod_com3", "name": "🏘️點直播源24  http://RobYang.dpdns.org", "name2": "歐樂COM (濾)", "type": 3, "api": "csp_XPathFilter", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar"},
-    // { "key": "csp_XPath_olevod_com4", "name": "🏘️點直播源25  http://RobYang.dpdns.org", "type": 3, "api": "csp_XYQHiker", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/olevod_com.json", "jar": "./jar/zy.jar" },
-    // { "key": "csp_XBiu歐樂影院ORG", "name": "歐樂 ORG (濾)", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 1, "quickSearch": 1, "filterable": 1, "ext": "./json/oule.json" },
     // { "note 2026-08-03 ":"play but only ads, fake", "key": "瓜子影视", "name3": "🏘️點直播源 http://RobYang.dpdns.org", "name": "影視| 瓜子(濾)", "type": 3, "api": "csp_Gz360", "searchable": 0, "quickSearch": 0, "changeable": 1, "filterable": 1, "jar": "./jar/spider.jar" },
     // { "note 2026-08-03 ":"play but only ads, fake", "key": "Guazi", "name": "瓜子影視(濾)", "type": 3, "api": "csp_Guazi", "jar": "./jar/pg.jar", "searchable": 0, "quickSearch": 0, "changeable": 0, "filterable": 1, "timeout": 60, "ext": "" },
       { "key": "drpy_js_腾云驾雾", "name": "騰訊[js] (濾)", "type": 3, "api": "./lib/drpy2.min.js", "ext": "./js/腾云驾雾.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
@@ -130,9 +126,12 @@
     { "key": "drpy_js_网易公版影像", "name": "聚合| 網易公版[js]", "type": 3, "api": "./lib/drpy2.min.js", "changeable": 0, "style": {"type": "rect", "ratio": 1.597}, "ext": "./js/网易公版影像.js", "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar"  },
     { "key": "Qtv", "name": "影視| 騰訊[解析](濾)", "type": 3, "api": "csp_Qtv", "searchable": 1, "quickSearch": 1, "filterable": 1, "jar": "./jar/fty.jar", "changeable": 0 },
     { "key": "Itv", "name": "250. 影視| 愛奇藝[解析]", "type": 3, "api": "csp_Itv", "filterable": 1, "jar": "./jar/fty.jar", "searchable": 0, "quickSearch": 0, "changeable": 0 },
-
-
     { "key": "Mtv", "name": "影視| 芒果[解析]", "type": 3, "api": "csp_Mtv", "searchable": 1, "quickSearch": 1, "filterable": 1, "jar": "./jar/fty.jar", "changeable": 0 },
+
+        { "key": "Qtv2", "name": "xbpq 影視| 騰訊[解析](濾)", "type": 3, "api": "csp_Qtv", "searchable": 1, "quickSearch": 1, "filterable": 1, "jar": "./jar/xyqxbpq.jar", "changeable": 0 },
+    { "key": "Itv2", "name": "250. xbpq 影視| 愛奇藝[解析]", "type": 3, "api": "csp_Itv", "filterable": 1, "jar": "./jar/xyqxbpq.jar", "searchable": 0, "quickSearch": 0, "changeable": 0 },
+    { "key": "Mtv2", "name": "xbpq影視| 芒果[解析]", "type": 3, "api": "csp_Mtv", "searchable": 1, "quickSearch": 1, "filterable": 1, "jar": "./jar/xyqxbpq.jar", "changeable": 0 },
+
     { "key": "drpy_js_磁力熊搜索", "name": "搜索| 磁力熊[js]", "type": 3, "api": "./lib/drpy2.min.js", "ext": "./js/cilixiong.js", "searchable": 0, "quickSearch": 0, "changeable": 1 , "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
     { "key": "lf_js_search", "name": "搜索| 路飛[js]", "type": 3, "searchable": 0, "changeable": 1, "quickSearch": 0, "filterable": 0, "api": "./lib/lf_search3_min.js" , "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
     { "key": "drpy_js_xb6v", "name": "磁力| 新版6v[js]", "type": 3, "api": "./lib/drpy2.min.js", "ext": "./js/xb6v.js", "searchable": 0, "quickSearch": 0, "changeable": 1, "timeout": 30 , "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
@@ -241,7 +240,7 @@
     { "key": "csp_威士影视2", "name": "影視| 威士(濾) 3002??", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 0, "quickSearch": 0, "filterable": 1, "ext": "./json/威士影视.json" },
     { "key": "XBPQ_JQQZX", "name": "影視| 劇圈圈(濾) ??", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "ext": {"分类": "电影$dianying#剧集$juji#综艺$zongyi#动漫$dongman#纪录片$jilupian#爽剧$shuangju", "分类url": "https://www.jqqzx.cc/vodshow/area/{area}/by/{by}/class/{class}/id/{cateId}/lang/{lang}/page/{catePg}/year/{year}.html"} },
     { "key": "csp_一起看", "name": "影視| 一起看JS(濾)3002??", "type": 3, "api": "csp_XBPQ", "jar": "./jar/xyqxbpq.jar", "searchable": 0, "quickSearch": 0, "filterable": 1, "ext": "./json/一起看.json", "2 ext, first ext is better": "./js/一起看[优].js" , "jar":"https://raw.githubusercontent.com/FongMi/CatVodSpider/main/jar/custom_spider.jar" },
-    { "key": "robYang9纽约", "name": "纽约(濾) ?", "name2": "🏘️點直播源 http://RobYang.dpdns.org", "type": 3, "api": "csp_XPathFilter", "searchable": 0, "quickSearch": 0, "filterable": 1, "ext": "./json/ys.json", "jar": "./jar/fty.jar" },
+    // { "key": "robYang9纽约", "name": "纽约(濾) ?", "name2": "🏘️點直播源 http://RobYang.dpdns.org", "type": 3, "api": "csp_XPathFilter", "searchable": 0, "quickSearch": 0, "filterable": 1, "ext": "./json/ys.json", "jar": "./jar/fty.jar" },
     { "key": "Youtube", "name": "Youtube", "type": 3, "api": "csp_Youtube", "searchable": 0, "quickSearch": 0, "changeable": 0, "timeout": 240, "jar": "./jar/pg.jar", "ext": {"token": "./json/tokenm.json", "json": "./json/youtube.json", "type": "直播#新闻#剧集#电影#综艺#纪录片#音乐#体育#动物#风光#放松#4K#HDR#movie#music#documentary#bbc documentary#national geographic documentary", "keywords": "排行榜,HOT,TRENDS,热门话题,热门趋势,热门综艺,热门电影,热门电视剧,小姐姐", "codecs": "", "proxy": "", "danmu": true}, "style": {"type": "rect", "ratio": 1.77} }
   ],
   "parses": [
