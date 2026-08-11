@@ -12,7 +12,7 @@
   "homeVodImgR": "\\S+(http\\S+)",
   "homeVodMark": "/span[@class='pic_text text_right']/em/text()",
   "cateUrl": "https://olevod.com/index.php/vod/show{area}{class}{by}/id/{cateId}/page/{catePg}{year}.html",
-  "分类": "電影$1#連續劇短劇$2#動漫$4#綜藝$3#蓝光影院$6",
+  "分类": "電影$1#連續劇與短劇$2#動漫$4#綜藝$3#蓝光影院$6",
   "筛选": {
     "1": [
       {
