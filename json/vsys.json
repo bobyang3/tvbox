@@ -18,7 +18,8 @@
     
     "线路标题":">&&</a>+线路",
     
-    "分类url":"https://m.ytshengde.com/sanyisw/{cateId}-{area}-{by}-{class}-{lang}----{catePg}---{year}.html;;akx",
+    "分类url":"https://m.ytshengde.com/sanyisw/{cateId}-----------.html;;akx",
+    "分类url-orginal but has error 2026-10-11":"https://m.ytshengde.com/sanyisw/{cateId}-{area}-{by}-{class}-{lang}----{catePg}---{year}.html;;akx",
     
     "分类":"电影$1#电视剧$2#综艺$3#动漫$4#短剧$5"
 }
