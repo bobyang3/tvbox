@@ -418,10 +418,13 @@
   ],
   "lives": [
     { "name": "TV123 | 中臺港", "type": 0, "url": "https://tv123.cc.cd/tv.m3u", "ext": {}, "epg": "http://epg.52sw.top:668/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" , "logo": "https://epg.112114.eu.org/logo/{name}.png"},
+    { "name": "XSMT Smart", "type": 0, "url": "http://xsmt.ccwu.cc/xsmt/smt.php", "ext": {}, "epg": "http://epg.52sw.top:668/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" , "logo": "https://epg.112114.eu.org/logo/{name}.png"},
+    
     { "name": "🏠RobYang3| http://www3.RobYang.dpdns.org", "type": 0, "url": "http://www3.RobYang.dpdns.org/VodLive/lb8ffa", "header": {"User-Agent": "okhttp/4.12.0 RobYang/5.2.1", "X-FORWARDED-FOR": "127.0.0.1"}, "timeout": 5, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
     { "name": "🏠RobYang4| http://www4.RobYang.dpdns.org", "type": 0, "url": "http://www4.RobYang.dpdns.org/VodLive/lb8ffa", "header": {"User-Agent": "okhttp/4.12.0 RobYang/5.2.1", "X-FORWARDED-FOR": "127.0.0.1"}, "timeout": 5, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
     { "name": "🏠RobYang| http://RobYang.dpdns.org", "type": 0, "url": "http://www1.RobYang.dpdns.org/VodLive/lb8ffa", "header": {"User-Agent": "okhttp/4.12.0 RobYang/5.2.1", "X-FORWARDED-FOR": "127.0.0.1"}, "timeout": 5, "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
-    { "name": "XSMT Smart", "type": 0, "url": "http://xsmt.ccwu.cc/xsmt/smt.php", "ext": {}, "epg": "http://epg.52sw.top:668/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" , "logo": "https://epg.112114.eu.org/logo/{name}.png"},
+    { "name": "Yogurt Tv+cherry Tv", "type": 0, "url": "http://110.40.170.5:8890/tg/live/bbbe.txt", "ext": {}, "epg": "http://epg.52sw.top:668/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" , "logo": "https://epg.112114.eu.org/logo/{name}.png"},
+    { "name": "Iptv-tvbus", "type": 0, "url": "http://110.40.170.5:8890/tg/live/7ce5.txt", "ext": {}, "epg": "http://epg.52sw.top:668/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong" , "logo": "https://epg.112114.eu.org/logo/{name}.png"},
         
     // { "name": "tmxk smart", "type": 0, "url": "https://tmxk.pp.ua/smart-cn.m3u", "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
     // { "name": "tmxk 4gtv", "type": 0, "url": "https://tmxk.pp.ua/litv.php?token=tmxk", "epg": "https://epg.112114.eu.org/?ch={name}&date={date}&serverTimeZone=Asia/Hong_Kong", "logo": "https://epg.112114.eu.org/logo/{name}.png" },
