@@ -1,1 +1,29 @@
-H4sIAAAAAAAAAGWRsW7UQBCGe57CEtIaTrEdHRGFTxRBokACUcBVCJ3m7PV5xNq72V3jGBSJCqQoRGnoqGiIaFAkiijPE+7CWzD2briDTGPvP98/OzP7BnSgG8GDB8G7WwGFRSt4GoTL07Orw7PfH49Wn7+//PXjw6twa8iX0lhKl9YqkyZJ27ZxV+bVDkWcycpTjRYEJcKgNUnRZQKMiYpOwYLHpa2ExwwHnZVTB5MbM6cko1H0N5yNfm46Yd73OnbSXoPZ6+eDngbbTitQWK4d5qWSQ861Sf28fYRTw3W0u+C1DamTp88ePn7yaDbd9XcduM8wxKyGql+PW0y4mXEzj7e9qAR0MwXaEG51w50q4G1HlGcEVkjbvO9Oy+PTq08n62wum6Hxtfvy/P3q4hsRsZYtYwInwNjwYpMYq0XUalCKa8ZysBBJjQusQUwUYy/4vu3hUvPCl7+8OBqKrfdw/fYx1oUk9p73+TOVMQpqxsDpvk4fdHnvU5gxRv//NbAB5txk6wmH5cna0uJ7u6WiEU0WjW9cYGFuesS0SANeD7oBCDR2ILhCI3MezeV+yvfu3Mb8bgD/vuTy5Mvq51eCR6Qf/AE8WhrRAwMAAA==
+var rule = {
+    title: '樱花里番[密]',
+    host: 'https://www.yhdm4444.com',
+    url: '/lsits/fyclass-fypage.html',
+    searchUrl: '/comicsearch/**----------fypage---.html',
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 0,
+    headers: {
+        'User-Agent': 'MOBILE_UA',
+    },
+    class_name: '里番',
+    class_url: '20',
+    play_parse: true,
+    lazy: '',
+    limit: 6,
+    推荐: '',
+    double: true,
+    一级: '.row&&li;a&&title;.img-wrapper&&data-original;p&&Text;a&&href',
+    二级: {
+        title: '.info&&h3&&Text;.info&&p&&span&&a&&Text',
+        img: '.pic&&img&&data-original',
+        desc: '',
+        content: '.text-row-2&&Text',
+        tabs: '.swiper-wrapper',
+        lists: '.episode-box:eq(#id) a',
+    },
+    搜索: '*',
+}
