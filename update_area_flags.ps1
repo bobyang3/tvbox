@@ -114,6 +114,7 @@ Write-Host ""
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $jsDecodedDir = Join-Path $scriptDir "js_decoded"
 $jsDir = Join-Path $scriptDir "js"
+$jsonDir = Join-Path $scriptDir "json"
 
 $totalUpdated = 0
 
@@ -135,6 +136,20 @@ Write-Host ""
 Write-Host "Processing js directory..." -ForegroundColor Yellow
 if (Test-Path $jsDir) {
     $files = Get-ChildItem -Path $jsDir -Filter "*.js" -File
+    Write-Host "Found $($files.Count) files"
+    Write-Host ""
+    
+    foreach ($file in $files) {
+        if (Process-JSFile -FilePath $file.FullName) {
+            $totalUpdated++
+        }
+    }
+}
+
+Write-Host ""
+Write-Host "Processing json directory..." -ForegroundColor Yellow
+if (Test-Path $jsonDir) {
+    $files = Get-ChildItem -Path $jsonDir -Filter "*.json" -File
     Write-Host "Found $($files.Count) files"
     Write-Host ""
     

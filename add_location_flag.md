@@ -11,6 +11,11 @@ Run the PowerShell script from the repository root:
 .\update_area_flags.ps1
 ```
 
+This will process all three directories:
+- `js_decoded/` - Decoded JavaScript crawler files
+- `js/` - Original JavaScript crawler files (base64-encoded or plain text)
+- `json/` - JSON configuration files
+
 ## What It Does
 
 ### 1. Adds Country/Region Flags
@@ -130,14 +135,15 @@ filter: {
 
 ## Directories Processed
 
-- `js/` - Original JS files (may be base64-encoded)
-- `js_decoded/` - Decoded JS files
+- `js/` - Original JS files (may be base64-encoded) - ~465 files
+- `js_decoded/` - Decoded JS files - ~111 files
+- `json/` - JSON configuration files - multiple files
 
 ## Output
 
 The script will show:
-- ✓ **Updated successfully** - File was modified
-- **No changes needed** - File already has flags or no matching patterns
+- ✓ **Updated successfully** - File was modified with flag additions/renames
+- **No changes needed** - File already has correct flags or was previously updated
 - **Skipped** - File doesn't contain area/地区 fields
 - **Error** - File path issue (usually special characters in filename)
 
@@ -147,15 +153,26 @@ Example output:
 
 Processing js_decoded directory...
 Found 111 files
-
 Processing: js_decoded\348电影网.js
   Updated successfully
 Processing: js_decoded\4k剧院.js
   Updated successfully
 ...
 
+Processing js directory...
+Found 465 files
+Processing: js\NY影院.js
+  No changes needed
+...
+
+Processing json directory...
+Found ~100 files
+Processing: json\黑洞影视.json
+  Updated successfully
+...
+
 === Completed ===
-Total files updated: 83
+Total files updated: 69
 
 Summary of changes applied:
   - Added country/region flags to area names
@@ -221,6 +238,8 @@ Reference: add_location_flag.md for details
 ## Notes
 
 - Script was last updated: 2026-10-30
-- Total files typically updated: ~80-90 files
-- Processing time: ~1-2 minutes
+- Processes: `js_decoded/` (111 files), `js/` (465 files), `json/` (~100+ files)
+- Total files typically updated: ~60-80 files per run
+- Processing time: ~2-3 minutes for all directories
 - No backup needed (changes are tracked by Git)
+- Safe to re-run multiple times (idempotent)
