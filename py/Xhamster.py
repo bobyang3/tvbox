@@ -4,7 +4,6 @@ import json
 import sys
 from base64 import b64decode, b64encode
 from pyquery import PyQuery as pq
-from requests import Session
 sys.path.append('..')
 from base.spider import Spider
 
@@ -14,8 +13,6 @@ class Spider(Spider):
     def init(self, extend=""):
         self.host = self.gethost()
         self.headers['referer'] = f'{self.host}/'
-        self.session = Session()
-        self.session.headers.update(self.headers)
         pass
 
     def getName(self):
@@ -167,12 +164,12 @@ class Spider(Spider):
             p,url=0,id[4:]
         return {'parse': p, 'url': url, 'header': headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def gethost(self):
         try:
-            response = self.fetch('https://xhamster.com', headers=self.headers, allow_redirects=False)
+            response = self.net.req('https://xhamster.com', {"headers": self.headers, "redirect": 0, "timeout": 5000})
             return response.headers['Location']
         except Exception as e:
             print(f"获取主页失败: {str(e)}")
@@ -211,8 +208,14 @@ class Spider(Spider):
 
     def getpq(self, path=''):
         h = '' if path.startswith('http') else self.host
-        response = self.session.get(f'{h}{path}')
-        return pq(response.content)
+        response = self.net.req(
+            f'{h}{path}', {"headers": self.headers, "buffer": 3}
+        )
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while requesting {path}")
+        return pq(response["content"])
 
 
     def getjsdata(self, data):

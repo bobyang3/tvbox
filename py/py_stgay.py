@@ -1,8 +1,6 @@
 # coding=utf-8
 # !/usr/bin/python
 import sys
-import requests
-from requests import Session
 from base.spider import Spider
 from pyquery import PyQuery as pq
 from urllib.parse import quote, unquote
@@ -17,8 +15,7 @@ class Spider(Spider):
             'Referer': self.host,
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0'
         }
-        self.session = Session()
-        self.session.headers.update(self.headers)
+        self.session = self.net.session()
 
     def getName(self):
         pass
@@ -30,7 +27,8 @@ class Spider(Spider):
         pass
 
     def destroy(self):
-        pass
+        if getattr(self, "session", None):
+            self.session.close()
 
     def homeContent(self, filter):
         rsp = self.getpq('all/play')
@@ -135,25 +133,35 @@ class Spider(Spider):
             "header": self.headers
         }
 
-    def localProxy(self, param):
+    def proxy(self, param):
         if param['type'] == 'img':
             content = self.decrypt_img(unquote(param['url']))
             return [200, "application/octet-stream", content]
+        return [404, "text/plain", ""]
+
+    def _request(self, url, options):
+        response = self.session.req(url, options)
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while requesting {url}")
+        return response
 
     def getpq(self, path):
-        try:
-            rsp = self.session.get(f'{self.host}/videos/{path}', timeout=5).text
-            return pq(rsp.encode('utf-8'))
-        except Exception as e:
-            print(f"请求失败: , {str(e)}")
-            return None
+        response = self._request(
+            f'{self.host}/videos/{path}', {"timeout": 5000}
+        )
+        return pq(response["content"])
     
     def decrypt_img(self, url):
         key_str = 'f5d965df75336270'
         iv_str = '97b60394abc2fbe1'
         key = key_str.encode('utf-8')
         iv = iv_str.encode('utf-8')
-        encrypted_bytes = self.session.get(url, timeout=5).content
+        response = self._request(
+            url, {"timeout": 5000, "buffer": 3}
+        )
+        encrypted_bytes = response["content"]
         cipher = AES.new(key, AES.MODE_CBC, iv)
         decrypted_bytes = cipher.decrypt(encrypted_bytes)
         final_data = unpad(decrypted_bytes, AES.block_size)

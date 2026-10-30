@@ -6,7 +6,6 @@ import sys
 import time
 from base64 import b64decode, b64encode
 from urllib.parse import parse_qs
-import requests
 from pyquery import PyQuery as pq
 sys.path.append('..')
 from base.spider import Spider
@@ -18,8 +17,18 @@ class Spider(Spider):
     def init(self, extend=""):
         tid = 'douyin'
         headers = self.gethr(0, tid)
-        response = requests.head(self.hosts[tid], headers=headers)
-        ttwid = response.cookies.get('ttwid')
+        response = self.net.req(self.hosts[tid], {
+            "method": "HEAD", "headers": headers,
+        })
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 400:
+            raise RuntimeError(f"HTTP {response['code']} while initializing Douyin")
+        set_cookie = response.get("headers", {}).get("set-cookie", "")
+        if isinstance(set_cookie, list):
+            set_cookie = "; ".join(set_cookie)
+        ttwid_match = re.search(r"(?:^|[,;]\s*)ttwid=([^;,\s]+)", set_cookie)
+        ttwid = ttwid_match.group(1) if ttwid_match else None
         headers.update({
             'authority': self.hosts[tid].split('//')[-1],
             'cookie': f'ttwid={ttwid}' if ttwid else ''
@@ -94,10 +103,10 @@ class Spider(Spider):
 
     def process_bili(self):
         try:
-            self.blfdata = self.fetch(
+            self.blfdata = self.net.json(
                 f'{self.hosts["bili"][0]}/room/v1/Area/getList?need_entrance=1&parent_id=0',
-                headers=self.gethr(0, 'bili')
-            ).json()
+                {"headers": self.gethr(0, 'bili')}
+            )
             return ('bili', [{'key': 'cate', 'name': '分类',
                               'value': [{'n': i['name'], 'v': str(i['id'])}
                                         for i in self.blfdata['data']]}])
@@ -131,10 +140,10 @@ class Spider(Spider):
 
     def process_douyu(self):
         try:
-            self.dyufdata = self.fetch(
+            self.dyufdata = self.net.json(
                 f'{self.referers["douyu"]}/api/cate/list',
-                headers=self.headers[1]
-            ).json()
+                {"headers": self.headers[1]}
+            )
             return ('douyu', [{'key': 'cate', 'name': '分类',
                                'value': [{'n': i['cate1Name'], 'v': str(i['cate1Id'])}
                                          for i in self.dyufdata['data']['cate1Info']]}])
@@ -210,7 +219,9 @@ class Spider(Spider):
             'start': (int(pg) - 1) * 20,
             'size': '20',
         }
-        response = self.fetch(f'{self.hosts[tid]}/api/category/live/', params=params, headers=self.headers[0]).json()
+        response = self.net.json(f'{self.hosts[tid]}/api/category/live/', {
+            "params": params, "headers": self.headers[0],
+        })
         for i in response['lives']:
             if i.get('cuteid'):
                 bvdata = self.buildvod(
@@ -243,7 +254,9 @@ class Spider(Spider):
                 ids = tid.split('_')[1].split('@@')
                 tid = ids[0]
                 path = f'/xlive/web-interface/v1/second/getList?platform=web&parent_area_id={ids[1]}&area_id={ids[-1]}&sort_type=&page={pg}'
-            data = self.fetch(f'{self.hosts[tid][0]}{path}', headers=self.gethr(0, tid)).json()
+            data = self.net.json(f'{self.hosts[tid][0]}{path}', {
+                "headers": self.gethr(0, tid),
+            })
             for i in data['data']['list']:
                 if i.get('roomid'):
                     data = self.buildvod(
@@ -261,8 +274,8 @@ class Spider(Spider):
     def huyaContent(self, tid, pg, filter, extend, vdata):
         if extend.get('cate') and pg == '1' and 'click' not in tid:
             id = extend.get('cate')
-            data = self.fetch(f'{self.referers[tid]}/liveconfig/game/bussLive?bussType={id}',
-                              headers=self.headers[1]).json()
+            data = self.net.json(f'{self.referers[tid]}/liveconfig/game/bussLive?bussType={id}',
+                                 {"headers": self.headers[1]})
             for i in data['data']:
                 v = self.buildvod(
                     vod_id=f"click_{tid}@@{int(i['gid'])}",
@@ -279,8 +292,10 @@ class Spider(Spider):
                 ids = tid.split('_')[1].split('@@')
                 tid = ids[0]
                 gid = f'&gameId={ids[1]}'
-            data = self.fetch(f'{self.hosts[tid][0]}/cache.php?m=LiveList&do=getLiveListByPage&tagAll=0{gid}&page={pg}',
-                              headers=self.headers[1]).json()
+            data = self.net.json(
+                f'{self.hosts[tid][0]}/cache.php?m=LiveList&do=getLiveListByPage&tagAll=0{gid}&page={pg}',
+                {"headers": self.headers[1]}
+            )
             for i in data['data']['datas']:
                 if i.get('profileRoom'):
                     v = self.buildvod(
@@ -321,7 +336,9 @@ class Spider(Spider):
                 ids = tid.split('_')[1].split('@@')
                 tid = ids[0]
                 path = f'/webcast/web/partition/detail/room/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&count=15&offset={(int(pg) - 1) * 15}&partition={ids[1]}&partition_type={ids[-1]}&req_from=2'
-            data = self.fetch(f'{self.hosts[tid]}{path}', headers=self.dyheaders).json()
+            data = self.net.json(f'{self.hosts[tid]}{path}', {
+                "headers": self.dyheaders,
+            })
             for i in data['data']['data']:
                 v = self.buildvod(
                     vod_id=f"{tid}@@{i['web_rid']}",
@@ -355,7 +372,7 @@ class Spider(Spider):
                 tid = ids[0]
                 path = f'/gapi/rkc/directory/mixList/2_{ids[1]}/{pg}'
             url = f'{self.hosts[tid]}{path}'
-            data = self.fetch(url, headers=self.headers[1]).json()
+            data = self.net.json(url, {"headers": self.headers[1]})
             for i in data['data']['rl']:
                 v = self.buildvod(
                     vod_id=f"{tid}@@{i['rid']}",
@@ -427,9 +444,9 @@ class Spider(Spider):
 
     def biliDetail(self, ids):
         try:
-            vdata = self.fetch(
+            vdata = self.net.json(
                 f'{self.hosts[ids[0]][0]}/xlive/web-room/v1/index/getInfoByRoom?room_id={ids[1]}&wts={int(time.time())}',
-                headers=self.gethr(0, ids[0])).json()
+                {"headers": self.gethr(0, ids[0])})
             v = vdata['data']['room_info']
             vod = self.buildvod(
                 vod_name=v.get('title'),
@@ -437,9 +454,9 @@ class Spider(Spider):
                 vod_remarks=v.get('tags'),
                 vod_play_from=v.get('title'),
             )
-            data = self.fetch(
+            data = self.net.json(
                 f'{self.hosts[ids[0]][0]}/xlive/web-room/v2/index/getRoomPlayInfo?room_id={ids[1]}&protocol=0%2C1&format=0%2C1%2C2&codec=0%2C1&platform=web',
-                headers=self.gethr(0, ids[0])).json()
+                {"headers": self.gethr(0, ids[0])})
             vdnams = data['data']['playurl_info']['playurl']['g_qn_desc']
             all_accept_qns = []
             streams = data['data']['playurl_info']['playurl']['stream']
@@ -461,8 +478,10 @@ class Spider(Spider):
 
     def huyaDetail(self, ids):
         try:
-            vdata = self.fetch(f'{self.hosts[ids[0]][1]}/cache.php?m=Live&do=profileRoom&roomid={ids[1]}',
-                               headers=self.headers[0]).json()
+            vdata = self.net.json(
+                f'{self.hosts[ids[0]][1]}/cache.php?m=Live&do=profileRoom&roomid={ids[1]}',
+                {"headers": self.headers[0]}
+            )
             v = vdata['data']['liveData']
             vod = self.buildvod(
                 vod_name=v.get('introduction'),
@@ -516,7 +535,7 @@ class Spider(Spider):
 
     def douyinDetail(self, ids):
         url = f'{self.hosts[ids[0]]}/webcast/room/web/enter/?aid=6383&app_name=douyin_web&live_id=1&device_platform=web&enter_from=web_live&web_rid={ids[1]}&room_id_str=&enter_source=&Room-Enter-User-Login-Ab=0&is_need_double_stream=false&cookie_enabled=true&screen_width=1980&screen_height=1080&browser_language=zh-CN&browser_platform=Win32&browser_name=Edge&browser_version=125.0.0.0'
-        data = self.fetch(url, headers=self.dyheaders).json()
+        data = self.net.json(url, {"headers": self.dyheaders})
         try:
             vdata = data['data']['data'][0]
             vod = self.buildvod(
@@ -567,20 +586,31 @@ class Spider(Spider):
     def douyuDetail(self, ids):
         headers = self.gethr(0, zr=f'{self.hosts[ids[0]]}/{ids[1]}')
         try:
-            data = self.fetch(f'{self.hosts[ids[0]]}/betard/{ids[1]}', headers=headers).json()
+            data = self.net.json(f'{self.hosts[ids[0]]}/betard/{ids[1]}', {
+                "headers": headers,
+            })
             vname = data['room']['room_name']
             vod = self.buildvod(
                 vod_name=vname,
                 vod_remarks=data['room'].get('second_lvl_name'),
                 vod_director=data['room'].get('nickname'),
             )
-            vdata = self.fetch(f'{self.hosts[ids[0]]}/swf_api/homeH5Enc?rids={ids[1]}', headers=headers).json()
+            vdata = self.net.json(
+                f'{self.hosts[ids[0]]}/swf_api/homeH5Enc?rids={ids[1]}',
+                {"headers": headers}
+            )
             json_body = vdata['data']
             json_body = {"html": self.douyu_text(json_body[f'room{ids[1]}']), "rid": ids[1]}
-            sign = self.post('http://alive.nsapps.cn/api/AllLive/DouyuSign', json=json_body, headers=self.headers[1]).json()['data']
+            sign = self.net.json('http://alive.nsapps.cn/api/AllLive/DouyuSign', {
+                "method": "POST", "postType": "json", "data": json_body,
+                "headers": self.headers[1],
+            })['data']
             body = f'{sign}&cdn=&rate=-1&ver=Douyu_223061205&iar=1&ive=1&hevc=0&fa=0'
             body=self.params_to_json(body)
-            nubdata = self.post(f'{self.hosts[ids[0]]}/lapi/live/getH5Play/{ids[1]}', data=body, headers=headers).json()
+            nubdata = self.net.json(f'{self.hosts[ids[0]]}/lapi/live/getH5Play/{ids[1]}', {
+                "method": "POST", "postType": "form", "data": body,
+                "headers": headers,
+            })
             plist = []
             names = []
             for i,x in enumerate(nubdata['data']['cdnsWithName']):
@@ -628,9 +658,9 @@ class Spider(Spider):
 
     def biliplay(self, ids):
         try:
-            data = self.fetch(
+            data = self.net.json(
                 f'{self.hosts[ids[0]][0]}/xlive/web-room/v2/index/getRoomPlayInfo?room_id={ids[1]}&protocol=0,1&format=0,2&codec=0&platform=web&qn={ids[2]}',
-                headers=self.gethr(0, ids[0])).json()
+                {"headers": self.gethr(0, ids[0])})
             urls = []
             line_index = 1
             for stream in data['data']['playurl_info']['playurl']['stream']:
@@ -679,8 +709,10 @@ class Spider(Spider):
         try:
             body = f'{sdata["sign"]}&cdn={sdata["cdn"]}&rate={quality["rate"]}'
             body=self.params_to_json(body)
-            data = self.post(f'{host}/lapi/live/getH5Play/{sdata["id"]}',
-                             data=body, headers=headers).json()
+            data = self.net.json(f'{host}/lapi/live/getH5Play/{sdata["id"]}', {
+                "method": "POST", "postType": "form", "data": body,
+                "headers": headers,
+            })
             if data.get('data'):
                 play_url = data['data']['rtmp_url'] + '/' + data['data']['rtmp_live']
                 bit = quality.get('bit', 0)
@@ -690,7 +722,7 @@ class Spider(Spider):
         except Exception as e:
             print(f"Error fetching {quality['name']}: {str(e)}")
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def e64(self, text):
@@ -747,7 +779,12 @@ class Spider(Spider):
         return vod
 
     def getpq(self, url, headers=None, cookies=None):
-        data = self.fetch(url, headers=headers, cookies=cookies).text
+        response = self.net.req(url, {"headers": headers, "cookies": cookies})
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while fetching {url}")
+        data = response["content"]
         try:
             return pq(data)
         except Exception as e:
@@ -765,4 +802,3 @@ class Spider(Spider):
     def handle_exception(self, e):
         print(f"报错: {str(e)}")
         return {'vod_play_from': '哎呀翻车啦', 'vod_play_url': f'翻车啦${self.excepturl}'}
-

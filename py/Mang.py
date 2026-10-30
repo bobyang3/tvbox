@@ -66,7 +66,10 @@ class Spider(Spider):
         return result
 
     def homeVideoContent(self):
-        data=self.fetch(f'{self.mhost}/dynamic/v1/channel/index/0/0/0/1000000/0/0/17/1354?type=17&version=5.0&t={str(int(time.time()*1000))}&_support=10000000', headers=self.headers).json()
+        data = self.net.json(
+            f'{self.mhost}/dynamic/v1/channel/index/0/0/0/1000000/0/0/17/1354?type=17&version=5.0&t={str(int(time.time()*1000))}&_support=10000000',
+            {"headers": self.headers, "timeout": 5000},
+        )
         videoList = []
         for i in data['data']:
             if i.get('DSLList') and len(i['DSLList']):
@@ -93,7 +96,9 @@ class Spider(Spider):
             '_support': '10000000'
         }
         body.update(extend)
-        data=self.fetch(f'{self.host}/rider/list/pcweb/v3', params=body, headers=self.headers).json()
+        data = self.net.json(f'{self.host}/rider/list/pcweb/v3', {
+            "params": body, "headers": self.headers, "timeout": 5000,
+        })
         videoList = []
         for i in data['data']['hitDocs']:
             videoList.append({
@@ -113,7 +118,9 @@ class Spider(Spider):
 
     def detailContent(self, ids):
         vbody={'allowedRC': '1', 'vid': ids[0], 'type': 'b', '_support': '10000000'}
-        vdata=self.fetch(f'{self.vhost}/video/info', params=vbody, headers=self.headers).json()
+        vdata = self.net.json(f'{self.vhost}/video/info', {
+            "params": vbody, "headers": self.headers, "timeout": 5000,
+        })
         d=vdata['data']['info']['detail']
         vod = {
             'vod_name': vdata['data']['info']['title'],
@@ -151,7 +158,10 @@ class Spider(Spider):
         return {'list':[vod]}
 
     def searchContent(self, key, quick, pg="1"):
-        data=self.fetch(f'{self.shost}/applet/search/v1?channelCode=mobile-wxap&q={key}&pn={pg}&pc=10&_support=10000000', headers=self.headers).json()
+        data = self.net.json(
+            f'{self.shost}/applet/search/v1?channelCode=mobile-wxap&q={key}&pn={pg}&pc=10&_support=10000000',
+            {"headers": self.headers, "timeout": 5000},
+        )
         videoList = []
         for i in data['data']['contents']:
             if i.get('data') and len(i['data']):
@@ -173,7 +183,7 @@ class Spider(Spider):
         id=f'{self.rhost}{id}'
         return  {'jx':1,'parse': 1, 'url': id, 'header': ''}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def getf(self, body):
@@ -183,7 +193,9 @@ class Spider(Spider):
             'platform': 'pcweb',
             '_support': '10000000',
         }
-        data = self.fetch(f'{self.host}/rider/config/channel/v1', params=params, headers=self.headers).json()
+        data = self.net.json(f'{self.host}/rider/config/channel/v1', {
+            "params": params, "headers": self.headers, "timeout": 5000,
+        })
         ft = []
         for i in data['data']['listItems']:
             try:
@@ -197,7 +209,9 @@ class Spider(Spider):
     def fetch_page_data(self, page, id, b=False):
         body = {'version': '5.5.35', 'video_id': id, 'page': page, 'size': '30',
                 'platform': '4', 'src': 'mgtv', 'allowedRC': '1', '_support': '10000000'}
-        data = self.fetch(f'{self.vhost}/episode/list', params=body, headers=self.headers).json()
+        data = self.net.json(f'{self.vhost}/episode/list', {
+            "params": body, "headers": self.headers, "timeout": 5000,
+        })
         ldata = [f'{i["t3"]}${i["url"]}' for i in data['data']['list']]
         if b:
             return data, ldata

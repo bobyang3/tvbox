@@ -3,14 +3,16 @@ import sys
 import urllib.parse
 import threading
 import time
-import requests
 from pyquery import PyQuery as pq
 
 sys.path.append('..')
 from base.spider import Spider
 
 class Spider(Spider):
-    def __init__(self):
+    def getName(self):
+        return self.name
+
+    def init(self, extend=""):
         # 基础配置
         self.name = '好色TV（优）'
         self.host = 'https://hsex.icu/'
@@ -34,10 +36,6 @@ class Spider(Spider):
             '10分钟+': {'type_id': 'long', 'url_suffix': 'long'}
         }
 
-    def getName(self):
-        return self.name
-
-    def init(self, extend=""):
         # 尝试获取最快可用域名
         self.host = self.get_fastest_host()
         self.headers['Referer'] = self.host
@@ -52,8 +50,16 @@ class Spider(Spider):
             if not self.isVideoFormat(url):
                 return False
             try:
-                resp = self.fetch(url, headers=self.headers, method='HEAD', timeout=3)
-                return resp.status_code in (200, 302) and 'video' in resp.headers.get('Content-Type', '')
+                resp = self.net.req(url, {
+                    "headers": self.headers,
+                    "method": "HEAD",
+                    "timeout": 3000,
+                })
+                return (
+                    not resp.get("error")
+                    and resp["code"] in (200, 302)
+                    and 'video' in resp["headers"].get('Content-Type', '')
+                )
             except:
                 return False
         return check
@@ -66,8 +72,15 @@ class Spider(Spider):
         def test_host(url):
             try:
                 start_time = time.time()
-                resp = requests.head(url, headers=self.headers, timeout=2, allow_redirects=False)
-                if resp.status_code in (200, 301, 302):
+                resp = self.net.req(url, {
+                    "headers": self.headers,
+                    "method": "HEAD",
+                    "redirect": 0,
+                    "timeout": 2000,
+                })
+                if resp.get("error"):
+                    results[url] = float('inf')
+                elif resp["code"] in (200, 301, 302):
                     delay = (time.time() - start_time) * 1000
                     results[url] = delay
                 else:
@@ -98,7 +111,7 @@ class Spider(Spider):
         
         try:
             # 获取首页内容
-            html = self.fetch_with_retry(self.host, retry=2, timeout=5).text
+            html = self.fetch_with_retry(self.host, retry=2, timeout=5)["content"]
             data = pq(html)
             
             # 提取视频列表
@@ -168,7 +181,15 @@ class Spider(Spider):
                 url = f"{self.host}{cate_info['url_suffix']}_list-{pg}.htm"
             
             # 请求分类页
-            html = self.fetch(url, headers=self.headers, timeout=8).text
+            proxy_url = f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(url)}'
+            response = self.net.req(proxy_url, {
+                "headers": self.headers, "timeout": 8000,
+            })
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300:
+                raise RuntimeError(f"HTTP {response['code']} while retrieving the category")
+            html = response["content"]
             html = html.encode('utf-8', errors='ignore').decode('utf-8')
             data = pq(html)
             
@@ -244,7 +265,7 @@ class Spider(Spider):
                 vod_id += '.htm'
             url = f"{self.host}{vod_id.lstrip('/')}"
             
-            html = self.fetch_with_retry(url, retry=2, timeout=8).text
+            html = self.fetch_with_retry(url, retry=2, timeout=8)["content"]
             html = html.encode('utf-8', errors='ignore').decode('utf-8')
             data = pq(html)
             
@@ -325,18 +346,16 @@ class Spider(Spider):
             }
             
             # 发起请求
-            resp = self.fetch(
-                url=search_url,
-                headers=self.headers,
-                params=params,
-                timeout=8
-            )
-            if resp.status_code not in (200, 302):
-                print(f"搜索页面请求失败，URL：{resp.url}，状态码：{resp.status_code}")
+            proxy_url = f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(search_url)}'
+            resp = self.net.req(proxy_url, {
+                "headers": self.headers, "params": params, "timeout": 8000,
+            })
+            if resp.get("error") or resp["code"] not in (200, 302):
+                print(f"搜索页面请求失败，URL：{search_url}，状态码：{resp.get('error') or resp['code']}")
                 return {'list': [], 'page': int(pg), 'pagecount': 1, 'limit': 0, 'total': 0}
             
             # 处理页面内容
-            html = resp.text.encode('utf-8', errors='ignore').decode('utf-8')
+            html = resp["content"]
             data = pq(html)
             
             # 检测无结果场景
@@ -431,7 +450,7 @@ class Spider(Spider):
             'double': True  # 根据rule中的double设置
         }
 
-    def localProxy(self, param):
+    def proxy(self, param):
         try:
             url = param['url']
             if url and not url.startswith(('http://', 'https://')):
@@ -440,94 +459,33 @@ class Spider(Spider):
             img_headers = self.headers.copy()
             img_headers.update({'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'})
             
-            res = self.fetch(url, headers=img_headers, timeout=10)
-            content_type = res.headers.get('Content-Type', 'image/jpeg')
-            
-            return [200, content_type, res.content]
+            proxy_url = f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(url)}'
+            res = self.net.req(proxy_url, {
+                "headers": img_headers, "timeout": 10000, "buffer": 3,
+            })
+            if res.get("error"):
+                raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300:
+                raise RuntimeError(f"HTTP {res['code']} while retrieving image")
+            response_headers = res.get("headers", {})
+            content_type = response_headers.get(
+                'content-type', response_headers.get('Content-Type', 'image/jpeg')
+            )
+            return [res["code"], content_type, res["content"]]
         except Exception as e:
             print(f"图片代理失败: {e}")
-            return [200, 'image/jpeg', b'']
+            return [502, 'text/plain', str(e).encode('utf-8')]
 
     def fetch_with_retry(self, url, retry=2, timeout=5):
         for i in range(retry + 1):
-            try:
-                resp = self.fetch(f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(url)}',headers=self.headers, timeout=timeout)
-                if resp.status_code in (200, 301, 302):
-                    return resp
-                print(f"请求{url}返回状态码{resp.status_code}，重试中...")
-            except Exception as e:
-                print(f"第{i+1}次请求{url}失败: {e}")
+            proxy_url = f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(url)}'
+            resp = self.net.req(proxy_url, {
+                "headers": self.headers, "timeout": timeout * 1000,
+            })
+            if not resp.get("error") and resp["code"] in (200, 301, 302):
+                return resp
+            failure = resp.get("error") or f"HTTP {resp.get('code')}"
+            print(f"请求{url}失败 ({i + 1}/{retry + 1}): {failure}")
             if i < retry:
                 time.sleep(0.5)
-        return type('obj', (object,), {'text': '', 'status_code': 404})
-
-    def fetch(self, url, headers=None, timeout=5, method='GET', params=None):
-        headers = headers or self.headers
-        params = params or {}
-        try:
-            if method.upper() == 'GET':
-                resp = requests.get(
-                    f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(url)}',
-                    headers=headers, 
-                    timeout=timeout, 
-                    allow_redirects=True,
-                    params=params  # 支持GET请求带参数，适配搜索分页
-                )
-            elif method.upper() == 'HEAD':
-                resp = requests.head(
-                   f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(url)}',
-                    headers=headers, 
-                    timeout=timeout, 
-                    allow_redirects=False,
-                    params=params
-                )
-            else:
-                resp = requests.get(  # 默认GET请求，兼容其他方法调用
-                   f'https://vpsdn.leuse.top/proxy?single=true&url={urllib.parse.quote(url)}',
-                    headers=headers, 
-                    timeout=timeout, 
-                    allow_redirects=True,
-                    params=params
-                )
-            # 自动适配编码，避免中文乱码
-            if 'charset' in resp.headers.get('Content-Type', '').lower():
-                resp.encoding = resp.apparent_encoding
-            else:
-                resp.encoding = 'utf-8'
-            return resp
-        except Exception as e:
-            print(f"网络请求失败({url}): {e}")
-            # 返回统一格式空响应，避免后续逻辑崩溃
-            return type('obj', (object,), {
-                'text': '', 
-                'status_code': 500, 
-                'headers': {},
-                'url': url
-            })
-
-
-# ------------------------------
-# 可选测试代码（运行时注释或删除，用于验证功能）
-# ------------------------------
-if __name__ == "__main__":
-    # 初始化爬虫
-    spider = Spider()
-    spider.init()
-    
-    # 测试首页内容
-    print("=== 测试首页 ===")
-    home_data = spider.homeContent(filter='')
-    print(f"首页分类数：{len(home_data['class'])}")
-    print(f"首页视频数：{len(home_data['list'])}")
-    
-    # 测试视频分类（修复后的数据获取）
-    print("\n=== 测试视频分类（第1页） ===")
-    cate_data = spider.categoryContent(tid='list', pg=1, filter='', extend='')
-    print(f"视频分类第1页视频数：{len(cate_data['list'])}")
-    print(f"视频分类总页数：{cate_data['pagecount']}")
-    
-    # 测试搜索功能（修复语法错误后）
-    print("\n=== 测试搜索（关键词：测试） ===")
-    search_data = spider.searchContent(key="测试", quick=False, pg=1)
-    print(f"搜索结果数：{len(search_data['list'])}")
-    print(f"搜索总页数：{search_data['pagecount']}")
+        raise RuntimeError(f"请求失败，已重试{retry + 1}次: {url}")

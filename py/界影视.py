@@ -6,7 +6,6 @@ import hashlib
 import re
 import sys
 import time
-import requests
 sys.path.append('..')
 from base.spider import Spider
 
@@ -67,8 +66,8 @@ class Spider(Spider):
         data = self.get_detail_data(ids)
         return {"list": data, 'parse': 0, 'jx': 0}
 
-    def searchContent(self, key, quick, page='1'):
-        if int(page) > 1:
+    def searchContent(self, key, quick, pg="1"):
+        if int(pg) > 1:
             return {'list': [], 'parse': 0, 'jx': 0}
         url = self.home_url + f'/vod/search/{key}'
         data = self.get_data(url)
@@ -78,7 +77,7 @@ class Spider(Spider):
         url = self.get_play_data(pid)
         return {"url": url, "header": self.headers, "parse": 1, "jx": 0}
 
-    def localProxy(self, params):
+    def proxy(self, params):
         pass
 
     def destroy(self):
@@ -88,13 +87,14 @@ class Spider(Spider):
     def get_data(self, url):
         data = []
         try:
-            res = requests.get(url, headers=self.headers)
-            if res.status_code != 200:
+            res = self.net.req(url, {"headers": self.headers})
+            if res.get("error") or res["code"] != 200:
+                self.log(f"获取视频列表失败: {res.get('error') or res['code']}")
                 return data
-            vod_id_s = re.findall(r'\\"vodId\\":(.*?),', res.text)
-            vod_name_s = re.findall(r'\\"vodName\\":\\"(.*?)\\"', res.text)
-            vod_pic_s = re.findall(r'\\"vodPic\\":\\"(.*?)\\"', res.text)
-            vod_remarks_s = re.findall(r'\\"vodRemarks\\":\\"(.*?)\\"', res.text)
+            vod_id_s = re.findall(r'\\"vodId\\":(.*?),', res["content"])
+            vod_name_s = re.findall(r'\\"vodName\\":\\"(.*?)\\"', res["content"])
+            vod_pic_s = re.findall(r'\\"vodPic\\":\\"(.*?)\\"', res["content"])
+            vod_remarks_s = re.findall(r'\\"vodRemarks\\":\\"(.*?)\\"', res["content"])
 
             for i in range(len(vod_id_s)):
                 data.append(
@@ -105,8 +105,8 @@ class Spider(Spider):
                         'vod_remarks': vod_remarks_s[i],
                     }
                 )
-        except requests.RequestException as e:
-            print(e)
+        except Exception as e:
+            self.log(f"获取视频列表失败: {e}")
         return data
 
     def get_detail_data(self, ids):
@@ -114,12 +114,12 @@ class Spider(Spider):
         t = str(int(time.time() * 1000))
         headers = self.get_headers(t, f'id={ids}&key=cb808529bae6b6be45ecfab29a4889bc&t={t}')
         try:
-            res = requests.get(url, headers=headers)
-            if res.status_code != 200:
+            res = self.net.json(url, {"headers": headers})
+            if not res:
                 return []
-            i = res.json()['data']
+            i = res['data']
             urls = []
-            for ii in res.json()['data']['episodeList']:
+            for ii in res['data']['episodeList']:
                 name = ii['name']
                 url = ii['nid']
                 urls.append(f'{name}${ids}-{url}')
@@ -139,8 +139,8 @@ class Spider(Spider):
             }
             return [data]
 
-        except requests.RequestException as e:
-            print(e)
+        except Exception as e:
+            self.log(f"获取视频详情失败: {e}")
         return []
 
     def get_play_data(self, play):
@@ -151,12 +151,10 @@ class Spider(Spider):
         t = str(int(time.time() * 1000))
         headers = self.get_headers(t, f'id={_id}&nid={_pid}&key=cb808529bae6b6be45ecfab29a4889bc&t={t}')
         try:
-            res = requests.get(url, headers=headers)
-            if res.status_code != 200:
-                return self.error_url
-            return res.json()['data']['list'][0]['url']
-        except requests.RequestException as e:
-            print(e)
+            res = self.net.json(url, {"headers": headers})
+            return res['data']['list'][0]['url']
+        except Exception as e:
+            self.log(f"获取播放地址失败: {e}")
         return self.error_url
 
     @staticmethod
@@ -174,7 +172,5 @@ class Spider(Spider):
 
 if __name__ == '__main__':
     pass
-
-
 
 

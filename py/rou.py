@@ -3,7 +3,6 @@
 # @Time    : 2025/1/20 14:55
 
 import sys
-import requests
 from lxml import etree
 
 sys.path.append('..')
@@ -31,10 +30,11 @@ class Spider(Spider):
     def homeContent(self, filter):
         url = self.home_url + '/cat'
         try:
-            res = requests.get(url, headers=self.headers)
-            if res.status_code != 200:
-                return {'class': [], 'msg': f'status_code: {res.status_code}'}
-            root = etree.HTML(res.text.encode('utf-8'))
+            res = self.net.req(url, {"headers": self.headers})
+            if res.get("error") or res["code"] != 200:
+                status = res.get("error") or res["code"]
+                return {'class': [], 'msg': f'status_code: {status}'}
+            root = etree.HTML(res["content"])
             name_list = root.xpath('//div[@class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3"]/a/text()')
             url_list = root.xpath('//div[@class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3"]/a/@href')
             if len(name_list) < 1 or len(url_list) < 1:
@@ -43,16 +43,18 @@ class Spider(Spider):
             for name, url in zip(name_list, url_list):
                 a.append({'type_name': name, 'type_id': url})
             return {'class': a}
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
+            self.log(f"获取分类失败: {e}")
             return {'class': [], 'msg': str(e)}
 
     def homeVideoContent(self):
         url = self.home_url + '/home'
         try:
-            res = requests.get(url, headers=self.headers)
-            if res.status_code != 200:
-                return {'list': [], 'parse': 0, 'jx': 0, 'msg': f'status_code: {res.status_code}'}
-            root = etree.HTML(res.text.encode('utf-8'))
+            res = self.net.req(url, {"headers": self.headers})
+            if res.get("error") or res["code"] != 200:
+                status = res.get("error") or res["code"]
+                return {'list': [], 'parse': 0, 'jx': 0, 'msg': f'status_code: {status}'}
+            root = etree.HTML(res["content"])
             data_list = root.xpath('//div[@class="aspect-video relative"]/a')
             if len(data_list) < 1:
                 return {'list': [], 'parse': 0, 'jx': 0, 'msg': '获取的数据为空'}
@@ -73,16 +75,18 @@ class Spider(Spider):
                     }
                 )
             return {'list': a, 'parse': 0, 'jx': 0}
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
+            self.log(f"获取首页视频失败: {e}")
             return {'list': [], 'parse': 0, 'jx': 0, 'msg': str(e)}
 
     def categoryContent(self, cid, page, filter, ext):
         url = f'{self.home_url}{cid}?order=createdAt&page={page}'
         try:
-            res = requests.get(url, headers=self.headers)
-            if res.status_code != 200:
-                return {'list': [], 'parse': 0, 'jx': 0, 'msg': f'status_code: {res.status_code}'}
-            root = etree.HTML(res.text.encode('utf-8'))
+            res = self.net.req(url, {"headers": self.headers})
+            if res.get("error") or res["code"] != 200:
+                status = res.get("error") or res["code"]
+                return {'list': [], 'parse': 0, 'jx': 0, 'msg': f'status_code: {status}'}
+            root = etree.HTML(res["content"])
             data_list = root.xpath('//div[@class="aspect-video relative"]/a')
             if len(data_list) < 1:
                 return {'list': [], 'parse': 0, 'jx': 0, 'msg': '获取的数据为空'}
@@ -102,7 +106,8 @@ class Spider(Spider):
                     }
                 )
             return {'list': a, 'parse': 0, 'jx': 0}
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
+            self.log(f"获取分类视频失败: {e}")
             return {'list': [], 'parse': 0, 'jx': 0, 'msg': str(e)}
 
     def detailContent(self, did):
@@ -118,10 +123,8 @@ class Spider(Spider):
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
         }
         try:
-            res = requests.get(url, headers=h)
-            if res.status_code != 200:
-                return {'list': [], 'parse': 0, 'jx': 0, 'msg': f'status_code: {res.status_code}'}
-            play_url = res.json()['video']['videoUrl']
+            res = self.net.json(url, {"headers": h})
+            play_url = res['video']['videoUrl']
             video_list.append(
                 {
                     'type_name': '',
@@ -139,16 +142,18 @@ class Spider(Spider):
                 }
             )
             return {"list": video_list, 'parse': 0, 'jx': 0}
-        except requests.RequestException as e:
-            return {'list': [], 'msg': e}
+        except Exception as e:
+            self.log(f"获取详情失败: {e}")
+            return {'list': [], 'msg': str(e)}
 
-    def searchContent(self, key, quick, page='1'):
-        url = f'{self.home_url}/search?q={key}&page={page}'
+    def searchContent(self, key, quick, pg="1"):
+        url = f'{self.home_url}/search?q={key}&page={pg}'
         try:
-            res = requests.get(url, headers=self.headers)
-            if res.status_code != 200:
-                return {'list': [], 'parse': 0, 'jx': 0, 'msg': f'status_code: {res.status_code}'}
-            root = etree.HTML(res.text.encode('utf-8'))
+            res = self.net.req(url, {"headers": self.headers})
+            if res.get("error") or res["code"] != 200:
+                status = res.get("error") or res["code"]
+                return {'list': [], 'parse': 0, 'jx': 0, 'msg': f'status_code: {status}'}
+            root = etree.HTML(res["content"])
             data_list = root.xpath('//div[@class="aspect-video relative"]/a')
             if len(data_list) < 1:
                 return {'list': [], 'parse': 0, 'jx': 0, 'msg': '获取的数据为空'}
@@ -168,13 +173,14 @@ class Spider(Spider):
                     }
                 )
             return {'list': a, 'parse': 0, 'jx': 0}
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
+            self.log(f"搜索失败: {e}")
             return {'list': [], 'parse': 0, 'jx': 0, 'msg': str(e)}
 
     def playerContent(self, flag, pid, vipFlags):
         return {'url': pid, "header": self.headers, 'parse': 0, 'jx': 0}
 
-    def localProxy(self, params):
+    def proxy(self, params):
         pass
 
     def destroy(self):

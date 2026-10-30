@@ -45,7 +45,7 @@ class Spider(Spider):
     }
 
     def homeContent(self, filter):
-        data = self.getpq(self.fetch(self.host, headers=self.headers).text)
+        data = self.getpq(self.net.req(self.host, {"headers": self.headers, "timeout": 5000})["content"])
         result = {}
         classes = []
         for k in list(data('.navtop .navlist li').items())[:9]:
@@ -61,7 +61,7 @@ class Spider(Spider):
         pass
 
     def categoryContent(self, tid, pg, filter, extend):
-        data = self.getpq(self.fetch(f"{tid}{'' if pg == '1' else f'page/{pg}/'}", headers=self.headers).text)
+        data = self.getpq(self.net.req(f"{tid}{'' if pg == '1' else f'page/{pg}/'}", {"headers": self.headers, "timeout": 5000})["content"])
         result = {}
         result['list'] = self.getlist(data('.mi_cont .bt_img ul li'))
         result['page'] = pg
@@ -71,7 +71,7 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data = self.getpq(self.fetch(ids[0], headers=self.headers).text)
+        data = self.getpq(self.net.req(ids[0], {"headers": self.headers, "timeout": 5000})["content"])
         data2 = data('.moviedteail_list li')
         vod = {
             'vod_name': data('.dytext h1').text(),
@@ -94,11 +94,11 @@ class Spider(Spider):
         return result
 
     def searchContent(self, key, quick, pg="1"):
-        data = self.getpq(self.fetch(f"{self.host}/page/{pg}/?s={key}", headers=self.headers).text)
+        data = self.getpq(self.net.req(f"{self.host}/page/{pg}/?s={key}", {"headers": self.headers, "timeout": 5000})["content"])
         return {'list': self.getlist(data('.mi_cont .bt_img ul li')), 'page': pg}
 
     def playerContent(self, flag, id, vipFlags):
-        data = self.getpq(self.fetch(id, headers=self.headers).text)
+        data = self.getpq(self.net.req(id, {"headers": self.headers, "timeout": 5000})["content"])
         try:
             sc = data('.videoplay script').eq(-1).text()
             strd = re.findall(r'var\s+[^=]*=\s*"([^"]*)";', sc)
@@ -115,7 +115,7 @@ class Spider(Spider):
         result["header"] = self.headers
         return result
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def getpq(self, text):

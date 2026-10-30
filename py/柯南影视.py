@@ -45,7 +45,7 @@ class Spider(Spider):
     }
 
     def homeContent(self, filter):
-        data=self.getpq(self.fetch(self.host,headers=self.headers).text)
+        data=self.getpq(self.net.req(self.host, {"headers": self.headers, "timeout": 5000})["content"])
         result = {}
         classes = []
         for k in data('.head-more.box a').items():
@@ -63,7 +63,7 @@ class Spider(Spider):
         pass
 
     def categoryContent(self, tid, pg, filter, extend):
-        data=self.getpq(self.fetch(f"{self.host}/show/{tid}--------{pg}---/",headers=self.headers).text)
+        data=self.getpq(self.net.req(f"{self.host}/show/{tid}--------{pg}---/", {"headers": self.headers, "timeout": 5000})["content"])
         result = {}
         result['list'] = self.getlist(data('.border-box.public-r .public-list-div'))
         result['page'] = pg
@@ -73,7 +73,7 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data = self.getpq(self.fetch(f"{self.host}/list/{ids[0]}/", headers=self.headers).text)
+        data = self.getpq(self.net.req(f"{self.host}/list/{ids[0]}/", {"headers": self.headers, "timeout": 5000})["content"])
         v=data('.detail-info.lightSpeedIn .slide-info')
         vod = {
             'vod_year': v.eq(-1).text().split(':',1)[-1],
@@ -100,7 +100,10 @@ class Spider(Spider):
         return result
 
     def searchContent(self, key, quick, pg="1"):
-        data = self.fetch(f"{self.host}/index.php/ajax/suggest?mid=1&wd={key}&limit=9999&timestamp={int(time.time()*1000)}", headers=self.headers).json()
+        data = self.net.json(
+            f"{self.host}/index.php/ajax/suggest?mid=1&wd={key}&limit=9999&timestamp={int(time.time()*1000)}",
+            {"headers": self.headers, "timeout": 5000},
+        )
         videos=[]
         for i in data['list']:
             videos.append({
@@ -115,20 +118,24 @@ class Spider(Spider):
             'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.8 Mobile/15E148 Safari/604.1',
             'Origin': self.host
         }
-        data = self.getpq(self.fetch(f"{self.host}{id}", headers=self.headers).text)
+        data = self.getpq(self.net.req(f"{self.host}{id}", {"headers": self.headers, "timeout": 5000})["content"])
         try:
             jstr = data('.player-box .player-left script').eq(1).text()
             jsdata = json.loads(jstr.split('=',1)[-1])
             url = jsdata.get('url')
             if not re.search(r'\.m3u8|\.mp4',jsdata['url']):
-                jxd=self.fetch(f"{self.host}/static/player/{jsdata['from']}.js", headers=self.headers).text
+                jxd = self.net.req(f"{self.host}/static/player/{jsdata['from']}.js", {"headers": self.headers, "timeout": 5000})["content"]
                 jx=re.search(r'http.*?url=', jxd)
                 if not jx:raise Exception('未找到jx')
                 parsed_url = urlparse(jx.group())
                 jxhost = parsed_url.scheme + "://" + parsed_url.netloc
                 title=data('head title').eq(0).text().split('-')[0]
                 next=f"{self.host.split('//')[-1]}{jsdata['link_next']}" if jsdata.get('link_next') else ''
-                cd=self.fetch(f"{jx.group()}{jsdata['url']}&next=//{next}&title={quote(title)}", headers=self.headers).text
+                cd_response = self.net.req(
+                    f"{jx.group()}{jsdata['url']}&next=//{next}&title={quote(title)}",
+                    {"headers": self.headers, "timeout": 5000},
+                )
+                cd = cd_response["content"]
                 match = re.search(r'var\s+config\s*=\s*(\{[\s\S]*?\})', cd)
                 if not match:raise Exception('未找到config')
                 cm=re.sub(r',\s*}(?=\s*$)', '}', match.group(1))
@@ -150,8 +157,10 @@ class Spider(Spider):
                     'X-Requested-With': 'XMLHttpRequest',
                 }
                 h['Origin']=jxhost
-                jd=self.post(f"{jxhost}/post.php", headers=headers, data=json.dumps(config))
-                data=json.loads(jd.content.decode('utf-8-sig'))
+                data = self.net.json(f"{jxhost}/post.php", {
+                    "method": "POST", "postType": "json", "data": config,
+                    "headers": headers,
+                })
                 url=data.get('knvod')
             p = 0
             if not url:raise Exception('未找到播放地址')
@@ -160,7 +169,7 @@ class Spider(Spider):
             p,url=1,f"{self.host}{id}"
         return {"parse": p, "url": url, "header": h}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def getlist(self,data):

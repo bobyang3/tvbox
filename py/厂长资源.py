@@ -7,6 +7,7 @@ import json
 import time
 import urllib.parse
 import re
+from lxml import etree
 
 class Spider(Spider):
     
@@ -56,8 +57,8 @@ class Spider(Spider):
 
         # 获取首页推荐内容
         try:
-            rsp = self.fetch(self.host, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(self.host, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc, limit=50)
             result['list'] = videos
         except Exception as e:
@@ -101,8 +102,8 @@ class Spider(Spider):
                 return {'list': []}
 
             self.log(f"访问分类URL: {url}")
-            rsp = self.fetch(url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc, limit=20)
 
             return {
@@ -121,8 +122,8 @@ class Spider(Spider):
         try:
             search_url = f"{self.host}/xsss1O1?q={urllib.parse.quote(key)}"
             self.log(f"搜索URL: {search_url}")
-            rsp = self.fetch(search_url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(search_url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
 
             videos = []
             seen_ids = set()
@@ -150,8 +151,8 @@ class Spider(Spider):
         try:
             vid = ids[0]
             detail_url = f"{self.host}/movie/{vid}.html"
-            rsp = self.fetch(detail_url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(detail_url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             
             video_info = self._get_detail(doc, vid)
             return {'list': [video_info]} if video_info else {'list': []}
@@ -174,16 +175,21 @@ class Spider(Spider):
                 'Pragma': 'no-cache'
             })
 
-            rsp = self.fetch(play_url, headers=play_headers)
+            rsp = self.net.req(play_url, {
+                "headers": play_headers, "buffer": 3,
+            })
+            if rsp.get("error"):
+                raise RuntimeError(rsp["error"])
+            if not 200 <= rsp["code"] < 300:
+                raise RuntimeError(f"HTTP {rsp['code']} while retrieving the playback page")
             
             # 智能解码页面内容
-            try:
-                html = rsp.text if rsp.encoding else rsp.content.decode('utf-8', errors='ignore')
-            except:
+            for encoding in ('utf-8', 'gbk', 'latin-1'):
                 try:
-                    html = rsp.content.decode('gbk', errors='ignore')
-                except:
-                    html = rsp.content.decode('latin-1', errors='ignore')
+                    html = rsp["content"].decode(encoding)
+                    break
+                except UnicodeDecodeError:
+                    continue
 
             # 提取真实播放链接
             real_url = self._extract_real_video_url(html, play_url)
@@ -291,10 +297,10 @@ class Spider(Spider):
                 'key': 'year',
                 'name': '年份',
                 'value': [
-                    {'n': '全部', 'v': ''},
-                    {'n': '2026', 'v': '2026'},
-                    {'n': '2025', 'v': '2025'},
-                    {'n': '2024', 'v': '2024'},
+                    {'n': '全部', 'v': ''},{'n':'2027','v':''},
+                    {'n':'2026','v':''},
+                    {'n':'2025','v':''},
+                    {'n':'2024','v':''},
                     {'n': '2023', 'v': '2023'},
                     {'n': '2022', 'v': '2022'},
                     {'n': '2021', 'v': '2021'},
@@ -484,7 +490,8 @@ class Spider(Spider):
             if link.startswith('/'):
                 link = self.host + link
 
-            vod_id = self.regStr(r'/movie/(\d+)\.html', link)
+            match = re.search(r'/movie/(\d+)\.html', link)
+            vod_id = match.group(1) if match else ''
             if not vod_id:
                 return None
 
@@ -587,7 +594,8 @@ class Spider(Spider):
                         ep_href = ep_href[0]
 
                         # 提取播放ID
-                        play_id = self.regStr(r'/v_play/([^/]+)\.html', ep_href)
+                        match = re.search(r'/v_play/([^/]+)\.html', ep_href)
+                        play_id = match.group(1) if match else ''
                         if play_id:
                             episodes.append(f"{ep_title}${play_id}")
 
@@ -647,8 +655,12 @@ class Spider(Spider):
                         iframe_url = iframe_src
 
                     self.log(f"获取iframe内容: {iframe_url}")
-                    iframe_rsp = self.fetch(iframe_url, headers=iframe_headers)
-                    iframe_html = iframe_rsp.text
+                    iframe_rsp = self.net.req(iframe_url, {"headers": iframe_headers})
+                    if iframe_rsp.get("error"):
+                        raise RuntimeError(iframe_rsp["error"])
+                    if not 200 <= iframe_rsp["code"] < 300:
+                        raise RuntimeError(f"HTTP {iframe_rsp['code']} while retrieving the iframe")
+                    iframe_html = iframe_rsp["content"]
 
                     # 在iframe内容中查找真实视频链接
                     video_url = self._extract_from_iframe_content(iframe_html, iframe_url)

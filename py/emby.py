@@ -4,8 +4,8 @@ import sys
 import json
 import time
 import random
-import requests
 import threading
+import requests
 from uuid import uuid4
 from urllib.parse import quote
 
@@ -314,10 +314,11 @@ class Spider(Spider):
             print(f"记录播放开始失败: {e}")
         
         if int(self.thread) > 0:
-            try:
-                self.fetch('http://127.0.0.1:7777', timeout=120)
-            except:
-                self.fetch('http://127.0.0.1:9978/go')
+            proxy_health = self.net.req('http://127.0.0.1:7777', {"timeout": 1000})
+            if proxy_health.get("error") or not 200 <= proxy_health["code"] < 400:
+                fallback_health = self.net.req('http://127.0.0.1:9978/go', {"timeout": 10000})
+                if fallback_health.get("error") or not 200 <= fallback_health["code"] < 400:
+                    raise RuntimeError("Neither local playback proxy is available")
             url = f'http://127.0.0.1:7777/?url={quote(url)}&thread={self.thread}'
             
         result = {
@@ -529,12 +530,11 @@ class Spider(Spider):
         thread = threading.Thread(target=progress_updater, daemon=True)
         thread.start()
 
-    def localProxy(self, params):
+    def proxy(self, params):
         pass
 
     def getAccessToken(self):
-        key = f"emby_{self.baseUrl}_{self.username}_{self.password}"
-        embyInfos = self.getCache(key)
+        embyInfos = getattr(self, "_emby_infos", None)
         if embyInfos:
             return embyInfos
 
@@ -554,7 +554,7 @@ class Spider(Spider):
             proxies={"http": self.proxy, "https": self.proxy}
         )
         embyInfos = r.json()
-        self.setCache(key, embyInfos)
+        self._emby_infos = embyInfos
         return embyInfos
 
     def cleanText(self, text):

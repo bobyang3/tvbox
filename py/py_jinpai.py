@@ -5,7 +5,6 @@
 import sys
 import hashlib
 import time
-import requests
 import re
 import json
 sys.path.append('..')
@@ -70,9 +69,9 @@ class Spider(Spider):
                    {'n': '其他', 'v': '/area/其他'}]},
         {'key': 'year',
          'name': '年份',
-         'value': [{'n': '全部', 'v': ''},
-                   {'n': '2025', 'v': '/year/2025'},
-                   {'n': '2024', 'v': '/year/2024'},
+         'value': [{'n': '全部', 'v': ''},{'n':'2027','v':''},{'n':'2026','v':''},
+                   {'n':'2025','v':''},
+                   {'n':'2024','v':''},
                    {'n': '2023', 'v': '/year/2023'},
                    {'n': '2022', 'v': '/year/2022'},
                    {'n': '2021', 'v': '/year/2021'},
@@ -138,9 +137,9 @@ class Spider(Spider):
                    {'n': '其他', 'v': '/area/其他'}]},
         {'key': 'year',
          'name': '时间',
-         'value': [{'n': '全部', 'v': ''},
-                   {'n': '2025', 'v': '/year/2025'},
-                   {'n': '2024', 'v': '/year/2024'},
+         'value': [{'n': '全部', 'v': ''},{'n':'2027','v':''},{'n':'2026','v':''},
+                   {'n':'2025','v':''},
+                   {'n':'2024','v':''},
                    {'n': '2023', 'v': '/year/2023'},
                    {'n': '2022', 'v': '/year/2022'},
                    {'n': '2021', 'v': '/year/2021'},
@@ -198,9 +197,9 @@ class Spider(Spider):
                    {'n': '其他', 'v': '/area/其他'}]},
         {'key': 'year',
          'name': '时间',
-         'value': [{'n': '全部', 'v': ''},
-                   {'n': '2025', 'v': '/year/2025'},
-                   {'n': '2024', 'v': '/year/2024'},
+         'value': [{'n': '全部', 'v': ''},{'n':'2027','v':''},{'n':'2026','v':''},
+                   {'n':'2025','v':''},
+                   {'n':'2024','v':''},
                    {'n': '2023', 'v': '/year/2023'},
                    {'n': '2022', 'v': '/year/2022'},
                    {'n': '2021', 'v': '/year/2021'},
@@ -248,9 +247,9 @@ class Spider(Spider):
                    {'n': '其他', 'v': '/area/其他'}]},
         {'key': 'year',
          'name': '时间',
-         'value': [{'n': '全部', 'v': ''},
-                   {'n': '2025', 'v': '/year/2025'},
-                   {'n': '2024', 'v': '/year/2024'},
+         'value': [{'n': '全部', 'v': ''},{'n':'2027','v':''},{'n':'2026','v':''},
+                   {'n':'2025','v':''},
+                   {'n':'2024','v':''},
                    {'n': '2023', 'v': '/year/2023'},
                    {'n': '2022', 'v': '/year/2022'},
                    {'n': '2021', 'v': '/year/2021'},
@@ -293,8 +292,11 @@ class Spider(Spider):
             "User-Agent": self.ua,
             'referer': self.home_url, 't': t, 'sign': data_sha1}
         try:
-            res = requests.get(f'{self.home_url}/api/mw-movie/anonymous/home/hotSearch', headers=h)
-            data_list = res.json()['data']
+            data = self.net.json(
+                f'{self.home_url}/api/mw-movie/anonymous/home/hotSearch',
+                {"headers": h}
+            )
+            data_list = data['data']
             for i in data_list:
                 video_list.append(
                     {
@@ -304,7 +306,8 @@ class Spider(Spider):
                         'vod_remarks': i['vodVersion'] if i['typeId1'] == 1 else i['vodRemarks']
                     }
                 )
-        except requests.RequestException as e:
+        except Exception as e:
+            self.log(f"获取首页推荐失败: {e}")
             return {
                 'list': [],
                 'parse': 0,
@@ -331,10 +334,15 @@ class Spider(Spider):
             'referer': self.home_url,
         }
         try:
-            res = requests.get(
+            res = self.net.req(
                 f'{self.home_url}/vod/show/id/{t}{_type}{__class}{_area}{_year}{_lang}{_by}/page/{page}',
-                headers=h)
-            aa = re.findall(r'\\"list\\":(.*?)}}}]', res.text)
+                {"headers": h}
+            )
+            if res.get("error"):
+                raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300:
+                raise RuntimeError(f"HTTP {res['code']} while retrieving category")
+            aa = re.findall(r'\\"list\\":(.*?)}}}]', res["content"])
             if not aa:
                 return {'list': [], 'parse': 0, 'jx': 0}
             bb = aa[0].replace('\\"', '"')
@@ -348,7 +356,8 @@ class Spider(Spider):
                         'vod_remarks': i['vodVersion'] if i['typeId1'] == 1 else i['vodRemarks']
                     }
                 )
-        except requests.RequestException as e:
+        except Exception as e:
+            self.log(f"获取分类失败: {e}")
             return {'list': [], 'msg': e}
         return {'list': video_list, 'parse': 0, 'jx': 0}
 
@@ -366,8 +375,11 @@ class Spider(Spider):
             't': t, 'sign': data_sha1
         }
         try:
-            res = requests.get(f'{self.home_url}/api/mw-movie/anonymous/video/detail?id={ids}', headers=h)
-            data = res.json()['data']
+            response = self.net.json(
+                f'{self.home_url}/api/mw-movie/anonymous/video/detail?id={ids}',
+                {"headers": h}
+            )
+            data = response['data']
             play_list = data['episodeList']
             vod_play_url = []
             for i in play_list:
@@ -391,15 +403,16 @@ class Spider(Spider):
 
                 }
             )
-        except requests.RequestException as e:
+        except Exception as e:
+            self.log(f"获取详情失败: {e}")
             return {'list': [], 'msg': e}
         return {"list": video_list, 'parse': 0, 'jx': 0}
 
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1"):
         wd = key
         video_list = []
         t = str(int(time.time() * 1000))
-        data = f'keyword={wd}&pageNum={page}&pageSize=12&key=cb808529bae6b6be45ecfab29a4889bc&t={t}'
+        data = f'keyword={wd}&pageNum={pg}&pageSize=12&key=cb808529bae6b6be45ecfab29a4889bc&t={t}'
         data_md5 = hashlib.md5(data.encode()).hexdigest()
         data_sha1 = hashlib.sha1(data_md5.encode()).hexdigest()
         h = {
@@ -408,11 +421,11 @@ class Spider(Spider):
             't': t, 'sign': data_sha1
         }
         try:
-            response = requests.get(
-                f'{self.home_url}/api/mw-movie/anonymous/video/searchByWord?keyword={wd}&pageNum={page}&pageSize=12',
-                headers=h,
+            response = self.net.json(
+                f'{self.home_url}/api/mw-movie/anonymous/video/searchByWord?keyword={wd}&pageNum={pg}&pageSize=12',
+                {"headers": h},
             )
-            data_list = response.json()['data']['result']['list']
+            data_list = response['data']['result']['list']
             for i in data_list:
                 video_list.append(
                     {
@@ -422,7 +435,8 @@ class Spider(Spider):
                         'vod_remarks': i['vodVersion'] if i['typeId1'] == 1 else i['vodRemarks']
                     }
                 )
-        except requests.RequestException as e:
+        except Exception as e:
+            self.log(f"搜索失败: {e}")
             return {'list': [], 'msg': e}
         return {'list': video_list, 'parse': 0, 'jx': 0}
 
@@ -447,17 +461,19 @@ class Spider(Spider):
             "User-Agent": self.ua,
         }
         try:
-            res = requests.get(
+            res = self.net.json(
                 f'{self.home_url}/api/mw-movie/anonymous/v1/video/episode/url?id={_id}&nid={_nid}',
-                headers=h)
-            play_url = res.json()['data']['playUrl']
-        except requests.RequestException as e:
+                {"headers": h}
+            )
+            play_url = res['data']['playUrl']
+        except Exception as e:
+            self.log(f"获取播放地址失败: {e}")
             print(e)
             return {"url": play_url, "header": h2, "parse": 0, "jx": 0}
 
         return {"url": play_url, "header": h2, "parse": 0, "jx": 0}
 
-    def localProxy(self, params):
+    def proxy(self, params):
         pass
 
     def destroy(self):

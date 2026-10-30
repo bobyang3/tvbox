@@ -7,7 +7,6 @@ import re
 import sys
 import time
 import hashlib
-import requests
 import base64
 from urllib.parse import urlencode
 sys.path.append('..')
@@ -60,7 +59,7 @@ class Spider(Spider):
     def detailContent(self, did):
         return {}
 
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1"):
         return {}
 
     def searchContentPage(self, keywords, quick, page):
@@ -69,7 +68,7 @@ class Spider(Spider):
     def playerContent(self, flag, pid, vipFlags):
         return {}
 
-    def localProxy(self, params):
+    def proxy(self, params):
 
         _fun = params.get('fun', None)
         _type = params.get('type', None)
@@ -110,15 +109,25 @@ class Spider(Spider):
             a = self.b64encode(uri)
             # h = params['headers']
             return f"http://127.0.0.1:9978/proxy?do=py&type=ts&url={a}"
-        response = requests.get(url, headers=headers)
-        m3u8_text = re.sub(r'(.*\.ts.*)', callback_function, response.text)
+        response = self.net.req(url, {"headers": headers})
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while retrieving the playlist")
+        m3u8_text = re.sub(r'(.*\.ts.*)', callback_function, response["content"])
         return [200, "application/vnd.apple.mpegurl", m3u8_text]
 
     def get_ts(self, params):
         url = self.b64decode(params['url'])
         headers = self.headers
-        response = requests.get(url, headers=headers, stream=True)
-        return [206, "application/octet-stream", response.content]
+        response = self.net.req(url, {
+            "headers": headers, "buffer": 3,
+        })
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while retrieving the segment")
+        return [206, "application/octet-stream", response["content"]]
 
     def destroy(self):
         return '正在Destroy'

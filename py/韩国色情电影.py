@@ -7,7 +7,6 @@ import json
 import time
 import urllib.parse
 import re
-import requests
 from lxml import etree
 import base64
 
@@ -70,8 +69,12 @@ class Spider(Spider):
     def detailContent(self, array):
         tid = array[0]
         url = 'https://koreanpornmovie.com/{0}'.format(tid)
-        rsp = self.fetch(url)
-        html = rsp.text
+        response = self.net.req(url)
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while retrieving detail")
+        html = response["content"]
 
         # 获取视频信息
         video = self.getDetail(html, url)
@@ -103,10 +106,14 @@ class Spider(Spider):
         }
         return result
 
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1"):
         result = {}
-        url = 'https://koreanpornmovie.com/?s={0}'.format(urllib.parse.quote(key))
-        videos = self.getVideos(url, 1)
+        url = 'https://koreanpornmovie.com/?s={0}'.format(
+            urllib.parse.quote(key)
+        )
+        if str(pg) != "1":
+            url += f"&paged={pg}"
+        videos = self.getVideos(url, pg)
         result['list'] = videos
         return result
 
@@ -124,8 +131,12 @@ class Spider(Spider):
     def getVideos(self, url, pg):
         videos = []
         try:
-            rsp = self.fetch(url)
-            html = rsp.text
+            response = self.net.req(url)
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300:
+                raise RuntimeError(f"HTTP {response['code']} while retrieving videos")
+            html = response["content"]
             root = etree.HTML(html)
             
             # 解析视频列表
@@ -278,6 +289,6 @@ class Spider(Spider):
     def manualVideoCheck(self):
         return True
 
-    def localProxy(self, param):
+    def proxy(self, param):
         action = {}
         return []

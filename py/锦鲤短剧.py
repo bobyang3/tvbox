@@ -34,7 +34,10 @@ class Spider(Spider):
             "year": "",
             "keyword": ""
         }
-        response = self.post(f"{self.api_host}{self.api_path}", data=json.dumps(payload), headers=self.headers).json()
+        response = self.net.json(f"{self.api_host}{self.api_path}", {
+            "method": "POST", "postType": "json", "data": payload,
+            "headers": self.headers,
+        })
         data = response['data']
         videos = []
         for i in data['list']:
@@ -50,13 +53,16 @@ class Spider(Spider):
         return {'list': videos}
 
     def detailContent(self, ids):
-        response = self.post(f'{self.api_host}/api/detail/{ids[0]}', data=json.dumps({}), headers=self.headers).json()
+        response = self.net.json(f'{self.api_host}/api/detail/{ids[0]}', {
+            "method": "POST", "postType": "json", "data": {},
+            "headers": self.headers,
+        })
         data = response['data']
         videos = []
         vod_play_url = ''
         for name,url in data['player'].items():
             vod_play_url += f'{name}${url}#'
-        vod_play_url.rstrip('#')
+        vod_play_url = vod_play_url.rstrip('#')
         videos.append({
             'vod_id': data.get('vod_id'),
             'vod_name': data.get('vod_name'),
@@ -78,7 +84,10 @@ class Spider(Spider):
             "type_id": "",
             "keyword": key
         }
-        response = self.post(f'{self.api_host}{self.api_path}', data=json.dumps(payload), headers=self.headers).json()
+        response = self.net.json(f'{self.api_host}{self.api_path}', {
+            "method": "POST", "postType": "json", "data": payload,
+            "headers": self.headers,
+        })
         data = response['data']
         videos = []
         for i in data['list']:
@@ -100,7 +109,10 @@ class Spider(Spider):
             "year": "",
             "keyword": ""
         }
-        response = self.post(f'{self.api_host}{self.api_path}', data=json.dumps(payload), headers=self.headers).json()
+        response = self.net.json(f'{self.api_host}{self.api_path}', {
+            "method": "POST", "postType": "json", "data": payload,
+            "headers": self.headers,
+        })
         data = response['data']
         videos = []
         for i in data['list']:
@@ -119,7 +131,7 @@ class Spider(Spider):
         parse = 0
         header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'}
         try:
-            response = self.fetch(id, headers=self.headers).text
+            response = self.net.req(id, {"headers": self.headers, "timeout": 5000})["content"]
             match = re.search(r'let\s+data\s*=\s*(\{[^}]*http[^}]*\});', response, re.IGNORECASE)
             data = match.group(1)
             data2 = json.loads(data)
@@ -143,5 +155,5 @@ class Spider(Spider):
     def destroy(self):
         pass
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass

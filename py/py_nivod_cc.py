@@ -3,7 +3,6 @@
 # @Time    : 2025/04/06
 
 import sys
-import requests
 from lxml import etree
 import json
 import re
@@ -68,9 +67,12 @@ class Spider(Spider):
     def homeVideoContent(self):
         result = {'list': []}
         try:
-            res = requests.get(self.home_url, headers=self.headers)
-            res.encoding = 'utf-8'
-            root = etree.HTML(res.text)
+            res = self.net.req(self.home_url, {"headers": self.headers})
+            if res.get("error"):
+                raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300:
+                raise RuntimeError(f"HTTP {res['code']} while retrieving home")
+            root = etree.HTML(res["content"])
             data_list = root.xpath('//div[contains(@class, "qy-mod-link-wrap")]/a')
             for i in data_list:
                 name_nodes = i.xpath('.//picture[@class="video-item-preview-img"]/img/@alt')
@@ -119,13 +121,16 @@ class Spider(Spider):
             return result
         
         try:
-            res = requests.get(url, headers=self.headers)
-            res.encoding = 'utf-8'
+            res = self.net.req(url, {"headers": self.headers})
+            if res.get("error"):
+                raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300:
+                raise RuntimeError(f"HTTP {res['code']} while retrieving category")
             print(f"categoryContent URL: {url}")
-            print(f"categoryContent Response Status: {res.status_code}")
-            print(f"categoryContent HTML length: {len(res.text)}")
+            print(f"categoryContent Response Status: {res['code']}")
+            print(f"categoryContent HTML length: {len(res['content'])}")
             
-            root = etree.HTML(res.text)
+            root = etree.HTML(res["content"])
             data_list = root.xpath('//li[contains(@class, "qy-mod-li")]')
             
             for i in data_list:
@@ -173,9 +178,12 @@ class Spider(Spider):
         ids = array[0]
         detail_url = f"{self.home_url}{ids}"
         try:
-            res = requests.get(detail_url, headers=self.headers)
-            res.encoding = 'utf-8'
-            root = etree.HTML(res.text)
+            res = self.net.req(detail_url, {"headers": self.headers})
+            if res.get("error"):
+                raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300:
+                raise RuntimeError(f"HTTP {res['code']} while retrieving detail")
+            root = etree.HTML(res["content"])
             vod_name = root.xpath('//div[@class="right-title"]/text()')[0].strip() if root.xpath('//div[@class="right-title"]') else "未知"
             vod_year = root.xpath('//div[@id="postYear"]/text()')[0].strip() if root.xpath('//div[@id="postYear"]') else ""
             vod_area = root.xpath('//div[@id="region"]/text()')[0].strip() if root.xpath('//div[@id="region"]') else ""
@@ -212,9 +220,7 @@ class Spider(Spider):
                     vod_id = ids.split('/')[2]
                     ep_id = ep_url.split('/')[-1]
                     xhr_url = f"{self.home_url}/xhr_playinfo/{vod_id}-{ep_id}"
-                    res = requests.get(xhr_url, headers=self.headers)
-                    res.encoding = 'utf-8'
-                    data = res.json()
+                    data = self.net.json(xhr_url, {"headers": self.headers})
                     if 'pdatas' in data and data['pdatas']:
                         for source in data['pdatas']:
                             source_name = source['from']
@@ -256,9 +262,12 @@ class Spider(Spider):
         result = {'list': []}
         try:
             search_url = f"{self.home_url}/search_x.html?keyword={key}&page={pg}"
-            res = requests.get(search_url, headers=self.headers)
-            res.encoding = 'utf-8'
-            root = etree.HTML(res.text)
+            res = self.net.req(search_url, {"headers": self.headers})
+            if res.get("error"):
+                raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300:
+                raise RuntimeError(f"HTTP {res['code']} while searching")
+            root = etree.HTML(res["content"])
             data_list = root.xpath('//a[contains(@class, "qy-mod-link")]')
             for item in data_list:
                 name_nodes = item.xpath('.//picture[@class="video-item-preview-img"]/img/@alt')
@@ -297,7 +306,7 @@ class Spider(Spider):
             result = {'url': '', 'parse': 0}
         return result
 
-    def localProxy(self, param):
+    def proxy(self, param):
         return [200, "video/MP2T", {}, b""]
 
     def destroy(self):

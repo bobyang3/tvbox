@@ -7,7 +7,6 @@ import re
 import sys
 import threading
 import time
-import requests
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 from pyquery import PyQuery as pq
@@ -48,7 +47,7 @@ class Spider(Spider):
         pass
 
     def homeContent(self, filter):
-        data=pq(requests.get(self.host, headers=self.headers,proxies=self.proxies).content)
+        data = pq(self._request(f"{self.host}", {"headers": self.headers, "buffer": 3})["content"])
         result = {}
         classes = []
         for k in list(data('.navbar-nav.mr-auto').children('li').items())[1:-3]:
@@ -75,7 +74,7 @@ class Spider(Spider):
             id=tid.replace('@folder','')
             videos=self.getfod(id)
         else:
-            data=pq(requests.get(f"{self.host}{tid}{pg}", headers=self.headers,proxies=self.proxies).content)
+            data = pq(self._request(f"{self.host}{tid}{pg}", {"headers": self.headers, "buffer": 3})["content"])
             videos=self.getlist(data('#archive article a'),tid)
         result = {}
         result['list'] = videos
@@ -87,7 +86,7 @@ class Spider(Spider):
 
     def detailContent(self, ids):
         url=ids[0] if ids[0].startswith("http") else f"{self.host}{ids[0]}"
-        data=pq(requests.get(url, headers=self.headers,proxies=self.proxies).content)
+        data = pq(self._request(url, {"headers": self.headers, "buffer": 3})["content"])
         vod = {'vod_play_from': '51吸瓜'}
         did = data('script[data-api]').attr('data-api')
         try:
@@ -112,7 +111,7 @@ class Spider(Spider):
         return {'list':[vod]}
 
     def searchContent(self, key, quick, pg="1"):
-        data=pq(requests.get(f"{self.host}/search/{key}/{pg}", headers=self.headers,proxies=self.proxies).content)
+        data = pq(self._request(f"{self.host}/search/{key}/{pg}", {"headers": self.headers, "buffer": 3})["content"])
         return {'list':self.getlist(data('#archive article a')),'page':pg}
 
     def playerContent(self, flag, id, vipFlags):
@@ -122,12 +121,12 @@ class Spider(Spider):
             pid=f"{self.getProxyUrl()}&pdid={quote(id)}&type=m3u8"
         return  {'parse': p, 'url': pid, 'header': self.headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         try:
             xtype=param.get('type','')
             if 'm3u8' in xtype:
                 path,url=unquote(param['pdid']).split('_dm_')
-                data=requests.get(url, headers=self.headers,proxies=self.proxies,timeout=10).text
+                data = self._request(url, {"headers": self.headers, "timeout": 10000})["content"]
                 lines = data.strip().split('\n')
                 times=0.0
                 for i in lines:
@@ -139,7 +138,7 @@ class Spider(Spider):
                 return [200, 'text/plain', data]
             elif 'xdm' in xtype:
                 url=f"{self.host}{unquote(param['path'])}"
-                res = requests.get(url, headers=self.headers, proxies=self.proxies, timeout=10).json()
+                res = self.net.json(url, {"headers": self.headers, "timeout": 10000})
                 dms=[]
                 for k in res:
                     text=k.get('text')
@@ -159,8 +158,8 @@ class Spider(Spider):
             match = re.search(r"loadBannerDirect\('([^']*)'", url)
             if match:
                 url=match.group(1)
-            res = requests.get(url, headers=self.headers, proxies=self.proxies, timeout=10)
-            return [200, res.headers.get('Content-Type'), self.aesimg(res.content)]
+            res = self._request(url, {"headers": self.headers, "timeout": 10000, "buffer": 3})
+            return [200, res["headers"].get('Content-Type'), self.aesimg(res["content"])]
         except Exception as e:
             print(e)
             return [500, 'text/html', '']
@@ -169,7 +168,10 @@ class Spider(Spider):
         try:
             time.sleep(1)
             purl=f"{self.getProxyUrl()}&path={quote(path)}&times={times}&type=xdm"
-            self.fetch(f"http://127.0.0.1:9978/action?do=refresh&type=danmaku&path={quote(purl)}")
+            self._request(
+                f"http://127.0.0.1:9978/action?do=refresh&type=danmaku&path={quote(purl)}",
+                {"timeout": 5000},
+            )
         except Exception as e:
             print(e)
 
@@ -227,17 +229,17 @@ class Spider(Spider):
 
     def gethosts(self):
         url=self.domin
-        curl=self.getCache('host_51cn')
+        curl = self.local.get('host_51cn')
         if curl:
             try:
-                data=pq(requests.get(curl, headers=self.headers, proxies=self.proxies).content)('a').attr('href')
+                data = pq(self._request(curl, {"headers": self.headers, "buffer": 3})["content"])('a').attr('href')
                 if data:
                     parsed_url = urlparse(data)
                     url = parsed_url.scheme + "://" + parsed_url.netloc
             except:
                 pass
         try:
-            html = pq(requests.get(url, headers=self.headers, proxies=self.proxies).content)
+            html = pq(self._request(url, {"headers": self.headers, "buffer": 3})["content"])
             html_pattern = r"Base64\.decode\('([^']+)'\)"
             html_match = re.search(html_pattern, html('script').eq(-1).text(), re.DOTALL)
             if not html_match:raise Exception("未找到html")
@@ -248,11 +250,14 @@ class Spider(Spider):
             return ""
 
     def getcnh(self):
-        data=pq(requests.get(f"{self.host}/homeway.html", headers=self.headers,proxies=self.proxies).content)
+        data = pq(self._request(f"{self.host}/homeway.html", {
+            "headers": self.headers,
+            "buffer": 3,
+        })["content"])
         url=data('.post-content[itemprop="articleBody"] blockquote p').eq(0)('a').attr('href')
         parsed_url = urlparse(url)
         host = parsed_url.scheme + "://" + parsed_url.netloc
-        self.setCache('host_51cn',host)
+        self.local.set('host_51cn', host)
 
     def hstr(self, html):
         pattern = r"(backupLine\s*=\s*\[\])\s+(words\s*=)"
@@ -308,7 +313,7 @@ class Spider(Spider):
             return []
 
     def get_domains(self):
-        html = pq(requests.get(self.domin, headers=self.headers,proxies=self.proxies).content)
+        html = pq(self._request(self.domin, {"headers": self.headers, "buffer": 3})["content"])
         html_pattern = r"Base64\.decode\('([^']+)'\)"
         html_match = re.search(html_pattern, html('script').eq(-1).text(), re.DOTALL)
         if not html_match:
@@ -333,7 +338,7 @@ class Spider(Spider):
 
     def getfod(self, id):
         url = f"{self.host}{id}"
-        data = pq(requests.get(url, headers=self.headers, proxies=self.proxies).content)
+        data = pq(self._request(url, {"headers": self.headers, "buffer": 3})["content"])
         vdata=data('.post-content[itemprop="articleBody"]')
         r=['.txt-apps','.line','blockquote','.tags','.content-tabs']
         for i in r:vdata.remove(i)
@@ -364,9 +369,17 @@ class Spider(Spider):
         def test_host(url):
             try:
                 start_time = time.time()
-                response = requests.head(url,headers=self.headers,proxies=self.proxies,timeout=1.0, allow_redirects=False)
-                delay = (time.time() - start_time) * 1000
-                results[url] = delay
+                response = self._request(url, {
+                    "headers": self.headers,
+                    "method": "HEAD",
+                    "redirect": 0,
+                    "timeout": 1000,
+                })
+                if 200 <= response["code"] < 300 or 300 <= response["code"] < 400:
+                    delay = (time.time() - start_time) * 1000
+                    results[url] = delay
+                else:
+                    results[url] = float('inf')
             except Exception as e:
                 results[url] = float('inf')
 
@@ -379,6 +392,15 @@ class Spider(Spider):
             t.join()
 
         return min(results.items(), key=lambda x: x[1])[0]
+
+    def _request(self, url, options, allow_redirects=False):
+        response = self.net.req(url, options)
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        code = response.get("code", 0)
+        if not (200 <= code < 300 or allow_redirects and 300 <= code < 400):
+            raise RuntimeError(f"HTTP {code}")
+        return response
 
     def getlist(self,data,tid=''):
         videos = []

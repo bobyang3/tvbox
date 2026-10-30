@@ -1,0 +1,28 @@
+var rule = {
+  title: '全能影视',
+  host: 'https://www.qnkk8.com/',
+  url: '/mlist/fyclass_fypage.html[/mlist/fyclass.html]',
+  searchUrl: 'https://so.qnkk8.com/?page=fypage&searchtype=vodsearch&keyword=**&ids=&pinyin=&starring=&directed=&area=&language=&year=&letter=&type=&order=&by=',
+  class_parse: '.nav ul&&li;a&&Text;a&&href;.*/(\\d+).html',
+  searchable: 2,
+  quickSearch: 0,
+  filterable: 0,
+  headers: {
+    'User-Agent': 'PC_UA',
+  },
+  play_parse: true,
+  lazy: "js:\n  let html = request(input);\n  let hconf = html.match(/r player_.*?=(.*?)</)[1];\n  let json = JSON5.parse(hconf);\n  let url = json.url;\n  if (json.encrypt == '1') {\n    url = unescape(url);\n  } else if (json.encrypt == '2') {\n    url = unescape(base64Decode(url));\n  }\n  if (/\\.(m3u8|mp4|m4a|mp3)/.test(url)) {\n    input = {\n      parse: 0,\n      jx: 0,\n      url: url,\n    };\n  } else {\n    input;\n  }",
+  limit: 6,
+  double: true,
+  推荐: '.pic&&li;li; a&&Text;img&&src;#img_but&&Text;a&&href;',
+  一级: '.lit&&dl;.h4&&Text;img&&src;dd:eq(3)&&Text;a&&href;',
+  二级: {
+    title: '.h4&&Text;.intro li:eq(1)&&Text',
+    img: 'img&&src',
+    desc: '.intro li:eq(6)&&Text;.intro li:eq(3)&&Text;.intro li:eq(2)&&Text;.intro li:eq(4)&&Text;',
+    content: '.cont&&Text',
+    tabs: '.tongyi&&h4',
+    lists: '#mhlist&&ul:eq(#id) li',
+  },
+  搜索: '*',
+}

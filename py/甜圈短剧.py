@@ -110,7 +110,9 @@ class Spider(Spider):
             'classname': tid,
             'offset': str((int(pg) - 1)),
         }
-        data = self.fetch(f'{self.ahost}/api/duanju/api.php', params=params, headers=self.headers).json()
+        data = self.net.json(f'{self.ahost}/api/duanju/api.php', {
+            "params": params, "headers": self.headers, "timeout": 5000,
+        })
         videos = []
         for k in data['data']:
             videos.append({
@@ -129,7 +131,9 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        v=self.fetch(f'{self.ahost}/api/duanju/api.php', params={'book_id': ids[0]}, headers=self.headers).json()
+        v = self.net.json(f'{self.ahost}/api/duanju/api.php', {
+            "params": {'book_id': ids[0]}, "headers": self.headers, "timeout": 5000,
+        })
         vod = {
             'type_name': v.get('category'),
             'vod_year': v.get('time'),
@@ -144,8 +148,10 @@ class Spider(Spider):
         return self.categoryContent(key, pg, True, {})
 
     def playerContent(self, flag, id, vipFlags):
-        data=self.fetch(f'{self.ahost}/api/duanju/api.php', params={'video_id': id}, headers=self.headers).json()
+        data = self.net.json(f'{self.ahost}/api/duanju/api.php', {
+            "params": {'video_id': id}, "headers": self.headers, "timeout": 5000,
+        })
         return  {'parse': 0, 'url': data['data']['url'], 'header': self.headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass

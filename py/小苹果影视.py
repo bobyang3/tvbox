@@ -25,7 +25,9 @@ class Spider(Spider):
     }
 
     def homeContent(self, filter):
-        data = self.fetch(f"{self.host}/api.php/v2.vod/androidtypes",headers=self.headers,).json()
+        data = self.net.json(f"{self.host}/api.php/v2.vod/androidtypes", {
+            "headers": self.headers, "timeout": 5000,
+        })
         dy = {
             "classes": "类型",
             "areas": "地区",
@@ -62,7 +64,7 @@ class Spider(Spider):
         return result
 
     def homeVideoContent(self):
-        rsp = self.fetch(f"{self.host}/api.php/v2.main/androidhome", headers=self.headers).json()
+        rsp = self.net.json(f"{self.host}/api.php/v2.main/androidhome", {"headers": self.headers, "timeout": 5000})
         videos = []
         for i in rsp['data']['list']:videos.extend(self.getlist(i['list']))
         return {'list':videos}
@@ -77,7 +79,9 @@ class Spider(Spider):
             "class":extend.get('classes','')
         }
         params={i:v for i,v in params.items() if v}
-        rsp = self.fetch(f'{self.host}/api.php/v2.vod/androidfilter10086', headers=self.headers, params=params).json()
+        rsp = self.net.json(f'{self.host}/api.php/v2.vod/androidfilter10086', {
+            "headers": self.headers, "params": params, "timeout": 5000,
+        })
         result = {}
         result['list'] = self.getlist(rsp['data'])
         result['page'] = pg
@@ -87,7 +91,7 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        rsp = self.fetch(f'{self.host}/api.php/v3.vod/androiddetail2?vod_id={ids[0]}', headers=self.headers).json()
+        rsp = self.net.json(f'{self.host}/api.php/v3.vod/androiddetail2?vod_id={ids[0]}', {"headers": self.headers, "timeout": 5000})
         v = rsp['data']
         vod = {
             'vod_year':v.get('year'),
@@ -103,7 +107,7 @@ class Spider(Spider):
         return {'list':[vod]}
 
     def searchContent(self, key, quick, pg='1'):
-        rsp = self.fetch(f'{self.host}/api.php/v2.vod/androidsearch10086?page={pg}&wd={key}', headers=self.headers).json()
+        rsp = self.net.json(f'{self.host}/api.php/v2.vod/androidsearch10086?page={pg}&wd={key}', {"headers": self.headers, "timeout": 5000})
         return {'list':self.getlist(rsp['data']),'page':pg}
 
     def playerContent(self, flag, id, vipFlags):
@@ -122,7 +126,7 @@ class Spider(Spider):
         if 'http' not in id:id=f"http://c.xpgtv.net/m3u8/{id}.m3u8"
         return {"parse": 0, "url": id, "header": header}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def getlist(self,data):
@@ -136,5 +140,4 @@ class Spider(Spider):
                 "vod_remarks": r or vod['score']
             })
         return videos
-
 

@@ -99,7 +99,7 @@ class Spider(Spider):
         }
         return  {'parse': p, 'url': url, 'header': headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def liveContent(self, url):
@@ -120,11 +120,10 @@ class Spider(Spider):
 
     def getpq(self, path=''):
         url=f"{self.host}{path}"
-        data=self.fetch(url,headers=self.headers).text
+        data = self.net.req(url, {"headers": self.headers, "timeout": 5000})["content"]
         try:
             return pq(data)
         except Exception as e:
             print(f"{str(e)}")
             return pq(data.encode('utf-8'))
-
 

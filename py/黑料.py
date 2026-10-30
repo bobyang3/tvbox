@@ -1,7 +1,6 @@
 # coding=utf-8
 # !/python
 import sys
-import requests
 from bs4 import BeautifulSoup
 import re
 from base.spider import Spider
@@ -23,6 +22,14 @@ class Spider(Spider):
     def init(self, extend):
         pass
 
+    def _get_text(self, url, options):
+        response = self.net.req(url, options)
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']}")
+        return response["content"]
+
     def isVideoFormat(self, url):
         pass
 
@@ -32,9 +39,7 @@ class Spider(Spider):
     def homeVideoContent(self):
         videos = []
         try:
-            res = requests.get(xurl + '/show/30/', headers=headerx)
-            res.encoding = "utf-8"
-            res = res.text
+            res = self._get_text(xurl + '/show/30/', {"headers": headerx})
             doc = BeautifulSoup(res, "html.parser")
             vodss = doc.find('ul', class_='row row-space8 row-m-space8')
             vods = vodss.find_all('li')
@@ -50,15 +55,13 @@ class Spider(Spider):
                     "vod_remarks": remarks
                 }
                 videos.append(video)
-        except:
-            pass
+        except Exception as e:
+            self.log(f"获取首页推荐失败: {e}")
         result = {'list': videos}
         return result
 
     def homeContent(self, filter):
-        res = requests.get(xurl + '/zzzz', headers=headerx)
-        res.encoding = "utf-8"
-        res = res.text
+        res = self._get_text(xurl + '/zzzz', {"headers": headerx})
         doc = BeautifulSoup(res, "html.parser")
         result = {}
         result['class'] = []
@@ -148,9 +151,7 @@ class Spider(Spider):
             url = xurl + cid + '-' + str(pg)
 
         
-        res = requests.get(url=url, headers=headerx)
-        res.encoding = "utf-8"
-        res = res.text
+        res = self._get_text(url, {"headers": headerx, "timeout": 5000})
 
         doc = BeautifulSoup(res, "html.parser")
         vodss = doc.find('ul', class_='row row-space8 row-m-space8')
@@ -179,9 +180,7 @@ class Spider(Spider):
         did = ids[0].replace("voddetail", "v")
         videos = []
         result = {}
-        res = requests.get(url=xurl + did, headers=headerx)
-        res.encoding = "utf-8"
-        res = res.text
+        res = self._get_text(xurl + did, {"headers": headerx, "timeout": 5000})
         source_match = re.search(r'"","url":"(.*?)"', res)
         if source_match:
             purl = source_match.group(1).replace("\\", "")
@@ -212,8 +211,8 @@ class Spider(Spider):
         result["header"] = headerx
         return result
 
-    def searchContent(self, key, quick):
-        return self.searchContentPage(key, quick, '1')
+    def searchContent(self, key, quick, pg="1"):
+        return self.searchContentPage(key, quick, pg)
 
     def searchContentPage(self, key, quick, page):
         result = {}
@@ -224,9 +223,10 @@ class Spider(Spider):
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
         }
         
-        res = requests.get(xurl + '/s/page/' + str(page) + '/wd/' + key, headers=header2)
-        res.encoding = "utf-8"
-        res = res.text
+        res = self._get_text(
+            xurl + '/s/page/' + str(page) + '/wd/' + key,
+            {"headers": header2}
+        )
         videos = []
         doc = BeautifulSoup(res, "html.parser")
         vodss = doc.find('ul', class_='row row-space8 row-m-space8')
@@ -250,7 +250,7 @@ class Spider(Spider):
         result['total'] = 999999
         return result
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         elif params['type'] == "media":

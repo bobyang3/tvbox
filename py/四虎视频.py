@@ -7,7 +7,6 @@ import json
 import time
 import urllib.parse
 import re
-import requests
 from lxml import etree
 
 class Spider(Spider):
@@ -93,8 +92,8 @@ class Spider(Spider):
         result = {}
         # 尝试获取首页推荐视频
         try:
-            rsp = self.fetch(self.baseUrl, headers=self.headers)
-            html = etree.HTML(rsp.text)
+            rsp = self.net.req(self.baseUrl, {"headers": self.headers, "timeout": 5000})
+            html = etree.HTML(rsp["content"])
             
             videos = []
             # 尝试解析首页视频列表
@@ -128,8 +127,8 @@ class Spider(Spider):
     def categoryContent(self, tid, pg, filter, extend):
         result = {}
         url = f'{self.baseUrl}/vod/type/id/{tid}/page/{pg}.html'
-        rsp = self.fetch(url, headers=self.headers)
-        html = etree.HTML(rsp.text)
+        rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+        html = etree.HTML(rsp["content"])
         
         vodList = []
         video_elements = html.xpath('//ul[@class="thumbnail-group clearfix"]/li')
@@ -163,8 +162,8 @@ class Spider(Spider):
     def detailContent(self, array):
         tid = array[0]
         url = f'{self.baseUrl}/vod/detail/id/{tid}.html'
-        rsp = self.fetch(url, headers=self.headers)
-        html = etree.HTML(rsp.text)
+        rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+        html = etree.HTML(rsp["content"])
         
         # 获取视频详情
         title = html.xpath('//title/text()')[0].replace(' - 四虎视频', '')
@@ -212,11 +211,15 @@ class Spider(Spider):
         
         return {'list': [vod]}
 
-    def searchContent(self, key, quick):
+    def searchContent(self, key, quick, pg="1"):
         result = {}
-        url = f'{self.baseUrl}/vod/search/page/1/wd/{urllib.parse.quote(key)}.html'
-        rsp = self.fetch(url, headers=self.headers)
-        html = etree.HTML(rsp.text)
+        url = f'{self.baseUrl}/vod/search/page/{pg}/wd/{urllib.parse.quote(key)}.html'
+        rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+        if rsp.get("error"):
+            raise RuntimeError(rsp["error"])
+        if not 200 <= rsp["code"] < 300:
+            raise RuntimeError(f"HTTP {rsp['code']} while searching")
+        html = etree.HTML(rsp["content"])
         
         vodList = []
         video_elements = html.xpath('//ul[@class="thumbnail-group clearfix"]/li')
@@ -256,11 +259,11 @@ class Spider(Spider):
             result["header"] = json.dumps(self.headers)
             return result
             
-        rsp = self.fetch(url, headers=self.headers)
+        rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
         
         # 方法1: 尝试从JavaScript变量中提取播放信息
         pattern = r'var player_aaaa\s*=\s*({.*?});'
-        match = re.search(pattern, rsp.text, re.DOTALL)
+        match = re.search(pattern, rsp["content"], re.DOTALL)
         
         if match:
             try:
@@ -287,7 +290,7 @@ class Spider(Spider):
         ]
         
         for pattern in url_patterns:
-            match = re.search(pattern, rsp.text)
+            match = re.search(pattern, rsp["content"])
             if match:
                 video_url = match.group(1).replace('\\/', '/')
                 if video_url and ('m3u8' in video_url or 'mp4' in video_url):
@@ -299,7 +302,7 @@ class Spider(Spider):
         
         # 方法3: 尝试从iframe中提取视频地址
         iframe_pattern = r'<iframe[^>]+src="([^"]+)"'
-        iframe_match = re.search(iframe_pattern, rsp.text)
+        iframe_match = re.search(iframe_pattern, rsp["content"])
         if iframe_match:
             iframe_src = iframe_match.group(1)
             if iframe_src.startswith('//'):
@@ -324,5 +327,5 @@ class Spider(Spider):
     def manualVideoCheck(self):
         pass
 
-    def localProxy(self, param):
+    def proxy(self, param):
         return []

@@ -3,12 +3,10 @@
 import sys, re
 import base64
 import hashlib
-import requests
 from typing import Tuple
 from base.spider import Spider
 from datetime import datetime, timedelta
 from urllib.parse import quote, unquote
-from urllib3.util.retry import Retry
 sys.path.append('..')
 
 # 搜索用户名，关键词格式为“类别+空格+关键词”
@@ -28,7 +26,7 @@ class Spider(Spider):
         self.stripchat_key = self.decode_key_compact()
         # 缓存字典
         self._hash_cache = {}
-        self.create_session_with_retry()
+        self.session = self.net.session()
 
     def getName(self):
         pass
@@ -40,7 +38,7 @@ class Spider(Spider):
         pass
 
     def destroy(self):
-        pass
+        self.session.close()
 
     def homeContent(self, filter):
         CLASSES = [{'type_name': '女主播g', 'type_id': 'girls'}, {'type_name': '情侣c', 'type_id': 'couples'}, {'type_name': '男主播m', 'type_id': 'men'}, {'type_name': '跨性别t', 'type_id': 'trans'}]
@@ -65,7 +63,7 @@ class Spider(Spider):
         url = f"{self.host}/api/front/models?improveTs=false&removeShows=false&limit={limit}&offset={offset}&primaryTag={tid}&sortBy=stripRanking&rcmGrp=A&rbCnGr=true&prxCnGr=false&nic=false"
         if 'tag' in extend:
             url += "&filterGroupTags=%5B%5B%22" + extend['tag'] + "%22%5D%5D"
-        rsp = self.fetch(url).json()
+        rsp = self.session.json(url, {"headers": self.headers, "timeout": 10000})
         videos = [
             {
                 "vod_id": str(vod['username']).strip(),
@@ -86,7 +84,10 @@ class Spider(Spider):
 
     def detailContent(self, array):
         username = array[0]
-        rsp = self.fetch(f"{self.host}/api/front/v2/models/username/{username}/cam").json()
+        rsp = self.session.json(
+            f"{self.host}/api/front/v2/models/username/{username}/cam",
+            {"headers": self.headers, "timeout": 10000},
+        )
         info = rsp['cam']
         user = rsp['user']['user']
         id = str(user['id'])
@@ -125,7 +126,7 @@ class Spider(Spider):
             return result
         tag, key = self.process_key(key)
         url = f"{self.host}/api/front/v4/models/search/group/username?query={key}&limit=900&primaryTag={tag}"
-        rsp = self.fetch(url).json()
+        rsp = self.session.json(url, {"headers": self.headers, "timeout": 10000})
         result['list'] = [
             {
                 "vod_id": str(user['username']).strip(),
@@ -140,8 +141,10 @@ class Spider(Spider):
 
     def playerContent(self, flag, id, vipFlags):
         url = f"https://edge-hls.doppiocdn.net/hls/{id}/master/{id}_auto.m3u8?playlistType=lowLatency"
-        rsp = self.fetch(url)
-        lines = rsp.text.strip().split('\n')
+        rsp = self.session.req(url, {"headers": self.headers, "timeout": 10000})
+        if rsp.get("error") or not 200 <= rsp["code"] < 300:
+            raise RuntimeError(rsp.get("error") or f"HTTP {rsp['code']}")
+        lines = rsp["content"].strip().split('\n')
         psch, pkey = '', ''
         url = []
         for i, line in enumerate(lines):
@@ -167,14 +170,19 @@ class Spider(Spider):
             "header": self.headers
         }
 
-    def localProxy(self, param):
+    def proxy(self, param):
         url = unquote(param['url'])
-        data = self.fetch(url)
-        if data.status_code == 403:
-            data = self.fetch(re.sub(r'\d+p\d*\.m3u8', '160p_blurred.m3u8', url))
-        if data.status_code != 200:
+        data = self.session.req(url, {"headers": self.headers, "timeout": 10000})
+        if data.get("error"):
             return [404, "text/plain", ""]
-        data = data.text
+        if data["code"] == 403:
+            data = self.session.req(
+                re.sub(r'\d+p\d*\.m3u8', '160p_blurred.m3u8', url),
+                {"headers": self.headers, "timeout": 10000},
+            )
+        if data.get("error") or data["code"] != 200:
+            return [404, "text/plain", ""]
+        data = data["content"]
         if "#EXT-X-MOUFLON:FILE" in data:
             data = self.process_m3u8_content_v2(data)
         return [200, "application/vnd.apple.mpegur", data]
@@ -227,17 +235,3 @@ class Spider(Spider):
             key_byte = hash_bytes[i % len(hash_bytes)]
             decrypted_bytes.append(cipher_byte ^ key_byte)
         return decrypted_bytes.decode('utf-8')
-
-    def create_session_with_retry(self):
-        self.session = requests.Session()
-        retry_strategy = Retry(
-            total = 3,
-            backoff_factor = 0.3,
-            status_forcelist = [429, 500, 502, 503, 504]  # 需要重试的状态码
-        )
-        adapter = requests.adapters.HTTPAdapter(max_retries=retry_strategy)
-        self.session.mount("http://", adapter)
-        self.session.mount("https://", adapter)
-
-    def fetch(self, url):
-        return self.session.get(url, headers=self.headers, timeout=10)

@@ -11,7 +11,6 @@ from bs4 import BeautifulSoup
 import urllib.request
 import urllib.parse
 import binascii
-import requests
 import base64
 import json
 import time
@@ -41,6 +40,14 @@ class Spider(Spider):
 
     def init(self, extend):
         pass
+
+    def _get_text(self, url, options):
+        response = self.net.req(url, options)
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']}")
+        return response["content"]
 
     def isVideoFormat(self, url):
         pass
@@ -130,9 +137,7 @@ class Spider(Spider):
 
         try:
 
-            detail = requests.get(url=xurl, headers=headerx)
-            detail.encoding = "utf-8"
-            res = detail.text
+            res = self._get_text(xurl, {"headers": headerx, "timeout": 5000})
 
             doc = BeautifulSoup(res, "lxml")
 
@@ -185,9 +190,7 @@ class Spider(Spider):
             url = f'{xurl}/{cid}/page/{str(page)}'
 
         try:
-            detail = requests.get(url=url, headers=headerx)
-            detail.encoding = "utf-8"
-            res = detail.text
+            res = self._get_text(url, {"headers": headerx, "timeout": 5000})
             doc = BeautifulSoup(res, "lxml")
 
             soups = doc.find_all('div', class_="bt_img")
@@ -236,14 +239,10 @@ class Spider(Spider):
         if 'http' not in did:
             did = xurl + did
 
-        res1 = requests.get(url=did, headers=headerx)
-        res1.encoding = "utf-8"
-        res = res1.text
+        res = self._get_text(did, {"headers": headerx, "timeout": 5000})
 
         url = 'https://www.subaibai.com'
-        response = requests.get(url)
-        response.encoding = 'utf-8'
-        code = response.text
+        code = self._get_text(url, {})
         name = self.extract_middle_text(code, "s1='", "'", 0)
         Jumps = self.extract_middle_text(code, "s2='", "'", 0)
 
@@ -280,8 +279,9 @@ class Spider(Spider):
             if '' in after_https:
                 url = after_https
             else:
-                res = requests.get(url=after_https, headers=headerx)
-                res = res.text
+                res = self._get_text(after_https, {
+                    "headers": headerx, "timeout": 5000,
+                })
 
                 url = self.extract_middle_text(res, '},"url":"', '"', 0).replace('\\', '')
 
@@ -330,9 +330,7 @@ class Spider(Spider):
         else:
             url = f'{xurl}//page/{str(page)}?s={key}'
 
-        detail = requests.get(url=url, headers=headerx)
-        detail.encoding = "utf-8"
-        res = detail.text
+        res = self._get_text(url, {"headers": headerx, "timeout": 5000})
         doc = BeautifulSoup(res, "lxml")
 
         soups = doc.find_all('div', class_="bt_img")
@@ -370,10 +368,10 @@ class Spider(Spider):
         result['total'] = 999999
         return result
 
-    def searchContent(self, key, quick):
-        return self.searchContentPage(key, quick, '1')
+    def searchContent(self, key, quick, pg="1"):
+        return self.searchContentPage(key, quick, pg)
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         elif params['type'] == "media":

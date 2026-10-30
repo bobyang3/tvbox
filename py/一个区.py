@@ -7,7 +7,6 @@ import json
 import time
 import urllib.parse
 import re
-import requests
 from lxml import etree
 from urllib.parse import urljoin
 
@@ -82,8 +81,8 @@ class Spider(Spider):
         ]
         result['class'] = classes
         try:
-            rsp = self.fetch(self.host, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(self.host, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc, limit=20)
             result['list'] = videos
         except Exception as e:
@@ -125,8 +124,8 @@ class Spider(Spider):
             if pg and pg != '1':
                 url = url.replace('.html', f'/page/{pg}.html')
             self.log(f"访问分类URL: {url}")
-            rsp = self.fetch(url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             # 在这里将 type_id 传递给 _get_videos 方法
             videos = self._get_videos(doc, category_id=type_id, limit=20)
             
@@ -153,13 +152,13 @@ class Spider(Spider):
             self.log(f"搜索URL: {search_url}")
             
             # 发送请求
-            rsp = self.fetch(search_url, headers=self.headers)
-            if not rsp or rsp.status_code != 200:
+            rsp = self.net.req(search_url, {"headers": self.headers, "timeout": 5000})
+            if rsp.get("error") or rsp["code"] != 200:
                 self.log("搜索请求失败")
                 return {'list': []}
             
             # 解析HTML
-            doc = self.html(rsp.text)
+            doc = etree.HTML(rsp["content"])
             if not doc:
                 self.log("搜索页面解析失败")
                 return {'list': []}
@@ -251,9 +250,9 @@ class Spider(Spider):
             detail_url = f"https://{domain}/index.php/vod/detail/id/{video_id}.html"
             
             self.log(f"访问详情URL: {detail_url}")
-            rsp = self.fetch(detail_url, headers=self.headers)
-            doc = self.html(rsp.text)
-            video_info = self._get_detail(doc, rsp.text, vid)
+            rsp = self.net.req(detail_url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
+            video_info = self._get_detail(doc, rsp["content"], vid)
             return {'list': [video_info]} if video_info else {'list': []}
         except Exception as e:
             self.log(f"详情获取出错: {str(e)}")
@@ -321,9 +320,9 @@ class Spider(Spider):
                 else:
                     self.log("URL 中没有找到视频参数，尝试从页面提取")
                     # 请求页面并提取视频链接
-                    rsp = self.fetch(id, headers=self.headers)
-                    if rsp and rsp.status_code == 200:
-                        video_url = self._extract_direct_video_url(rsp.text)
+                    rsp = self.net.req(id, {"headers": self.headers, "timeout": 5000})
+                    if not rsp.get("error") and rsp["code"] == 200:
+                        video_url = self._extract_direct_video_url(rsp["content"])
                         if video_url:
                             self.log(f"从页面提取到视频地址: {video_url}")
                             return {'parse': 0, 'playUrl': '', 'url': video_url}
@@ -349,10 +348,10 @@ class Spider(Spider):
                 play_page_url = f"{self.host}/index.php/vod/play/id/{video_id}.html"
                 
                 # 请求播放页面
-                rsp = self.fetch(play_page_url, headers=self.headers)
-                if rsp and rsp.status_code == 200:
+                rsp = self.net.req(play_page_url, {"headers": self.headers, "timeout": 5000})
+                if not rsp.get("error") and rsp["code"] == 200:
                     # 从页面提取视频链接
-                    video_url = self._extract_direct_video_url(rsp.text)
+                    video_url = self._extract_direct_video_url(rsp["content"])
                     if video_url:
                         self.log(f"从播放页面提取到视频地址: {video_url}")
                         return {'parse': 0, 'playUrl': '', 'url': video_url}
@@ -387,9 +386,8 @@ class Spider(Spider):
                 'X-Requested-With': 'XMLHttpRequest'
             })
             
-            api_response = self.fetch(api_url, headers=api_headers)
-            if api_response and api_response.status_code == 200:
-                data = api_response.json()
+            data = self.net.json(api_url, {"headers": api_headers})
+            if data:
                 self.log(f"API响应: {data}")
                 
                 if data.get('retcode') == 3:
@@ -404,7 +402,7 @@ class Spider(Spider):
                 else:
                     self.log("API响应中没有找到视频地址")
             else:
-                self.log(f"API请求失败，状态码: {api_response.status_code if api_response else '无响应'}")
+                self.log("API响应为空")
                 
             if '_' in id:
                 domain, play_id = id.split('_')
@@ -500,7 +498,8 @@ class Spider(Spider):
                 final_vod_id = f"special_{category_id}_{video_id}_{urllib.parse.quote(link)}"
             else:
                 # 常规处理
-                vod_id = self.regStr(r'm=(\d+)', link)
+                match = re.search(r'm=(\d+)', link)
+                vod_id = match.group(1) if match else ''
                 if not vod_id:
                     vod_id = str(hash(link) % 1000000)
                 
@@ -650,20 +649,6 @@ class Spider(Spider):
     def log(self, message):
         """日志输出"""
         print(f"[苹果视频] {message}")
-
-    def fetch(self, url, headers=None, method='GET', data=None, timeout=10):
-        """网络请求"""
-        try:
-            if headers is None:
-                headers = self.headers
-            if method == 'GET':
-                response = requests.get(url, headers=headers, timeout=timeout, verify=False)
-            else:
-                response = requests.post(url, headers=headers, data=data, timeout=timeout, verify=False)
-            return response
-        except Exception as e:
-            self.log(f"网络请求失败: {url}, 错误: {str(e)}")
-            return None
 
 # 注册爬虫
 if __name__ == '__main__':

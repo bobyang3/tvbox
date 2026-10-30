@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import re, json, requests
+import re
 from base.spider import Spider
 class Spider(Spider):
     def getName(self): return "Chaturbate 直播"
@@ -12,7 +12,7 @@ class Spider(Spider):
         pg = int(pg) if pg else 0
         gender = {"f": "f", "m": "m", "c": "c"}.get(tid, "")
         url = f"{self.base}/api/ts/roomlist/room-list/?enable_recommendations=false&genders={gender}&limit=90&offset={pg*90}"
-        data = self.fetch(url, headers=self.headers).json()
+        data = self.net.json(url, {"headers": self.headers, "timeout": 5000})
         total = data.get("total_count", 0)
         videos = [
             {"vod_id": r["username"], "vod_pic": r.get("img", ""), "vod_remarks": "",
@@ -27,15 +27,21 @@ class Spider(Spider):
     def playerContent(self, flag, id, vipFlags):
         url, data, headers = "https://chaturbate.com/get_edge_hls_url_ajax/", {"room_slug": id}, {"X-Requested-With": "XMLHttpRequest"}
         try:
-            play_url = requests.post(url, data=data, headers=headers).json().get("url", id)
-        except (requests.RequestException, json.JSONDecodeError):
+            play_url = self.net.json(url, {
+                "method": "POST",
+                "postType": "form",
+                "data": data,
+                "headers": headers,
+                "timeout": 5000,
+            }).get("url", id)
+        except Exception:
             play_url = id
         return {"parse": 0, "playUrl": "", "url": play_url, "header": headers}
 
     def searchContent(self, key, quick, pg="0"):
         pg = int(pg) if pg else 0
         url_api = f"{self.base}/api/ts/roomlist/room-list/?enable_recommendations=false&limit=90&offset={pg*90}&query={key}"
-        data = self.fetch(url_api, headers=self.headers).json()
+        data = self.net.json(url_api, {"headers": self.headers, "timeout": 5000})
         videos = [
             {"vod_id": r["username"], "vod_pic": r.get("img", ""), "vod_remarks": "",
              "vod_name": f'{r["username"]}{" (" + str(r["display_age"]) + ")" if r.get("display_age") else ""}'}

@@ -74,17 +74,19 @@ class Spider(Spider):
 
     def homeVideoContent(self):
         # Use trending all day as Redflix does
-        data = self.fetch(
-            f"{self.chost}/trending/all/day",
-            params={'api_key': self.token, 'language': 'en-US', 'page': 1},
-            headers=self.headers
-        ).json()
+        data = self.net.json(f"{self.chost}/trending/all/day", {
+            "params": {'api_key': self.token, 'language': 'en-US', 'page': 1},
+            "headers": self.headers,
+            "timeout": 5000,
+        })
         return {'list': self.getlist(data.get('results', []))}
 
     def categoryContent(self, tid, pg, filter, extend):
         # tid: 'movie' or 'tv'
         params = {'page': pg, 'api_key': self.token, 'language': 'en-US'}
-        data = self.fetch(f'{self.chost}/discover/{tid}', params=params, headers=self.headers).json()
+        data = self.net.json(f'{self.chost}/discover/{tid}', {
+            "params": params, "headers": self.headers, "timeout": 5000,
+        })
         result = {
             'list': self.getlist(data.get('results', []), tid),
             'page': pg,
@@ -97,11 +99,11 @@ class Spider(Spider):
     def detailContent(self, ids):
        
         path = ids[0]
-        v = self.fetch(
-            f'{self.chost}{path}',
-            params={'api_key': self.token, 'language': 'en-US', 'append_to_response': 'videos'},
-            headers=self.headers
-        ).json()
+        v = self.net.json(f'{self.chost}{path}', {
+            "params": {'api_key': self.token, 'language': 'en-US', 'append_to_response': 'videos'},
+            "headers": self.headers,
+            "timeout": 5000,
+        })
         is_movie = '/movie/' in path
         if is_movie:
             play_str = f"{v.get('title') or v.get('name')}${path}"
@@ -124,11 +126,11 @@ class Spider(Spider):
         return {'list': [vod]}
 
     def searchContent(self, key, quick, pg="1"):
-        data = self.fetch(
-            f'{self.chost}/search/multi',
-            params={'query': key, 'page': pg, 'api_key': self.token, 'language': 'en-US', 'include_adult': 'false'},
-            headers=self.headers
-        ).json()
+        data = self.net.json(f'{self.chost}/search/multi', {
+            "params": {'query': key, 'page': pg, 'api_key': self.token, 'language': 'en-US', 'include_adult': 'false'},
+            "headers": self.headers,
+            "timeout": 5000,
+        })
         return {'list': self.getlist(data.get('results', [])), 'page': pg}
 
     def playerContent(self, flag, id, vipFlags):
@@ -217,12 +219,22 @@ class Spider(Spider):
                 try:
                     hdr = self.headers.copy()
                     hdr.update({'origin': host, 'referer': f'{host}/'})
-                    html = self.fetch(f'{host}{path}', headers=hdr, timeout=10).text
+                    response = self.net.req(f'{host}{path}', {"headers": hdr, "timeout": 10000})
+                    if response.get("error"):
+                        raise RuntimeError(response["error"])
+                    if not 200 <= response["code"] < 300:
+                        raise RuntimeError(f"HTTP {response['code']} while fetching {host}{path}")
+                    html = response["content"]
                     mod = pq(html)('script[type="module"]').attr('src') or ''
                     if not mod:
                         continue
                     murl = mod if mod.startswith('http') else f'{host}{mod}'
-                    mjs = self.fetch(murl, headers=hdr, timeout=10).text
+                    response = self.net.req(murl, {"headers": hdr, "timeout": 10000})
+                    if response.get("error"):
+                        raise RuntimeError(response["error"])
+                    if not 200 <= response["code"] < 300:
+                        raise RuntimeError(f"HTTP {response['code']} while fetching {murl}")
+                    mjs = response["content"]
                     m = key_pattern.search(mjs)
                     if m:
                         return 'https://api.themoviedb.org/3', m.group(1)
@@ -230,7 +242,12 @@ class Spider(Spider):
                     mw = re.search(r'player-watch-([\w-]+)\.js', mjs)
                     if mw:
                         pw = f"{host}/assets/player-watch-{mw.group(1)}.js"
-                        pjs = self.fetch(pw, headers=hdr, timeout=10).text
+                        response = self.net.req(pw, {"headers": hdr, "timeout": 10000})
+                        if response.get("error"):
+                            raise RuntimeError(response["error"])
+                        if not 200 <= response["code"] < 300:
+                            raise RuntimeError(f"HTTP {response['code']} while fetching {pw}")
+                        pjs = response["content"]
                         m2 = key_pattern.search(pjs)
                         if m2:
                             return 'https://api.themoviedb.org/3', m2.group(1)

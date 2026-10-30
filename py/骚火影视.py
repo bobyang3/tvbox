@@ -90,7 +90,7 @@ class Spider(Spider):
         data=self.getpq(id)
         try:
             surl=data('section[style*="padding-top"] iframe').eq(0).attr('src')
-            sd=pq(self.fetch(surl,headers=self.headers).text)('body script').html()
+            sd=pq(self.net.req(surl, {"headers": self.headers, "timeout": 5000})["content"])('body script').html()
             jdata=self.extract_values(sd)
             jdata['key']=self.hhh(jdata['key'])
             parsed_url = urlparse(surl)
@@ -115,7 +115,13 @@ class Spider(Spider):
                 'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36',
                 'x-requested-with': 'XMLHttpRequest',
             }
-            jjb=self.post(f"{durl}/api.php",headers=headers,data=jdata).json()
+            jjb = self.net.json(f"{durl}/api.php", {
+                "method": "POST",
+                "postType": "form",
+                "data": jdata,
+                "headers": headers,
+                "timeout": 5000,
+            })
             url,p=jjb['url'],0
         except Exception as e:
             self.log(f"失败: {e}")
@@ -130,19 +136,19 @@ class Spider(Spider):
         }
         return  {'parse': p, 'url': url, 'header': phd}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def liveContent(self, url):
         pass
 
     def gethost(self):
-        data=pq(self.fetch("http://shapp.us",headers=self.headers).text)
+        data=pq(self.net.req("http://shapp.us", {"headers": self.headers, "timeout": 5000})["content"])
         for i in data('.content-top ul li').items():
             h=i('a').attr('href')
             if h:
-                data = self.fetch(h, headers=self.headers, timeout=5)
-                if data.status_code == 200:
+                data = self.net.req(h, {"headers": self.headers, "timeout": 5000})
+                if not data.get("error") and 200 <= data["code"] < 300:
                     return h
 
     def extract_values(self, text):
@@ -176,7 +182,7 @@ class Spider(Spider):
         return videos
 
     def getpq(self, path=''):
-        data=self.fetch(f"{self.host}{path}",headers=self.headers).text
+        data=self.net.req(f"{self.host}{path}", {"headers": self.headers, "timeout": 5000})["content"]
         try:
             return pq(data)
         except Exception as e:

@@ -3,7 +3,6 @@ import json
 import sys
 sys.path.append('..')
 from base.spider import Spider
-import requests
 
 class Spider(Spider):
     def init(self, extend=""):
@@ -20,7 +19,9 @@ class Spider(Spider):
         return "JianPian"
 
     def imgsite(self):
-        data = requests.get(f"{self.host}/api/appAuthConfig", headers=self.headers).json()
+        data = self.net.json(f"{self.host}/api/appAuthConfig", {
+            "headers": self.headers,
+        })
         host = data['data']['imgDomain']
         return f"https://{host}" if not host.startswith('http') else host
 
@@ -45,7 +46,7 @@ class Spider(Spider):
                     {"v": "1", "n": "国产"}, {"v": "3", "n": "🇭🇰香港"}, {"v": "6", "n": "🇹🇼台湾"},
                     {"v": "5", "n": "🇺🇸美国"}, {"v": "18", "n": "🇰🇷韩国"}, {"v": "2", "n": "🇯🇵日本"}
                 ]},
-                {"key": "year", "name": "年代", "value": [
+                {"key": "year", "name": "年代", "value": [{"n":"2027","v":"2027"},{"n":"2026","v":"2026"},
                     {"v": "107", "n": "2025"}, {"v": "119", "n": "2024"}, {"v": "153", "n": "2023"},
                     {"v": "101", "n": "2022"}, {"v": "118", "n": "2021"}, {"v": "16", "n": "2020"},
                     {"v": "7", "n": "2019"}, {"v": "2", "n": "2018"}, {"v": "3", "n": "2017"},
@@ -60,7 +61,7 @@ class Spider(Spider):
                     {"v": "1", "n": "国产"}, {"v": "3", "n": "🇭🇰香港"}, {"v": "6", "n": "🇹🇼台湾"},
                     {"v": "5", "n": "🇺🇸美国"}, {"v": "18", "n": "🇰🇷韩国"}, {"v": "2", "n": "🇯🇵日本"}
                 ]},
-                {"key": "year", "name": "年代", "value": [
+                {"key": "year", "name": "年代", "value": [{"n":"2027","v":"2027"},{"n":"2026","v":"2026"},
                     {"v": "107", "n": "2025"}, {"v": "119", "n": "2024"}, {"v": "153", "n": "2023"},
                     {"v": "101", "n": "2022"}, {"v": "118", "n": "2021"}, {"v": "16", "n": "2020"},
                     {"v": "7", "n": "2019"}, {"v": "2", "n": "2018"}, {"v": "3", "n": "2017"},
@@ -75,7 +76,7 @@ class Spider(Spider):
                     {"v": "1", "n": "国产"}, {"v": "3", "n": "🇭🇰香港"}, {"v": "6", "n": "🇹🇼台湾"},
                     {"v": "5", "n": "🇺🇸美国"}, {"v": "18", "n": "🇰🇷韩国"}, {"v": "2", "n": "🇯🇵日本"}
                 ]},
-                {"key": "year", "name": "年代", "value": [
+                {"key": "year", "name": "年代", "value": [{"n":"2027","v":"2027"},{"n":"2026","v":"2026"},
                     {"v": "107", "n": "2025"}, {"v": "119", "n": "2024"}, {"v": "153", "n": "2023"},
                     {"v": "101", "n": "2022"}, {"v": "118", "n": "2021"}, {"v": "16", "n": "2020"},
                     {"v": "7", "n": "2019"}, {"v": "2", "n": "2018"}, {"v": "3", "n": "2017"},
@@ -90,7 +91,7 @@ class Spider(Spider):
                     {"v": "1", "n": "国产"}, {"v": "3", "n": "🇭🇰香港"}, {"v": "6", "n": "🇹🇼台湾"},
                     {"v": "5", "n": "🇺🇸美国"}, {"v": "18", "n": "🇰🇷韩国"}, {"v": "2", "n": "🇯🇵日本"}
                 ]},
-                {"key": "year", "name": "年代", "value": [
+                {"key": "year", "name": "年代", "value": [{"n":"2027","v":"2027"},{"n":"2026","v":"2026"},
                     {"v": "107", "n": "2025"}, {"v": "119", "n": "2024"}, {"v": "153", "n": "2023"},
                     {"v": "101", "n": "2022"}, {"v": "118", "n": "2021"}, {"v": "16", "n": "2020"},
                     {"v": "7", "n": "2019"}, {"v": "2", "n": "2018"}, {"v": "3", "n": "2017"},
@@ -108,7 +109,7 @@ class Spider(Spider):
 
     def homeVideoContent(self):
         url = f"{self.host}/api/slide/list?pos_id=88"
-        data = requests.get(url, headers=self.headers).json()
+        data = self.net.json(url, {"headers": self.headers})
         videos = [{
             'vod_id': item['jump_id'],
             'vod_name': item['title'],
@@ -129,7 +130,9 @@ class Spider(Spider):
             'sort': extend.get('sort', '')
         }
         url = f"{self.host}/api/crumb/list"
-        data = requests.get(url, params=params, headers=self.headers).json()
+        data = self.net.json(url, {
+            "params": params, "headers": self.headers,
+        })
         videos = [{
             'vod_id': item['id'],
             'vod_name': item['title'],
@@ -148,7 +151,7 @@ class Spider(Spider):
     def detailContent(self, ids):
         id = ids[0]
         url = f"{self.host}/api/video/detailv2?id={id}"
-        data = requests.get(url, headers=self.headers).json()
+        data = self.net.json(url, {"headers": self.headers})
         res = data['data']
         
         play_from = ['边下边播']
@@ -182,7 +185,9 @@ class Spider(Spider):
     def searchContent(self, key, quick, pg="1"):
         url = f"{self.host}/api/v2/search/videoV2"
         params = {'key': key, 'category_id': 88, 'page': pg, 'pageSize': 20}
-        data = requests.get(url, params=params, headers=self.headers).json()
+        data = self.net.json(url, {
+            "params": params, "headers": self.headers,
+        })
         key_lower = key.lower()
         filtered_items = [item for item in data['data'] if key_lower in item['title'].lower()]
 
@@ -202,5 +207,5 @@ class Spider(Spider):
     def isVideoFormat(self, url): pass
     def manualVideoCheck(self): pass
     def destroy(self): pass
-    def localProxy(self, param): pass
+    def proxy(self, param): pass
     def liveContent(self, url): pass

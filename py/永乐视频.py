@@ -4,15 +4,10 @@
 import re
 import sys
 import urllib.parse
-import requests
 import json
 import time
 import random
 from bs4 import BeautifulSoup
-
-# 禁用SSL证书验证警告
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 sys.path.append('..')
 from base.spider import Spider
@@ -32,35 +27,11 @@ class Spider(Spider):
         self.encoding = "UTF-8"
         self.last_search_key = ""
         
-        self.session = requests.Session()
-        self.session.verify = False
-        self.session.headers.update(self.headers)
-        
-        from requests.adapters import HTTPAdapter
-        from urllib3.util.retry import Retry
-        
-        retry_strategy = Retry(
-            total=3,
-            backoff_factor=0.5,
-            status_forcelist=[429, 500, 502, 503, 504],
-            allowed_methods=["GET", "POST"]
-        )
-        adapter = HTTPAdapter(max_retries=retry_strategy)
-        self.session.mount("https://", adapter)
-        self.session.mount("http://", adapter)
+        self.session = self.net.session()
 
-    def fetch(self, url, headers=None, timeout=30):
-        try:
-            if headers is None:
-                headers = self.headers
-            time.sleep(random.uniform(0.5, 1.5))
-            response = self.session.get(url, headers=headers, timeout=timeout, verify=False)
-            if response.encoding == 'ISO-8859-1':
-                response.encoding = self.encoding
-            return response
-        except Exception as e:
-            self.log(f"请求失败: {str(e)}")
-            return None
+    def destroy(self):
+        if getattr(self, "session", None):
+            self.session.close()
 
     def homeContent(self, filter):
         result = {
@@ -74,9 +45,12 @@ class Spider(Spider):
             "list": []
         }
         try:
-            rsp = self.fetch(self.host)
-            if rsp and rsp.status_code == 200:
-                html = rsp.text
+            time.sleep(random.uniform(0.5, 1.5))
+            rsp = self.session.req(self.host, {
+                "headers": self.headers, "timeout": 30000,
+            })
+            if not rsp.get("error") and rsp["code"] == 200:
+                html = rsp["content"]
                 videos = self._extract_videos_from_html(html, limit=20)
                 result['list'] = videos
         except Exception as e:
@@ -122,15 +96,16 @@ class Spider(Spider):
                 url = f"{self.host}/vodshow/{main_id}-{param_str}/page/{pg}/"
             
             self.log(f"请求分类URL: {url}")
-            rsp = self.fetch(url)
+            time.sleep(random.uniform(0.5, 1.5))
+            rsp = self.session.req(url, {"headers": self.headers, "timeout": 30000})
             
-            if rsp and rsp.status_code == 200:
-                html = rsp.text
+            if not rsp.get("error") and rsp["code"] == 200:
+                html = rsp["content"]
                 videos = self._extract_videos_with_bs(html)
                 result['list'] = videos
                 self.log(f"分类{main_id}第{pg}页提取到{len(videos)}条数据")
             else:
-                status = rsp.status_code if rsp else "无响应"
+                status = rsp.get("error") or rsp.get("code", "无响应")
                 self.log(f"分类页请求失败，状态码: {status}")
                 
         except Exception as e:
@@ -147,14 +122,17 @@ class Spider(Spider):
             search_url = f"{self.host}/vodsearch/{search_key}-------------/" if int(pg) == 1 else f"{self.host}/vodsearch/{search_key}-------------/page/{pg}/"
             self.log(f"搜索URL: {search_url}")
             
-            rsp = self.fetch(search_url)
-            if rsp and rsp.status_code == 200:
-                html = rsp.text
+            time.sleep(random.uniform(0.5, 1.5))
+            rsp = self.session.req(search_url, {
+                "headers": self.headers, "timeout": 30000,
+            })
+            if not rsp.get("error") and rsp["code"] == 200:
+                html = rsp["content"]
                 videos = self._extract_search_results_with_bs(html)
                 result['list'] = videos
                 self.log(f"搜索'{key}'第{pg}页提取到{len(videos)}条数据")
             else:
-                self.log(f"搜索请求失败，状态码: {rsp.status_code if rsp else '无响应'}")
+                self.log(f"搜索请求失败，状态码: {rsp.get('error') or rsp.get('code', '无响应')}")
         except Exception as e:
             self.log(f"搜索出错: {str(e)}")
             import traceback
@@ -168,11 +146,14 @@ class Spider(Spider):
             detail_url = f"{self.host}/voddetail/{vid}/"
             self.log(f"请求详情页: {detail_url}")
             
-            rsp = self.fetch(detail_url)
-            if not rsp or rsp.status_code != 200:
+            time.sleep(random.uniform(0.5, 1.5))
+            rsp = self.session.req(detail_url, {
+                "headers": self.headers, "timeout": 30000,
+            })
+            if rsp.get("error") or rsp["code"] != 200:
                 return result
                 
-            html = rsp.text
+            html = rsp["content"]
 
             play_from = []
             play_url = []
@@ -274,11 +255,14 @@ class Spider(Spider):
             play_url = f"{self.host}/play/{id}/"
             self.log(f"请求{play_from}第{ep_id}集播放页: {play_url}")
             
-            rsp = self.fetch(play_url)
-            if not rsp or rsp.status_code != 200:
+            time.sleep(random.uniform(0.5, 1.5))
+            rsp = self.session.req(play_url, {
+                "headers": self.headers, "timeout": 30000,
+            })
+            if rsp.get("error") or rsp["code"] != 200:
                 return result
                 
-            html = rsp.text
+            html = rsp["content"]
 
             real_url_pattern = r'var player_aaaa=.*?"url":"([^"]+\.m3u8)"'
             real_url_match = re.search(real_url_pattern, html, re.S | re.I)
@@ -329,7 +313,7 @@ class Spider(Spider):
                 {"n": "其它", "v": "其它"}
             ]},
             {"key": "year", "name": "年份", "value": [
-                {"n": "全部", "v": ""}, {"n": "2026", "v": "2026"}, {"n": "2025", "v": "2025"}, {"n": "2024", "v": "2024"},
+                {"n": "全部", "v": ""},{"n":"2027","v":"2027"}, {"n":"2026","v":"2026"}, {"n":"2025","v":"2025"}, {"n":"2024","v":"2024"},
                 {"n": "2023", "v": "2023"}, {"n": "2022", "v": "2022"}, {"n": "2021", "v": "2021"},
                 {"n": "2020", "v": "2020"}, {"n": "2019", "v": "2019"}, {"n": "2018", "v": "2018"},
                 {"n": "2017", "v": "2017"}, {"n": "2016", "v": "2016"}, {"n": "2015", "v": "2015"},
@@ -366,7 +350,7 @@ class Spider(Spider):
                 {"n": "其他", "v": "其他"}
             ]},
             {"key": "year", "name": "年份", "value": [
-                {"n": "全部", "v": ""}, {"n": "2026", "v": "2026"}, {"n": "2025", "v": "2025"}, {"n": "2024", "v": "2024"},
+                {"n": "全部", "v": ""},{"n":"2027","v":"2027"}, {"n":"2026","v":"2026"}, {"n":"2025","v":"2025"}, {"n":"2024","v":"2024"},
                 {"n": "2023", "v": "2023"}, {"n": "2022", "v": "2022"}, {"n": "2021", "v": "2021"},
                 {"n": "2020", "v": "2020"}, {"n": "2019", "v": "2019"}, {"n": "2018", "v": "2018"},
                 {"n": "2017", "v": "2017"}, {"n": "2016", "v": "2016"}, {"n": "2015", "v": "2015"},
@@ -378,7 +362,7 @@ class Spider(Spider):
                 {"n": "日本综艺", "v": "29"}, {"n": "韩国综艺", "v": "36"}, {"n": "欧美综艺", "v": "30"}
             ]},
             {"key": "year", "name": "年份", "value": [
-                {"n": "全部", "v": ""}, {"n": "2026", "v": "2026"}, {"n": "2025", "v": "2025"}, {"n": "2024", "v": "2024"},
+                {"n": "全部", "v": ""},{"n":"2027","v":"2027"}, {"n":"2026","v":"2026"}, {"n":"2025","v":"2025"}, {"n":"2024","v":"2024"},
                 {"n": "2023", "v": "2023"}, {"n": "2022", "v": "2022"}, {"n": "2021", "v": "2021"},
                 {"n": "2020", "v": "2020"}, {"n": "2019", "v": "2019"}, {"n": "2018", "v": "2018"},
                 {"n": "2017", "v": "2017"}, {"n": "2016", "v": "2016"}, {"n": "2015", "v": "2015"},
@@ -390,7 +374,7 @@ class Spider(Spider):
                 {"n": "欧美动漫", "v": "42"}, {"n": "其他动漫", "v": "43"}
             ]},
             {"key": "year", "name": "年份", "value": [
-                {"n": "全部", "v": ""}, {"n": "2026", "v": "2026"}, {"n": "2025", "v": "2025"}, {"n": "2024", "v": "2024"},
+                {"n": "全部", "v": ""},{"n":"2027","v":"2027"}, {"n":"2026","v":"2026"}, {"n":"2025","v":"2025"}, {"n":"2024","v":"2024"},
                 {"n": "2023", "v": "2023"}, {"n": "2022", "v": "2022"}, {"n": "2021", "v": "2021"},
                 {"n": "2020", "v": "2020"}, {"n": "2019", "v": "2019"}, {"n": "2018", "v": "2018"},
                 {"n": "2017", "v": "2017"}, {"n": "2016", "v": "2016"}, {"n": "2015", "v": "2015"},

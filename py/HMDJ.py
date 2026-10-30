@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import requests
 import re
 import json
 import traceback
@@ -43,22 +42,6 @@ class Spider(Spider):
     def init(self, extend=""):
         return
     
-    def fetch(self, url, headers=None, retry=2):
-        """统一的网络请求接口"""
-        if headers is None:
-            headers = self.headers
-        
-        for i in range(retry + 1):
-            try:
-                response = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
-                response.raise_for_status()
-                return response
-            except Exception as e:
-                if i == retry:
-                    print(f"请求异常: {url}, 错误: {str(e)}")
-                    return None
-                continue
-    
     def isVideoFormat(self, url):
         video_formats = ['.mp4', '.mkv', '.avi', '.wmv', '.m3u8', '.flv', '.rmvb']
         return any(format in url.lower() for format in video_formats)
@@ -80,11 +63,11 @@ class Spider(Spider):
     def homeVideoContent(self):
         videos = []
         try:
-            response = self.fetch(self.siteUrl)
-            if not response:
+            response = self.net.req(self.siteUrl, {"timeout": 5000})
+            if response.get("error") or not 200 <= response["code"] < 300:
                 return {'list': []}
                 
-            html_content = response.text
+            html_content = response["content"]
             next_data_pattern = r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>'
             next_data_match = re.search(next_data_pattern, html_content, re.DOTALL)
             if not next_data_match:
@@ -135,11 +118,11 @@ class Spider(Spider):
         result = {'list': [], 'page': pg, 'pagecount': 1, 'limit': 20, 'total': 0}
         url = f"{self.siteUrl}/browse/{tid}/{pg}"
         
-        response = self.fetch(url)
-        if not response:
+        response = self.net.req(url, {"timeout": 5000})
+        if response.get("error") or not 200 <= response["code"] < 300:
             return result
             
-        html_content = response.text
+        html_content = response["content"]
         next_data_match = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html_content, re.DOTALL)
         if not next_data_match:
             return result
@@ -182,11 +165,11 @@ class Spider(Spider):
         result = {'list': [], 'page': pg, 'pagecount': 1, 'limit': 20, 'total': 0}
         search_url = f"{self.siteUrl}/search?searchValue={quote(key)}&page={pg}"
         
-        response = self.fetch(search_url)
-        if not response:
+        response = self.net.req(search_url, {"timeout": 5000})
+        if response.get("error") or not 200 <= response["code"] < 300:
             return result
             
-        html_content = response.text
+        html_content = response["content"]
         next_data_match = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html_content, re.DOTALL)
         if not next_data_match:
             return result
@@ -229,11 +212,11 @@ class Spider(Spider):
             vod_id = f'/drama/{vod_id}'
         
         drama_url = f"{self.siteUrl}{vod_id}"
-        response = self.fetch(drama_url)
-        if not response:
+        response = self.net.req(drama_url, {"timeout": 5000})
+        if response.get("error") or not 200 <= response["code"] < 300:
             return result
             
-        html = response.text
+        html = response["content"]
         next_data_match = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.DOTALL)
         if not next_data_match:
             return result
@@ -341,11 +324,11 @@ class Spider(Spider):
     
     def getEpisodeVideoUrl(self, drama_id, chapter_id):
         episode_url = f"{self.siteUrl}/episode/{drama_id}/{chapter_id}"
-        response = self.fetch(episode_url)
-        if not response:
+        response = self.net.req(episode_url, {"timeout": 5000})
+        if response.get("error") or not 200 <= response["code"] < 300:
             return None
             
-        html = response.text
+        html = response["content"]
         
         # 方法1: 从NEXT_DATA提取
         next_data_match = re.search(r'<script id="__NEXT_DATA__".*?>(.*?)</script>', html, re.DOTALL)
@@ -373,7 +356,7 @@ class Spider(Spider):
             
         return None
 
-    def localProxy(self, param):
+    def proxy(self, param):
         return [200, "video/MP2T", {}, param]
 
     def destroy(self):

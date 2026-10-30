@@ -38,7 +38,9 @@ class Spider(Spider):
     }
 
     def homeContent(self, filter):
-        data=self.post(f"{self.host}/api/v1/app/screen/screenType", headers=self.headers).json()
+        data = self.net.json(f"{self.host}/api/v1/app/screen/screenType", {
+            "method": "POST", "headers": self.headers, "timeout": 5000,
+        })
         result = {}
         cate = {
             "类型": "classify",
@@ -71,7 +73,10 @@ class Spider(Spider):
 
     def homeVideoContent(self):
         jdata={"condition":64,"pageNum":1,"pageSize":40}
-        data=self.post(f"{self.host}/api/v1/app/recommend/recommendSubList", headers=self.headers, json=jdata).json()
+        data = self.net.json(f"{self.host}/api/v1/app/recommend/recommendSubList", {
+            "method": "POST", "postType": "json", "data": jdata,
+            "headers": self.headers, "timeout": 5000,
+        })
         return {'list':self.getlist(data['data']['records'])}
 
     def categoryContent(self, tid, pg, filter, extend):
@@ -84,7 +89,10 @@ class Spider(Spider):
             'pageSize': 40,
         }
         jdata['condition'].update(extend)
-        data = self.post(f"{self.host}/api/v1/app/screen/screenMovie", headers=self.headers, json=jdata).json()
+        data = self.net.json(f"{self.host}/api/v1/app/screen/screenMovie", {
+            "method": "POST", "postType": "json", "data": jdata,
+            "headers": self.headers, "timeout": 5000,
+        })
         result = {}
         result['list'] = self.getlist(data['data']['records'])
         result['page'] = pg
@@ -96,7 +104,10 @@ class Spider(Spider):
     def detailContent(self, ids):
         ids = ids[0].split('@@')
         jdata = {"id": int(ids[0]), "typeId": ids[-1]}
-        v = self.post(f"{self.host}/api/v1/app/play/movieDesc", headers=self.headers, json=jdata).json()
+        v = self.net.json(f"{self.host}/api/v1/app/play/movieDesc", {
+            "method": "POST", "postType": "json", "data": jdata,
+            "headers": self.headers, "timeout": 5000,
+        })
         v = v['data']
         vod = {
             'type_name': v.get('classify'),
@@ -108,7 +119,10 @@ class Spider(Spider):
             'vod_play_from': '',
             'vod_play_url': ''
         }
-        c = self.post(f"{self.host}/api/v1/app/play/movieDetails", headers=self.headers, json=jdata).json()
+        c = self.net.json(f"{self.host}/api/v1/app/play/movieDetails", {
+            "method": "POST", "postType": "json", "data": jdata,
+            "headers": self.headers, "timeout": 5000,
+        })
         l = c['data']['moviePlayerList']
         n = {str(i['id']): i['moviePlayerName'] for i in l}
         m = jdata.copy()
@@ -140,43 +154,54 @@ class Spider(Spider):
           "pageNum": int(pg),
           "pageSize": 40
         }
-        data=self.post(f"{self.host}/api/v1/app/search/searchMovie", headers=self.headers, json=jdata).json()
+        data = self.net.json(f"{self.host}/api/v1/app/search/searchMovie", {
+            "method": "POST", "postType": "json", "data": jdata,
+            "headers": self.headers, "timeout": 5000,
+        })
         return {'list':self.getlist(data['data']['records']),'page':pg}
 
     def playerContent(self, flag, id, vipFlags):
         jdata=json.loads(self.d64(id))
-        data = self.post(f"{self.host}/api/v1/app/play/movieDetails", headers=self.headers, json=jdata).json()
+        data = self.net.json(f"{self.host}/api/v1/app/play/movieDetails", {
+            "method": "POST", "postType": "json", "data": jdata,
+            "headers": self.headers, "timeout": 5000,
+        })
         try:
             params={'playerUrl':data['data']['url'],'playerId':jdata['playerId']}
-            pd=self.fetch(f"{self.host}/api/v1/app/play/analysisMovieUrl", headers=self.headers, params=params).json()
+            pd = self.net.json(f"{self.host}/api/v1/app/play/analysisMovieUrl", {
+                "params": params, "headers": self.headers, "timeout": 5000,
+            })
             url,p=pd['data'],0
         except Exception as e:
             print(f"请求失败: {e}")
             url,p=data['data']['url'],0
         return  {'parse': p, 'url': url, 'header': {'User-Agent': 'okhttp/4.12.0'}}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def liveContent(self, url):
         pass
 
     def gettk(self):
-        data=self.fetch(f"{self.host}/api/v1/app/user/visitorInfo", headers=self.headers).json()
+        data=self.net.json(f"{self.host}/api/v1/app/user/visitorInfo", {"headers": self.headers, "timeout": 5000})
         return data['data']['token']
 
     def getdid(self):
-        did=self.getCache('ldid')
+        did = self.local.get('ldid')
         if not did:
             hex_chars = '0123456789abcdef'
             did =''.join(random.choice(hex_chars) for _ in range(16))
-            self.setCache('ldid',did)
+            self.local.set('ldid', did)
         return did
 
     def getd(self,jdata,player):
         x = jdata.copy()
         x.update({'playerId': str(player['id'])})
-        response = self.post(f"{self.host}/api/v1/app/play/movieDetails", headers=self.headers, json=x).json()
+        response = self.net.json(f"{self.host}/api/v1/app/play/movieDetails", {
+            "method": "POST", "postType": "json", "data": x,
+            "headers": self.headers, "timeout": 5000,
+        })
         return x, response['data']['episodeList']
 
     def getv(self,d,c):

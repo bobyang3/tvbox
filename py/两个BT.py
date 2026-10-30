@@ -7,6 +7,7 @@ import json
 import time
 import urllib.parse
 import re
+from lxml import etree
 import base64
 
 class Spider(Spider):
@@ -57,8 +58,8 @@ class Spider(Spider):
         
         # 3. 获取首页推荐内容
         try:
-            rsp = self.fetch(self.host, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(self.host, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc, limit=50)
             result['list'] = videos
         except Exception as e:
@@ -102,8 +103,8 @@ class Spider(Spider):
             if not url:
                 return {'list': []}
             
-            rsp = self.fetch(url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc, limit=20)
             
             return {
@@ -125,8 +126,8 @@ class Spider(Spider):
                 search_url += f"&p={pg}"
             
             self.log(f"搜索URL: {search_url}")
-            rsp = self.fetch(search_url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(search_url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             
             videos = []
             seen_ids = set()
@@ -157,8 +158,8 @@ class Spider(Spider):
         try:
             vid = ids[0]
             detail_url = f"{self.host}/movie/{vid}.html"
-            rsp = self.fetch(detail_url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(detail_url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             
             video_info = self._get_detail(doc, vid)
             return {'list': [video_info]} if video_info else {'list': []}
@@ -210,10 +211,10 @@ class Spider(Spider):
                 'key': 'year',
                 'name': '年份',
                 'value': [
-                    {'n': '全部', 'v': ''},
-                    {'n': '2026', 'v': '2026'},
-                    {'n': '2025', 'v': '2025'},
-                    {'n': '2024', 'v': '2024'},
+                    {'n': '全部', 'v': ''},{'n':'2027','v':'2027'},
+                    {'n':'2026','v':'2026'},
+                    {'n':'2025','v':'2025'},
+                    {'n':'2024','v':'2024'},
                     {'n': '2023', 'v': '2023'},
                     {'n': '2022', 'v': '2022'},
                     {'n': '2021', 'v': '2021'},
@@ -302,7 +303,8 @@ class Spider(Spider):
             if link.startswith('/'):
                 link = self.host + link
 
-            vod_id = self.regStr(r'/movie/(\d+)\.html', link)
+            match = re.search(r'/movie/(\d+)\.html', link)
+            vod_id = match.group(1) if match else ''
             if not vod_id:
                 return None
 
@@ -394,8 +396,8 @@ class Spider(Spider):
         """从详情页面获取图片"""
         try:
             detail_url = f"{self.host}/movie/{vod_id}.html"
-            rsp = self.fetch(detail_url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(detail_url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
 
             # 详情页图片选择器
             pic_selectors = [
@@ -577,7 +579,8 @@ class Spider(Spider):
 
                         if ep_title and ep_url:
                             # 提取播放ID
-                            play_id = self.regStr(r'/v_play/([^.]+)\.html', ep_url)
+                            match = re.search(r'/v_play/([^.]+)\.html', ep_url)
+                            play_id = match.group(1) if match else ''
                             if play_id:
                                 episodes.append(f"{ep_title.strip()}${play_id}")
                     break

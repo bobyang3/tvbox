@@ -7,7 +7,6 @@ import json
 import time
 import urllib.parse
 import re
-import requests
 from lxml import etree
 import base64
 
@@ -43,10 +42,8 @@ class Spider(Spider):
     def categoryContent(self, tid, pg, filter, extend):
         result = {}
         url = 'https://www.uaa001.com/api/audio/app/audio/search?category={0}&orderType=1&page={1}&searchType=1&size=42'.format(tid, pg)
-        rsp = self.fetch(url)
-        content = rsp.text
         videos = []
-        data = json.loads(content)
+        data = self.net.json(url)
         for item in data['model']['data']:
             videos.append({
                 "vod_id": item['id'],
@@ -64,9 +61,7 @@ class Spider(Spider):
     def detailContent(self, array):
         tid = array[0]
         url = 'https://www.uaa001.com/api/audio/app/audio/intro?id={0}'.format(tid)
-        rsp = self.fetch(url)
-        content = rsp.text
-        data = json.loads(content)
+        data = self.net.json(url)
         model = data['model']
         
         # 构建播放列表
@@ -137,22 +132,22 @@ class Spider(Spider):
         
         try:
             url = 'https://www.uaa001.com/api/audio/app/audio/chapter?id={}'.format(chapter_id)
-            rsp = self.fetch(url)
-            data = json.loads(rsp.text)
+            data = self.net.json(url)
             if data.get('model') and data['model'].get('chapterUrl'):
                 return data['model']['chapterUrl']
-        except:
-            pass
+        except Exception as e:
+            self.log(f"获取章节播放链接失败: {e}")
         
         return ''
 
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1"):
         result = {}
-        url = 'https://www.uaa001.com/api/audio/app/audio/search?category=&keyword={0}&orderType=1&orderType=1&origin=&page=1&searchType=1&size=32&tag='.format(urllib.parse.quote(key))
-        rsp = self.fetch(url)
-        content = rsp.text
+        url = (
+            'https://www.uaa001.com/api/audio/app/audio/search?category=&keyword={0}'
+            '&orderType=1&orderType=1&origin=&page={1}&searchType=1&size=32&tag='
+        ).format(urllib.parse.quote(key), pg)
         videos = []
-        data = json.loads(content)
+        data = self.net.json(url)
         for item in data['model']['data']:
             videos.append({
                 "vod_id": item['id'],
@@ -183,6 +178,6 @@ class Spider(Spider):
     def manualVideoCheck(self):
         pass
 
-    def localProxy(self, param):
+    def proxy(self, param):
         action = {}
         return [200, "video/MP2T", action, ""]

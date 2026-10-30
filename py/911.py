@@ -1,7 +1,6 @@
 # coding=utf-8
 # !/python
 import sys
-import requests
 from bs4 import BeautifulSoup
 import re
 from urllib.parse import urljoin
@@ -42,10 +41,14 @@ class Spider(Spider):
                 test_url = url.replace(xurl, backup)
                 try:
                     time.sleep(1)
-                    res = requests.get(test_url, headers=headerx, timeout=10)
-                    res.raise_for_status()
-                    res.encoding = "utf-8"
-                    text = res.text
+                    res = self.net.req(test_url, {
+                        "headers": headerx, "timeout": 10000,
+                    })
+                    if res.get("error"):
+                        raise RuntimeError(res["error"])
+                    if not 200 <= res["code"] < 300:
+                        raise RuntimeError(f"HTTP {res['code']}")
+                    text = res["content"]
                     if len(text) > 1000:
                         print(f"[DEBUG] 使用备用 {backup}: {test_url}")
                         return text
@@ -55,10 +58,14 @@ class Spider(Spider):
         
         try:
             time.sleep(1)
-            res = requests.get(original_url, headers=headerx, timeout=10)
-            res.raise_for_status()
-            res.encoding = "utf-8"
-            text = res.text
+            res = self.net.req(original_url, {
+                "headers": headerx, "timeout": 10000,
+            })
+            if res.get("error"):
+                raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300:
+                raise RuntimeError(f"HTTP {res['code']}")
+            text = res["content"]
             doc = BeautifulSoup(text, "html.parser")
             title = doc.title.string if doc.title else "无标题"
             print(f"[DEBUG] 页面 {original_url}: 长度={len(text)}, 标题={title}")
@@ -203,8 +210,8 @@ class Spider(Spider):
     def playerContent(self, flag, id, vipFlags):
         return {"parse": 0, "playUrl": "", "url": id, "header": headerx}
 
-    def searchContent(self, key, quick):
-        return self.searchContentPage(key, quick, "1")
+    def searchContent(self, key, quick, pg="1"):
+        return self.searchContentPage(key, quick, pg)
 
     def searchContentPage(self, key, quick, page):
         url = f"{xurl}/search/{key}/{page}/"
@@ -212,7 +219,7 @@ class Spider(Spider):
         videos = self.extract_content(html, url)
         return {'list': videos, 'page': page, 'pagecount': 9999, 'limit': 90, 'total': 999999}
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         elif params['type'] == "media":

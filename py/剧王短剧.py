@@ -22,7 +22,6 @@ import urllib.request
 import urllib.parse
 import datetime
 import binascii
-import requests
 import base64
 import json
 import time
@@ -47,6 +46,14 @@ class Spider(Spider):
 
     def init(self, extend):
         pass
+
+    def _get_text(self, url, options):
+        response = self.net.req(url, options)
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']}")
+        return response["content"]
 
     def isVideoFormat(self, url):
         pass
@@ -118,9 +125,7 @@ class Spider(Spider):
     def homeContent(self, filter):
         result = {"class": []}
 
-        detail = requests.get(url=xurl + "/all/", headers=headerx)
-        detail.encoding = "utf-8"
-        res = detail.text
+        res = self._get_text(xurl + "/all/", {"headers": headerx, "timeout": 5000})
 
         doc = BeautifulSoup(res, "lxml")
 
@@ -152,9 +157,7 @@ class Spider(Spider):
             page = 1
 
         url = f'{cid}page/{str(page)}/'
-        detail = requests.get(url=url, headers=headerx)
-        detail.encoding = "utf-8"
-        res = detail.text
+        res = self._get_text(url, {"headers": headerx, "timeout": 5000})
         doc = BeautifulSoup(res, "lxml")
 
         soups = doc.find_all('section', class_="container items")
@@ -198,15 +201,11 @@ class Spider(Spider):
         if 'http' not in did:
             did = xurl + did
 
-        res = requests.get(url=did, headers=headerx)
-        res.encoding = "utf-8"
-        res = res.text
+        res = self._get_text(did, {"headers": headerx, "timeout": 5000})
         doc = BeautifulSoup(res, "lxml")
 
         url = 'https://fs-im-kefu.7moor-fs1.com/ly/4d2c3f00-7d4c-11e5-af15-41bf63ae4ea0/1732707176882/jiduo.txt'
-        response = requests.get(url)
-        response.encoding = 'utf-8'
-        code = response.text
+        code = self._get_text(url, {})
         name = self.extract_middle_text(code, "s1='", "'", 0)
         Jumps = self.extract_middle_text(code, "s2='", "'", 0)
 
@@ -250,9 +249,7 @@ class Spider(Spider):
 
     def playerContent(self, flag, id, vipFlags):
 
-        res = requests.get(url=id, headers=headerx)
-        res.encoding = "utf-8"
-        res = res.text
+        res = self._get_text(id, {"headers": headerx, "timeout": 5000})
 
         url = self.extract_middle_text(res, '"wwm3u8":"', '"', 0).replace('\\', '')
 
@@ -273,9 +270,7 @@ class Spider(Spider):
             page = 1
 
         url = f'{xurl}/search/{key}/page/{str(page)}/'
-        detail = requests.get(url=url, headers=headerx)
-        detail.encoding = "utf-8"
-        res = detail.text
+        res = self._get_text(url, {"headers": headerx, "timeout": 5000})
         doc = BeautifulSoup(res, "lxml")
 
         soups = doc.find_all('section', class_="container items")
@@ -312,7 +307,7 @@ class Spider(Spider):
     def searchContent(self, key, quick, pg="1"):
         return self.searchContentPage(key, quick, '1')
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         elif params['type'] == "media":
@@ -320,8 +315,6 @@ class Spider(Spider):
         elif params['type'] == "ts":
             return self.proxyTs(params)
         return None
-
-
 
 
 

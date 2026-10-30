@@ -5,7 +5,6 @@ import re
 import sys
 from pyquery import PyQuery as pq
 from base64 import b64decode, b64encode
-from requests import Session
 sys.path.append('..')
 from base.spider import Spider
 
@@ -13,8 +12,6 @@ from base.spider import Spider
 class Spider(Spider):
     def init(self, extend=""):
         self.headers['referer']=f'{self.host}/'
-        self.session = Session()
-        self.session.headers.update(self.headers)
         pass
 
     def getName(self):
@@ -88,7 +85,26 @@ class Spider(Spider):
             vdata=self.getlist(data(".mozaique .frame-block"))
         elif tid=='/best':
             if pg=='1':
-                self.path=self.session.get(f'{self.host}{tid}',headers=self.headers,allow_redirects=False).headers['Location']
+                redirect = self.net.req(
+                    f'{self.host}{tid}',
+                    {"headers": self.headers, "redirect": 0, "timeout": 5000},
+                )
+                if redirect.get("error"):
+                    raise RuntimeError(redirect["error"])
+                if not 300 <= redirect["code"] < 400:
+                    raise RuntimeError(f"Expected redirect, received HTTP {redirect['code']}")
+                location = next(
+                    (
+                        value for name, value in redirect["headers"].items()
+                        if name.lower() == "location"
+                    ),
+                    None,
+                )
+                if isinstance(location, list):
+                    location = location[0] if location else None
+                if not location:
+                    raise RuntimeError("Redirect response did not include a Location header")
+                self.path = location
             data=self.getpq(f'{self.path}{page}')
             vdata=self.getlist(data(".mozaique .frame-block"))
         elif tid=='/channels-index' or tid=='/pornstars-index':
@@ -124,9 +140,12 @@ class Spider(Spider):
                     })
         elif 'channels_click' in tid:
             tid=tid.split('click_')[-1]
-            headers=self.session.headers.copy()
+            headers = self.headers.copy()
             headers.update({'Accept': 'application/json, text/javascript, */*; q=0.01'})
-            vhtml=self.post(f'{self.host}{tid}/videos/best/{int(pg)-1}',headers=headers).json()
+            vhtml = self.net.json(
+                f'{self.host}{tid}/videos/best/{int(pg)-1}',
+                {"method": "POST", "headers": headers, "timeout": 5000},
+            )
             for i in vhtml['videos']:
                 vdata.append({
                     'vod_id': i.get('u'),
@@ -215,7 +234,7 @@ class Spider(Spider):
         ids=self.d64(id).split('@@@@')
         return {'parse': int(ids[0]), 'url': ids[1], 'header': headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def e64(self, text):
@@ -252,9 +271,11 @@ class Spider(Spider):
         return vlist
 
     def getpq(self, path=''):
-        response = self.session.get(f'{self.host}{path}').text
-        try:
-            return pq(response)
-        except Exception as e:
-            print(f"{str(e)}")
-            return pq(response.encode('utf-8'))
+        response = self.net.req(
+            f'{self.host}{path}', {"headers": self.headers}
+        )
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while requesting {path}")
+        return pq(response["content"])

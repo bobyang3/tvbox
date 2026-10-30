@@ -22,7 +22,6 @@ import urllib.request
 import urllib.parse
 import datetime
 import binascii
-import requests
 import base64
 import json
 import time
@@ -118,7 +117,7 @@ class Spider(Spider):
     def homeContent(self, filter):
         result = {"class": []}
 
-        detail = requests.get(url=xurl, headers=headerx)
+        detail = self.net.req(xurl, {"headers": headerx, "timeout": 5000})
         detail.encoding = "utf-8"
         res = detail.text
         doc = BeautifulSoup(res, "lxml")
@@ -152,7 +151,7 @@ class Spider(Spider):
         if '@' in cid:
             fenge = cid.split("@")
 
-            detail = requests.get(url=xurl + fenge[0], headers=headerx)
+            detail = self.net.req(xurl + fenge[0], {"headers": headerx, "timeout": 5000})
             detail.encoding = "utf-8"
             res = detail.text
             doc = BeautifulSoup(res, "lxml")
@@ -182,7 +181,7 @@ class Spider(Spider):
                 videos.append(video)
 
         else:
-            detail = requests.get(url=cid, headers=headerx)
+            detail = self.net.req(cid, {"headers": headerx, "timeout": 5000})
             detail.encoding = "utf-8"
             res = detail.text
             doc = BeautifulSoup(res, "lxml")
@@ -240,7 +239,7 @@ class Spider(Spider):
             if 'http' not in did:
                 did = xurl + did
 
-            res = requests.get(url=did, headers=headerx)
+            res = self.net.req(did, {"headers": headerx, "timeout": 5000})
             res.encoding = "utf-8"
             res = res.text
             doc = BeautifulSoup(res, "lxml")
@@ -294,7 +293,7 @@ class Spider(Spider):
 
     def playerContent(self, flag, id, vipFlags):
 
-        res = requests.get(url=id, headers=headerx)
+        res = self.net.req(id, {"headers": headerx, "timeout": 5000})
         res.encoding = "utf-8"
         res = res.text
 
@@ -321,7 +320,7 @@ class Spider(Spider):
             page = 1
 
         url = f'{xurl}/search/?page={str(page)}&key={key}&tp=1'
-        detail = requests.get(url=url, headers=headerx)
+        detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
         detail.encoding = "utf-8"
         res = detail.text
         doc = BeautifulSoup(res, "lxml")
@@ -365,7 +364,7 @@ class Spider(Spider):
     def searchContent(self, key, quick, pg="1"):
         return self.searchContentPage(key, quick, '1')
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         elif params['type'] == "media":

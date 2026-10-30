@@ -1,4 +1,3 @@
-import requests
 from bs4 import BeautifulSoup
 import re
 from base.spider import Spider
@@ -122,7 +121,7 @@ class Spider(Spider):
     def homeVideoContent(self):
         videos = []
         try:
-            detail = requests.get(url=xurl, headers=headerx)
+            detail = self.net.req(xurl, {"headers": headerx, "timeout": 5000})
             detail.encoding = "utf-8"
             res = detail.text
             doc = BeautifulSoup(res, "lxml")
@@ -189,7 +188,7 @@ class Spider(Spider):
             else:
                 url = f'{xurl}/{cid}/'
 
-            detail = requests.get(url=url, headers=headerx)
+            detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
             detail.encoding = "utf-8"
             res = detail.text
             doc = BeautifulSoup(res, "lxml")
@@ -251,7 +250,7 @@ class Spider(Spider):
         playurl = ''
         if 'http' not in did:
             did = xurl + did
-        res1 = requests.get(url=did, headers=headerx)
+        res1 = self.net.req(did, {"headers": headerx, "timeout": 5000})
         res1.encoding = "utf-8"
         res = res1.text
 
@@ -279,7 +278,7 @@ class Spider(Spider):
         if xiutan == 0:
             if len(parts) > 1:
                 before_https, after_https = parts[0], 'http' + parts[1]
-            res = requests.get(url=after_https, headers=headerx)
+            res = self.net.req(after_https, {"headers": headerx, "timeout": 5000})
             res = res.text
 
             url2 = self.extract_middle_text(res, '<video', '</video>', 0).replace('\\', '')
@@ -287,11 +286,11 @@ class Spider(Spider):
             first_source = soup.find('source')
             src_value = first_source.get('src')
 
-            response = requests.head(src_value, allow_redirects=False)
+            response = self.net.req(src_value, {"method": "HEAD", "redirect": 0, "timeout": 5000})
             if response.status_code == 302:
                 redirect_url = response.headers['Location']
 
-            response = requests.head(redirect_url, allow_redirects=False)
+            response = self.net.req(redirect_url, {"method": "HEAD", "redirect": 0, "timeout": 5000})
             if response.status_code == 302:
                 redirect_url = response.headers['Location']
 
@@ -313,7 +312,7 @@ class Spider(Spider):
             url = f'{xurl}/search/{key}/{str(page)}/'
 
         try:
-            detail = requests.get(url=url, headers=headerx)
+            detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
             detail.encoding = "utf-8"
             res = detail.text
             doc = BeautifulSoup(res, "lxml")
@@ -366,10 +365,10 @@ class Spider(Spider):
         }
         return result
 
-    def searchContent(self, key, quick):
-        return self.searchContentPage(key, quick, '1')
+    def searchContent(self, key, quick, pg="1"):
+        return self.searchContentPage(key, quick, pg)
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         elif params['type'] == "media":

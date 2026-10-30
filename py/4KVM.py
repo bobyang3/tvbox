@@ -115,7 +115,7 @@ class Spider(Spider):
 
     def homeContent(self, filter):
         try:
-            data = self.getpq(self.fetch(self.host, headers=self.headers).text)
+            data = self.getpq(self.net.req(self.host, {"headers": self.headers, "timeout": 5000})["content"])
             classes = []
             
             # 简化分类提取
@@ -152,7 +152,7 @@ class Spider(Spider):
     def categoryContent(self, tid, pg, filter, extend):
         try:
             url = tid if pg == '1' else f"{tid}/page/{pg}" if '?' not in tid else f"{tid}&page={pg}"
-            data = self.getpq(self.fetch(url, headers=self.headers).text)
+            data = self.getpq(self.net.req(url, {"headers": self.headers, "timeout": 5000})["content"])
             
             video_list = self.getVideoList(data)
             if '电视剧' in url or 'tvshows' in url:
@@ -165,7 +165,7 @@ class Spider(Spider):
     def detailContent(self, ids):
         try:
             first_id = next(iter(ids)) if hasattr(ids, '__iter__') and not isinstance(ids, str) else ids
-            data = self.getpq(self.fetch(first_id, headers=self.headers).text)
+            data = self.getpq(self.net.req(first_id, {"headers": self.headers, "timeout": 5000})["content"])
             
             # 基本信息提取
             vod = {
@@ -221,7 +221,7 @@ class Spider(Spider):
             if pg != "1":
                 search_url += f"&p={pg}"
                 
-            data = self.getpq(self.fetch(search_url, headers=self.headers).text)
+            data = self.getpq(self.net.req(search_url, {"headers": self.headers, "timeout": 5000})["content"])
             raw_results = self.getVideoList(data)
             filtered_results = self.filterSearchResults(raw_results, key)
             
@@ -244,20 +244,21 @@ class Spider(Spider):
             if data_post and data_nume:
                 try:
                     api_url = f"{self.host}/wp-json/dooplayer/v1/post/{data_post}"
-                    api_response = self.fetch(api_url, headers=self.headers, 
-                                            params={'type': data_type or 'movie', 'source': data_nume})
-                    if api_response.status_code == 200:
-                        api_data = api_response.json()
-                        if 'embed_url' in api_data:
-                            embed_url = api_data['embed_url']
-                            parse_flag = 0 if any(ext in embed_url.lower() for ext in ['.m3u8', '.mp4', '.flv', '.avi']) else 1
-                            return {'parse': parse_flag, 'url': embed_url, 'header': self.headers}
+                    api_data = self.net.json(api_url, {
+                        "headers": self.headers,
+                        "params": {'type': data_type or 'movie', 'source': data_nume},
+                        "timeout": 5000,
+                    })
+                    if 'embed_url' in api_data:
+                        embed_url = api_data['embed_url']
+                        parse_flag = 0 if any(ext in embed_url.lower() for ext in ['.m3u8', '.mp4', '.flv', '.avi']) else 1
+                        return {'parse': parse_flag, 'url': embed_url, 'header': self.headers}
                 except:
                     pass
             
             # 页面解析回退
             page_url = base_url if '?' in id else id
-            data = self.getpq(self.fetch(page_url, headers=self.headers).text)
+            data = self.getpq(self.net.req(page_url, {"headers": self.headers, "timeout": 5000})["content"])
             
             # 查找播放源
             iframe = data('iframe.metaframe, .dooplay_player iframe, .player iframe').attr('src')
@@ -275,7 +276,7 @@ class Spider(Spider):
         except Exception as e:
             return {'parse': 1, 'url': id, 'header': self.headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def liveContent(self, url):
@@ -403,10 +404,11 @@ class Spider(Spider):
                     continue
                 
                 try:
-                    season_resp = self.fetch(season_url, headers=self.headers)
-                    if season_resp.status_code == 200:
-                        season_data = self.getpq(season_resp.text)
-                        episode_count = self._get_episode_count(season_data, season_resp.text)
+                    season_resp = self.net.req(season_url, {"headers": self.headers, "timeout": 5000})
+                    if not season_resp.get("error") and 200 <= season_resp["code"] < 300:
+                        season_text = season_resp["content"]
+                        season_data = self.getpq(season_text)
+                        episode_count = self._get_episode_count(season_data, season_text)
                         
                         # 限制集数范围（提高上限以支持长篇动漫）
                         episode_count = min(max(episode_count, 1), 500)

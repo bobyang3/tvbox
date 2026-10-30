@@ -83,13 +83,13 @@ class Spider(Spider):
             id=f"{self.getProxyUrl()}&url={self.e64(id)}&type=mpd"
         return  {'parse': 0, 'url': id, 'header':self.headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         if param.get('type') and param['type']=='mpd':
             url = self.d64(param.get('url'))
             ids=url.split('/')
             id=f"{ids[-3]}/{ids[-2]}/"
             xpu = f"{self.getProxyUrl()}&path=".replace('&', '&amp;')
-            data = self.fetch(url, headers=self.headers).text
+            data = self.net.req(url, {"headers": self.headers, "timeout": 5000})["content"]
             data = data.replace('initialization="', f'initialization="{xpu}{id}').replace('media="',f'media="{xpu}{id}')
             return [200,'application/octet-stream',data]
         else:
@@ -160,6 +160,12 @@ class Spider(Spider):
             'timestamp': t,
             'data': self.aes(data),
         }
-        res = self.post(f"{self.host}/v1", json=json_data, headers=self.headers).json()
+        res = self.net.json(f"{self.host}/v1", {
+            "method": "POST",
+            "postType": "json",
+            "data": json_data,
+            "headers": self.headers,
+            "timeout": 5000,
+        })
         res = self.aes(res['data'], False)
         return res

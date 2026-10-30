@@ -3,7 +3,6 @@ import sys
 import urllib.parse
 import threading
 import time
-import requests
 import base64
 import gzip
 import json
@@ -14,7 +13,7 @@ sys.path.append('..')
 from base.spider import Spider
 
 class Spider(Spider):
-    def __init__(self):
+    def init(self, extend=""):
         self.name = "黄色仓库"
         self.host = self.getDynamicHost()
         self.classes = self.preprocessClasses()
@@ -29,8 +28,12 @@ class Spider(Spider):
             initial_host = base64.b64decode('aHR0cDovL2hzY2submV0').decode('utf-8')
             
             # 获取初始页面
-            response = requests.get(initial_host, headers=self.header)
-            html = response.text
+            response = self.net.req(initial_host, {"headers": self.header})
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300:
+                raise RuntimeError(f"HTTP {response['code']} while retrieving the initial host")
+            html = response["content"]
             
             # 匹配strU参数
             strU_match = re.search(r'strU="(.*?)"', html)
@@ -41,15 +44,21 @@ class Spider(Spider):
             locationU = strU + initial_host.rstrip('/') + '/&p=/'
             
             # 获取重定向地址
-            redirect_response = requests.get(locationU, headers=self.header, allow_redirects=False)
-            if 'location' in redirect_response.headers:
-                return redirect_response.headers['location']
+            redirect_response = self.net.req(locationU, {
+                "headers": self.header, "redirect": 0,
+            })
+            if redirect_response.get("error"):
+                raise RuntimeError(redirect_response["error"])
+            redirect_headers = redirect_response.get("headers", {})
+            location = redirect_headers.get('location') or redirect_headers.get('Location')
+            if location:
+                return location
             else:
                 # 尝试从JSON响应中获取
                 try:
-                    data = redirect_response.json()
+                    data = json.loads(redirect_response["content"])
                     return data.get('location', initial_host)
-                except:
+                except (json.JSONDecodeError, TypeError):
                     return initial_host
                     
         except Exception as e:
@@ -72,9 +81,6 @@ class Spider(Spider):
             {"type_name": "动漫剧情", "type_id": "22"}
         ]
     
-    def init(self, extend):
-        pass
-        
     def isVideoFormat(self, url):
         pass
         
@@ -91,8 +97,12 @@ class Spider(Spider):
         result = {}
         try:
             url = f"{self.host.rstrip('/')}/"
-            rsp = self.fetch(url)
-            root = pq(rsp.text)
+            response = self.net.req(url)
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300:
+                raise RuntimeError(f"HTTP {response['code']} while retrieving recommendations")
+            root = pq(response["content"])
             
             videos = []
             list_items = root('.stui-vodlist li')
@@ -127,8 +137,12 @@ class Spider(Spider):
         result = {}
         try:
             url = f"{self.host.rstrip('/')}/vodtype/{tid}-{pg}.html"
-            rsp = self.fetch(url)
-            root = pq(rsp.text)
+            response = self.net.req(url)
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300:
+                raise RuntimeError(f"HTTP {response['code']} while retrieving category")
+            root = pq(response["content"])
             
             videos = []
             list_items = root('.stui-vodlist li')
@@ -244,8 +258,12 @@ class Spider(Spider):
                 vid = self.getFullUrl(vid)
             
             print(f"开始解析详情页面: {vid}")
-            rsp = self.fetch(vid)
-            root = pq(rsp.text)
+            response = self.net.req(vid)
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300:
+                raise RuntimeError(f"HTTP {response['code']} while retrieving detail")
+            root = pq(response["content"])
             
             # 提取基本信息
             title = root('.stui-pannel__head .title').text()
@@ -310,13 +328,20 @@ class Spider(Spider):
             
         return result
 
-    def searchContent(self, key, quick):
+    def searchContent(self, key, quick, pg="1"):
         result = {}
         try:
             # 使用搜索URL
-            search_url = f"{self.host.rstrip('/')}/vodsearch/-------------.html?wd={urllib.parse.quote(key)}"
-            rsp = self.fetch(search_url)
-            root = pq(rsp.text)
+            search_url = (
+                f"{self.host.rstrip('/')}/vodsearch/-------------.html"
+                f"?wd={urllib.parse.quote(key)}"
+            )
+            response = self.net.req(search_url)
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300:
+                raise RuntimeError(f"HTTP {response['code']} while retrieving search results")
+            root = pq(response["content"])
             
             videos = []
             list_items = root('.stui-vodlist li')
@@ -440,6 +465,6 @@ class Spider(Spider):
         "Referer": "https://hsck123.com/"
     }
 
-    def localProxy(self, param):
+    def proxy(self, param):
         action = {}
         return action

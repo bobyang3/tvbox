@@ -5,13 +5,8 @@ import re
 import sys
 import time
 import urllib.parse
-import requests
 from bs4 import BeautifulSoup
 import json
-
-# 禁用SSL证书验证警告
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 sys.path.append('..')
 from base.spider import Spider
@@ -26,30 +21,26 @@ class Spider(Spider):
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36', 
             'Referer': self.host
         }
-        self.session = requests.Session()
-        self.session.verify = False
-        self.session.headers.update(self.headers)
-        # 添加重试机制
+        self.session = self.net.session()
         self.retry_count = 3
-        self.timeout = 30
+        self.timeout = 30000
 
-    def fetch(self, url, timeout=None):
-        if timeout is None:
-            timeout = self.timeout
-            
+    def destroy(self):
+        if getattr(self, "session", None):
+            self.session.close()
+
+    def _request_with_retry(self, url):
         for i in range(self.retry_count):
-            try:
-                response = self.session.get(url, timeout=timeout, verify=False)
-                response.encoding = 'utf-8'
-                if response.status_code == 200:
-                    return response
-                else:
-                    print(f"请求失败，状态码: {response.status_code}")
-            except Exception as e:
-                print(f"请求失败 ({i+1}/{self.retry_count}): {e}")
-                if i < self.retry_count - 1:
-                    time.sleep(1)  # 等待1秒后重试
-        return None
+            response = self.session.req(url, {
+                "headers": self.headers, "timeout": self.timeout,
+            })
+            if not response.get("error") and response.get("code") == 200:
+                return response
+            failure = response.get("error") or f"HTTP {response.get('code')}"
+            self.log(f"请求失败 ({i + 1}/{self.retry_count}): {failure}")
+            if i < self.retry_count - 1:
+                time.sleep(1)
+        raise RuntimeError(f"请求失败，已重试{self.retry_count}次: {url}")
 
     def homeContent(self, filter):
         result = {
@@ -65,9 +56,8 @@ class Spider(Spider):
             "list": []
         }
         
-        rsp = self.fetch(self.host)
-        if rsp and rsp.status_code == 200:
-            result['list'] = self._extract_videos_from_html(rsp.text)
+        rsp = self._request_with_retry(self.host)
+        result['list'] = self._extract_videos_from_html(rsp["content"])
         return result
 
     def categoryContent(self, tid, pg, filter, extend):
@@ -80,9 +70,8 @@ class Spider(Spider):
             if class_filter:
                 url = url.replace(f"{tid}-{pg}", f"{class_filter}-{pg}")
         
-        rsp = self.fetch(url)
-        if rsp and rsp.status_code == 200:
-            result['list'] = self._extract_videos_from_html(rsp.text)
+        rsp = self._request_with_retry(url)
+        result['list'] = self._extract_videos_from_html(rsp["content"])
         return result
 
     def searchContent(self, key, quick, pg=1):
@@ -91,12 +80,12 @@ class Spider(Spider):
         
         # 只使用API接口进行搜索
         api_url = f"{self.host}/index.php/ajax/suggest?mid=1&wd={search_key}&limit=500"
-        rsp = self.fetch(api_url)
+        rsp = self._request_with_retry(api_url)
         
-        if rsp and rsp.status_code == 200:
+        if rsp["code"] == 200:
             try:
                 # 解析JSON响应
-                data = json.loads(rsp.text)
+                data = json.loads(rsp["content"])
                 videos = []
                 
                 # 修复：正确获取列表数据
@@ -147,13 +136,13 @@ class Spider(Spider):
             except json.JSONDecodeError:
                 print("JSON解析失败，搜索无结果")
                 # 打印原始响应以便调试
-                print(f"原始响应: {rsp.text[:200]}...")
+                print(f"原始响应: {rsp['content'][:200]}...")
             except Exception as e:
                 print(f"搜索处理异常: {e}")
                 # 打印原始响应以便调试
-                print(f"原始响应: {rsp.text[:200]}...")
+                print(f"原始响应: {rsp['content'][:200]}...")
         else:
-            print(f"API请求失败: 状态码 {rsp.status_code if rsp else '无响应'}")
+            print(f"API请求失败: 状态码 {rsp.get('code', '无响应')}")
         
         return result
 
@@ -161,11 +150,9 @@ class Spider(Spider):
         result = {"list": []}
         vid = ids[0]
         url = f"{self.host}/voddetail/{vid}.html"
-        rsp = self.fetch(url)
-        if not rsp or rsp.status_code != 200:
-            return result
-            
-        html = rsp.text
+        rsp = self._request_with_retry(url)
+
+        html = rsp["content"]
         play_from, play_url = self._extract_play_info(html, vid)
         
         if play_from and play_url:
@@ -190,18 +177,16 @@ class Spider(Spider):
         if "-" not in id:
             return result
             
-        rsp = self.fetch(f"{self.host}/vodplay/{id}.html")
-        if not rsp or rsp.status_code != 200:
-            return result
+        rsp = self._request_with_retry(f"{self.host}/vodplay/{id}.html")
             
         # 尝试从播放页面提取m3u8地址
-        m3u8_match = re.search(r'["\'](https?://[^"\']+\.m3u8[^"\']*)["\']', rsp.text)
+        m3u8_match = re.search(r'["\'](https?://[^"\']+\.m3u8[^"\']*)["\']', rsp["content"])
         if m3u8_match:
             result["parse"] = 0
             result["url"] = m3u8_match.group(1)
         else:
             # 尝试从JavaScript变量中提取
-            js_matches = re.findall(r'(https?://[^"\']+\.m3u8[^"\']*)', rsp.text)
+            js_matches = re.findall(r'(https?://[^"\']+\.m3u8[^"\']*)', rsp["content"])
             if js_matches:
                 result["parse"] = 0
                 result["url"] = js_matches[0]

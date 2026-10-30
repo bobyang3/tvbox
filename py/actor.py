@@ -6,7 +6,6 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import quote
 from Crypto.Hash import MD5
-import requests
 sys.path.append('..')
 from base.spider import Spider
 
@@ -14,11 +13,9 @@ from base.spider import Spider
 class Spider(Spider):
 
     def init(self, extend=""):
-        self.session = requests.Session()
-        self.session.headers.update(self.headers)
-        self.session.cookies.update(self.cookie)
+        self.session = self.net.session()
+        self.cookies = self.cookie.copy()
         self.get_ctoken()
-        pass
 
     def getName(self):
         pass
@@ -30,7 +27,8 @@ class Spider(Spider):
         pass
 
     def destroy(self):
-        pass
+        if getattr(self, "session", None):
+            self.session.close()
 
     host='https://www.youku.com'
 
@@ -119,7 +117,9 @@ class Spider(Spider):
         params.update(extend)
         if pg == '1':
             id=self.cf(params)
-        data=self.session.get(f'{self.host}/category/data?session={id}&params={quote(json.dumps(params))}&pageNo={pg}').json()
+        data = self._get_json(
+            f'{self.host}/category/data?session={id}&params={quote(json.dumps(params))}&pageNo={pg}'
+        )
         try:
             data=data['data']['filterData']
             for i in data['listData']:
@@ -140,7 +140,7 @@ class Spider(Spider):
 
     def detailContent(self, ids):
         try:
-            data=self.session.get(f'{self.ihost}/v_getvideo_info/?showId={ids[0]}').json()
+            data = self._get_json(f'{self.ihost}/v_getvideo_info/?showId={ids[0]}')
             v=data['data']
             vod = {
                 'type_name': v.get('showVideotype'),
@@ -186,7 +186,7 @@ class Spider(Spider):
             return {'list': [{'vod_play_from': '哎呀翻车啦', 'vod_play_url': f'呜呜呜${self.host}'}]}
 
     def searchContent(self, key, quick, pg="1"):
-        data=self.session.get(f'{self.shost}/api/search?pg={pg}&keyword={key}').json()
+        data = self._get_json(f'{self.shost}/api/search?pg={pg}&keyword={key}')
         vlist = []
         for i in data['pageComponentList']:
             if i.get('commonData') and (i['commonData'].get('showId') or i['commonData'].get('realShowId')):
@@ -203,11 +203,13 @@ class Spider(Spider):
     def playerContent(self, flag, id, vipFlags):
         return  {'jx':1,'parse': 1, 'url': f"{self.ihost}/video?vid={id}", 'header': ''}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         pass
 
     def cf(self,params,b=False):
-        response = self.session.get(f'{self.host}/category/data?params={quote(json.dumps(params))}&optionRefresh=1&pageNo=1').json()
+        response = self._get_json(
+            f'{self.host}/category/data?params={quote(json.dumps(params))}&optionRefresh=1&pageNo=1'
+        )
         data=response['data']['filterData']
         session=quote(json.dumps(data['session']))
         if b:
@@ -253,11 +255,44 @@ class Spider(Spider):
         return result
 
     def get_ctoken(self):
-        data=self.session.get(f'{self.h5host}/h5/mtop.ykrec.recommendservice.recommend/1.0/?jsv=2.6.1&appKey=24679788')
+        self._request(
+            f'{self.h5host}/h5/mtop.ykrec.recommendservice.recommend/1.0/?jsv=2.6.1&appKey=24679788'
+        )
+
+    def _request(self, url, options=None):
+        request_options = dict(options or {})
+        headers = dict(request_options.get('headers') or self.headers)
+        headers['Cookie'] = '; '.join(
+            f'{name}={value}' for name, value in self.cookies.items()
+        )
+        request_options['headers'] = headers
+        request_options.setdefault('timeout', 10000)
+        response = self.session.req(url, request_options)
+        if response.get('error'):
+            raise RuntimeError(response['error'])
+        if not 200 <= response['code'] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while requesting {url}")
+        for header_name, header_values in response.get('headers', {}).items():
+            if header_name.lower() != 'set-cookie':
+                continue
+            if not isinstance(header_values, list):
+                header_values = [header_values]
+            for header_value in header_values:
+                cookie_pair = header_value.split(';', 1)[0]
+                name, separator, value = cookie_pair.partition('=')
+                if separator:
+                    self.cookies[name] = value
+        return response
+
+    def _get_json(self, url, options=None):
+        response = self._request(url, options)
+        return json.loads(response['content'])
 
     def md5(self,t,text):
         h = MD5.new()
-        token=self.session.cookies.get('_m_h5_tk').split('_')[0]
+        token = self.cookies.get('_m_h5_tk', '').split('_')[0]
+        if not token:
+            raise RuntimeError("Youku signing token cookie is missing")
         data=f"{token}&{t}&24679788&{text}"
         h.update(data.encode('utf-8'))
         return h.hexdigest()
@@ -271,14 +306,14 @@ class Spider(Spider):
             'sign': self.md5(t, data),
             'data': data
         }
-        response = self.session.get(url, params=jsdata)
-        if '令牌过期' in response.text:
+        response = self._request(url, {'params': jsdata})
+        if '令牌过期' in response['content']:
             if recursion_count >= max_recursion:
                 raise Exception("达到最大递归次数，无法继续请求")
             self.get_ctoken()
             return self.getdata(url, params, recursion_count + 1, max_recursion)
         else:
-            return response.json()
+            return json.loads(response['content'])
 
     def getvinfo(self,params):
         body = {
@@ -298,4 +333,3 @@ class Spider(Spider):
         if i['data']['extra']['showCategory'] in ['电影','游戏']:
             jdata = i['nodes'][0]['nodes'][4]
         return jdata,info
-

@@ -2,13 +2,12 @@
 # by @嗷呜
 import json
 import re
+import requests
 import sys
 from base64 import b64decode, b64encode
 from urllib.parse import urlparse
 
-import requests
 from pyquery import PyQuery as pq
-from requests import Session
 sys.path.append('..')
 from base.spider import Spider
 
@@ -50,9 +49,9 @@ class Spider(Spider):
         }
         self.host = self.gethost()
         self.headers.update({'referer': f'{self.host}/', 'origin': self.host})
-        self.session = Session()
-        self.session.proxies.update(self.proxies)
+        self.session = requests.Session()
         self.session.headers.update(self.headers)
+        self.session.proxies.update(self.proxies)
         pass
 
     def getName(self):
@@ -65,7 +64,8 @@ class Spider(Spider):
         pass
 
     def destroy(self):
-        pass
+        if getattr(self, "session", None):
+            self.session.close()
 
     def homeContent(self, filter):
         result = {}
@@ -112,7 +112,7 @@ class Spider(Spider):
                 vdata.append({
                     'vod_id': 'playlists_click_' + i('.thumbnail-info-wrapper .display-block a').attr('href'),
                     'vod_name': i('.thumbnail-info-wrapper .display-block a').attr('title'),
-                    'vod_pic': self.proxy(i('.largeThumb').attr('src')),
+                    'vod_pic': self._proxy_url(i('.largeThumb').attr('src')),
                     'vod_tag': 'folder',
                     'vod_remarks': i('.playlist-videos .number').text(),
                     'style': {"type": "rect", "ratio": 1.33}
@@ -125,7 +125,7 @@ class Spider(Spider):
                 vdata.append({
                     'vod_id': 'director_click_' + i('.avatar a').attr('href'),
                     'vod_name': i('.avatar img').attr('alt'),
-                    'vod_pic': self.proxy(i('.avatar img').attr('src')),
+                    'vod_pic': self._proxy_url(i('.avatar img').attr('src')),
                     'vod_tag': 'folder',
                     'vod_remarks': i('.descriptionContainer ul li').eq(-1).text(),
                     'style': {"type": "rect", "ratio": 1.33}
@@ -139,7 +139,7 @@ class Spider(Spider):
                 vdata.append({
                     'vod_id': i('a').attr('href') + '_this_video',
                     'vod_name': i('a').attr('alt'),
-                    'vod_pic': self.proxy(i('a img').attr('src')),
+                    'vod_pic': self._proxy_url(i('a img').attr('src')),
                     'vod_tag': 'folder',
                     'style': {"type": "rect", "ratio": 1.33}
                 })
@@ -151,7 +151,7 @@ class Spider(Spider):
                 vdata.append({
                     'vod_id': 'pornstars_click_' + i('a').attr('href'),
                     'vod_name': i('.performerCardName').text(),
-                    'vod_pic': self.proxy(i('a img').attr('src')),
+                    'vod_pic': self._proxy_url(i('a img').attr('src')),
                     'vod_tag': 'folder',
                     'vod_year': i('.performerVideosViewsCount span').eq(0).text(),
                     'vod_remarks': i('.performerVideosViewsCount span').eq(-1).text(),
@@ -216,10 +216,10 @@ class Spider(Spider):
 
     def playerContent(self, flag, id, vipFlags):
         ids = self.d64(id).split('@@@@')
-        if '.m3u8' in ids[1]: ids[1] = self.proxy(ids[1], 'm3u8')
+        if '.m3u8' in ids[1]: ids[1] = self._proxy_url(ids[1], 'm3u8')
         return {'parse': int(ids[0]), 'url': ids[1], 'header': self.headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         url = self.d64(param.get('url'))
         if param.get('type') == 'm3u8':
             return self.m3Proxy(url)
@@ -241,7 +241,7 @@ class Spider(Spider):
                 if 'http' not in string:
                     domain = last_r if string.count('/') < 2 else durl
                     string = domain + ('' if string.startswith('/') else '/') + string
-                lines[index] = self.proxy(string, string.split('.')[-1].split('?')[0])
+                lines[index] = self._proxy_url(string, string.split('.')[-1].split('?')[0])
         data = '\n'.join(lines)
         return [200, "application/vnd.apple.mpegur", data]
 
@@ -282,7 +282,7 @@ class Spider(Spider):
             vlist.append({
                 'vod_id': i('a').attr('href'),
                 'vod_name': i('a').attr('title'),
-                'vod_pic': self.proxy(i('img').attr('src')),
+                'vod_pic': self._proxy_url(i('img').attr('src')),
                 'vod_remarks': i('.bgShadeEffect').text() or i('.duration').text(),
                 'style': {'ratio': 1.33, 'type': 'rect'}
             })
@@ -296,6 +296,6 @@ class Spider(Spider):
             print(f"请求失败: , {str(e)}")
             return None
 
-    def proxy(self, data, type='img'):
+    def _proxy_url(self, data, type='img'):
         if data and len(self.proxies):return f"{self.getProxyUrl()}&url={self.e64(data)}&type={type}"
         else:return data

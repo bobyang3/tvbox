@@ -6,10 +6,10 @@ import re
 import sys
 import threading
 import time
+import requests
 from base64 import b64decode, b64encode
 from urllib.parse import urlparse
 
-import requests
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 from pyquery import PyQuery as pq
@@ -246,20 +246,20 @@ class Spider(Spider):
         if self.isVideoFormat(url):
             # m3u8/mp4 direct play; when using proxy setting, wrap to proxy for m3u8
             if '.m3u8' in url:
-                url = self.proxy(url)
+                url = self._proxy_url(url)
             p = 0
         self.log(f"播放请求: parse={p}, url={url}")
         print(f"播放请求: parse={p}, url={url}")
         return {'parse': p, 'url': url, 'header': self.headers}
 
-    def localProxy(self, param):
+    def proxy(self, param):
         if param.get('type') == 'img':
             res=requests.get(param['url'], headers=self.headers, proxies=self.proxies, timeout=10)
             return [200,res.headers.get('Content-Type'),self.aesimg(res.content)]
         elif param.get('type') == 'm3u8':return self.m3Proxy(param['url'])
         else:return self.tsProxy(param['url'])
 
-    def proxy(self, data, type='m3u8'):
+    def _proxy_url(self, data, type='m3u8'):
         if data and len(self.proxies):return f"{self.getProxyUrl()}&url={self.e64(data)}&type={type}"
         else:return data
 
@@ -280,14 +280,14 @@ class Spider(Spider):
                 pattern = r'URI="([^"]*)"'
                 match = re.search(pattern, string)
                 if match:
-                    lines[index] = re.sub(pattern, f'URI="{self.proxy(match.group(1), "mkey")}"', string)
+                    lines[index] = re.sub(pattern, f'URI="{self._proxy_url(match.group(1), "mkey")}"', string)
                     iskey=False
                     continue
             if '#EXT' not in string:
                 if 'http' not in string:
                     domain = last_r if string.count('/') < 2 else durl
                     string = domain + ('' if string.startswith('/') else '/') + string
-                lines[index] = self.proxy(string, string.split('.')[-1].split('?')[0])
+                lines[index] = self._proxy_url(string, string.split('.')[-1].split('?')[0])
         data = '\n'.join(lines)
         return [200, "application/vnd.apple.mpegur", data]
 

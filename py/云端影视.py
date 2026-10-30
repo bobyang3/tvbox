@@ -3,7 +3,6 @@
 import re
 import sys
 import threading
-import requests
 from Crypto.Hash import MD5
 sys.path.append("..")
 from Crypto.Cipher import AES
@@ -113,7 +112,9 @@ class Spider(Spider):
         h = {"User-Agent": (ids['user_agent'] or "okhttp/3.14.9")}
         try:
             if re.search(r'url=', ids['parse_api_url']):
-                data = self.fetch(ids['parse_api_url'], headers=h, timeout=10).json()
+                data = self.net.json(ids['parse_api_url'], {
+                    "headers": h, "timeout": 10000,
+                })
                 url = data.get('url') or data['data'].get('url')
             else:
                 body = f"parse_api={ids.get('parse') or ids['parse_api_url'].replace(ids['url'], '')}&url={quote(self.aes(ids['url'], True))}&token={ids.get('token')}"
@@ -133,16 +134,22 @@ class Spider(Spider):
         result["header"] = h
         return result
 
-    def localProxy(self, param):
+    def proxy(self, param):
         return self.Mlocal(param)
 
     def gethost(self):
         headers = {
             'User-Agent': 'okhttp/3.14.9'
         }
-        response = self.fetch('https://ydysdynamicdomainname.68.gy:10678/c9m2js298x82h6/l9m8bx23j2o2p9q/dynamicdomainname.txt',
-                              headers=headers).text
-        return self.host_late(response.split('\n'))
+        response = self.net.req(
+            'https://ydysdynamicdomainname.68.gy:10678/c9m2js298x82h6/l9m8bx23j2o2p9q/dynamicdomainname.txt',
+            {"headers": headers}
+        )
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']} while retrieving the host list")
+        return self.host_late(response["content"].split('\n'))
 
     def host_late(self, url_list):
         if isinstance(url_list, str):
@@ -159,9 +166,14 @@ class Spider(Spider):
         def test_host(url):
             try:
                 start_time = time.time()
-                response = requests.head(url,timeout=1.0, allow_redirects=False)
+                response = self.net.req(url, {"method": "HEAD", "redirect": 0, "timeout": 1000})
                 delay = (time.time() - start_time) * 1000
-                results[url] = delay
+                if not response.get("error") and (
+                    200 <= response["code"] < 300 or 300 <= response["code"] < 400
+                ):
+                    results[url] = delay
+                else:
+                    results[url] = float('inf')
             except Exception as e:
                 results[url] = float('inf')
 
@@ -196,7 +208,11 @@ class Spider(Spider):
         return header
 
     def getdata(self, path, data=None):
-        vdata = self.post(f"{self.host}{path}", headers=self.header(), data=data, timeout=10).json()['data']
+        response = self.net.json(f"{self.host}{path}", {
+            "method": "POST", "body": data, "headers": self.header(),
+            "timeout": 10000,
+        })
+        vdata = response['data']
         data1 = self.aes(vdata)
         return json.loads(data1)
 
@@ -205,11 +221,23 @@ class Spider(Spider):
 
     def Mlocal(self, param, header=None):
         url = self.d64(param["url"])
-        ydata = self.fetch(url, headers=header, allow_redirects=False)
-        data = ydata.content.decode('utf-8')
-        if ydata.headers.get('Location'):
-            url = ydata.headers['Location']
-            data = self.fetch(url, headers=header).content.decode('utf-8')
+        ydata = self.net.req(url, {
+            "headers": header, "redirect": 0, "buffer": 3,
+        })
+        if ydata.get("error"):
+            raise RuntimeError(ydata["error"])
+        if not 200 <= ydata["code"] < 400:
+            raise RuntimeError(f"HTTP {ydata['code']} while retrieving the playlist")
+        data = ydata["content"].decode('utf-8')
+        location = ydata.get("headers", {}).get("location")
+        if location:
+            url = location
+            redirected = self.net.req(url, {"headers": header, "buffer": 3})
+            if redirected.get("error"):
+                raise RuntimeError(redirected["error"])
+            if not 200 <= redirected["code"] < 300:
+                raise RuntimeError(f"HTTP {redirected['code']} while retrieving the playlist")
+            data = redirected["content"].decode('utf-8')
         parsed_url = urlparse(url)
         durl = parsed_url.scheme + "://" + parsed_url.netloc
         lines = data.strip().split('\n')

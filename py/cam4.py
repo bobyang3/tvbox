@@ -38,8 +38,12 @@ class Spider(Spider):
             params += "&gender=shemale"
 
         url = f"{self.base}/directoryCams{params}"
-        rsp = self.fetch(url, headers=self.headers)
-        data = rsp.text
+        rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+        if rsp.get("error"):
+            raise RuntimeError(rsp["error"])
+        if not 200 <= rsp["code"] < 300:
+            raise RuntimeError(f"HTTP {rsp['code']} while retrieving the directory")
+        data = rsp["content"]
         try:
             jRoot = json.loads(data)
         except:
@@ -92,8 +96,12 @@ class Spider(Spider):
 
     def searchContent(self, key, quick, pg="1"):
         url = f"{self.base}/directoryCams?directoryJson=true&online=true&url=true&showTag={key}&page={pg}"
-        rsp = self.fetch(url, headers=self.headers)
-        data = rsp.text
+        rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+        if rsp.get("error"):
+            raise RuntimeError(rsp["error"])
+        if not 200 <= rsp["code"] < 300:
+            raise RuntimeError(f"HTTP {rsp['code']} while searching")
+        data = rsp["content"]
         try:
             jRoot = json.loads(data)
         except:

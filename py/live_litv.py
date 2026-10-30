@@ -60,7 +60,7 @@ class Spider(Spider):
     def detailContent(self, did):
         return {}
 
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1"):
         return {}
 
     def searchContentPage(self, keywords, quick, page):
@@ -69,7 +69,7 @@ class Spider(Spider):
     def playerContent(self, flag, pid, vipFlags):
         return {}
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         if params['type'] == "ts":

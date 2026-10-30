@@ -7,7 +7,6 @@ import json
 import time
 import urllib.parse
 import re
-import requests
 from lxml import etree
 
 class Spider(Spider):
@@ -79,8 +78,8 @@ class Spider(Spider):
         ]
         result['class'] = classes
         try:
-            rsp = self.fetch(self.host, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(self.host, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc, limit=20)
             result['list'] = videos
         except Exception as e:
@@ -123,8 +122,8 @@ class Spider(Spider):
             if pg and pg != '1':
                 url = url.replace('.html', f'/page/{pg}.html')
             self.log(f"访问分类URL: {url}")
-            rsp = self.fetch(url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc, limit=20)
             
             # 获取总页数
@@ -154,10 +153,10 @@ class Spider(Spider):
         try:
             search_url = f"{self.host}/index.php/vod/search.html?wd={urllib.parse.quote(key)}&page={pg}"
             self.log(f"搜索URL: {search_url}")
-            rsp = self.fetch(search_url, headers=self.headers)
-            if not rsp or rsp.status_code != 200:
+            rsp = self.net.req(search_url, {"headers": self.headers, "timeout": 5000})
+            if rsp.get("error") or rsp["code"] != 200:
                 return {'list': []}
-            doc = self.html(rsp.text)
+            doc = etree.HTML(rsp["content"])
             videos = self._get_videos(doc)
             return {'list': videos}
         except Exception as e:
@@ -174,8 +173,8 @@ class Spider(Spider):
             else:
                 detail_url = f"{self.host}/index.php/vod/detail/id/{vid}.html"
             self.log(f"访问详情URL: {detail_url}")
-            rsp = self.fetch(detail_url, headers=self.headers)
-            doc = self.html(rsp.text)
+            rsp = self.net.req(detail_url, {"headers": self.headers, "timeout": 5000})
+            doc = etree.HTML(rsp["content"])
             video_info = self._get_detail(doc, vid)
             return {'list': [video_info]} if video_info else {'list': []}
         except Exception as e:
@@ -206,9 +205,8 @@ class Spider(Spider):
                 'X-Requested-With': 'XMLHttpRequest'
             })
             
-            api_response = self.fetch(api_url, headers=api_headers)
-            if api_response and api_response.status_code == 200:
-                data = api_response.json()
+            data = self.net.json(api_url, {"headers": api_headers})
+            if data:
                 self.log(f"API响应: {data}")
                 
                 if data.get('retcode') == 3:
@@ -224,7 +222,7 @@ class Spider(Spider):
                 else:
                     self.log("API响应中没有找到视频地址")
             else:
-                self.log(f"API请求失败，状态码: {api_response.status_code if api_response else '无响应'}")
+                self.log("API响应为空")
                 
             # 如果API请求失败，回退到原来的方法
             if '_' in id:
@@ -272,7 +270,8 @@ class Spider(Spider):
                 link = self.host + link  # 补全相对路径为完整URL
             
             # 2. 提取vod_id（从URL的m参数获取，而非hash，更准确）
-            vod_id = self.regStr(r'm=(\d+)', link)  # 匹配 ?m=123 中的数字
+            match = re.search(r'm=(\d+)', link)  # 匹配 ?m=123 中的数字
+            vod_id = match.group(1) if match else ''
             if not vod_id:
                 vod_id = str(hash(link) % 1000000)  # 兜底：hash生成唯一ID
             
@@ -365,7 +364,8 @@ class Spider(Spider):
                     ep_href = link.xpath('./@href')[0]
                     if ep_title:
                         ep_title = ep_title[0].strip()
-                        play_id = self.regStr(r'm=(\d+)', ep_href)
+                        match = re.search(r'm=(\d+)', ep_href)
+                        play_id = match.group(1) if match else ''
                         if play_id:
                             episodes.append(f"{ep_title}${play_id}")
                 

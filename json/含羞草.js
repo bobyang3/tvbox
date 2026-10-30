@@ -8,7 +8,56 @@ var rule = {
     quickSearch: 1,
     filterable: 1,
     headers: { 'User-Agent': MOBILE_UA },
-    filter: 'H4sIAAAAAAAAA6vmUgACJQslK4VoMBMEquEssGR2aiVQWqmksiBVSQdVKi8xNxUk93zj7qfzutFlyxJzSlNRTMZuA8I4kFnBvmjmIMwDSpsbYsjVYirHZ/7zvROf71qEzw4zC0rteLF80ovOTXjtMKfYjglzX/R14rXDjFI7nm6Y+HRZO147TCm2Y0Lz88lz8NphRLEd/b1Pt6/Da4clxelq076XDZ2OYXhtMaHUlie7dj1dNg2fHYYU55CXuyc+n7kXnx1YIgRFJJYLVTyWqxYA9q28dWoEAAA=',
+    filter: {
+    "8": [
+        {
+            "key": "type",
+            "name": "类型",
+            "value": [
+                {
+                    "n": "SM",
+                    "v": 71
+                },
+                {
+                    "n": "网红",
+                    "v": 68
+                },
+                {
+                    "n": "角色",
+                    "v": 67
+                },
+                {
+                    "n": "萝莉",
+                    "v": 66
+                },
+                {
+                    "n": "少妇",
+                    "v": 65
+                },
+                {
+                    "n": "吃瓜",
+                    "v": 62
+                },
+                {
+                    "n": "反差",
+                    "v": 69
+                },
+                {
+                    "n": "精选AV",
+                    "v": 64
+                },
+                {
+                    "n": "人妖",
+                    "v": 11
+                },
+                {
+                    "n": "黑白",
+                    "v": 2
+                }
+            ]
+        }
+    ]
+},
     timeout: 5000,
     class_name: '秒播&少女&精选&女同&男同&热播&专题&国产&主播&日韩',
     class_url: '3&7&1&8&4&11&17',

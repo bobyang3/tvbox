@@ -22,7 +22,6 @@ import urllib.request
 import urllib.parse
 import datetime
 import binascii
-import requests
 import base64
 import json
 import time
@@ -118,9 +117,10 @@ class Spider(Spider):
     def homeContent(self, filter):
         result = {"class": []}
 
-        detail = requests.get(url=xurl, headers=headerx)
-        detail.encoding = "utf-8"
-        res = detail.text
+        detail = self.net.req(xurl, {"headers": headerx, "timeout": 5000})
+        if detail.get("error"): raise RuntimeError(detail["error"])
+        if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+        res = detail["content"]
         doc = BeautifulSoup(res, "lxml")
         soups = doc.find_all('ul', class_="main-header")
 
@@ -145,9 +145,10 @@ class Spider(Spider):
     def homeVideoContent(self):
         videos = []
 
-        detail = requests.get(url=xurl, headers=headerx)
-        detail.encoding = "utf-8"
-        res = detail.text
+        detail = self.net.req(xurl, {"headers": headerx, "timeout": 5000})
+        if detail.get("error"): raise RuntimeError(detail["error"])
+        if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+        res = detail["content"]
         doc = BeautifulSoup(res, "lxml")
 
         soups = doc.find_all('article', class_="item movies")
@@ -183,9 +184,10 @@ class Spider(Spider):
 
             if '@' in cid:
                 fenge = cid.split("@")
-                detail = requests.get(url=fenge[0], headers=headerx)
-                detail.encoding = "utf-8"
-                res = detail.text
+                detail = self.net.req(fenge[0], {"headers": headerx, "timeout": 5000})
+                if detail.get("error"): raise RuntimeError(detail["error"])
+                if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+                res = detail["content"]
                 doc = BeautifulSoup(res, "lxml")
 
                 soups = doc.find_all('div', class_="se-c")
@@ -214,9 +216,10 @@ class Spider(Spider):
                     page = 1
 
                 url = f'{cid}/page/{str(page)}'
-                detail = requests.get(url=url, headers=headerx)
-                detail.encoding = "utf-8"
-                res = detail.text
+                detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
+                if detail.get("error"): raise RuntimeError(detail["error"])
+                if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+                res = detail["content"]
                 doc = BeautifulSoup(res, "lxml")
 
                 soups = doc.find_all('article', class_="item tvshows")
@@ -247,9 +250,10 @@ class Spider(Spider):
                 page = 1
 
             url = f'{cid}/page/{str(page)}'
-            detail = requests.get(url=url, headers=headerx)
-            detail.encoding = "utf-8"
-            res = detail.text
+            detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
+            if detail.get("error"): raise RuntimeError(detail["error"])
+            if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+            res = detail["content"]
             doc = BeautifulSoup(res, "lxml")
 
             soups = doc.find_all('div', class_="animation-2")
@@ -298,9 +302,10 @@ class Spider(Spider):
         bofang = ''
 
         if 'movies' not in did:
-            res = requests.get(url=did, headers=headerx)
-            res.encoding = "utf-8"
-            res = res.text
+            res = self.net.req(did, {"headers": headerx, "timeout": 5000})
+            if res.get("error"): raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300: raise RuntimeError("HTTP "+str(res["code"]))
+            res = res["content"]
             doc = BeautifulSoup(res, "lxml")
 
             content = '剧情介绍📢' + self.extract_middle_text(res,'<meta name="description" content="','"', 0)
@@ -322,9 +327,10 @@ class Spider(Spider):
             xianlu = '4K影院'
 
         else:
-            res = requests.get(url=did, headers=headerx)
-            res.encoding = "utf-8"
-            res = res.text
+            res = self.net.req(did, {"headers": headerx, "timeout": 5000})
+            if res.get("error"): raise RuntimeError(res["error"])
+            if not 200 <= res["code"] < 300: raise RuntimeError("HTTP "+str(res["code"]))
+            res = res["content"]
             doc = BeautifulSoup(res, "lxml")
 
             content = '剧情介绍📢' + self.extract_middle_text(res, '<meta name="description" content="', '"', 0)
@@ -348,9 +354,10 @@ class Spider(Spider):
             fenge = id.split("@")
 
             url = f'{xurl}/artplayer?id={fenge[1]}&source=0&ep={fenge[0]}'
-            detail = requests.get(url=url, headers=headerx)
-            detail.encoding = "utf-8"
-            res = detail.text
+            detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
+            if detail.get("error"): raise RuntimeError(detail["error"])
+            if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+            res = detail["content"]
 
             expires = self.extract_middle_text(res, "expires: '", "'", 0)
             client = self.extract_middle_text(res, "client: '", "'", 0)
@@ -366,14 +373,17 @@ class Spider(Spider):
                 "source": source
                       }
 
-            response = requests.post(url=source, headers=headerx, json=payload)
-            response_data = json.loads(response.text)
+            response = self.net.req(source, {"method": "POST", "postType": "json", "data": payload, "headers": headerx, "timeout": 5000})
+            if response.get("error"): raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300: raise RuntimeError("HTTP "+str(response["code"]))
+            response_data = json.loads(response["content"])
             url = response_data['url']
         else:
             url = f'{xurl}/artplayer?mvsource=0&id={id}&type=hls'
-            detail = requests.get(url=url, headers=headerx)
-            detail.encoding = "utf-8"
-            res = detail.text
+            detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
+            if detail.get("error"): raise RuntimeError(detail["error"])
+            if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+            res = detail["content"]
 
             expires = self.extract_middle_text(res, "expires: '", "'", 0)
             client = self.extract_middle_text(res, "client: '", "'", 0)
@@ -389,8 +399,10 @@ class Spider(Spider):
                 "source": source
                       }
 
-            response = requests.post(url=source, headers=headerx, json=payload)
-            response_data = json.loads(response.text)
+            response = self.net.req(source, {"method": "POST", "postType": "json", "data": payload, "headers": headerx, "timeout": 5000})
+            if response.get("error"): raise RuntimeError(response["error"])
+            if not 200 <= response["code"] < 300: raise RuntimeError("HTTP "+str(response["code"]))
+            response_data = json.loads(response["content"])
             url = response_data['url']
 
         result = {}
@@ -405,9 +417,10 @@ class Spider(Spider):
         videos = []
 
         url = f'{xurl}/xssearch?s={key}'
-        detail = requests.get(url=url, headers=headerx)
-        detail.encoding = "utf-8"
-        res = detail.text
+        detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
+        if detail.get("error"): raise RuntimeError(detail["error"])
+        if not 200 <= detail["code"] < 300: raise RuntimeError("HTTP "+str(detail["code"]))
+        res = detail["content"]
         doc = BeautifulSoup(res, "lxml")
 
         soups = doc.find_all('div', class_="result-item")
@@ -458,7 +471,7 @@ class Spider(Spider):
     def searchContent(self, key, quick, pg="1"):
         return self.searchContentPage(key, quick, '1')
 
-    def localProxy(self, params):
+    def proxy(self, params):
         if params['type'] == "m3u8":
             return self.proxyM3u8(params)
         elif params['type'] == "media":
