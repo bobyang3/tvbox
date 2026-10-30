@@ -1,1 +1,69 @@
-H4sIAIioBmcC/71V70/TQBj+zl9xIWbtYLYbBJMVp8FojEaccUJiCGlu7W09dm3H9TocssQEJCb+2gc/Gj8QIyQakUiMAv43jI3/wmt73S8w+MnuQ3vv89z7Pvfce7cycYuQPLKwp5QRm8cmcj2QAyXfMRh2HSAT7FRSoILqSfB0BPCHIAYsZhPOomjZRx4LOcnpLrrk8Yk5cLeQv69UIfWQHPD7CCZkkBMCnhJ8R4iIBq8FXm+xx6/FsgJMsWFVlp0kyF0TimIaNjnFUXxKpgfiDrRRiBAEyz7Sg7G+aoFxIPHfOAcsl0cYgnYcni8IBK7AeowMZq1iI0xquDVEByGKbEgrXgg72KgEBXsMiphPnT7twVNzTR2bGl9D6kw8mK6FqziLcRVaIOUsIkRosZoeoxFpaYgdEXoik0caIzVIAfVJYFmksb132PrwUgNS6/deZ3tTSqlq9LXWan45/vVp7eToc/vd4Vrr29vO7n44hWFGuGZp8kq61dxeaDfXF6VIgOV6jAMWY1VPU1Vb4ZQi5C6qXYKN5ijhHBVWsbqCiqo1pWPHRE8Ewx9ECa4hnWCPeWqpbhDoeYLnIUgNayhXFLzOG2zFpWZubGyADIuB7IkotOzzvSuEcQ2ko1gJE4ZoRBMhC0ETUW50b0elOQ/RyzNl5DCJF5/N37hz75Y+NyNqNVLCJBu5PndjKp0WuUL5YsOl1vOd0/WdROfHd+5for37NXwdHrWaL6R+euRHJjGRmExkswKqEt644enTAKO+aJ0qLCPD9R3Wr3Y0M6qBTK8/RieGxpND42y2FxBrIXC1roFLS57C3AKj2CnL8tARxU7VZ0FTCVXpVLSTYTwlbNTC1lOEp91OjYqcbm20Pm60m5sXVMoXl5DBFO4NLjtyf8LU0LGTHqISoohKcV3enYNHScpTXMbO+YT4CMUCT97sdF43L1A3n79Z4DZ0r1tZGCBZLtNtyAwLeRJPPJD5+Oez9sH2v2VeWOxdNrgE5NnH+oOZ27fA1RzIJIcM+KuY4KqVkr1EjUE5B69COVJ8fE6a79v7W/9RH//XIufra/wBT8LERNQGAAA=
+globalThis.getVideos = function (link, key) {
+    let html = request(link);
+    let json = JSON.parse(html);
+    let data = json.data;
+    data = data[key];
+    let videos = data.map((n) => {
+        let id = n.url;
+        let name = n.league_name_zh + ' ' + n.home_team_zh + ' VS ' + n.away_team_zh;
+        let pic = n.cover;
+        let remarks = n.nickname;
+        return {
+            vod_id: id,
+            vod_name: name,
+            vod_pic: pic,
+            vod_remarks: remarks,
+        };
+    });
+    return videos
+}
+var rule = {
+    类型: '影视',//影视|听书|漫画|小说
+    title: '360吧[球]',
+    host: 'https://m.360ba.co/',
+    homeUrl: '/api/web/h5_index',
+    url: '/api/web/live_lists/fyclass',
+    searchUrl: '/api/web/search?keyword=**',
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 0,
+    headers: {
+        'User-Agent': 'MOBILE_UA',
+    },
+    timeout: 5000,
+    class_name: '全部&足球&篮球&综合',
+    class_url: '1&2&3&99',
+    play_parse: true,
+    pagecount: {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "99": 1,
+    },
+    lazy: $js.toString(() => {
+        input = {parse: 0, url: input, header: rule.headers};
+    }),
+    预处理: $js.toString(() => {
+        Object.assign(rule.headers, {
+            'Referer': rule.host,
+            'Origin': rule.host,
+        });
+    }),
+    推荐: $js.toString(() => {
+        VODS = getVideos(input, 'hot_matches');
+
+    }),
+    一级: $js.toString(() => {
+        VODS = [];
+        if (MY_PAGE <= 1) {
+            VODS = getVideos(input, 'data');
+        }
+    }),
+    二级: '*',
+    搜索: $js.toString(() => {
+        VODS = [];
+        if (MY_PAGE <= 1) {
+            VODS = getVideos(input, 'ball');
+        }
+    }),
+}

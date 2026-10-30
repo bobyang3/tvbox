@@ -1,1 +1,184 @@
-Ly8g5rOo5YWl5YWo5bGA5pa55rOVICjku4XmlK/mjIF0dmJveOeahGpzMeS7peWPimMj54mIZHJweeeahGpzMO+8jOaaguS4jeaUr+aMgWRycHnlrpjmlrlweeeJiOeahGpzMCkKLy8g5rOo5YWl5YWo5bGA5pa55rOVICjku4XmlK/mjIF0dmJveOeahGpzMeS7peWPimMj54mIZHJweeeahGpzMO+8jOaaguS4jeaUr+aMgWRycHnlrpjmlrlweeeJiOeahGpzMCkKLy8g5rOo5YWl5YWo5bGA5pa55rOVICjku4XmlK/mjIF0dmJveOeahGpzMeS7peWPimMj54mIZHJweeeahGpzMO+8jOaaguS4jeaUr+aMgWRycHnlrpjmlrlweeeJiOeahGpzMCkKZ2xvYmFsVGhpcy5nZXRIZWFkZXJzID0gZnVuY3Rpb24gKGlucHV0KSB7CiAgICBsZXQgdCA9IG5ldyBEYXRlKCkuZ2V0VGltZSgpLnRvU3RyaW5nKCk7CiAgICBsZXQgaGVhZGVycyA9IHsKICAgICAgICAndmVyc2lvbl9uYW1lJzogJzEuMC42JywKICAgICAgICAndmVyc2lvbl9jb2RlJzogJzYnLAogICAgICAgICdwYWNrYWdlX25hbWUnOiAnY29tLmFwcC5uYW5ndWF0dicsCiAgICAgICAgJ3NpZ24nOiBtZDUoJ2M0MzFlYTU0MmNlZTk2NzkjdUJGc3pkRU0wb0wwSlJuQCcgKyB0KS50b1VwcGVyQ2FzZSgpLAogICAgICAgICdpbWVpJzogJ2M0MzFlYTU0MmNlZTk2NzknLAogICAgICAgICd0aW1lTWlsbGlzJzogdCwKICAgICAgICAnVXNlci1BZ2VudCc6ICdva2h0dHAvNC42LjAnCiAgICB9OwogICAgcmV0dXJuIGhlYWRlcnMKfQoKdmFyIHJ1bGUgPSB7CiAgICB0aXRsZTogJ+WNl+eTnOW9seinhlvkvJhdJywKICAgIGhvc3Q6ICdodHRwOi8veXMuY2hhbmdtZW5neXVuLmNvbScsCiAgICBob21lVXJsOiAnL2FwaS5waHAvcHJvdmlkZS92b2RfcmFuaz9hcHA9eWx5cyZzb3J0X3R5cGU9bW9udGgmaW1laT1jNDMxZWE1NDJjZWU5Njc5JmlkPTImcGFnZT0xJywKICAgIHVybDogJy9hcGkucGhwL3Byb3ZpZGUvdm9kX2xpc3Q/YXBwPXlseXMmaWQ9ZnljbGFzc2Z5ZmlsdGVyJnBhZ2U9ZnlwYWdlJmltZWk9YzQzMWVhNTQyY2VlOTY3OScsCiAgICBkZXRhaWxVcmw6ICcvYXBpLnBocC9wcm92aWRlL3ZvZF9kZXRhaWw/YXBwPXlseXMmaW1laT1jNDMxZWE1NDJjZWU5Njc5JmlkPWZ5aWQnLAogICAgc2VhcmNoVXJsOiAnL2FwaS5waHAvcHJvdmlkZS9zZWFyY2hfcmVzdWx0X21vcmU/YXBwPXlseXMmdmlkZW9fbmFtZT0qKiZwYWdlU2l6ZT0yMCZ0aWQ9MCZpbWVpPWM0MzFlYTU0MmNlZTk2NzkmcGFnZT1meXBhZ2UnLAogICAgc2VhcmNoYWJsZTogMiwKICAgIHF1aWNrU2VhcmNoOiAwLAogICAgZmlsdGVyYWJsZTogMSwKICAgIGZpbHRlcl91cmw6ICcmYXJlYT17e2ZsLmFyZWF9fSZ5ZWFyPXt7ZmwueWVhcn19JnR5cGU9e3tmbC5jbGFzc319JnRvdGFsPXt7ZmwudG90YWwgb3IgIueKtuaAgSJ9fSZvcmRlcj17e2ZsLmJ5IG9yICLmlrDkuIrnur8ifX0nLAogICAgZmlsdGVyOiAnSDRzSUFBQUFBQUFBQSsyWDBYTFNRQlNHM3lYWFhBUm9LZlJWbkY1RWh5dXh6clRWR2FiRFRDdFNDMjFCNnd4YWk5V09MY0d4bEtDMVFqRHR5MlEzOEJZbUpIdk9XWndKZG94ZTVZN3ZQeitiWlhmL3MyRlRTU3JMOXphVmgvbWlzcXc4S0dqcjYwcENXZFVlNVYxMCtpTjJzdWZ5VTYzd0pELzFyYm95cTNRbTVZNG5vNmVVQ0dxMWptMjFuT3FMb0l3TWptYUxWWFhpQUJZT1o3ZlB5eFYwSUlORGY4V0dJK0lBRmc2Ky9aSnZOZEdCRFBPbzZ0SlRrR0dNM2JlMldTVmpBSU9qWE9QUDNoRUhjR25GOC9pcnFxM2xOVnhVMWpMWXZobStxSUVIcG5wUUgvZTZvdWFEcUUzYVIzelF3MEZuSlZpeW16bzd0c1I2K1FBLzQwTG5WMS9GYi9BQnh2L3dHYjhYQUh6dnpUbHZYWWp2K1FCemJoaDhlQ1BOUzVKZ2pHOEdqaC9BWGNkZ0J3WXoyN0ErVTRCYTVacGRsa1hOQjdvNXhieTJSalpuZUdXUHJEbWI0M3ZFQTFKcWFpR29URDhTUFkxNm11b3AxRk5VVDZLZXBMcUt1a3IwWkE1MDl5UFJzNmhucWI2RStoTFZNNmhucUw2SStpTG9TWFc2QUorQ0dxQ29xM0pkbmEzbjVIcHV0cDZWNjRCMDArNFhjY3Q0L1pDWmpkKzJ6Q2wzK1dHWHQxdml5QVBEeVRpM3hyM242RUNHczlrMDdFSE5NVy9GOFFSMko3T1NVRkxSdHM1anl6WjF0dzJKK1FERGZOeFVOd3gwSUVmYmJuWXFyaUpxUHR5MTNjeU5iaHpCT0lJUlJEQWRiUVRQOU1uUmpwaU1EM0w0cE9UUmk5QzlHdkVpOUlCY3J1NTFpNWVyQi84dHJwRk9PcjVSNHppSHhubGVXQmYrd1gzSmYzNlI3a3VQNVZPTURtUTVBOFFCTENlSU9JQWpEYkU5NkxyemwvcVBKUDNKSzNmb3Ezb2M2RGpRMFFZYUhyWHhlRU1ya0NqWHJ2blc5cHdvK3g3eG5QSHR5ZGdTSnpjQU9KMlgrODdvdFRoWVBnVHRKQk5wUC9HelQ5NnVnZVVRRVFjd09MNy9ZR2RONGdDT3RGdUVKVjJhNGV6MFFycEgyQi94OFY0ZmF3R1FNOEpxSDluN1V6d2pBWlArWW8rYTJGODhpUHRMM0YvKy92Mi85QXNxb3Ztb3Z4UUFBQT09JywKICAgIGhlYWRlcnM6IHsKICAgICAgICAiVXNlci1BZ2VudCI6ICJva2h0dHAvNC42LjAiCiAgICB9LAogICAgdGltZW91dDogNTAwMCwKICAgIGNsYXNzX25hbWU6ICfnlLXop4bliacm55S15b2xJuWKqOa8qybnu7zoibom5rW35aSW57K+6YCJJywgLy8gL2FwaS5waHAvcHJvdmlkZS9ob21lX25hdgogICAgY2xhc3NfdXJsOiAnMiYxJjQmMyY0NicsCiAgICBsaW1pdDogMjAsCiAgICBwbGF5X3BhcnNlOiB0cnVlLAogICAgbGF6eTogYGpzOgogICAgICAgIHRyeSB7CiAgICAgICAgICAgIGZ1bmN0aW9uIGdldHZpZGVvKHVybCkgewogICAgICAgICAgICAgICAgbGV0IGpEYXRhID0gSlNPTi5wYXJzZShyZXF1ZXN0KHVybCwgewogICAgICAgICAgICAgICAgICAgIGhlYWRlcnM6IGdldEhlYWRlcnModXJsKQogICAgICAgICAgICAgICAgfSkpOwogICAgICAgICAgICAgICAgaWYgKGpEYXRhLmNvZGUgPT0gMSkgewogICAgICAgICAgICAgICAgICAgIHJldHVybiBqRGF0YS5kYXRhLnVybAogICAgICAgICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgICAgICAgICByZXR1cm4gJ2h0dHA6Ly80My4xNTQuMTA0LjE1MjoxMjM0L2poYXBpL2NzLnBocD91cmw9JyArIHVybC5zcGxpdCgnPScpWzFdCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgICAgaWYgKC8sLy50ZXN0KGlucHV0KSkgewogICAgICAgICAgICAgICAgbGV0IG1qdXJsID0gaW5wdXQuc3BsaXQoJywnKVsxXQogICAgICAgICAgICAgICAgbGV0IHZpZGVvVXJsID0gZ2V0dmlkZW8obWp1cmwpOwogICAgICAgICAgICAgICAgaW5wdXQgPSB7CiAgICAgICAgICAgICAgICAgICAgang6IDAsCiAgICAgICAgICAgICAgICAgICAgdXJsOiB2aWRlb1VybCwKICAgICAgICAgICAgICAgICAgICBwYXJzZTogMCwKICAgICAgICAgICAgICAgICAgICBoZWFkZXI6IEpTT04uc3RyaW5naWZ5KHsKICAgICAgICAgICAgICAgICAgICAgICAgJ3VzZXItYWdlbnQnOiAnTGF2Zi81OC4xMi4xMDAnCiAgICAgICAgICAgICAgICAgICAgfSkKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfSBlbHNlIHsKICAgICAgICAgICAgICAgIGxldCB2aWRlb1VybCA9IGdldHZpZGVvKGlucHV0KTsKICAgICAgICAgICAgICAgIGlmICgvamhhcGkvLnRlc3QodmlkZW9VcmwpKSB7CiAgICAgICAgICAgICAgICAgICAgdmlkZW9VcmwgPSBnZXR2aWRlbyh2aWRlb1VybCk7CiAgICAgICAgICAgICAgICAgICAgaW5wdXQgPSB7CiAgICAgICAgICAgICAgICAgICAgICAgIGp4OiAwLAogICAgICAgICAgICAgICAgICAgICAgICB1cmw6IHZpZGVvVXJsLAogICAgICAgICAgICAgICAgICAgICAgICBwYXJzZTogMCwKICAgICAgICAgICAgICAgICAgICAgICAgaGVhZGVyOiBKU09OLnN0cmluZ2lmeSh7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAndXNlci1hZ2VudCc6ICdMYXZmLzU4LjEyLjEwMCcKICAgICAgICAgICAgICAgICAgICAgICAgfSkKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9IGVsc2UgewogICAgICAgICAgICAgICAgICAgIGlucHV0ID0gewogICAgICAgICAgICAgICAgICAgICAgICBqeDogMCwKICAgICAgICAgICAgICAgICAgICAgICAgdXJsOiB2aWRlb1VybCwKICAgICAgICAgICAgICAgICAgICAgICAgcGFyc2U6IDAKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9IGNhdGNoIChlKSB7CiAgICAgICAgICAgIGxvZyhlLnRvU3RyaW5nKCkpCiAgICAgICAgfQoJYCwKICAgIOaOqOiNkDogYGpzOgogICAgICAgIHZhciBkID0gW107CiAgICAgICAgbGV0IGh0bWwgPSByZXF1ZXN0KGlucHV0LCB7CiAgICAgICAgICAgIGhlYWRlcnM6IGdldEhlYWRlcnMoaW5wdXQpCiAgICAgICAgfSk7CiAgICAgICAgaHRtbCA9IEpTT04ucGFyc2UoaHRtbCk7CiAgICAgICAgaHRtbC5mb3JFYWNoKGZ1bmN0aW9uKGl0KSB7CiAgICAgICAgICAgIGQucHVzaCh7CiAgICAgICAgICAgICAgICB0aXRsZTogaXQubmFtZSwKICAgICAgICAgICAgICAgIGltZzogaXQuaW1nLAogICAgICAgICAgICAgICAgZGVzYzogaXQucmVtYXJrcywKICAgICAgICAgICAgICAgIHVybDogaXQuaWQKICAgICAgICAgICAgfSkKICAgICAgICB9KTsKICAgICAgICBzZXRSZXN1bHQoZCk7CiAgICBgLAogICAg5LiA57qnOiBganM6CgkJdmFyIGQgPSBbXTsKCQlsZXQgaHRtbCA9IHJlcXVlc3QoaW5wdXQsIHsKCQkJaGVhZGVyczogZ2V0SGVhZGVycyhpbnB1dCkKCQl9KTsKCQlodG1sID0gSlNPTi5wYXJzZShodG1sKTsKCQlodG1sLmxpc3QuZm9yRWFjaChmdW5jdGlvbihpdCkgewoJCQlkLnB1c2goewoJCQkJdGl0bGU6IGl0Lm5hbWUsCgkJCQlpbWc6IGl0LmltZywKCQkJCWRlc2M6IGl0Lm1zZywKCQkJCXVybDogaXQuaWQKCQkJfSkKCQl9KTsKCQlzZXRSZXN1bHQoZCk7CglgLAogICAg5LqM57qnOiBganM6CiAgICAgICAgdmFyIGQgPSBbXTsKICAgICAgICBWT0QgPSB7CiAgICAgICAgICAgIHZvZF9pZDogaW5wdXQuc3BsaXQoJ2lkPScpWzFdCiAgICAgICAgfTsKICAgICAgICB0cnkgewogICAgICAgICAgICBsZXQgaHRtbCA9IHJlcXVlc3QoaW5wdXQsIHsKICAgICAgICAgICAgICAgIGhlYWRlcnM6IGdldEhlYWRlcnMoaW5wdXQpCiAgICAgICAgICAgIH0pOwogICAgICAgICAgICBodG1sID0gSlNPTi5wYXJzZShodG1sKTsKICAgICAgICAgICAgbGV0IG5vZGUgPSBodG1sLmRhdGE7CiAgICAgICAgICAgIFZPRCA9IHsKICAgICAgICAgICAgICAgIHZvZF9uYW1lOiBub2RlWyduYW1lJ10sCiAgICAgICAgICAgICAgICB2b2RfcGljOiBub2RlWydpbWcnXSwKICAgICAgICAgICAgICAgIHR5cGVfbmFtZTogbm9kZVsndHlwZSddLAogICAgICAgICAgICAgICAgdm9kX3llYXI6IG5vZGVbJ3llYXInXSwKICAgICAgICAgICAgICAgIHZvZF9yZW1hcmtzOiAn5pu05paw6IezOiAnICsgbm9kZVsnbXNnJ10gKyAnIC8g6K+E5YiGOiAnICsgbm9kZVsnc2NvcmUnXSwKICAgICAgICAgICAgICAgIHZvZF9jb250ZW50OiBub2RlWydpbmZvJ10uc3RyaXAoKQogICAgICAgICAgICB9OwogICAgICAgICAgICBsZXQgZXBpc29kZXMgPSBub2RlLnBsYXllcl9pbmZvOwogICAgICAgICAgICBsZXQgcGxheU1hcCA9IHt9OwogICAgICAgICAgICBpZiAodHlwZW9mIHBsYXlfdXJsID09PSAndW5kZWZpbmVkJykgewogICAgICAgICAgICAgICAgdmFyIHBsYXlfdXJsID0gJycKICAgICAgICAgICAgfQogICAgICAgICAgICBlcGlzb2Rlcy5mb3JFYWNoKGZ1bmN0aW9uKGVwKSB7CiAgICAgICAgICAgICAgICBsZXQgcGxheXVybHMgPSBlcFsndmlkZW9faW5mbyddOwogICAgICAgICAgICAgICAgcGxheXVybHMuZm9yRWFjaChmdW5jdGlvbihwbGF5dXJsKSB7CiAgICAgICAgICAgICAgICAgICAgbGV0IHNvdXJjZSA9IGVwWydzaG93J107CiAgICAgICAgICAgICAgICAgICAgaWYgKCFwbGF5TWFwLmhhc093blByb3BlcnR5KHNvdXJjZSkpIHsKICAgICAgICAgICAgICAgICAgICAgICAgcGxheU1hcFtzb3VyY2VdID0gW10KICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgcGxheU1hcFtzb3VyY2VdLmFwcGVuZChwbGF5dXJsWyduYW1lJ10uc3RyaXAoKSArICckJyArIHBsYXlfdXJsICsgdXJsZW5jb2RlKHBsYXl1cmxbJ3VybCddKSkKICAgICAgICAgICAgICAgIH0pCiAgICAgICAgICAgIH0pOwogICAgICAgICAgICBsZXQgcGxheUZyb20gPSBbXTsKICAgICAgICAgICAgbGV0IHBsYXlMaXN0ID0gW107CiAgICAgICAgICAgIE9iamVjdC5rZXlzKHBsYXlNYXApCiAgICAgICAgICAgICAgICAuZm9yRWFjaChmdW5jdGlvbihrZXkpIHsKICAgICAgICAgICAgICAgICAgICBwbGF5RnJvbS5hcHBlbmQoa2V5KTsKICAgICAgICAgICAgICAgICAgICBwbGF5TGlzdC5hcHBlbmQocGxheU1hcFtrZXldLmpvaW4oJyMnKSkKICAgICAgICAgICAgICAgIH0pOwogICAgICAgICAgICBsZXQgdm9kX3BsYXlfZnJvbSA9IHBsYXlGcm9tLmpvaW4oJyQkJCcpOwogICAgICAgICAgICBsZXQgdm9kX3BsYXlfdXJsID0gcGxheUxpc3Quam9pbignJCQkJyk7CiAgICAgICAgICAgIFZPRFsndm9kX3BsYXlfZnJvbSddID0gdm9kX3BsYXlfZnJvbTsKICAgICAgICAgICAgVk9EWyd2b2RfcGxheV91cmwnXSA9IHZvZF9wbGF5X3VybAogICAgICAgIH0gY2F0Y2ggKGUpIHsKICAgICAgICAgICAgbG9nKCfojrflj5bkuoznuqfor6bmg4XpobXlj5HnlJ/plJnor686JyArIGUubWVzc2FnZSkKICAgICAgICB9CglgLAogICAg5pCc57SiOiBganM6CiAgICAgICAgdmFyIGQgPSBbXTsKICAgICAgICBsZXQgaHRtbCA9IHJlcXVlc3QoaW5wdXQsIHsKICAgICAgICAgICAgaGVhZGVyczogZ2V0SGVhZGVycyhpbnB1dCkKICAgICAgICB9KTsKICAgICAgICBodG1sID0gSlNPTi5wYXJzZShodG1sKTsKICAgICAgICBodG1sLmRhdGEuZm9yRWFjaChmdW5jdGlvbihpdCkgewogICAgICAgICAgICBkLnB1c2goewogICAgICAgICAgICAgICAgdGl0bGU6IGl0LnZpZGVvX25hbWUsCiAgICAgICAgICAgICAgICBpbWc6IGl0LmltZywKICAgICAgICAgICAgICAgIGRlc2M6IGl0LnFpbmd4aWR1ICsgJy8nICsgaXQuY2F0ZWdvcnksCiAgICAgICAgICAgICAgICB1cmw6IGl0LmlkLAogICAgICAgICAgICAgICAgY29udGVudDogaXQuYmx1cmIKICAgICAgICAgICAgfSkKICAgICAgICB9KTsKICAgICAgICBzZXRSZXN1bHQoZCk7CiAgICBgLAp9
+// 注入全局方法 (仅支持tvbox的js1以及c#版drpy的js0，暂不支持drpy官方py版的js0)
+// 注入全局方法 (仅支持tvbox的js1以及c#版drpy的js0，暂不支持drpy官方py版的js0)
+// 注入全局方法 (仅支持tvbox的js1以及c#版drpy的js0，暂不支持drpy官方py版的js0)
+globalThis.getHeaders = function (input) {
+    let t = new Date().getTime().toString();
+    let headers = {
+        'version_name': '1.0.6',
+        'version_code': '6',
+        'package_name': 'com.app.nanguatv',
+        'sign': md5('c431ea542cee9679#uBFszdEM0oL0JRn@' + t).toUpperCase(),
+        'imei': 'c431ea542cee9679',
+        'timeMillis': t,
+        'User-Agent': 'okhttp/4.6.0'
+    };
+    return headers
+}
+
+var rule = {
+    title: '南瓜影视[优]',
+    host: 'http://ys.changmengyun.com',
+    homeUrl: '/api.php/provide/vod_rank?app=ylys&sort_type=month&imei=c431ea542cee9679&id=2&page=1',
+    url: '/api.php/provide/vod_list?app=ylys&id=fyclassfyfilter&page=fypage&imei=c431ea542cee9679',
+    detailUrl: '/api.php/provide/vod_detail?app=ylys&imei=c431ea542cee9679&id=fyid',
+    searchUrl: '/api.php/provide/search_result_more?app=ylys&video_name=**&pageSize=20&tid=0&imei=c431ea542cee9679&page=fypage',
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 1,
+    filter_url: '&area={{fl.area}}&year={{fl.year}}&type={{fl.class}}&total={{fl.total or "状态"}}&order={{fl.by or "新上线"}}',
+    filter: {"1":[{"key":"class","name":"类型","value":[{"n":"全部","v":"类型"},{"n":"动作片","v":"动作片"},{"n":"喜剧片","v":"喜剧片"},{"n":"爱情片","v":"爱情片"},{"n":"科幻片","v":"科幻片"},{"n":"恐怖片","v":"恐怖片"},{"n":"剧情片","v":"剧情片"},{"n":"战争片","v":"战争片"},{"n":"惊悚片","v":"惊悚片"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":"地区"},{"n":"华语","v":"华语"},{"n":"香港地区","v":"香港地区"},{"n":"美国","v":"美国"},{"n":"欧洲","v":"欧洲"},{"n":"韩国","v":"韩国"},{"n":"日本","v":"日本"},{"n":"台湾地区","v":"台湾地区"},{"n":"泰国","v":"泰国"},{"n":"台湾地区","v":"台湾地区"},{"n":"印度","v":"印度"},{"n":"其它","v":"其它"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":"年份"},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"10年代","v":"10年代"},{"n":"00年代","v":"00年代"},{"n":"90年代","v":"90年代"},{"n":"80年代","v":"80年代"}]},{"key":"by","name":"排序","value":[{"n":"热播榜","v":"热播榜"},{"n":"好评榜","v":"好评榜"},{"n":"新上线","v":"新上线"}]}],"2":[{"key":"class","name":"类型","value":[{"n":"全部","v":"类型"},{"n":"国产剧","v":"国产剧"},{"n":"港台剧","v":"港台剧"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":"地区"},{"n":"内地","v":"内地"},{"n":"香港地区","v":"香港地区"},{"n":"台湾地区","v":"台湾地区"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":"年份"},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"10年代","v":"10年代"},{"n":"00年代","v":"00年代"},{"n":"90年代","v":"90年代"},{"n":"80年代","v":"80年代"}]},{"key":"by","name":"排序","value":[{"n":"热播榜","v":"热播榜"},{"n":"好评榜","v":"好评榜"},{"n":"新上线","v":"新上线"}]}],"3":[{"key":"class","name":"类型","value":[{"n":"全部","v":"类型"},{"n":"大陆","v":"大陆"},{"n":"港台","v":"港台"},{"n":"日韩","v":"日韩"},{"n":"欧美","v":"欧美"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":"地区"},{"n":"内地","v":"内地"},{"n":"港台","v":"港台"},{"n":"日韩","v":"日韩"},{"n":"欧美","v":"欧美"},{"n":"其它","v":"其它"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":"年份"},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"10年代","v":"10年代"},{"n":"00年代","v":"00年代"},{"n":"90年代","v":"90年代"},{"n":"80年代","v":"80年代"}]},{"key":"by","name":"排序","value":[{"n":"热播榜","v":"热播榜"},{"n":"新上线","v":"新上线"}]}],"4":[{"key":"class","name":"类型","value":[{"n":"全部","v":"类型"},{"n":"国产漫","v":"国产漫"},{"n":"欧美漫","v":"欧美漫"},{"n":"日韩漫","v":"日韩漫"},{"n":"港台漫","v":"港台漫"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":"地区"},{"n":"中国大陆","v":"中国大陆"},{"n":"日本","v":"日本"},{"n":"韩国","v":"韩国"},{"n":"欧美","v":"欧美"},{"n":"其它","v":"其它"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":"年份"},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"10年代","v":"10年代"},{"n":"00年代","v":"00年代"},{"n":"90年代","v":"90年代"},{"n":"80年代","v":"80年代"}]},{"key":"by","name":"排序","value":[{"n":"热播榜","v":"热播榜"},{"n":"新上线","v":"新上线"}]},{"key":"total","name":"状态","value":[{"n":"全部","v":"状态"},{"n":"连载","v":"连载"},{"n":"完结","v":"完结"}]}],"46":[{"key":"class","name":"类型","value":[{"n":"全部","v":"类型"},{"n":"日韩剧","v":"日韩剧"},{"n":"欧美剧","v":"欧美剧"},{"n":"海外剧","v":"海外剧"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":"地区"},{"n":"韩国","v":"韩国"},{"n":"美剧","v":"美剧"},{"n":"日本","v":"日本"},{"n":"泰国","v":"泰国"},{"n":"英国","v":"英国"},{"n":"新加坡","v":"新加坡"},{"n":"其他","v":"其他"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":"年份"},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"10年代","v":"10年代"},{"n":"00年代","v":"00年代"},{"n":"90年代","v":"90年代"},{"n":"80年代","v":"80年代"}]},{"key":"by","name":"排序","value":[{"n":"热播榜","v":"热播榜"},{"n":"好评榜","v":"好评榜"},{"n":"新上线","v":"新上线"}]}]},
+    headers: {
+        "User-Agent": "okhttp/4.6.0"
+    },
+    timeout: 5000,
+    class_name: '电视剧&电影&动漫&综艺&海外精选', // /api.php/provide/home_nav
+    class_url: '2&1&4&3&46',
+    limit: 20,
+    play_parse: true,
+    lazy: `js:
+        try {
+            function getvideo(url) {
+                let jData = JSON.parse(request(url, {
+                    headers: getHeaders(url)
+                }));
+                if (jData.code == 1) {
+                    return jData.data.url
+                } else {
+                    return 'http://43.154.104.152:1234/jhapi/cs.php?url=' + url.split('=')[1]
+                }
+            }
+            if (/,/.test(input)) {
+                let mjurl = input.split(',')[1]
+                let videoUrl = getvideo(mjurl);
+                input = {
+                    jx: 0,
+                    url: videoUrl,
+                    parse: 0,
+                    header: JSON.stringify({
+                        'user-agent': 'Lavf/58.12.100'
+                    })
+                }
+            } else {
+                let videoUrl = getvideo(input);
+                if (/jhapi/.test(videoUrl)) {
+                    videoUrl = getvideo(videoUrl);
+                    input = {
+                        jx: 0,
+                        url: videoUrl,
+                        parse: 0,
+                        header: JSON.stringify({
+                            'user-agent': 'Lavf/58.12.100'
+                        })
+                    }
+                } else {
+                    input = {
+                        jx: 0,
+                        url: videoUrl,
+                        parse: 0
+                    }
+                }
+            }
+        } catch (e) {
+            log(e.toString())
+        }
+	`,
+    推荐: `js:
+        var d = [];
+        let html = request(input, {
+            headers: getHeaders(input)
+        });
+        html = JSON.parse(html);
+        html.forEach(function(it) {
+            d.push({
+                title: it.name,
+                img: it.img,
+                desc: it.remarks,
+                url: it.id
+            })
+        });
+        setResult(d);
+    `,
+    一级: `js:
+		var d = [];
+		let html = request(input, {
+			headers: getHeaders(input)
+		});
+		html = JSON.parse(html);
+		html.list.forEach(function(it) {
+			d.push({
+				title: it.name,
+				img: it.img,
+				desc: it.msg,
+				url: it.id
+			})
+		});
+		setResult(d);
+	`,
+    二级: `js:
+        var d = [];
+        VOD = {
+            vod_id: input.split('id=')[1]
+        };
+        try {
+            let html = request(input, {
+                headers: getHeaders(input)
+            });
+            html = JSON.parse(html);
+            let node = html.data;
+            VOD = {
+                vod_name: node['name'],
+                vod_pic: node['img'],
+                type_name: node['type'],
+                vod_year: node['year'],
+                vod_remarks: '更新至: ' + node['msg'] + ' / 评分: ' + node['score'],
+                vod_content: node['info'].strip()
+            };
+            let episodes = node.player_info;
+            let playMap = {};
+            if (typeof play_url === 'undefined') {
+                var play_url = ''
+            }
+            episodes.forEach(function(ep) {
+                let playurls = ep['video_info'];
+                playurls.forEach(function(playurl) {
+                    let source = ep['show'];
+                    if (!playMap.hasOwnProperty(source)) {
+                        playMap[source] = []
+                    }
+                    playMap[source].append(playurl['name'].strip() + '$' + play_url + urlencode(playurl['url']))
+                })
+            });
+            let playFrom = [];
+            let playList = [];
+            Object.keys(playMap)
+                .forEach(function(key) {
+                    playFrom.append(key);
+                    playList.append(playMap[key].join('#'))
+                });
+            let vod_play_from = playFrom.join('$$$');
+            let vod_play_url = playList.join('$$$');
+            VOD['vod_play_from'] = vod_play_from;
+            VOD['vod_play_url'] = vod_play_url
+        } catch (e) {
+            log('获取二级详情页发生错误:' + e.message)
+        }
+	`,
+    搜索: `js:
+        var d = [];
+        let html = request(input, {
+            headers: getHeaders(input)
+        });
+        html = JSON.parse(html);
+        html.data.forEach(function(it) {
+            d.push({
+                title: it.video_name,
+                img: it.img,
+                desc: it.qingxidu + '/' + it.category,
+                url: it.id,
+                content: it.blurb
+            })
+        });
+        setResult(d);
+    `,
+}
+

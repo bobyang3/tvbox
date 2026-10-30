@@ -1,1 +1,8 @@
-H4sIAIioBmcC/22MsQ4BQRRFe18xlU2EeZUC8RfUMrszzMbMzmbnLbsRHyBR6kSholUoSMTPYH/DYCUKr7l55+RenfosojozkWjS23lZnHcUmT9AkSHpEs83PG80rGZKVas9B71OZcISkqRKOD+rEHeP/faxubaJ99nx6m+KISrh4O20KRbrYnW8Xw6lksaiMxIxbgOMx62cBkaXMk2UcxBGXGQ0ljFMDAcrzRRCDsM8UMxaiNlIuOcVVKJWZdcKlgSy/3fhrX6LMOVQq33r8yfigowXCwEAAA==
+muban.mxone5.二级.tab_text = 'body--small&&Text';
+var rule = {
+    模板: 'mxone5',
+    title: '九牛电影',
+    host: 'http://kk9y.com',
+    url: '/index.php/vod/show/id/fyclass/page/fypage.html',
+    searchUrl: '/index.php/vod/search/page/fypage/wd/**.html',
+}

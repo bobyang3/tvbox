@@ -1,1 +1,19 @@
-dmFyIHJ1bGUgPSB7CiAgICB0aXRsZTogJ+S4gOeCueinhumikScsCiAgICBob3N0OiAnaHR0cHM6Ly93d3cuMWF2Lm1lJywKICAgIHVybDogJy92b2R0eXBlL2Z5Y2xhc3MtZnlwYWdlLmh0bWwnLAogICAgc2VhcmNoVXJsOiAnL3ZvZHNlYXJjaC8qKi0vcGFnZS9meXBhZ2UuaHRtbCcsCiAgICBzZWFyY2hhYmxlOiAyLAogICAgcXVpY2tTZWFyY2g6IDAsCiAgICBmaWx0ZXJhYmxlOiAwLAogICAgY2xhc3NfbmFtZTogJ+WbveS6p+inhumikSblm73kuqfoh6rmi40m5Zu95Lqn5YG35ouNJuaOouiKseezu+WIlyblm73kuqfkuLvmkq0m5a2m55Sf5aup5aa5JuS6uuWmu+WwkeWmhybmuK/lj7DpnZPlpbMm5piO5pif5o2i6IS4Jue9kee6oum7keaWmSblm73kuqfnvqTkuqQm5Zu95Lqn5Lmx5LymJum6u+ixhuS8oOWqkibnu7/luL3mjaLlprsm5Zu95Lqn5Lq65aaWJuS6mua0suiJsuaDhSbml6Xpn6nml6DnoIEm5qyn576O5peg56CBJuS4reaWh+Wtl+W5lSbkuInnuqfnlLXlvbEm5oiQ5Lq65Yqo5ryrJuerpeminOW3qOS5sybnvo7ohb/kuJ3oopwm54af5aWz5Lq65aa7JuWwkeWls+iQneiOiSblvLrlpbjkubHkvKYm5Y+j5Lqk576k5LqkJywgLy/pnZnmgIHliIbnsbvlkI3np7Dmi7zmjqUKICAgIGNsYXNzX3VybDogJzEmMiYzJjQmNSY2JjcmOCY5JjEwJjEyJjEzJjExJjE0JjE1JjE2JjE3JjE4JjIwJjIxJjIyJjIzJjI0JjI1JjI2JjI3JjI4JywgLy/pnZnmgIHliIbnsbvmoIfor4bmi7zmjqUKICAgIHBsYXlfcGFyc2U6IHRydWUsCiAgICBsYXp5OiAnJywKICAgIGxpbWl0OiA2LAogICAg5o6o6I2QOiAnJywKICAgIGRvdWJsZTogdHJ1ZSwKICAgIOS4gOe6pzogJy52aWRlby13cmFwcGVyJiZhO2EmJnRpdGxlO2ltZyYmc3JjOy5udW1iZXImJlRleHQ7YSYmaHJlZicsCiAgICDkuoznuqc6ICcqJywKICAgIOaQnOe0ojogJy52aWRlby13cmFwcGVyJiZhO2EmJnRpdGxlO2ltZyYmc3JjOy5udW1iZXImJlRleHQ7YSYmaHJlZicsCn0=
+var rule = {
+    title: '一点视频',
+    host: 'https://www.1av.me',
+    url: '/vodtype/fyclass-fypage.html',
+    searchUrl: '/vodsearch/**-/page/fypage.html',
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 0,
+    class_name: '国产视频&国产自拍&国产偷拍&探花系列&国产主播&学生嫩妹&人妻少妇&港台靓女&明星换脸&网红黑料&国产群交&国产乱伦&麻豆传媒&绿帽换妻&国产人妖&亚洲色情&日韩无码&欧美无码&中文字幕&三级电影&成人动漫&童颜巨乳&美腿丝袜&熟女人妻&少女萝莉&强奸乱伦&口交群交', //静态分类名称拼接
+    class_url: '1&2&3&4&5&6&7&8&9&10&12&13&11&14&15&16&17&18&20&21&22&23&24&25&26&27&28', //静态分类标识拼接
+    play_parse: true,
+    lazy: '',
+    limit: 6,
+    推荐: '',
+    double: true,
+    一级: '.video-wrapper&&a;a&&title;img&&src;.number&&Text;a&&href',
+    二级: '*',
+    搜索: '.video-wrapper&&a;a&&title;img&&src;.number&&Text;a&&href',
+}

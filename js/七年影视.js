@@ -1,1 +1,74 @@
-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
+var rule = {
+    title:'七年影视',
+    模板:'首图2',
+    host:'https://www.haying.tech',
+    // url:'/vodshow/fyclass--------fypage---.html',
+    url:'/vodshow/fyfilter.html',
+    filterable:1,//是否启用分类筛选,
+    filter_url:'{{fl.cateId}}-{{fl.area}}-{{fl.by}}-{{fl.class}}-----fypage---{{fl.year}}',
+    filter:{
+        "1":[{"key":"cateId","name":"分类","value":[{"n":"全部","v":"1"},{"n":"科幻片","v":"8"},{"n":"动作片","v":"5"},{"n":"福利片","v":"17"},{"n":"喜剧片","v":"6"},{"n":"爱情片","v":"7"},{"n":"恐怖片","v":"9"},{"n":"剧情片","v":"10"},{"n":"网络电影","v":"16"},{"n":"动画电影","v":"19"},{"n":"战争片","v":"11"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"🇨🇳大陆","v":"大陆"},{"n":"🇭🇰香港","v":"香港"},{"n":"🇹🇼台湾","v":"台湾"},{"n":"🇺🇸美国","v":"美国"},{"n":"🇰🇷韩国","v":"韩国"},{"n":"🇯🇵日本","v":"日本"},{"n":"🇹🇭泰国","v":"泰国"},{"n":"🇸🇬新加坡","v":"新加坡"},{"n":"马拉西亚","v":"马拉西亚"},{"n":"🇮🇳印度","v":"印度"},{"n":"🇬🇧英国","v":"英国"},{"n":"🇫🇷法国","v":"法国"},{"n":"🇨🇦加拿大","v":"加拿大"},{"n":"🇪🇸西班牙","v":"西班牙"},{"n":"🇷🇺俄罗斯","v":"俄罗斯"},{"n":"其它","v":"其它"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"}]},{"key":"by","name":"排序","value":[{"n":"时间","v":"time"},{"n":"人气","v":"hits"},{"n":"评分","v":"score"}]}],
+        "2":[{"key":"cateId","name":"分类","value":[{"n":"全部","v":"2"},{"n":"国产剧","v":"12"},{"n":"网剧","v":"20"},{"n":"欧美剧","v":"15"},{"n":"日韩剧","v":"14"},{"n":"港台剧","v":"13"},{"n":"海外剧","v":"18"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"🇨🇳大陆","v":"大陆"},{"n":"🇭🇰香港","v":"香港"},{"n":"🇹🇼台湾","v":"台湾"},{"n":"🇺🇸美国","v":"美国"},{"n":"🇰🇷韩国","v":"韩国"},{"n":"🇯🇵日本","v":"日本"},{"n":"🇹🇭泰国","v":"泰国"},{"n":"🇸🇬新加坡","v":"新加坡"},{"n":"🇲🇾马来西亚","v":"马来西亚"},{"n":"🇮🇳印度","v":"印度"},{"n":"🇬🇧英国","v":"英国"},{"n":"🇫🇷法国","v":"法国"},{"n":"🇨🇦加拿大","v":"加拿大"},{"n":"🇪🇸西班牙","v":"西班牙"},{"n":"🇷🇺俄罗斯","v":"俄罗斯"},{"n":"其它","v":"其它"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"}]},{"key":"by","name":"排序","value":[{"n":"时间","v":"time"},{"n":"人气","v":"hits"},{"n":"评分","v":"score"}]}],
+        "3":[{"key":"class","name":"剧情","value":[{"n":"全部","v":""},{"n":"搞笑","v":"搞笑"},{"n":"竞技","v":"竞技"},{"n":"真人秀","v":"真人秀"},{"n":"脱口秀","v":"脱口秀"},{"n":"游戏","v":"游戏"},{"n":"选秀","v":"选秀"},{"n":"情感","v":"情感"},{"n":"生活","v":"生活"},{"n":"运动","v":"运动"},{"n":"旅行","v":"旅行"},{"n":"音乐","v":"音乐"},{"n":"访谈","v":"访谈"},{"n":"纪录","v":"纪录"},{"n":"文化","v":"文化"},{"n":"职场","v":"职场"},{"n":"美食","v":"美食"},{"n":"日常","v":"日常"},{"n":"舞蹈","v":"舞蹈"},{"n":"推理","v":"推理"},{"n":"晚会","v":"晚会"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"🇨🇳大陆","v":"大陆"},{"n":"🇭🇰香港","v":"香港"},{"n":"🇹🇼台湾","v":"台湾"},{"n":"🇺🇸美国","v":"美国"},{"n":"🇰🇷韩国","v":"韩国"},{"n":"🇯🇵日本","v":"日本"},{"n":"其它","v":"其它"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"}]},{"key":"by","name":"排序","value":[{"n":"时间","v":"time"},{"n":"人气","v":"hits"},{"n":"评分","v":"score"}]}],
+        "4":[{"key":"class","name":"剧情","value":[{"n":"全部","v":""},{"n":"搞笑","v":"搞笑"},{"n":"冒险","v":"冒险"},{"n":"竞技","v":"竞技"},{"n":"热血","v":"热血"},{"n":"悬疑","v":"悬疑"},{"n":"推理","v":"推理"},{"n":"益智","v":"益智"},{"n":"机甲","v":"机甲"},{"n":"少女","v":"少女"},{"n":"恋爱","v":"恋爱"},{"n":"日常","v":"日常"},{"n":"校园","v":"校园"},{"n":"奇幻","v":"奇幻"},{"n":"玄幻","v":"玄幻"},{"n":"魔幻","v":"魔幻"},{"n":"科幻","v":"科幻"},{"n":"武侠","v":"武侠"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"🇨🇳大陆","v":"大陆"},{"n":"🇹🇼台湾","v":"台湾"},{"n":"🇺🇸美国","v":"美国"},{"n":"🇰🇷韩国","v":"韩国"},{"n":"🇯🇵日本","v":"日本"},{"n":"其它","v":"其它"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n": "2027", "v": "2027"},{"n": "2026", "v": "2026"},{"n": "2025", "v": "2025"},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"}]},{"key":"by","name":"排序","value":[{"n":"时间","v":"time"},{"n":"人气","v":"hits"},{"n":"评分","v":"score"}]}]
+    },
+    filter_def:{
+        1:{cateId:'1',by:'time'},
+        2:{cateId:'2',by:'time'},
+        3:{cateId:'3',by:'time'},
+        4:{cateId:'4',by:'time'}
+    },
+    class_parse: '.stui-header__menu li:gt(0):lt(5);a&&Text;a&&href;.*/(.*?).html',
+	tab_exclude:'影片|评论|榜单|网络|最新推荐',    
+    parse: 'https://jx.lasi.fun/blue/index.php?url=',
+    lazy: $js.toString(() => {
+        let html = JSON.parse(request(input).match(/r player_.*?=(.*?)</)[1])
+	    let url = html.url
+	    let from = html.from
+	    if (html.encrypt == '1') {
+		    url = unescape(url);
+	    } else if (html.encrypt == '2') {
+		    url = unescape(base64Decode(url));
+	    }
+        log('切片地址:' + url);
+        
+        if (url.includes('.m3u8')){
+            input = url;
+        }else if(from=='blue'){
+            let html=request(rule.parse+url,{
+                headers:{
+                    'Referer':'https://www.haying.tech/',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+                   
+                },
+                redirect: false,
+                withHeaders: true})
+            log(html)
+            let parseurl=JSON.parse(html).location;
+            log(parseurl)
+            let play=JSON.parse(request(parseurl.split('?url=')[1],{
+                headers:{
+                    'Origin': 'https://jx.lasi.fun',
+                    'Host': 'cdn.yangtuyun.cn',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+                },
+                redirect: false,
+                withHeaders: true})).location+'#.m3u8';
+            //let playurl=fetch(play,{headers:{'Host': 'download4.caiyun.feixin.10086.cn'}})
+            log(play)
+            input=play
+
+        }else{
+            input
+        }
+    }),
+    //lazy:"js:var html=JSON.parse(request(input).match(/r player_.*?=(.*?)</)[1]);log(html);var url=html.url;if(html.encrypt=='1'){url=unescape(url)}else if(html.encrypt=='2'){url=unescape(base64Decode(url))}if(/m3u8|mp4/.test(url)){input=url}else{input}",
+    二级: {
+        "title": ".v-thumb&&title;.data--span:eq(0)&&Text",
+        "img": ".lazyload&&data-original",
+        "desc": ".data:eq(3)&&Text;;;.data--span:eq(1)&&Text;.data--span:eq(2)&&Text",
+        "content": ".desc&&Text",
+        "tabs": ".stui-pannel__head h3",
+        "lists": ".stui-content__playlist:eq(#id) li"
+    },
+}

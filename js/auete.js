@@ -1,1 +1,80 @@
-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
+globalThis.searchphp = '';
+var rule = {
+    title: "auete",
+    host: "https://auete.pro/",
+    hostJs: 'let html=request(HOST);searchphp=html.match(/form action="(.*?)"/)[1];',
+    url: "/fyclassfyfilter/indexfypage.html[/fyclassfyfilter/index.html]",
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 1,
+    filter: {"Movie":[{"key":"tag","name":"tag","value":[{"n":"喜剧片","v":"/xjp"},{"n":"动作片","v":"/dzp"},{"n":"爱情片","v":"/aqp"},{"n":"科幻片","v":"/khp"},{"n":"恐怖片","v":"/kbp"},{"n":"惊悚片","v":"/jsp"},{"n":"战争片","v":"/zzp"},{"n":"剧情片","v":"/jqp"}]}],"Tv":[{"key":"tag","name":"tag","value":[{"n":"美剧","v":"/oumei"},{"n":"韩剧","v":"/hanju"},{"n":"日剧","v":"/riju"},{"n":"泰剧","v":"/yataiju"},{"n":"网剧","v":"/wangju"},{"n":"台剧","v":"/taiju"},{"n":"🇨🇳国产","v":"/neidi"},{"n":"港剧","v":"/tvbgj"},{"n":"英剧","v":"/yingju"},{"n":"外剧","v":"/waiju"}]}],"Zy":[{"key":"tag","name":"tag","value":[{"n":"国综","v":"/guozong"},{"n":"韩综","v":"/hanzong"},{"n":"美综","v":"/meizong"}]}],"Dm":[{"key":"tag","name":"tag","value":[{"n":"动画","v":"/donghua"},{"n":"日漫","v":"/riman"},{"n":"国漫","v":"/guoman"},{"n":"美漫","v":"/meiman"}]}],"qita":[{"key":"tag","name":"tag","value":[{"n":"记录片","v":"/Jlp"},{"n":"经典片","v":"/Jdp"},{"n":"经典剧","v":"/Jdj"},{"n":"网大电影","v":"/wlp"},{"n":"国产老电影","v":"/laodianying"}]}]},
+    filter_url: "{{fl.tag}}",
+    filter_def: {},
+    headers: {
+        "User-Agent": "MOBILE_UA"
+    },
+    timeout: 5000,
+    class_parse: ".navbar-nav&&li:lt(6);a&&Text;a&&href;.*/(.*?)/index",
+    cate_exclude: "发布|影讯",
+    play_parse: true,
+    lazy: 'js:eval(unescape(base64Decode("anM6CgkJcGRmaCA9IGpzcC5wZGZoOyBwZGZhID0ganNwLnBkZmE7IHBkID0ganNwLnBkOwoJCWxldCBkb2N1bWVudCA9IHt9OwoJCWxldCBuYXZpZ2F0b3IgPSB7CgkJCXVzZXJBZ2VudDogTU9CSUxFX1VBLAoJCX07CgkJbGV0IGJhc2U2NGRlY29kZSA9IGJhc2U2NERlY29kZTsKCQlsZXQgcG4gPSAnJywgbm93ID0gJycsIG5leHRQYWdlID0gJycsIHByZVBhZ2UgPSAnJywgbmV4dCA9ICcnLCB2aWQgPSAnJywgdmZyb20gPSAnJywgdnBhcnQgPSAnJywgc3JjVXJsID0gJyc7CgkJZXZhbChyZXF1ZXN0KEhPU1QgKyAiL2pzL3BsYXkuanMiKSk7CgkJbGV0IGh0bWwgPSByZXF1ZXN0KGlucHV0KTsKCQlldmFsKHBkZmgoaHRtbCwgIi5tYi0yJiZzY3JpcHQmJkh0bWwiKS5yZXBsYWNlQWxsKCd2YXIgJywnJykpOwoJCWV2YWwocGRmaChodG1sLCAiLm1iLTImJnNjcmlwdCwxJiZIdG1sIikucmVwbGFjZUFsbCgndmFyICcsJycpLnNwbGl0KCJkb2N1bWVudCIpWzBdKTsKCQlsZXQgcGFyc2VIdG1sID0gcmVxdWVzdChIT1NUICsgIi9qcy9wbGF5ZXIvIiArIHBuICsgIi5odG1sIik7CgkJbGV0IHBhcmVudCA9IHsKCQkJbm93OiBub3csCgkJCW5leHRQYWdlOiBuZXh0UGFnZSwKCQkJbmV4dDogbmV4dCwKCQkJdmlkOiB2aWQsCgkJCXZmcm9tOiB2ZnJvbSwKCQkJdnBhcnQ6IHZwYXJ0LAoJCX07CgkJbGV0IHBhcmpzID0gcGRmaChwYXJzZUh0bWwsICJib2R5JiZzY3JpcHQmJkh0bWwiKTsKCQlldmFsKCJzcmNVcmwgPSAnIiArIHBkZmgocGFyanMsICJpZnJhbWUmJnNyYyIpICsgIiciKTsKCQlpZiAoc3JjVXJsLmluZGV4T2YoIj91cmw9IikgPiAtMSB8fCBzcmNVcmwuaW5kZXhPZigiP3VpZD0iKSA+IC0xKSB7CgkJCWlucHV0ID0ge2p4OjAsIHVybDpzcmNVcmwuc3BsaXQoIj0iKVsxXSwgcGFyc2U6MH0KCQl9IGVsc2UgewoJCQlsZXQgcHVybCA9IHNyY1VybC5zcGxpdCgiPSIpWzFdLnNwbGl0KCIsIilbMV07CgkJCWlucHV0ID0ge2p4OjAsIHVybDpwdXJsLCBwYXJzZTowfQoJCX0=")))',
+    double: false,
+    推荐: "*",
+    一级: ".threadlist&&li;.title&&Text;.pic&&img&&src;.hdtag&&Text;a&&href",
+    二级: {
+        title: "meta[property]:eq(1)&&content;meta[property]:eq(4)&&content",
+        img: ".cover&&img&&src",
+        desc: ".media-body&&.small&&Text;.module-info-item:eq(2)&&Text;.module-info-item:eq(3)&&Text;meta[property]:eq(6)&&content;meta[property]:eq(5)&&content",
+        content: "meta[property]:eq(-1)&&content",
+        tabs: "#player_list&&h2",
+        lists: "#player_list:eq(#id) a",
+        tab_text: "*--span&&Text",
+        list_text: "body&&Text",
+        list_url: "a&&href"
+    },
+    searchUrl: '/auete2so.php?page=fypage&searchword=**',
+    搜索: `js:
+	let cookie = "";
+	let submit_url = "";
+	let html = "";
+	log("-----------------------------");
+	for (var i = 0; i < 2; i++) {
+		let yzm = HOST + "/include/vdimgck.php";
+		let html = request(yzm, {
+			withHeaders: true,
+			toBase64: true
+		}, true);
+		print(yzm);
+		let json = JSON.parse(html);
+
+		if (!cookie) {
+			let setCk = Object.keys(json).find(it => it.toLowerCase() === "set-cookie");
+			cookie = setCk ? json[setCk].split(";")[0] : "";
+		}
+		console.log("cookie:" + cookie);
+		let img = json.body;
+		html=post('https://api.nn.ci/ocr/b64/text',{body:img});
+
+		html=eval(html.slice(0,3));
+		print(html);
+		submit_url = HOST + searchphp +"?scheckAC=check&page=&searchtype=&order=&tid=&area=&year=&letter=&yuyan=&state=&money=&ver=&jq=" ;
+		fetch_params.headers["Cookie"]=cookie;
+		fetch_params.body ="validate="+ html+"&searchword="+KEY ;
+		html = post(submit_url, fetch_params);
+		if (html.indexOf(KEY)>0) {
+			log("********************");
+			let list = pdfa(html, ".card-body .media");
+			list.forEach(it => {
+				d.push({
+				title: pdfh(it, "a&&Text"),
+				desc: pdfh(it, ".text-grey&&Text"),
+				pic_url: pdfh(it, "a&&data-original"),
+				url: HOST+pdfh(it, "a&&href")
+				})
+			});
+			setResult(d);
+			break;
+		}	
+	}`,
+}
+

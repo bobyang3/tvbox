@@ -1,1 +1,28 @@
-dmFyIHJ1bGUgPXsKICAgICAgICAgICAgdGl0bGU6ICcxJywKICAgICAgICAgICAgaG9zdDogJ2h0dHBzOi8vd3d3LmFvd3UudHYvJywKICAgICAgICAgICAgdXJsOiAnL3ZvZHNob3cvZnljbGFzcy0tLS0tLS0tZnlwYWdlLS0tLycsCiAgICAgICAgICAgIHNlYXJjaFVybDogJy92b2RzZWFyY2gvKiotLS0tLS0tLS0tZnlwYWdlLS0tLycsCiAgICAgICAgICAgIGNsYXNzX3BhcnNlOiAnLmhlYWQtbmF2IGxpO2EmJlRleHQ7YSYmaHJlZjsuKi8oLio/KS8nLAogICAgICAgICAgICBzZWFyY2hhYmxlOiAyLAogICAgICAgICAgICBxdWlja1NlYXJjaDogMCwKICAgICAgICAgICAgZmlsdGVyYWJsZTogMCwKICAgICAgICAgICAgaGVhZGVyczogewogICAgICAgICAgICAgICAgJ1VzZXItQWdlbnQnOiAnTU9CSUxFX1VBJywKICAgICAgICAgICAgfSwKICAgICAgICAgICAgcGxheV9wYXJzZTogdHJ1ZSwKICAgICAgICAgICAgbGF6eTogJycsCiAgICAgICAgICAgIGxpbWl0OiA2LAogICAgICAgICAgICDmjqjojZA6ICcuZmxleDsucHVibGljLWxpc3QtYm94O2EmJnRpdGxlOy5sYXp5JiZkYXRhLXNyYzsuZnQyJiZUZXh0O2EmJmhyZWYnLAogICAgICAgICAgICBkb3VibGU6IHRydWUsCiAgICAgICAgICAgIOS4gOe6pzogJ3VsLnZvZGxpc3QgbGk7YSYmdGl0bGU7YSYmZGF0YS1vcmlnaW5hbDsucGljX3RleHQmJlRleHQ7YSYmaHJlZicsCiAgICAgICAgICAgIOS6jOe6pzogewogICAgICAgICAgICAgICAgdGl0bGU6ICdoMyYmVGV4dDsuZGV0YWlsX2xpc3QmJnVsOmVxKDEpJiZsaSYmYTplcSgyKSYmVGV4dCcsCiAgICAgICAgICAgICAgICBpbWc6ICcudm9kbGlzdF90aHVtYiYmZGF0YS1vcmlnaW5hbCcsCiAgICAgICAgICAgICAgICBkZXNjOiAnLmNvbnRlbnRfZGV0YWlsJiZsaTplcSgxKSYmVGV4dDsuZGV0YWlsX2xpc3QmJnVsOmVxKDEpJiZsaSYmYSYmVGV4dDsuZGV0YWlsX2xpc3QmJnVsOmVxKDEpJiZsaSYmYTplcSgxKSYmVGV4dDsuZGV0YWlsX2xpc3QmJnVsOmVxKDEpJiZsaTplcSgyKSYmVGV4dDsuZGV0YWlsX2xpc3QmJnVsOmVxKDEpJiZsaTplcSgzKSYmVGV4dCcsCiAgICAgICAgICAgICAgICBjb250ZW50OiAnLmNvbnRlbnRfZGVzYyYmc3BhbiYmVGV4dCcsCiAgICAgICAgICAgICAgICB0YWJzOiAnLm5hdi10YWJzIGEmJmhyZWYnLAogICAgICAgICAgICAgICAgbGlzdHM6ICcuc3R1aS1jb250ZW50X19wbGF5bGlzdDplcSgjaWQpIGEnLAogICAgICAgICAgICB9LAogICAgICAgICAgICDmkJzntKI6ICcqJywKICAgICAgICB9
+var rule ={
+            title: '1',
+            host: 'https://www.aowu.tv/',
+            url: '/vodshow/fyclass--------fypage---/',
+            searchUrl: '/vodsearch/**----------fypage---/',
+            class_parse: '.head-nav li;a&&Text;a&&href;.*/(.*?)/',
+            searchable: 2,
+            quickSearch: 0,
+            filterable: 0,
+            headers: {
+                'User-Agent': 'MOBILE_UA',
+            },
+            play_parse: true,
+            lazy: '',
+            limit: 6,
+            推荐: '.flex;.public-list-box;a&&title;.lazy&&data-src;.ft2&&Text;a&&href',
+            double: true,
+            一级: 'ul.vodlist li;a&&title;a&&data-original;.pic_text&&Text;a&&href',
+            二级: {
+                title: 'h3&&Text;.detail_list&&ul:eq(1)&&li&&a:eq(2)&&Text',
+                img: '.vodlist_thumb&&data-original',
+                desc: '.content_detail&&li:eq(1)&&Text;.detail_list&&ul:eq(1)&&li&&a&&Text;.detail_list&&ul:eq(1)&&li&&a:eq(1)&&Text;.detail_list&&ul:eq(1)&&li:eq(2)&&Text;.detail_list&&ul:eq(1)&&li:eq(3)&&Text',
+                content: '.content_desc&&span&&Text',
+                tabs: '.nav-tabs a&&href',
+                lists: '.stui-content__playlist:eq(#id) a',
+            },
+            搜索: '*',
+        }

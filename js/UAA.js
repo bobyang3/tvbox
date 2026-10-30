@@ -1,1 +1,20 @@
-dmFyIHJ1bGUgPSB7CiAgICDnsbvlnos6ICflvbHop4YnLAogICAgdGl0bGU6ICdVQUFb5a+GXScsCiAgICBob3N0OiAnaHR0cHM6Ly93d3cudWFhLmNvbScsCiAgICB1cmw6ICcvYXBpL3ZpZGVvL2FwcC92aWRlby9zZWFyY2g/Y2F0ZWdvcnkma2V5d29yZCZvcmRlclR5cGU9MyZvcmlnaW49ZnljbGFzcyZwYWdlPWZ5cGFnZSZzZWFyY2hUeXBlPTEmc2l6ZT0zMiZ0YWcnLAogICAgc2VhcmNoVXJsOiAnL2FwaS92aWRlby9hcHAvdmlkZW8vc2VhcmNoP2NhdGVnb3J5PSZrZXl3b3JkPSoqJm9yZGVyVHlwZT0zJm9yZGVyVHlwZT0xJm9yaWdpbj0mcGFnZT0xJnNlYXJjaFR5cGU9MSZzaXplPTMyJnRhZz0nLAogICAgc2VhcmNoYWJsZTogMiwKICAgIGhlYWRlcnM6IHsnVXNlci1BZ2VudCc6IFBDX1VBfSwKICAgIHF1aWNrU2VhcmNoOiAwLAogICAgZmlsdGVyYWJsZTogMCwKICAgIGNsYXNzX25hbWU6ICflm73kuqfop4bpopEm5pel5pysYXYmSOWKqOa8qycsCiAgICBjbGFzc191cmw6ICcxJjImMycsCiAgICBwbGF5X3BhcnNlOiB0cnVlLAogICAgbGF6eTogJGpzLnRvU3RyaW5nKCgpID0+IHsKICAgICAgICBpbnB1dCA9IHtwYXJzZTogMCwgdXJsOiBpbnB1dCwgaGVhZGVyOiBydWxlLmhlYWRlcnN9CiAgICB9KSwKICAgIOS4gOe6pzogJ2pzb246bW9kZWwuZGF0YTt0aXRsZTtjb3ZlclVybDtjYXRlZ29yaWVzO3VybCcsCiAgICDkuoznuqc6ICcqJywKICAgIOaQnOe0ojogJyonLAp9
+var rule = {
+    类型: '影视',
+    title: 'UAA[密]',
+    host: 'https://www.uaa.com',
+    url: '/api/video/app/video/search?category&keyword&orderType=3&origin=fyclass&page=fypage&searchType=1&size=32&tag',
+    searchUrl: '/api/video/app/video/search?category=&keyword=**&orderType=3&orderType=1&origin=&page=1&searchType=1&size=32&tag=',
+    searchable: 2,
+    headers: {'User-Agent': PC_UA},
+    quickSearch: 0,
+    filterable: 0,
+    class_name: '国产视频&日本av&H动漫',
+    class_url: '1&2&3',
+    play_parse: true,
+    lazy: $js.toString(() => {
+        input = {parse: 0, url: input, header: rule.headers}
+    }),
+    一级: 'json:model.data;title;coverUrl;categories;url',
+    二级: '*',
+    搜索: '*',
+}

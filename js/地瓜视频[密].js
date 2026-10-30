@@ -1,1 +1,47 @@
-H4sIAAAAAAAAAHVUW1PbRhR+dn6Fxg/Hl8GSLYFx7DKddJqHdtrmIeWp6ZBFXttKZVuRVsZuygzMtJALdk2SFpqagbrh0hCm0DDFGCe/RlrZ/6KrCwV6kTQrfUff+fbsOWe3hnRON1XMTXEPrnHsIgpRcZaL2J1D51lnuLs06q5GxrxfYWSSUlUPZ7lw3b3CvrlUNQhzKBGiGVlBmJub41MpsVbjZTlwNHWVEYRaNU8aGhYKDVlFhpEoNDRUxHyJlNWA6NlnKqjsRfDzW6u/60cAAVh+RZ80A2AvnrjAebvq9LtW74w+PQj+0FZ3+PgIaO87p/+7fbDjPN8E+3DV3lmmJ/v2zhnQ9RZd36TN7vDbXuBjDbbsV0/B6r+gx39YvWf2Sh/o2vZo8ze6tuVsLQJ9veu8awXA6h3QH5ftgzX79AcGHjmuwI7TXgK7+cto4YX9eI8O9sE+2bNO3zA3NoI96NvbPev0iDHBfvgn7TSt3saw2/Fi234zbG8MW49YBH0WorO0yUzgvHtp9V/a3//KRjcc2nntHG8xCoz219n67HbTGqyD8/zEbq8wBzZGxjhBGG38RBcW7YdLztEZ4zi7h/TJgLa2L2XZL0oaJiED10FKQyoJYgpS7BFBZI8E4jiIEyCmQZwEMQMioyVBSoEkgiSBNAlSBqTrQe0MjHS5NP13qX0sxOMJwS2z8O9q+ww06/ab6Jvum4r81W3PnuWSvq2gqATrPi112cQmilzGwZKu2vK4kOUezAetilEe60Y26HX3ikwbWE/cKOIKiTDnT2998NEnN2emb0Q8BvMLdkUZV03W5hPJZBCWIPh51JBuuO06W803AHijaiYIKo4lL75zCOBzXCfuu6TjwnmzI4JncF1WzTy+CFtTUeNck+gm9q0q+rqRvXvPyF4LhWpsy7pZZFv249u3PuM9clTH901skKhS0UwS48uIyKWooHt6LA18/P2pKBti7wmxL1JfxnKBEEsZ03HlePbpWpUCF/Uwrsh6QyPc1BQXSUViLGehUMjnmxVsyEjDUQZjzDzPYdXA3H+6iv/jOosMnB7/EMvVvK/jCQUBCHfu8GXJzHzjvrVxgSfu2jyWL+Yt0zu0GAjdq3vdEvJnybqr8lGQyKQL5i8CvZDw57zrZzlfNb0uu5R3paywqqfPS05be8Nmm1WL16tzAHk1V5oIistXEDF1zIyIoERVV4pKBam5fxTd6i2ws4KdoK5AopwwNCTjDICquETv8M0p5SKAocs5XiG4nEBmXVEVpDeudlFw+lr9FVcwHA8wbXec424Q4dUJ4v7NIpn/CyHaGxz3BQAA
+var rule = {
+    title: '地瓜视频',
+    "author": "xxxxx",
+    host: 'https://www.112vv.cc',
+    url: '/vodtype/fyclass-fypage.html',
+    class_name: '国产视频&国产自拍&国产偷拍&网红主播&国产探花&清纯学生&少妇淫妻&明星换脸&国产传媒&亚洲专区&日韩无码&欧美无码&中文字幕&三级伦理&卡通动漫&巨乳美乳&强奸乱伦&制服丝袜&少女萝莉&人妻熟女&群交口交&日本素人&高清名优&男同女同', //静态分类名称拼接
+    class_url: '6&7&8&9&36&10&21&11&12&22&23&24&25&26&27&28&29&30&31&32&33&37&38&39',
+    searchUrl: '/vodsearch/**-/page/fypage.html',
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 1,
+    filter: '',
+    filter_url: '',
+    filter_def: {},
+    headers: {
+        'User-Agent': 'MOBILE_UA'
+    },
+
+    timeout: 5000,
+    //class_parse: 'body&&.sou-tag,0&&.sou-tag;a&&Text;a&&href',
+    cate_exclude: '',
+    play_parse: true,
+    lazy:`js:
+		var html = JSON.parse(request(input).match(/r player_.*?=(.*?)</)[1]);
+		var url = html.url;
+		if (html.encrypt == '1') {
+			url = unescape(url)
+		} else if (html.encrypt == '2') {
+			url = unescape(base64Decode(url))
+		}
+		if (/\\.m3u8|\\.mp4/.test(url)) {
+			input = {
+				jx: 0,
+				url: url,
+				parse: 0
+			}
+		} else {
+			input
+		}
+	`,
+    double: true,
+    limit: 6,
+    //推荐: '.row&&dl;h5&&Text;.nature&&data-original;;a&&href',
+    一级: ".row-m-space8&&li;a&&title;img&&src;.item-auxiliary&&Text;a&&href",
+    二级:"*",
+    搜索: '.row-m-space8&&li;*;*;*;*',
+}

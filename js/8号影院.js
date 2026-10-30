@@ -1,1 +1,40 @@
-H4sIAIioBmcC/21Uy27bRhTd+ysII9DDkslIshRHghoormxLVvSibDXeKENySA41HLLkUDbtCAhQoGiAAHWAIm1hd9EsUi8apAECFEjR5mcqqf6LDkVatVDPhuSZcw/n3rnntiQDypQHros0kjA9CRD+6s2ryflfWf7vjy9mH39Jc6crHFsUSG6Ri/Mu9dC6DQiBeDDQIVA4PRdPr4yTpZURcDjHw5ArRzHTy5+nP31iUZEk482lEMWQoZuTb3+f/Pn+6sfX0YZuuZThOqV2URCOjo54CejA8l1etsyI4zm4yK0KqoNMQfVVhCl0eJ2aeDXcDxEgBX/IpAVh+sO7ydmbydm72XeXk2++nr3/Y/b2/OrZ85vsQSh6eqpifvrieUgbj9dV3wYajIRZAQbwWMaeEpx9evHr5OXl7Ku3V99fPp1ePPvn08vp+Yfpq9/iN4WZ6O6GW6tcrwLtP8Kij77M9/1hgR406iKkUi8licY9lezk9q2CSMy6B7DVMfv1Fujbj1sH+U7dJF+IHrxXz52MGo+UeqU9NH3noDB8OCREcdWmJCO7ctzZ1Fwi6Hfz2ULV+BzLeUwMfUdu3j2u+Ntk69C+3zbbrYxsMG6z+rCmiPldVzY64t4wS43DfnfTrElVoZkb0WEmt6d5vUrP6Fa9XGM3BdTNnfrWsKc3RZCXhdx9cbtekxsoq4q4kYKjbr3maydO19ztEG3UPxzu9Ufb2tb2Yz+VKXSqLPlyeemKBgpUi1GjZK5fWM9c15/VLrM6B8dhWPZ2UnaJlLudlFsibdxO2ohIKwuiC4Ej6/tBd8SF8IO3dftB0BblsDtiIXxkOUp5bY3FRAD1bViOmkHGzGADGzgua53V0ELU8gYDExKPw6gEYrEePKbBU3egWuLXhAS/9iB5s7ExOPGL3B3D5aklUgcRLZFIcuXPFqkwCqQcIogODJd58EkrNDerMyKw7Vg2dCiCboKAEdIAtRzmbRsDqlqOySqiQWa+UDKO2rpFYHzMbP2ktNBHxPbowt3XK8ork15C55aaByzjRjBF4un/KzBzUQewzdg8BVd2kE3LcS7FQSJbCtzv1rYs02bHIjQhARcWNqrzjUSUcjL5n+o4vMkImZ5dzD68XkyvkaVg5NKg/ApiJQ8vYD6VSnxQZmwBJRZTAAXrloM0RAAu8ZSdb5196XT5soLh9y8C8qBDRwUAAA==
+Object.assign(muban.首图2.二级, {
+    tabs: '.stui-pannel__head h3',
+});
+var rule = {
+    模板: '首图2',
+    title: '8号影院',
+    host: 'http://www.bahaoys.com',
+    url: "/frim/fyfilter.html",
+    filterable: 1,//是否启用分类筛选,
+    filter_url: "{{fl.按分类}}-fypage",
+    tab_exclude: '本周热门|最近更新',
+    filter: {"1":[{"key":"按分类","name":"按分类","value":[{"n":"动作片","v":"5"},{"n":"爱情片","v":"6"},{"n":"科幻片","v":"7"},{"n":"恐怖片","v":"8"},{"n":"喜剧片","v":"10"},{"n":"剧情片","v":"12"}]}],"2":[{"key":"按分类","name":"按分类","value":[{"n":"国产剧","v":"13"},{"n":"港台剧","v":"14"},{"n":"欧美剧","v":"15"},{"n":"日韩剧","v":"16"}]}],"3":[{"key":"按分类","name":"按分类","value":[]}],"4":[{"key":"按分类","name":"按分类","value":[]}]},
+    filter_def: {
+    1: {
+      按分类: "1"
+    },
+    2: {
+      按分类: "2"
+    },
+    3: {
+      按分类: "3"
+    },
+    4: {
+      按分类: "4"
+    }
+  },
+    searchUrl: '/search.php?page=fypage&searchword=**   &searchtype=',
+    class_parse: ".stui-tou__menu li;a&&Text;a&&href;.*/(.*?).html",
+    lazy: $js.toString(() => {
+        let init_js = `Object.defineProperties(navigator, {platform: {get: () => 'iPhone'}});`;
+        input = {
+            parse: 1,
+            url: input,
+            js: '',
+            parse_extra: '&init_script=' + encodeURIComponent(base64Encode(init_js)),
+        }
+    }),
+    搜索: '.stui-vodlist__media&&li;a&&title;.lazyload&&data-original;.text-right&&Text;a&&href',
+}
+

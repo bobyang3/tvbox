@@ -1,1 +1,41 @@
-dmFyIHJ1bGUgPSB7CiAgICDnsbvlnos6ICflvbHop4YnLC8v5b2x6KeGfOWQrOS5pnzmvKvnlLt85bCP6K+0CiAgICB0aXRsZTogJ05U5Yqo5ryrW+a8q10nLAogICAgaG9zdDogJ2h0dHA6Ly93d3cubnRkbTkuY29tLycsCiAgICB1cmw6ICcvdHlwZS9meWNsYXNzLWZ5cGFnZS5odG1sJywKICAgIGNsYXNzX25hbWU6ICfml6XmnKwm5Lit5Zu9Juasp+e+jicsCiAgICBjbGFzc191cmw6ICdyaWJlbiZ6aG9uZ2d1byZvbWVpJywKICAgIHNlYXJjaFVybDogJy9zZWFyY2gvKiotLS0tLS0tLS0tZnlwYWdlLS0tLmh0bWwnLAogICAgc2VhcmNoYWJsZTogMiwKICAgIHF1aWNrU2VhcmNoOiAwLAogICAgZmlsdGVyYWJsZTogMSwKICAgIGZpbHRlcjogJycsCiAgICBmaWx0ZXJfdXJsOiAnJywKICAgIGZpbHRlcl9kZWY6IHt9LAogICAgaGVhZGVyczogewogICAgICAgICdVc2VyLUFnZW50JzogJ01PQklMRV9VQScsCiAgICB9LAogICAgdGltZW91dDogNTAwMCwKICAgIGNsYXNzX3BhcnNlOiAnI3NpZGUtbWVudSBsaTthJiZUZXh0O2EmJmhyZWY7LyguKj8pXC5odG1sJywKICAgIGNhdGVfZXhjbHVkZTogJycsCiAgICBwbGF5X3BhcnNlOiB0cnVlLAogICAgbGF6eTogJGpzLnRvU3RyaW5nKCgpID0+IHsKICAgICAgICBpbnB1dCA9IHtwYXJzZTogMSwgdXJsOiBpbnB1dCwganM6ICcnfTsKICAgIH0pLAogICAgZG91YmxlOiB0cnVlLAogICAg5o6o6I2QOiAnLmJsb2NrY29udGVudDt1bC51bF9saV9hNSYmbGk7LmFuaW1lX2ljb24xX25hbWUmJlRleHQ7KjsuYW5pbWVfaWNvbjFfbmFtZTEmJlRleHQ7KicsCiAgICDkuIDnuqc6ICcuYmxvY2tkaWYyOy5jZWxsX2ltZm9ybV9uYW1lJiZUZXh0O2ltZyYmc3JjOy5uZXduYW1lJiZUZXh0O2EmJmhyZWY7LmNlbGxfaW1mb3JtX2Rlc2MmJlRleHQnLAogICAg5LqM57qnOiB7CiAgICAgICAgdGl0bGU6ICdoNCYmVGV4dDsuYmFzZWJsb2NrMiYmbGk6ZXEoLTEpJiZUZXh0JywKICAgICAgICBpbWc6ICdpbWcmJnNyYycsCiAgICAgICAgZGVzYzogJy5iYXNlYmxvY2syJiZsaSYmVGV4dDsuYmFzZWJsb2NrMiYmbGk6ZXEoLTIpJiZUZXh0Oy5iYXNlYmxvY2syJiZsaTplcSgyKSYmVGV4dDs7JywKICAgICAgICBjb250ZW50OiAnLmRldGFpbF9pbWZvcm1fZGVzY19wcmUmJnAmJlRleHQnLAogICAgICAgIHRhYnM6ICd1bC50aXRsZSYmbGknLAogICAgICAgIGxpc3RzOiAnLm1vdnVybDplcSgjaWQpJiZhJywKICAgICAgICB0YWJfdGV4dDogJ2JvZHkmJlRleHQnLAogICAgICAgIGxpc3RfdGV4dDogJ2JvZHkmJlRleHQnLAogICAgICAgIGxpc3RfdXJsOiAnYSYmaHJlZicsCiAgICAgICAgbGlzdF91cmxfcHJlZml4OiAnJywKICAgIH0sCiAgICDmkJzntKI6ICcqJywKfQ==
+var rule = {
+    类型: '影视',//影视|听书|漫画|小说
+    title: 'NT动漫[漫]',
+    host: 'http://www.ntdm9.com/',
+    url: '/type/fyclass-fypage.html',
+    class_name: '日本&中国&欧美',
+    class_url: 'riben&zhongguo&omei',
+    searchUrl: '/search/**----------fypage---.html',
+    searchable: 2,
+    quickSearch: 0,
+    filterable: 1,
+    filter: '',
+    filter_url: '',
+    filter_def: {},
+    headers: {
+        'User-Agent': 'MOBILE_UA',
+    },
+    timeout: 5000,
+    class_parse: '#side-menu li;a&&Text;a&&href;/(.*?)\.html',
+    cate_exclude: '',
+    play_parse: true,
+    lazy: $js.toString(() => {
+        input = {parse: 1, url: input, js: ''};
+    }),
+    double: true,
+    推荐: '.blockcontent;ul.ul_li_a5&&li;.anime_icon1_name&&Text;*;.anime_icon1_name1&&Text;*',
+    一级: '.blockdif2;.cell_imform_name&&Text;img&&src;.newname&&Text;a&&href;.cell_imform_desc&&Text',
+    二级: {
+        title: 'h4&&Text;.baseblock2&&li:eq(-1)&&Text',
+        img: 'img&&src',
+        desc: '.baseblock2&&li&&Text;.baseblock2&&li:eq(-2)&&Text;.baseblock2&&li:eq(2)&&Text;;',
+        content: '.detail_imform_desc_pre&&p&&Text',
+        tabs: 'ul.title&&li',
+        lists: '.movurl:eq(#id)&&a',
+        tab_text: 'body&&Text',
+        list_text: 'body&&Text',
+        list_url: 'a&&href',
+        list_url_prefix: '',
+    },
+    搜索: '*',
+}

@@ -1,1 +1,40 @@
-dmFyIHJ1bGUgPSB7CiAgICB0aXRsZTogJzU25Yqo5ryrJywKICAgIGhvc3Q6ICdodHRwczovL3d3dy41NmRtLmNjLycsCiAgICB1cmw6ICdodHRwczovL3d3dy41NmRtLmNjL3R5cGUvZnljbGFzcy1meXBhZ2UuaHRtbCcsCiAgICBzZWFyY2hVcmw6ICdodHRwczovL3d3dy41NmRtLmNjL3NlYXJjaC8qKi0tLS0tLS0tLS1meXBhZ2UtLS0uaHRtbCcsCiAgICBzZWFyY2hhYmxlOiAyLCAvL+aYr+WQpuWQr+eUqOWFqOWxgOaQnOe0oiwKICAgIHF1aWNrU2VhcmNoOiAwLCAvL+aYr+WQpuWQr+eUqOW/q+mAn+aQnOe0oiwKICAgIGZpbHRlcmFibGU6IDAsIC8v5piv5ZCm5ZCv55So5YiG57G7562b6YCJLAogICAgaGVhZGVyczogewogICAgICAgICdVc2VyLUFnZW50JzogJ1VDX1VBJywgLy8gIkNvb2tpZSI6ICIiCiAgICB9LCAvLyBjbGFzc19wYXJzZTonLnN0dWktaGVhZGVyX19tZW51IGxpOmd0KDApOmx0KDcpO2EmJlRleHQ7YSYmaHJlZjsvKFxcZCspLmh0bWwnLAogICAgY2xhc3NfcGFyc2U6ICcuc251aS1oZWFkZXItbWVudS1uYXYgbGk6Z3QoMCk6bHQoNik7YSYmVGV4dDthJiZocmVmOy4qLyguKj8pLmh0bWwnLAogICAgcGxheV9wYXJzZTogdHJ1ZSwKICAgIGxhenk6IGBqczoKICAgICAgICAgICAgaWYoL1xcLihtM3U4fG1wNCkvLnRlc3QoaW5wdXQpKXsKICAgICAgICAgICAgICAgIGlucHV0ID0ge3BhcnNlOjAsdXJsOmlucHV0fQogICAgICAgICAgICB9ZWxzZXsKICAgICAgICAgICAgICAgIGlmKHJ1bGUucGFyc2VfdXJsLnN0YXJ0c1dpdGgoJ2pzb246JykpewogICAgICAgICAgICAgICAgICAgIGxldCBwdXJsID0gcnVsZS5wYXJzZV91cmwucmVwbGFjZSgnanNvbjonLCcnKStpbnB1dDsKICAgICAgICAgICAgICAgICAgICBsZXQgaHRtbCA9IHJlcXVlc3QocHVybCk7CiAgICAgICAgICAgICAgICAgICAgaW5wdXQgPSB7cGFyc2U6MCx1cmw6SlNPTi5wYXJzZShodG1sKS51cmx9CiAgICAgICAgICAgICAgICB9ZWxzZXsKICAgICAgICAgICAgICAgICAgICBpbnB1dD0gcnVsZS5wYXJzZV91cmwraW5wdXQ7IAogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgICAgIGAsCiAgICBsaW1pdDogNiwKICAgIOaOqOiNkDogJy5jQ0JmX0ZBQUVmYmM7bGk7YSYmdGl0bGU7Lmxhenlsb2FkJiZkYXRhLW9yaWdpbmFsOy5kQURfQkJDSSYmVGV4dDthJiZocmVmJywKICAgIGRvdWJsZTogdHJ1ZSwgLy8g5o6o6I2Q5YaF5a655piv5ZCm5Y+M5bGC5a6a5L2NCiAgICDkuIDnuqc6ICcuY0NCZl9GQUFFZmJjIGxpO2EmJnRpdGxlO2EmJmRhdGEtb3JpZ2luYWw7LmRBRF9CQkNJJiZUZXh0O2EmJmhyZWYnLAogICAg5LqM57qnOiB7CiAgICAgICAgInRpdGxlIjogImgxJiZUZXh0IiwKICAgICAgICAiaW1nIjogIi5zdHVpLWNvbnRlbnRfX3RodW1iIC5sYXp5bG9hZCYmZGF0YS1vcmlnaW5hbCIsCiAgICAgICAgImRlc2MiOiAiLmNDQmZfREFCQ2NhY19faGNJZGVFIHA6ZXEoMCkmJlRleHQ7LmNDQmZfREFCQ2NhY19faGNJZGVFIHA6ZXEoMSkmJlRleHQ7LmNDQmZfREFCQ2NhY19faGNJZGVFIHA6ZXEoMikmJlRleHQ7LmNDQmZfREFCQ2NhY19faGNJZGVFIHA6ZXEoMykmJlRleHQ7LmNDQmZfREFCQ2NhY19faGNJZGVFIHA6ZXEoNCkmJlRleHQiLAogICAgICAgICJjb250ZW50IjogIi5kZXRhaWwmJlRleHQiLAogICAgICAgICJ0YWJzIjogIi5jaGFubmVsLXRhYiBsaSIsCiAgICAgICAgImxpc3RzIjogIi5wbGF5LWxpc3QtY29udGVudDplcSgjaWQpIGxpIgogICAgfSwKICAgIOaQnOe0ojogJy5jQ0JmX0ZBQUVmYmNfX2RiRDthJiZ0aXRsZTsubGF6eWxvYWQmJmRhdGEtb3JpZ2luYWw7LmRBRF9CQkNJJiZUZXh0O2EmJmhyZWY7LmNDQmZfRkFBRWZiY19faGNJZGVFJiZwOmVxKDApIHAmJlRleHQnLAp9
+var rule = {
+    title: '56动漫',
+    host: 'https://www.56dm.cc/',
+    url: 'https://www.56dm.cc/type/fyclass-fypage.html',
+    searchUrl: 'https://www.56dm.cc/search/**----------fypage---.html',
+    searchable: 2, //是否启用全局搜索,
+    quickSearch: 0, //是否启用快速搜索,
+    filterable: 0, //是否启用分类筛选,
+    headers: {
+        'User-Agent': 'UC_UA', // "Cookie": ""
+    }, // class_parse:'.stui-header__menu li:gt(0):lt(7);a&&Text;a&&href;/(\\d+).html',
+    class_parse: '.snui-header-menu-nav li:gt(0):lt(6);a&&Text;a&&href;.*/(.*?).html',
+    play_parse: true,
+    lazy: `js:
+            if(/\\.(m3u8|mp4)/.test(input)){
+                input = {parse:0,url:input}
+            }else{
+                if(rule.parse_url.startsWith('json:')){
+                    let purl = rule.parse_url.replace('json:','')+input;
+                    let html = request(purl);
+                    input = {parse:0,url:JSON.parse(html).url}
+                }else{
+                    input= rule.parse_url+input; 
+                }
+            }
+            `,
+    limit: 6,
+    推荐: '.cCBf_FAAEfbc;li;a&&title;.lazyload&&data-original;.dAD_BBCI&&Text;a&&href',
+    double: true, // 推荐内容是否双层定位
+    一级: '.cCBf_FAAEfbc li;a&&title;a&&data-original;.dAD_BBCI&&Text;a&&href',
+    二级: {
+        "title": "h1&&Text",
+        "img": ".stui-content__thumb .lazyload&&data-original",
+        "desc": ".cCBf_DABCcac__hcIdeE p:eq(0)&&Text;.cCBf_DABCcac__hcIdeE p:eq(1)&&Text;.cCBf_DABCcac__hcIdeE p:eq(2)&&Text;.cCBf_DABCcac__hcIdeE p:eq(3)&&Text;.cCBf_DABCcac__hcIdeE p:eq(4)&&Text",
+        "content": ".detail&&Text",
+        "tabs": ".channel-tab li",
+        "lists": ".play-list-content:eq(#id) li"
+    },
+    搜索: '.cCBf_FAAEfbc__dbD;a&&title;.lazyload&&data-original;.dAD_BBCI&&Text;a&&href;.cCBf_FAAEfbc__hcIdeE&&p:eq(0) p&&Text',
+}
