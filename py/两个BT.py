@@ -1,8 +1,7 @@
 # coding=utf-8
 # !/usr/bin/python
 import sys
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 import json
 import time
 import urllib.parse
@@ -10,10 +9,8 @@ import re
 from lxml import etree
 import base64
 
-class Spider(Spider):
+class Spider(BaseSpider):
     
-    def getName(self):
-        return "两个BT"
     
     def init(self, extend=""):
         self.host = "https://www.bttwoo.com"
@@ -154,9 +151,21 @@ class Spider(Spider):
             return {'list': []}
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         """详情页面"""
         try:
-            vid = ids[0]
+            vid = video_id
             detail_url = f"{self.host}/movie/{vid}.html"
             rsp = self.net.req(detail_url, {"headers": self.headers, "timeout": 5000})
             doc = etree.HTML(rsp["content"])

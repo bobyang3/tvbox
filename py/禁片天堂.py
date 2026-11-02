@@ -7,13 +7,10 @@ import urllib.parse
 import re
 from lxml import etree
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
-    def getName(self):
-        return "禁片天堂"
+class Spider(BaseSpider):
 
     def init(self, extend):
         pass
@@ -90,8 +87,8 @@ class Spider(Spider):
         result = {}
         url = f'https://jptt.tv/tag_list?tid={tid}&idx={pg}'
         try:
-            rsp = self.fetch(url)
-            root = etree.HTML(rsp.text)
+            rsp = self.net.req(url)
+            root = etree.HTML(rsp["content"])
             videos = root.xpath('//div[contains(@class,"oneVideo")]')
             vodList = []
             for video in videos:
@@ -140,12 +137,24 @@ class Spider(Spider):
             result['total'] = 0
         return result
 
-    def detailContent(self, array):
-        tid = array[0]
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        tid = video_id
         url = tid if tid.startswith('http') else f'https://jptt.tv{tid}'
         try:
-            rsp = self.fetch(url)
-            root = etree.HTML(rsp.text)
+            rsp = self.net.req(url)
+            root = etree.HTML(rsp["content"])
 
             title_elements = root.xpath('//h1[@class="h1_title"]/text()')
             title = title_elements[0].strip() if title_elements else "未知标题"
@@ -158,7 +167,7 @@ class Spider(Spider):
             desc_elements = root.xpath('//div[contains(@class,"info_original")]//p/text()')
             desc = desc_elements[0].strip() if desc_elements else title
 
-            play_url = self.extractVideoUrl(rsp.text)
+            play_url = self.extractVideoUrl(rsp["content"])
 
             vod = {
                 "vod_id": tid,
@@ -226,8 +235,8 @@ class Spider(Spider):
         result = {}
         url = f'https://jptt.tv/search?kw={urllib.parse.quote(key)}'
         try:
-            rsp = self.fetch(url)
-            root = etree.HTML(rsp.text)
+            rsp = self.net.req(url)
+            root = etree.HTML(rsp["content"])
             videos = root.xpath('//div[contains(@class,"oneVideo")]')
             vodList = []
             for video in videos:
@@ -278,8 +287,8 @@ class Spider(Spider):
                     result["url"] = id
                 else:
                     url = id if id.startswith('http') else f'https://jptt.tv{id}'
-                    rsp = self.fetch(url)
-                    play_url = self.extractVideoUrl(rsp.text)
+                    rsp = self.net.req(url)
+                    play_url = self.extractVideoUrl(rsp["content"])
                     result["parse"] = 0
                     result["playUrl"] = ''
                     result["url"] = play_url
@@ -300,7 +309,4 @@ class Spider(Spider):
         pass
 
     def manualVideoCheck(self):
-        pass
-
-    def localProxy(self, param):
         pass

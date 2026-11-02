@@ -4,16 +4,15 @@ import sys, re
 import base64
 import hashlib
 from typing import Tuple
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 from datetime import datetime, timedelta
 from urllib.parse import quote, unquote
-sys.path.append('..')
 
 # 搜索用户名，关键词格式为“类别+空格+关键词”
 # 类别在标签上已注明，比如“女主播g”，则搜索类别为“g”
 # 搜索“g per”，则在“女主播”中搜索“per”, 关键词不区分大小写，但至少3位，否则空结果
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend="{}"):
         origin = 'https://zh.stripchat.com'
@@ -28,8 +27,6 @@ class Spider(Spider):
         self._hash_cache = {}
         self.session = self.net.session()
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -82,8 +79,20 @@ class Spider(Spider):
             "total": total
         }
 
-    def detailContent(self, array):
-        username = array[0]
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        username = video_id
         rsp = self.session.json(
             f"{self.host}/api/front/v2/models/username/{username}/cam",
             {"headers": self.headers, "timeout": 10000},
@@ -160,7 +169,7 @@ class Spider(Spider):
                 url_base = lines[i + 1]
                 # 组合最终的URL，并加上psch和pkey参数
                 full_url = f"{url_base}&psch={psch}&pkey={pkey}"
-                proxy_url = f"{self.getProxyUrl()}&url={quote(full_url)}"
+                proxy_url = self.proxyUrl({"url": quote(full_url)})
                 # 将画质和URL添加到列表中
                 url.extend([qn, proxy_url])
         return {
@@ -170,8 +179,8 @@ class Spider(Spider):
             "header": self.headers
         }
 
-    def proxy(self, param):
-        url = unquote(param['url'])
+    def proxy(self, params):
+        url = unquote(params['url'])
         data = self.session.req(url, {"headers": self.headers, "timeout": 10000})
         if data.get("error"):
             return [404, "text/plain", ""]

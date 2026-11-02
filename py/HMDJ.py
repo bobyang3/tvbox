@@ -5,16 +5,15 @@ import traceback
 import sys
 from urllib.parse import quote
 
-sys.path.append('../../')
 try:
-    from base.spider import Spider
+    from base.spider import Spider as BaseSpider
 except ImportError:
     # 定义一个基础接口类，用于本地测试
     class Spider:
         def init(self, extend=""):
             pass
 
-class Spider(Spider):
+class Spider(BaseSpider):
     def __init__(self):
         self.siteUrl = "https://www.kuaikaw.cn"
         self.cateManual = {
@@ -36,8 +35,6 @@ class Spider(Spider):
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"
         }
         
-    def getName(self):
-        return "河马短剧"
     
     def init(self, extend=""):
         return
@@ -158,7 +155,7 @@ class Spider(Spider):
             
         return result
     
-    def searchContent(self, key, quick, pg=1):
+    def searchContent(self, key, quick, pg="1"):
         return self.searchContentPage(key, quick, pg)
     
     def searchContentPage(self, key, quick, pg=1):
@@ -203,11 +200,23 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        result = {'list': []}
         if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        result = {'list': []}
+        if not video_id:
             return result
             
-        vod_id = ids[0]
+        vod_id = video_id
         if not vod_id.startswith('/drama/'):
             vod_id = f'/drama/{vod_id}'
         
@@ -356,8 +365,8 @@ class Spider(Spider):
             
         return None
 
-    def proxy(self, param):
-        return [200, "video/MP2T", {}, param]
+    def proxy(self, params):
+        return [200, "video/MP2T", {}, params]
 
     def destroy(self):
         pass

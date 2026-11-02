@@ -2,12 +2,9 @@
 import re
 import sys
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
-    def getName(self):
-        return "ThePorn"
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         pass
@@ -15,8 +12,8 @@ class Spider(Spider):
     def homeContent(self, filter):
         result = {}
         try:
-            rsp = self.fetch("https://theporn.cc/categories")
-            root = pq(rsp.text)
+            rsp = self.net.req("https://theporn.cc/categories")
+            root = pq(rsp["content"])
             classes = []
             
             main_categories = {
@@ -51,8 +48,8 @@ class Spider(Spider):
         return result
 
     def homeVideoContent(self):
-        rsp = self.fetch("https://theporn.cc/")
-        return {'list': [self.parseVideoItem(item) for item in pq(rsp.text)('.video-list .avdata-outer').items()]}
+        rsp = self.net.req("https://theporn.cc/")
+        return {'list': [self.parseVideoItem(item) for item in pq(rsp["content"])('.video-list .avdata-outer').items()]}
 
     def parseVideoItem(self, item):
         try:
@@ -76,8 +73,8 @@ class Spider(Spider):
         else:
             url = f"https://theporn.cc/{tid}/{pg}"
         
-        rsp = self.fetch(url)
-        root = pq(rsp.text)
+        rsp = self.net.req(url)
+        root = pq(rsp["content"])
         
         videos = []
         for selector in ['.video-list .avdata-outer', '.avdata-outer', '.video-list .card']:
@@ -114,10 +111,22 @@ class Spider(Spider):
             'total': 999999
         }
 
-    def detailContent(self, array):
-        tid = array[0]
-        rsp = self.fetch(f"https://theporn.cc/video/{tid}")
-        root = pq(rsp.text)
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        tid = video_id
+        rsp = self.net.req(f"https://theporn.cc/video/{tid}")
+        root = pq(rsp["content"])
         
         title = root('title').text().replace(' - ThePorn', '') or root('.av-big-title .inner-title').text()
         cover = root('.cover-img').attr('src')
@@ -139,15 +148,15 @@ class Spider(Spider):
             'vod_play_url': f'第1集${tid}'
         }]}
 
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1", page='1'):
         # 搜索页面的翻页逻辑
         if int(page) == 1:
             url = f"https://theporn.cc/search/{key}"
         else:
             url = f"https://theporn.cc/search/{key}/{page}"
             
-        rsp = self.fetch(url)
-        root = pq(rsp.text)
+        rsp = self.net.req(url)
+        root = pq(rsp["content"])
         
         for selector in ['.search-results .video-item', '.video-list .avdata-outer', '.avdata-outer']:
             video_list = root(selector)
@@ -157,8 +166,8 @@ class Spider(Spider):
         return {'list': []}
 
     def playerContent(self, flag, id, vipFlags):
-        rsp = self.fetch(f"https://theporn.cc/video/{id}")
-        root = pq(rsp.text)
+        rsp = self.net.req(f"https://theporn.cc/video/{id}")
+        root = pq(rsp["content"])
         
         hash_id = ""
         for script in root('script').items():
@@ -192,5 +201,5 @@ class Spider(Spider):
     def manualVideoCheck(self):
         pass
 
-    def localProxy(self, param):
+    def proxy(self, params):
         return [200, "video/MP2T", {}, ""]

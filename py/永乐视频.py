@@ -9,12 +9,9 @@ import time
 import random
 from bs4 import BeautifulSoup
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
-    def getName(self):
-        return "永乐视频"
+class Spider(BaseSpider):
     
     def init(self, extend=""):
         self.host = "https://www.ylys.tv"
@@ -24,7 +21,7 @@ class Spider(Spider):
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
             'Referer': self.host
         }
-        self.encoding = "UTF-8"
+
         self.last_search_key = ""
         
         self.session = self.net.session()
@@ -114,7 +111,7 @@ class Spider(Spider):
             self.log(traceback.format_exc())
         return result
 
-    def searchContent(self, key, quick, pg=1):
+    def searchContent(self, key, quick, pg="1"):
         result = {"list": []}
         try:
             self.last_search_key = key
@@ -140,9 +137,21 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         result = {"list": []}
         try:
-            vid = ids[0]
+            vid = video_id
             detail_url = f"{self.host}/voddetail/{vid}/"
             self.log(f"请求详情页: {detail_url}")
             

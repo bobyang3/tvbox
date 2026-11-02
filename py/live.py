@@ -1,33 +1,32 @@
+import re
 #coding=utf-8
 #!/usr/bin/python
-import sys
 import json
 import time
 import hashlib
+from lxml import etree
 from base64 import b64decode
 from difflib import SequenceMatcher
 from urllib.parse import quote, unquote
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):  # 元类 默认的元类 type
-	def getName(self):
-		return "直播"
+class Spider(BaseSpider):  # 元类 默认的元类 type
 
-	def init(self, extend):
+	def init(self, extend=""):
+		self.extend = extend
 		try:
 			self.extendDict = json.loads(extend)
 		except:
 			self.extendDict = {}
 
 	def isVideoFormat(self, url):
-		pass
+		return False
 
 	def manualVideoCheck(self):
-		pass
+		return False
 
 	def homeVideoContent(self):
 		result = {}
@@ -38,7 +37,7 @@ class Spider(Spider):  # 元类 默认的元类 type
 		result = {}
 		try:
 			url = self.extendDict['url']
-			data = self.fetch(url, headers=self.header, timeout=5).json()
+			data = self.net.json(url, {'headers': self.header, 'timeout': 5000})
 			result['class'] = data['classes']
 			if filter:
 				result['filters'] = data['filter']
@@ -56,12 +55,12 @@ class Spider(Spider):  # 元类 默认的元类 type
 				tid = ext['B站']
 			else:
 				try:
-					r = self.fetch(json.loads(self.extendDict)['url'], headers=header, timeout=5)
-					tid = r.json()['filter'][cid][0]['value'][0]['v']
+					config = self.net.json(self.extendDict['url'], {'headers': header, 'timeout': 5000})
+					tid = config['filter'][cid][0]['value'][0]['v']
 				except:
 					tid = '1'
 			url = f'https://api.live.bilibili.com/xlive/web-interface/v1/second/getList?platform=web&parent_area_id={tid}&page={page}'
-			data = self.fetch(url, headers=header, timeout=5).json()
+			data = self.net.json(url, {'headers': header, 'timeout': 5000})
 			vodList = data['data']['list']
 			append = 'bilibili'
 			imgnm = 'cover'
@@ -77,13 +76,13 @@ class Spider(Spider):  # 元类 默认的元类 type
 				tid = ext['斗鱼']
 			else:
 				try:
-					r = self.fetch(json.loads(self.extend)['url'], headers=header)
-					tid = r.json()['filter'][cid][0]['value'][0]['v']
+					config = self.net.json(json.loads(self.extend)['url'], {'headers': header})
+					tid = config['filter'][cid][0]['value'][0]['v']
 				except:
 					tid = '208'
 			url = f'https://www.douyu.com/gapi/rkc/directory/mixList/2_{tid}/{page}'
-			r = self.fetch(url, headers=header, timeout=5)
-			data = r.json()
+			r = self.net.req(url, {'headers': header, 'timeout': 5000})
+			data = json.loads(self._response_content(r))
 			vodList = data['data']['rl']
 			pagecount = data['data']['pgcnt']
 			append = 'douyu'
@@ -96,14 +95,15 @@ class Spider(Spider):  # 元类 默认的元类 type
 				tid = ext['虎牙']
 			else:
 				try:
-					r = self.fetch(json.loads(self.extend)['url'], headers=header)
-					tid = r.json()['filter'][cid][0]['value'][0]['v']
+					config = self.net.json(json.loads(self.extend)['url'], {'headers': header})
+					tid = config['filter'][cid][0]['value'][0]['v']
 				except:
 					tid = '2135'
 			header['Referer'] = 'https://www.huya.com/'
 			url = f'https://www.huya.com/cache.php?m=LiveList&do=getLiveListByPage&gameId={tid}&tagAll=0&callback=getLiveListJsonpCallback&page={page}'
-			r = self.fetch(url, headers=header, timeout=5)
-			data = json.loads(self.regStr(reg="getLiveListJsonpCallback\((.*)\)", src=r.text))
+			r = self.net.req(url, {'headers': header, 'timeout': 5000})
+			match = re.search(r"getLiveListJsonpCallback\((.*)\)", self._response_content(r))
+			data = json.loads(match.group(1) if match else "")
 			vodList = data['data']['datas']
 			pagecount = data['data']['totalPage']
 			append = 'huya'
@@ -138,14 +138,26 @@ class Spider(Spider):  # 元类 默认的元类 type
 		result['total'] = lenvodList
 		return result
 
-	def detailContent(self, did):
-		did = did[0]
+	def detailContent(self, ids):
+		if not ids:
+			return {'list': []}
+		responses = [self._detail(video_id) for video_id in ids]
+		failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+		if failed:
+			return failed
+		first = responses[0]
+		if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+			return {**first, "list": [item for response in responses for item in response["list"]]}
+		return first
+
+	def _detail(self, video_id):
+		did = video_id
 		header = self.header.copy()
 		didList = did.split('###')
 		title = didList[0]
 		if didList[1] == 'bilibili':
 			url = f'https://api.live.bilibili.com/room/v1/Room/playUrl?cid={didList[2]}&qn=20000&platform=h5'
-			data = self.fetch(url, headers=header).json()
+			data = self.net.json(url, {'headers': header})
 			platformList = ['B站']
 			playurlList = [data['data']['quality_description'][0]['desc'] + '$' + data['data']['durl'][0]['url']]
 		elif didList[1] == 'douyu':
@@ -158,11 +170,13 @@ class Spider(Spider):  # 元类 默认的元类 type
 			import html
 			header['Content-Type'] = 'application/x-www-form-urlencoded'
 			url = 'https://www.huya.com/' + didList[2]
-			r = self.fetch(url, headers=header, timeout=5)
+			r = self.net.req(url, {'headers': header, 'timeout': 5000})
 			try:
-				data = json.loads(self.regStr(reg='stream: ([\s\S]*?)\n', src=r.text))
+				match = re.search(r'stream: ([\s\S]*?)\n', self._response_content(r))
+				data = json.loads(match.group(1) if match else "")
 			except:
-				data = json.loads(b64decode(self.regStr(reg='"stream": "([\s\S]*?)"', src=r.text)).decode())
+				match = re.search(r'"stream": "([\s\S]*?)"', self._response_content(r))
+				data = json.loads(b64decode(match.group(1) if match else "").decode())
 			platformList = []
 			playurlList = []
 			i = 1
@@ -199,8 +213,8 @@ class Spider(Spider):  # 元类 默认的元类 type
 		result = {'list': [vod]}
 		return result
 
-	def searchContent(self, key, quick):
-		return self.searchContentPage(key, False, '1')
+	def searchContent(self, key, quick, pg="1"):
+		return self.searchContentPage(key, quick, pg)
 
 	def searchContentPage(self, key, quick, page):
 		items = []
@@ -209,8 +223,9 @@ class Spider(Spider):  # 元类 默认的元类 type
 		if page == 1:
 			siteList = ['bb', 'dy', 'hy']
 		else:
-			siteList = self.getCache('livesiteList_{}_{}'.format(keyword, page))
-			self.delCache('livesiteList_{}_{}'.format(keyword, page))
+			cache_key = 'livesiteList_{}_{}'.format(keyword, page)
+			siteList = self.local.get(cache_key)
+			self.local.delete(cache_key)
 			if not siteList:
 				return {'list': items}
 		contents = []
@@ -236,7 +251,7 @@ class Spider(Spider):  # 元类 默认的元类 type
 			nextpageList.append(infos[1])
 			if not infos[1]:
 				siteList.remove(key)
-		self.setCache('livesiteList_{}_{}'.format(keyword, page+1), siteList)
+		self.local.set('livesiteList_{}_{}'.format(keyword, page+1), siteList)
 		result = {
 			'list': items
 		}
@@ -255,12 +270,12 @@ class Spider(Spider):  # 元类 默认的元类 type
 		header = self.header.copy()
 		header['Cookie'] = 'buvid3=0'
 		url = f'https://api.bilibili.com/x/web-interface/search/type?page={pg}&page_size=10&order=online&search_type=live_user&keyword={key}'
-		data = self.fetch(url, headers=header).json()
+		data = self.net.json(url, {'headers': header})
 		vList = data['data']['result']
 		for video in vList:
 			if video['live_status'] == 0:
 				continue
-			title = self.removeHtmlTags(video['uname'])
+			title = self._plain_text(video['uname'])
 			if SequenceMatcher(None, title, key).ratio() < 0.6 and key not in title:
 				continue
 			items.append({
@@ -275,7 +290,7 @@ class Spider(Spider):  # 元类 默认的元类 type
 		items = []
 		header = self.header.copy()
 		url = f'https://www.douyu.com/japi/search/api/searchUser?kw={key}&page={pg}&pageSize=10&filterType=1'
-		data = self.fetch(url, headers=header, timeout=5).json()
+		data = self.net.json(url, {'headers': header, 'timeout': 5000})
 		vList = data['data']['relateUser']
 		for video in vList:
 			if video['anchorInfo']['isLive'] != 1:
@@ -297,8 +312,8 @@ class Spider(Spider):  # 元类 默认的元类 type
 		header['Cookie'] = 'buvid3=0'
 		start = str((pg-1)*40)
 		url = f'https://search.cdn.huya.com/?m=Search&do=getSearchContent&typ=-5&livestate=1&q={key}&start={start}&rows=40'
-		r = self.fetch(url, headers=header)
-		data = r.json()
+		r = self.net.req(url, {'headers': header})
+		data = json.loads(r["content"])
 		vList = data['response']['1']['docs']
 		for video in vList:
 			title = video['game_nick']
@@ -322,37 +337,16 @@ class Spider(Spider):  # 元类 默认的元类 type
 		result["header"] = header
 		return result
 
-	def localProxy(self, param):
-		return [200, "video/MP2T", {}, ""]
+	def _response_content(self, response):
+		if response.get('error'):
+			raise RuntimeError(response['error'])
+		if not 200 <= response['code'] < 300:
+			raise RuntimeError(f"HTTP {response['code']}")
+		return response['content']
 
-	def removeHtmlTags(self, src):
-		from re import sub, compile
-		clean = compile('<.*?>')
-		return sub(clean, '', src)
-
-	def getCache(self, key):
-		value = self.fetch(f'http://127.0.0.1:9978/cache?do=get&key={key}', timeout=5).text
-		if len(value) > 0:
-			if value.startswith('{') and value.endswith('}') or value.startswith('[') and value.endswith(']'):
-				value = json.loads(value)
-				if type(value) == dict:
-					if not 'expiresAt' in value or value['expiresAt'] >= int(time.time()):
-						return value
-					else:
-						self.delCache(key)
-						return None
-			return value
-		else:
-			return None
-
-	def setCache(self, key, value):
-		if len(value) > 0:
-			if type(value) == dict or type(value) == list:
-				value = json.dumps(value, ensure_ascii=False)
-		self.post(f'http://127.0.0.1:9978/cache?do=set&key={key}', data={"value": value}, timeout=5)
-
-	def delCache(self, key):
-		self.fetch(f'http://127.0.0.1:9978/cache?do=del&key={key}', timeout=5)
+	def _plain_text(self, source):
+		root = etree.HTML(source)
+		return '' if root is None else ''.join(root.itertext())
 
 	header = {
 		"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.54 Safari/537.36"

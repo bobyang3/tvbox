@@ -3,23 +3,28 @@ import sys
 import urllib.parse
 from pyquery import PyQuery as pq
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
-    def getName(self):
-        return "lsp传媒（优）"
+class Spider(BaseSpider):
     
-    def init(self, extend):
+    def _request_text(self, url):
+        response = self.net.req(url)
+        if response.get('error'):
+            raise RuntimeError(response['error'])
+        if not 200 <= response['code'] < 300:
+            raise RuntimeError(f"HTTP {response['code']}")
+        return response['content']
+
+    def init(self, extend=""):
         pass
         
     def homeContent(self, filter):
         result = {}
         classes = []
         try:
-            rsp = self.fetch("https://xn--oq2a.lspcm48.lat/index.php")
-            if rsp and rsp.text:
-                doc = pq(rsp.text)
+            html = self._request_text("https://xn--oq2a.lspcm48.lat/index.php")
+            if html:
+                doc = pq(html)
                 items = doc('.tabs li a')
                 for item in items.items():
                     name = item.text()
@@ -46,9 +51,9 @@ class Spider(Spider):
         videos = []
         try:
             url = "https://xn--oq2a.lspcm48.lat/index.php/vod/type/id/{}/page/{}.html".format(tid, pg)
-            rsp = self.fetch(url)
-            if rsp and rsp.text:
-                doc = pq(rsp.text)
+            html = self._request_text(url)
+            if html:
+                doc = pq(html)
                 items = doc('.grid .grid__item')
                 for item in items.items():
                     a = item.find('a')
@@ -76,19 +81,30 @@ class Spider(Spider):
         result['total'] = 999999
         return result
 
-    def detailContent(self, array):
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         result = {}
-        if not array or not array[0]:
+        if not video_id or not video_id:
             return result
             
         try:
-            aid = array[0]
+            aid = video_id
             url = "https://xn--oq2a.lspcm48.lat" + aid if aid.startswith('/') else "https://xn--oq2a.lspcm48.lat/" + aid
-            rsp = self.fetch(url)
-            if not rsp or not rsp.text:
+            html = self._request_text(url)
+            if not html:
                 return result
                 
-            html = rsp.text
             doc = pq(html)
             
             # 提取视频信息
@@ -156,17 +172,17 @@ class Spider(Spider):
             
         return result
 
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1", page='1'):
         result = {}
         videos = []
         try:
             if not key:
                 return result
                 
-            url = "https://xn--oq2a.lspcm48.lat/index.php/vod/search/wd/{}/page/1.html".format(urllib.parse.quote(key))
-            rsp = self.fetch(url)
-            if rsp and rsp.text:
-                doc = pq(rsp.text)
+            url = "https://xn--oq2a.lspcm48.lat/index.php/vod/search/wd/{}/page/{}.html".format(urllib.parse.quote(key), pg)
+            html = self._request_text(url)
+            if html:
+                doc = pq(html)
                 items = doc('.grid .grid__item')
                 for item in items.items():
                     a = item.find('a')
@@ -208,9 +224,8 @@ class Spider(Spider):
             else:
                 # 否则认为id是详情页路径，需要重新获取
                 url = "https://xn--oq2a.lspcm48.lat" + id if id.startswith('/') else "https://xn--oq2a.lspcm48.lat/" + id
-                rsp = self.fetch(url)
-                if rsp and rsp.text:
-                    html = rsp.text
+                html = self._request_text(url)
+                if html:
                     
                     # 从HTML中提取m3u8链接
                     play_url = ""
@@ -251,6 +266,3 @@ class Spider(Spider):
 
     def manualVideoCheck(self):
         return False
-
-    def localProxy(self, param):
-        return {}

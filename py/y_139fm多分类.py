@@ -7,8 +7,8 @@ import base64
 import string
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
+from lxml import etree
 
-sys.path.append('..')
 from base.spider import Spider as BaseSpider
 
 
@@ -55,8 +55,6 @@ class Spider(BaseSpider):
             "ASMR专区": "ASMR专区"
         }
 
-    def getName(self):
-        return '139FM有声小说'
 
     def init(self, extend=""):
         self.extend = extend or ''
@@ -169,8 +167,8 @@ class Spider(BaseSpider):
         """首页内容"""
         try:
             url = f"{self.base}/podcasts"
-            r = self.fetch(url, headers=self.headers, timeout=10)
-            soup = BeautifulSoup(r.text, 'html.parser')
+            r = self.net.req(url, {'headers': self.headers, 'timeout': 10000})
+            soup = BeautifulSoup(r["content"], 'html.parser')
             
             categories = []
             
@@ -279,8 +277,8 @@ class Spider(BaseSpider):
             if params:
                 url = f"{url}?{urlencode(params)}"
             
-            r = self.fetch(url, headers=self.headers, timeout=10)
-            soup = BeautifulSoup(r.text, 'html.parser')
+            r = self.net.req(url, {'headers': self.headers, 'timeout': 10000})
+            soup = BeautifulSoup(r["content"], 'html.parser')
             
             audios = []
             items = soup.find_all('div', class_='mh-item')
@@ -359,11 +357,11 @@ class Spider(BaseSpider):
         for id_ in ids:
             try:
                 url = f"{self.base}/podcast/{id_}"
-                r = self.fetch(url, headers=self.headers, timeout=10)
-                soup = BeautifulSoup(r.text, 'html.parser')
+                r = self.net.req(url, {'headers': self.headers, 'timeout': 10000})
+                soup = BeautifulSoup(r["content"], 'html.parser')
                 
                 # 提取_conf对象并解密音频URL
-                _conf = self.extract_conf_from_html(r.text)
+                _conf = self.extract_conf_from_html(r["content"])
                 decrypted_urls = []
                 
                 if _conf:
@@ -413,10 +411,10 @@ class Spider(BaseSpider):
                     })
                 
                 # 解析详情信息
-                desc_match = re.search(r'"desc":\s*"([^"]*)"', r.text)
-                area_match = re.search(r'"area":\s*"([^"]*)"', r.text)
-                tag_match = re.search(r'"tag":\s*"([^"]*)"', r.text)
-                clicks_match = re.search(r'"clicks":\s*"([^"]*)"', r.text)
+                desc_match = re.search(r'"desc":\s*"([^"]*)"', r["content"])
+                area_match = re.search(r'"area":\s*"([^"]*)"', r["content"])
+                tag_match = re.search(r'"tag":\s*"([^"]*)"', r["content"])
+                clicks_match = re.search(r'"clicks":\s*"([^"]*)"', r["content"])
                 
                 vod_content = '暂无简介'
                 if desc_match:
@@ -428,11 +426,11 @@ class Spider(BaseSpider):
                 
                 type_name = ''
                 if area_match:
-                    type_name = self.removeHtmlTags(area_match.group(1)).replace('类型：', '').strip()
+                    type_name = self._plain_text(area_match.group(1)).replace('类型：', '').strip()
                 
                 vod_actor = ''
                 if tag_match:
-                    vod_actor = self.removeHtmlTags(tag_match.group(1)).replace('主播：', '').strip()
+                    vod_actor = self._plain_text(tag_match.group(1)).replace('主播：', '').strip()
                 
                 # 构建播放源
                 play_from = '139FM'
@@ -487,8 +485,8 @@ class Spider(BaseSpider):
                 params['page'] = pg
             
             url = f"{self.base}/search?{urlencode(params)}"
-            r = self.fetch(url, headers=self.headers, timeout=10)
-            soup = BeautifulSoup(r.text, 'html.parser')
+            r = self.net.req(url, {'headers': self.headers, 'timeout': 10000})
+            soup = BeautifulSoup(r["content"], 'html.parser')
             
             audios = []
             items = soup.find_all('div', class_='mh-item')
@@ -571,8 +569,8 @@ class Spider(BaseSpider):
                 
                 # 获取详情页面来解密音频URL
                 url = f"{self.base}/podcast/{podcast_id}"
-                r = self.fetch(url, headers=self.headers, timeout=10)
-                _conf = self.extract_conf_from_html(r.text)
+                r = self.net.req(url, {'headers': self.headers, 'timeout': 10000})
+                _conf = self.extract_conf_from_html(r["content"])
                 
                 if _conf:
                     decrypted_urls = self.decrypt_all(_conf)
@@ -610,9 +608,9 @@ class Spider(BaseSpider):
                 'header': {}
             }
 
-    def localProxy(self, param):
-        """本地代理"""
-        return dict(param)
+    def _plain_text(self, source):
+        root = etree.HTML(source)
+        return '' if root is None else ''.join(root.itertext())
 
 
 if __name__ == '__main__':
@@ -626,4 +624,3 @@ if __name__ == '__main__':
         print(f"第一个分类: {home['class'][0]}")
     if home.get('list'):
         print(f"第一个音频: {home['list'][0]}")
-

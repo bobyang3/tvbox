@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import re
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 import sys
 import json
 import base64
@@ -9,7 +9,6 @@ from Crypto.Cipher import ARC4
 from Crypto.Util.Padding import unpad
 import binascii
 
-sys.path.append('..')
 
 xurl = "https://www.fullhd.xxx/zh/"
 
@@ -19,12 +18,10 @@ headerx = {
 
 pm = ''
 
-class Spider(Spider):
+class Spider(BaseSpider):
     global xurl
     global headerx
 
-    def getName(self):
-        return "首页"
 
     def init(self, extend):
         pass
@@ -122,8 +119,8 @@ class Spider(Spider):
         videos = []
         try:
             detail = self.net.req(xurl, {"headers": headerx, "timeout": 5000})
-            detail.encoding = "utf-8"
-            res = detail.text
+
+            res = detail["content"].decode("utf-8")
             doc = BeautifulSoup(res, "lxml")
 
             # Get videos from different sections
@@ -189,8 +186,8 @@ class Spider(Spider):
                 url = f'{xurl}/{cid}/'
 
             detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
-            detail.encoding = "utf-8"
-            res = detail.text
+
+            res = detail["content"].decode("utf-8")
             doc = BeautifulSoup(res, "lxml")
 
             section = doc.find('div', class_="list-videos")
@@ -243,16 +240,28 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         global pm
-        did = ids[0]
+        did = video_id
         result = {}
         videos = []
         playurl = ''
         if 'http' not in did:
             did = xurl + did
-        res1 = self.net.req(did, {"headers": headerx, "timeout": 5000})
-        res1.encoding = "utf-8"
-        res = res1.text
+        res1 = self.net.req(did, {"headers": headerx, "timeout": 5000, "buffer": 3})
+
+        res = res1["content"].decode("utf-8")
 
         content = '👉' + self.extract_middle_text(res,'<h1>','</h1>', 0)
 
@@ -279,7 +288,7 @@ class Spider(Spider):
             if len(parts) > 1:
                 before_https, after_https = parts[0], 'http' + parts[1]
             res = self.net.req(after_https, {"headers": headerx, "timeout": 5000})
-            res = res.text
+            res = res["content"]
 
             url2 = self.extract_middle_text(res, '<video', '</video>', 0).replace('\\', '')
             soup = BeautifulSoup(url2, 'html.parser')
@@ -287,12 +296,12 @@ class Spider(Spider):
             src_value = first_source.get('src')
 
             response = self.net.req(src_value, {"method": "HEAD", "redirect": 0, "timeout": 5000})
-            if response.status_code == 302:
-                redirect_url = response.headers['Location']
+            if response["code"] == 302:
+                redirect_url = response["headers"]['Location']
 
             response = self.net.req(redirect_url, {"method": "HEAD", "redirect": 0, "timeout": 5000})
-            if response.status_code == 302:
-                redirect_url = response.headers['Location']
+            if response["code"] == 302:
+                redirect_url = response["headers"]['Location']
 
             result = {}
             result["parse"] = xiutan
@@ -312,9 +321,9 @@ class Spider(Spider):
             url = f'{xurl}/search/{key}/{str(page)}/'
 
         try:
-            detail = self.net.req(url, {"headers": headerx, "timeout": 5000})
-            detail.encoding = "utf-8"
-            res = detail.text
+            detail = self.net.req(url, {"headers": headerx, "timeout": 5000, "buffer": 3})
+
+            res = detail["content"].decode("utf-8")
             doc = BeautifulSoup(res, "lxml")
 
             section = doc.find('div', class_="list-videos")

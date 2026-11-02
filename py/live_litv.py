@@ -7,13 +7,10 @@ import sys
 import time
 import json
 import requests
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
-    def getName(self):
-        return "Litv"
+class Spider(BaseSpider):
 
     def init(self, extend):
         self.extend = extend

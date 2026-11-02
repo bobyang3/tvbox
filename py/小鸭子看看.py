@@ -7,10 +7,9 @@ import sys
 # 导入外部库
 from bs4 import BeautifulSoup
 import gzip
-sys.path.append("..")
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
     def __init__(self):
         self.name = "小鸭子看看"
         self.hosts = {
@@ -23,8 +22,6 @@ class Spider(Spider):
         # 视频格式支持
         self.VIDEO_FORMATS = ['.m3u8', '.mp4', '.flv', '.avi', '.mkv', '.mov']
 
-    def getName(self):
-        return self.name
 
     def init(self, extend=""):
         if extend:
@@ -138,15 +135,15 @@ class Spider(Spider):
     def homeVideoContent(self):
         try:
             url = self.get_current_host()
-            r = self.fetch(url, headers={"User-Agent": self.ua})
+            r = self.net.req(url, {'headers': {"User-Agent": self.ua}})
             
-            if r.status_code != 200:
-                self.log(f"首页推荐请求失败，状态码：{r.status_code}", "ERROR")
+            if r["code"] != 200:
+                self.log(f"首页推荐请求失败，状态码：{r["code"]}", "ERROR")
                 return {'list': []}
             
             # 使用新的正则表达式来获取视频列表项
             pattern = r'<a class="link" href="(/post/[^"]+\.html)".*?<img[^>]*data-src="([^"]+)".*?alt="([^"]+)".*?(?:<div class="tag1[^>]*>([^<]+)</div>)?.*?(?:<div class="tag2">([^<]+)</div>)?'
-            matches = re.findall(pattern, r.text, re.DOTALL)
+            matches = re.findall(pattern, r["content"], re.DOTALL)
             
             video_list = []
             for match in matches[:12]:  # 限制12个结果
@@ -207,13 +204,13 @@ class Spider(Spider):
                 url = f"{url}-{pg}"
             url = f"{url}.html"
             
-            r = self.fetch(url, headers={"User-Agent": self.ua})
-            if r.status_code != 200:
-                self.log(f"分类页请求失败，URL：{url}，状态码：{r.status_code}", "ERROR")
+            r = self.net.req(url, {'headers': {"User-Agent": self.ua}})
+            if r["code"] != 200:
+                self.log(f"分类页请求失败，URL：{url}，状态码：{r["code"]}", "ERROR")
                 return result
             
             # 修复：使用更健壮的正则来提取所有视频列表项
-            items = re.findall(r'<div class="item">(.*?)<a class="title"', r.text, re.DOTALL)
+            items = re.findall(r'<div class="item">(.*?)<a class="title"', r["content"], re.DOTALL)
             
             for item in items:
                 try:
@@ -261,7 +258,7 @@ class Spider(Spider):
             
             # 修复：使用更健壮的正则来提取分页信息
             page_pattern = r'/cat/\d+-(\d+)\.html'
-            page_matches = re.findall(page_pattern, r.text)
+            page_matches = re.findall(page_pattern, r["content"])
             
             if page_matches:
                 page_nums = [int(num) for num in page_matches if num.isdigit()]
@@ -276,19 +273,31 @@ class Spider(Spider):
             return result
 
     def detailContent(self, ids):
-        result = {"list": []}
         if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        result = {"list": []}
+        if not video_id:
             return result
         
-        vod_id = ids[0]
+        vod_id = video_id
         try:
             detail_url = f"{self.get_current_host()}/post/{vod_id}.html"
-            r = self.fetch(detail_url, headers={"User-Agent": self.ua})
-            if r.status_code != 200:
-                self.log(f"详情页请求失败，状态码：{r.status_code}", "ERROR")
+            r = self.net.req(detail_url, {'headers': {"User-Agent": self.ua}})
+            if r["code"] != 200:
+                self.log(f"详情页请求失败，状态码：{r["code"]}", "ERROR")
                 return result
             
-            soup = BeautifulSoup(r.text, 'html.parser')
+            soup = BeautifulSoup(r["content"], 'html.parser')
 
             # 提取标题
             title_tag = soup.find('title')
@@ -314,7 +323,7 @@ class Spider(Spider):
             
             # 从JavaScript中提取播放信息
             pp_data = None
-            script_pattern = re.search(r'var pp\s*=\s*({.*?});', r.text, re.DOTALL)
+            script_pattern = re.search(r'var pp\s*=\s*({.*?});', r["content"], re.DOTALL)
             if script_pattern:
                 try:
                     pp_data = json.loads(script_pattern.group(1))
@@ -402,7 +411,7 @@ class Spider(Spider):
             self.log(f"播放地址解析失败：{str(e)}", "ERROR")
             return {"parse": 0, "playUrl": '', "url": id, "header": {"User-Agent": self.ua}}
 
-    def searchContent(self, key, quick):
+    def searchContent(self, key, quick, pg="1"):
         result = {"list": []}
         try:
             # 构造Google搜索URL（带站点限定）
@@ -418,17 +427,17 @@ class Spider(Spider):
                 "Connection": "keep-alive"
             }
             
-            r = self.fetch(google_search_url, headers=headers, timeout=10)
-            if r.status_code != 200:
-                self.log(f"Google搜索请求失败，状态码：{r.status_code}，内容：{r.text[:200]}", "ERROR")
+            r = self.net.req(google_search_url, {'headers': headers, 'timeout': 10000, "buffer": 3})
+            if r["code"] != 200:
+                self.log(f"Google搜索请求失败，状态码：{r["code"]}，内容：{r["content"][:200]}", "ERROR")
                 return result
             
             # 处理gzip压缩响应
-            if 'gzip' in r.headers.get('Content-Encoding', ''):
-                r._content = gzip.decompress(r.content)
+            if 'gzip' in r["headers"].get('Content-Encoding', ''):
+                r._content = gzip.decompress(r["content"])
             
             try:
-                soup = BeautifulSoup(r.text, 'html.parser')
+                soup = BeautifulSoup(r["content"], 'html.parser')
                 # 寻找所有包含搜索结果的a标签
                 all_links = soup.find_all('a', href=re.compile(r'/url\?q='))
 
@@ -483,7 +492,4 @@ class Spider(Spider):
         return any(url.lower().endswith(fmt) for fmt in self.VIDEO_FORMATS)
 
     def manualVideoCheck(self):
-        pass
-
-    def localProxy(self, param):
         pass

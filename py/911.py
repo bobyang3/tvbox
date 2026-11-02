@@ -4,10 +4,9 @@ import sys
 from bs4 import BeautifulSoup
 import re
 from urllib.parse import urljoin
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 import time
 
-sys.path.append('..')
 
 # 全局配置
 xurl = "https://911blw.com"
@@ -20,9 +19,7 @@ headerx = {
 }
 IMAGE_FILTER = ["/usr/themes/ads-close.png", "close", "icon", "logo"]
 
-class Spider(Spider):
-    def getName(self):
-        return "911爆料网"
+class Spider(BaseSpider):
 
     def init(self, extend):
         pass
@@ -193,8 +190,20 @@ class Spider(Spider):
         }
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         videos = []
-        did = ids[0]
+        did = video_id
         html = self.fetch_page(did)
         if html:
             source_match = re.search(r'"url":"(.*?)"', html)

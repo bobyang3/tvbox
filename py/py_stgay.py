@@ -1,14 +1,13 @@
 # coding=utf-8
 # !/usr/bin/python
 import sys
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 from pyquery import PyQuery as pq
 from urllib.parse import quote, unquote
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
-sys.path.append('..') 
 
-class Spider(Spider):
+class Spider(BaseSpider):
     def init(self, extend="{}"):
         self.host = "https://stgay.com"
         self.headers = {
@@ -17,8 +16,6 @@ class Spider(Spider):
         }
         self.session = self.net.session()
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -70,7 +67,7 @@ class Spider(Spider):
             videos.append({
                 "vod_id": href.split('/')[-1],
                 "vod_name": text,
-                "vod_pic": f"{self.getProxyUrl()}&type=img&url={quote(img_src)}",
+                "vod_pic": self.proxyUrl({"type": "img", "url": quote(img_src)}),
                 "vod_remarks": duration
             })
         pager = rsp('ul.pager.dx-pager')
@@ -84,8 +81,20 @@ class Spider(Spider):
             "total": total
         }
 
-    def detailContent(self, array):
-        rsp = self.getpq(array[0])
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        rsp = self.getpq(video_id)
         mse_div = rsp('#mse')
         id = mse_div.attr('data-video')
         pic = mse_div.attr('data-poster')
@@ -93,7 +102,7 @@ class Spider(Spider):
         vod = {
             "vod_id": id,
             "vod_name": rsp('h1.dx-title').text().encode('latin-1').decode('utf-8').strip(), 
-            "vod_pic": f"{self.getProxyUrl()}&type=img&url={quote(pic)}",
+            "vod_pic": self.proxyUrl({"type": "img", "url": quote(pic)}),
             'vod_play_from': '搜同社区',
             'vod_play_url': f"{id}${quote(url)}"
         }
@@ -111,7 +120,7 @@ class Spider(Spider):
             videos.append({
                 "vod_id": href.split('/')[-1],
                 "vod_name": text,
-                "vod_pic": f"{self.getProxyUrl()}&type=img&url={quote(img_src)}",
+                "vod_pic": self.proxyUrl({"type": "img", "url": quote(img_src)}),
                 "vod_remarks": duration
             })
         pager = rsp('ul.pager.dx-pager')
@@ -133,9 +142,9 @@ class Spider(Spider):
             "header": self.headers
         }
 
-    def proxy(self, param):
-        if param['type'] == 'img':
-            content = self.decrypt_img(unquote(param['url']))
+    def proxy(self, params):
+        if params['type'] == 'img':
+            content = self.decrypt_img(unquote(params['url']))
             return [200, "application/octet-stream", content]
         return [404, "text/plain", ""]
 

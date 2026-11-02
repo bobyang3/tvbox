@@ -8,12 +8,9 @@ import urllib.parse
 from bs4 import BeautifulSoup
 import json
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
-    def getName(self):
-        return "影视工厂"
+class Spider(BaseSpider):
     
     def init(self, extend=""):
         self.host = "http://1.ysgc.top/"
@@ -74,7 +71,7 @@ class Spider(Spider):
         result['list'] = self._extract_videos_from_html(rsp["content"])
         return result
 
-    def searchContent(self, key, quick, pg=1):
+    def searchContent(self, key, quick, pg="1"):
         result = {"list": []}
         search_key = urllib.parse.quote(key)
         
@@ -147,8 +144,20 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         result = {"list": []}
-        vid = ids[0]
+        vid = video_id
         url = f"{self.host}/voddetail/{vid}.html"
         rsp = self._request_with_retry(url)
 

@@ -5,10 +5,9 @@ import random
 import sys
 from base64 import b64encode, b64decode
 from concurrent.futures import ThreadPoolExecutor
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         did=self.getdid()
@@ -17,8 +16,6 @@ class Spider(Spider):
         self.headers.update({'token': token})
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -102,7 +99,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        ids = ids[0].split('@@')
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        ids = video_id.split('@@')
         jdata = {"id": int(ids[0]), "typeId": ids[-1]}
         v = self.net.json(f"{self.host}/api/v1/app/play/movieDesc", {
             "method": "POST", "postType": "json", "data": jdata,
@@ -177,8 +186,6 @@ class Spider(Spider):
             url,p=data['data']['url'],0
         return  {'parse': p, 'url': url, 'header': {'User-Agent': 'okhttp/4.12.0'}}
 
-    def proxy(self, param):
-        pass
 
     def liveContent(self, url):
         pass

@@ -1,12 +1,4 @@
-import { Crypto, _ } from 'assets://js/lib/cat.js'
-
-let host = '';
-let header = {
-    'User-Agent': 'okhttp/3.12.11'
-};
-let siteKey = '';
-let siteType = '';
-let siteJx = '';
+import { Spider } from 'catvod';
 
 const urlPattern1 = /api\.php\/.*?\/vod/;
 const urlPattern2 = /api\.php\/.+?\.vod/;
@@ -25,33 +17,48 @@ const htmlVideoKeyMatch = [
 ];
 
 
-async function init(cfg) {
-    siteKey = cfg.skey;
-    siteType = cfg.stype;
-    host = cfg.ext;
-    if (cfg.ext.hasOwnProperty('host')) { // for custom jx
-        host = cfg.ext.host;
-        siteJx = cfg.ext;
-    }
-};
-
-async function request(reqUrl, ua, timeout = 60000) {
-    let res = await req(reqUrl, {
+async function request(net, reqUrl, ua, timeout = 60000) {
+    const res = await net.req(reqUrl, {
         method: 'get',
         headers: ua ? ua : {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'},
         timeout: timeout,
     });
+    if (res.error) throw new Error(res.error);
+    if (res.code < 200 || res.code >= 300) throw new Error(`HTTP ${res.code}`);
     return res.content;
 }
 
-async function home(filter) {
+export default class extends Spider {
+async init(extend) {
+    let config = extend;
+    if (typeof extend === 'string') {
+        try {
+            config = JSON.parse(extend);
+        } catch (e) {
+            config = extend;
+        }
+    }
+    const sourceConfig = config && typeof config === 'object' &&
+        config.ext && typeof config.ext === 'object'
+        ? config.ext
+        : config;
+    this.host = typeof sourceConfig === 'string'
+        ? sourceConfig
+        : sourceConfig?.host || sourceConfig?.ext || '';
+    this.siteJx = sourceConfig && typeof sourceConfig === 'object' && sourceConfig.host
+        ? sourceConfig
+        : {};
+    this.parseUrlMap = new Map();
+}
+
+async homeContent(filter) {
     try {
-        let url = getCateUrl(host);
+        let url = getCateUrl(this.host);
 
         let jsonArray = null;
 
         if (url) {
-            const json = await request(url, getHeaders(url));
+            const json = await request(this.net, url, getHeaders(url));
             const obj = JSON.parse(json);
             if (obj.hasOwnProperty("list") && Array.isArray(obj.list)) {
                 jsonArray = obj.list;
@@ -150,9 +157,9 @@ async function home(filter) {
     return "";
 }
 
-async function homeVod() {
+async homeVideoContent() {
     try {
-        const apiUrl = host;
+        const apiUrl = this.host;
         let url = getRecommendUrl(apiUrl);
         let isTV = false;
 
@@ -160,7 +167,7 @@ async function homeVod() {
             url = getCateFilterUrlPrefix(apiUrl) + "movie&page=1&area=&type=&start=";
             isTV = true;
         }
-        const json = await request(url, getHeaders(url));
+        const json = await request(this.net, url, getHeaders(url));
         const obj = JSON.parse(json);
         const videos = [];
         if (isTV) {
@@ -208,9 +215,9 @@ async function homeVod() {
     return "";
 }
 
-async function category(tid, pg, filter, extend) {
+async categoryContent(tid, pg, filter, extend) {
     try {
-        const apiUrl = host;
+        const apiUrl = this.host;
 
         let url = getCateFilterUrlPrefix(apiUrl) + tid + getCateFilterUrlSuffix(apiUrl);
         url = url.replace(/#PN#/g, pg);
@@ -221,10 +228,10 @@ async function category(tid, pg, filter, extend) {
         url = url.replace(/排序/g, extend?.排序 ?? "");
 
 
-        const json = await request(url, getHeaders(url));
+        const json = await request(this.net, url, getHeaders(url));
         const obj = JSON.parse(json);
 
-        let totalPg = Infinity;
+        let totalPg;
         try {
             if (obj.totalpage !== undefined && typeof obj.totalpage === "number") {
                 totalPg = obj.totalpage;
@@ -272,42 +279,35 @@ async function category(tid, pg, filter, extend) {
 
         const result = {
             page: pg,
-            pagecount: totalPg,
+            ...(Number.isFinite(totalPg) ? {pagecount: totalPg} : {}),
             limit: 90,
-            total: Infinity,
             list: videos,
         };
 
         return JSON.stringify(result);
     } catch (e) {
-        SpiderDebug.log(e);
+        console.error(e);
     }
     return "";
 }
 
-async function detail(ids) {
-    try {
-        const apiUrl = host;
-        const url = getPlayUrlPrefix(apiUrl) + ids;
+async detailContent(ids) {
+    if (!ids.length) return {list: []};
+    const responses = await this.net.map(ids, this.detailItem, 4);
+    return {...responses[0], list: responses.flatMap(response => response.list)};
+}
 
-        const json = await request(url, getHeaders(url));
+async detailItem(id) {
+        const apiUrl = this.host;
+        const url = getPlayUrlPrefix(apiUrl) + id;
+        const json = await request(this.net, url, getHeaders(url));
         const obj = JSON.parse(json);
-        const result = {
-            list: [],
-        };
         const vod = {};
-        genPlayList(apiUrl, obj, json, vod, ids);
-        result.list.push(vod);
-        return JSON.stringify(result);
-    } catch (e) {
-
-    }
-    return "";
+        genPlayList(apiUrl, obj, json, vod, id, this.parseUrlMap);
+        return {list: [vod]};
 }
 
-const parseUrlMap = new Map();
-
-function genPlayList(URL, object, json, vod, vid) {
+function genPlayList(URL, object, json, vod, vid, parseUrlMap) {
     const playUrls = [];
     const playFlags = [];
     
@@ -413,7 +413,7 @@ function genPlayList(URL, object, json, vod, vid) {
                 const parse2 = from.player_info.parse2.split(",");
                 parses.push(...parse1, ...parse2);
                 const parseUrls = parseUrlMap.get(flag) || [];
-                for (const purl of parses) {
+                for (let purl of parses) {
                     if (purl.includes("http")) {
                         const match = purl.match(parsePattern1);
                         if (match) {
@@ -444,7 +444,7 @@ function genPlayList(URL, object, json, vod, vid) {
 
             }
         }
-    } else if (URLPattern1.matcher(URL).find()) {
+    } else if (urlPattern1.test(URL)) {
         // Same implementation as the previous cases
     }
 
@@ -453,20 +453,20 @@ function genPlayList(URL, object, json, vod, vid) {
 }
 
 
-async function play(flag, id, vipFlags) {
+async playerContent(flag, id, vipFlags) {
     try {
         // let parseUrls = parseUrlMap.get(flag); 
-        let parseUrls = siteJx[flag]; // custom sitejx
+        let parseUrls = this.siteJx[flag]; // custom sitejx
         if (!parseUrls) {
-            if (siteJx.hasOwnProperty('*')) { // all jx
-                parseUrls = siteJx['*'];
+            if (this.siteJx.hasOwnProperty('*')) { // all jx
+                parseUrls = this.siteJx['*'];
             } else {
                 parseUrls = [];
             }
         }
 
         if (parseUrls.length > 0) {
-            const result = await getFinalVideo(flag, parseUrls, id);
+            const result = await getFinalVideo(this.net, flag, parseUrls, id);
             if (result !== null) {
                 return JSON.stringify(result);
             }
@@ -493,11 +493,11 @@ async function play(flag, id, vipFlags) {
     return "";
 }
 
-async function search(key, quick) {
+async searchContent(key, quick, pg = "1") {
     try {
-        const apiUrl = host;
-        const url = getSearchUrl(apiUrl, encodeURIComponent(key));
-        const json = await request(url, getHeaders(url));
+        const apiUrl = this.host;
+        const url = getSearchUrl(apiUrl, encodeURIComponent(key)) + pg;
+        const json = await request(this.net, url, getHeaders(url));
         const obj = JSON.parse(json);
         let jsonArray = null;
         const videos = [];
@@ -540,16 +540,18 @@ async function search(key, quick) {
     return "";
 }
 
+}
 
 
-async function getFinalVideo(flag, parseUrls, url) {
+
+async function getFinalVideo(net, flag, parseUrls, url) {
     let htmlPlayUrl = "";
     for (const parseUrl of parseUrls) {
         if (parseUrl === "" || parseUrl === "null") {
             continue;
         }
         const playUrl = parseUrl + url;
-        const content = await request(playUrl, null, 10000); // 10秒请求，能更好过滤webjx
+        const content = await request(net, playUrl, null, 10000); // 10秒请求，能更好过滤webjx
         let tryJson = null;
         try {
             tryJson = jsonParse(url, content);
@@ -702,7 +704,7 @@ function fixJsonVodHeader(headers, input, url) {
         headers["User-Agent"] = " Mozilla/5.0";
     } else if (input.includes("bilibili")) {
         headers["Referer"] = " https://www.bilibili.com/";
-        headers["User-Agent"] = " " + Misc.UaWinChrome;
+        headers["User-Agent"] = " Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
     }
 
     return headers;
@@ -864,7 +866,7 @@ function jsonArr2Str(array) {
 
 function getHeaders(URL) {
     const headers = {};
-    headers["User-Agent"] = UA(URL);
+    headers["User-Agent"] = UA(URL) || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36";
     return headers;
 }
 
@@ -875,19 +877,4 @@ function isJsonString(str) {
         return false;
     }
     return true;
-}
-
-
-
-
-export function __jsEvalReturn() {
-    return {
-        init: init,
-        home: home,
-        homeVod: homeVod,
-        category: category,
-        detail: detail,
-        play: play,
-        search: search,
-    };
 }

@@ -3,17 +3,14 @@
 import sys
 from base64 import b64encode, b64decode
 from Crypto.Hash import MD5, SHA256
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 from Crypto.Cipher import AES
 import json
 import time
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
-    def getName(self):
-        return "lav"
 
     def init(self, extend=""):
         self.id = self.ms(str(int(time.time() * 1000)))[:16]
@@ -46,7 +43,8 @@ class Spider(Spider):
              'oauth_id': self.id}
 
         body = self.aes(j)
-        data = self.post(f'{self.host}/api.php?t={str(int(time.time() * 1000))}', data=body, headers=self.headers).json()['data']
+        # TODO: Review POST migration - may need postType and method options
+        data = self.net.json(f'{self.host}/api.php?t={str(int(time.time() * 1000))}', {"method": "POST", "postType": "form", "data": body, 'headers': self.headers})['data']
         data1 = self.aes(data, False)['data']
         self.r = data1['r']
         for i, d in enumerate(data1['avTag']):
@@ -90,7 +88,8 @@ class Spider(Spider):
                  'oauth_id': self.id, 'page': str(pg), 'tag': id[0]}
 
         body = self.aes(j)
-        data = self.post(f'{self.host}/api.php?t={str(int(time.time() * 1000))}', data=body, headers=self.headers).json()['data']
+        # TODO: Review POST migration - may need postType and method options
+        data = self.net.json(f'{self.host}/api.php?t={str(int(time.time() * 1000))}', {"method": "POST", "postType": "form", "data": body, 'headers': self.headers})['data']
         data1 = self.aes(data, False)['data']
         videos = []
         if tid == 'avsearch' and len(id) == 1:
@@ -113,12 +112,25 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        id = ids[0]
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        id = video_id
         j = {'code': 'detail', 'mod': 'av', 'channel': 'self', 'via': 'agent', 'bundleId': 'com.tvlutv',
              'app_type': 'rn', 'os_version': '12.0.5', 'version': '3.2.3', 'oauth_type': 'android_rn',
              'oauth_id': self.id, 'id': id}
         body = self.aes(j)
-        data = self.post(f'{self.host}/api.php?t={str(int(time.time() * 1000))}', data=body, headers=self.headers).json()['data']
+        # TODO: Review POST migration - may need postType and method options
+        data = self.net.json(f'{self.host}/api.php?t={str(int(time.time() * 1000))}', {"method": "POST", "postType": "form", "data": body, 'headers': self.headers})['data']
         data1 = self.aes(data, False)['line']
         vod = {}
         play = []
@@ -139,7 +151,7 @@ class Spider(Spider):
         pass
 
     def playerContent(self, flag, id, vipFlags):
-        url = self.getProxyUrl() + "&url=" + b64encode(id.encode('utf-8')).decode('utf-8') + "&type=m3u8"
+        url = self.proxyUrl({"url": b64encode(id.encode('utf-8')).decode('utf-8'), "type": "m3u8"})
         self.hh = {'User-Agent': 'dd', 'Connection': 'Keep-Alive', 'Referer': self.r}
         result = {}
         result["parse"] = 0
@@ -147,15 +159,15 @@ class Spider(Spider):
         result["header"] = self.hh
         return result
 
-    def localProxy(self, param):
-        url = param["url"]
-        if param.get('type') == "m3u8":
+    def proxy(self, params):
+        url = params["url"]
+        if params.get('type') == "m3u8":
             return self.vod(b64decode(url).decode('utf-8'))
         else:
             return self.img(url)
 
     def vod(self, url):
-        data = self.fetch(url, headers=self.hh).text
+        data = (self.net.req(url, {'headers': self.hh}))['content']
         key = bytes.fromhex("13d47399bda541b85e55830528d4e66f1791585b2d2216f23215c4c63ebace31")
         iv = bytes.fromhex(data[:32])
         data = data[32:]
@@ -166,11 +178,11 @@ class Spider(Spider):
         return [200, "application/vnd.apple.mpegur", encoded]
 
     def imgs(self, url):
-        return self.getProxyUrl() + '&url=' + url
+        return self.proxyUrl({"url": url})
 
     def img(self, url):
         type = url.split('.')[-1]
-        data = self.fetch(url).text
+        data = (self.net.req(url, {}))['content']
         key = bytes.fromhex("ba78f184208d775e1553550f2037f4af22cdcf1d263a65b4d5c74536f084a4b2")
         iv = bytes.fromhex(data[:32])
         data = data[32:]

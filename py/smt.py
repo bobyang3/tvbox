@@ -5,10 +5,8 @@
 A='utf-8'
 import sys,time,hashlib as F,requests as D,base64 as B,json
 from urllib import parse
-sys.path.append('..')
-from base.spider import Spider as C
-class Spider(C):
-	def getName(A):return A.name
+from base.spider import Spider as BaseSpider
+class Spider(BaseSpider):
 	def init(A,extend='{}'):
 		C='127.0.0.1';A.name='TvSmt';A.headers={'User-Agent':'Mozilla/5.0','CLIENT-IP':C,'X-FORWARDED-FOR':C};A.ip=A.b64decode('aHR0cDovLzY2LjkwLjk5LjE1NDo4Mjc4');A.cache={}
 		try:A.extendDict=json.loads(extend)
@@ -24,10 +22,10 @@ class Spider(C):
 	def homeVideoContent(A):return{}
 	def categoryContent(A,cid,page,filter,ext):return{}
 	def detailContent(A,did):return{}
-	def searchContent(A,key,quick,page='1'):return{}
+	def searchContent(A,key,quick, pg="1",page='1'):return{}
 	def searchContentPage(A,keywords,quick,page):return{}
 	def playerContent(A,flag,pid,vipFlags):return{}
-	def localProxy(A,params):
+	def proxy(A,params):
 		B=params;C=B['type']
 		if C=='m3u8':D=A.get_play_url(B);return[200,'application/vnd.apple.mpegurl',A.parse_m3u8_text(D)]
 		if C=='ts':E=A.b64decode(B['url']);return[206,'application/octet-stream',A.parse_ts(E)]

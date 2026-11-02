@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
-from base.spider import Spider
-class Spider(Spider):
-    def getName(self): return "Chaturbate 直播"
+from base.spider import Spider as BaseSpider
+class Spider(BaseSpider):
     def init(self, extend=""):
         self.base, self.headers = "https://chaturbate.com", {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
         return self
@@ -21,7 +20,19 @@ class Spider(Spider):
         ]
         return {"list": videos, "page": pg + 1, "pagecount": (total + 89) // 90, "limit": 90, "total": total}
     def detailContent(self, ids):
-        room_slug = ids[0]
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        room_slug = video_id
         return {"list": [{"vod_id": room_slug, "vod_name": f"Chaturbate - {room_slug}", "vod_pic": "", 
                 "vod_play_from": "老僧酿酒、名妓读经", "vod_play_url": f"书生玩剣、将军作文${room_slug}"}]}
     def playerContent(self, flag, id, vipFlags):
@@ -38,7 +49,7 @@ class Spider(Spider):
             play_url = id
         return {"parse": 0, "playUrl": "", "url": play_url, "header": headers}
 
-    def searchContent(self, key, quick, pg="0"):
+    def searchContent(self, key, quick, pg="1"):
         pg = int(pg) if pg else 0
         url_api = f"{self.base}/api/ts/roomlist/room-list/?enable_recommendations=false&limit=90&offset={pg*90}&query={key}"
         data = self.net.json(url_api, {"headers": self.headers, "timeout": 5000})

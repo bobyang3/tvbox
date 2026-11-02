@@ -4,17 +4,14 @@ import re
 import sys
 import json
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         pass
 
-    def getName(self):
-        return "4k影视"
 
     def isVideoFormat(self, url):
         pass
@@ -276,8 +273,6 @@ class Spider(Spider):
         except Exception as e:
             return {'parse': 1, 'url': id, 'header': self.headers}
 
-    def proxy(self, param):
-        pass
 
     def liveContent(self, url):
         pass

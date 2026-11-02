@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 import sys
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
     def init(self, extend=""):
         self.host = 'https://ev5356.970xw.com'
         self.headers = {
@@ -15,8 +14,6 @@ class Spider(Spider):
         self.skey = ''
         self.stype = '3'
 
-    def getName(self):
-        return "JianPian"
 
     def imgsite(self):
         data = self.net.json(f"{self.host}/api/appAuthConfig", {
@@ -149,7 +146,19 @@ class Spider(Spider):
         }
 
     def detailContent(self, ids):
-        id = ids[0]
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        id = video_id
         url = f"{self.host}/api/video/detailv2?id={id}"
         data = self.net.json(url, {"headers": self.headers})
         res = data['data']
@@ -207,5 +216,4 @@ class Spider(Spider):
     def isVideoFormat(self, url): pass
     def manualVideoCheck(self): pass
     def destroy(self): pass
-    def proxy(self, param): pass
     def liveContent(self, url): pass

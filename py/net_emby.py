@@ -6,15 +6,12 @@ import time
 from uuid import uuid4
 from urllib.parse import quote
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
 	def _clean_text(self, text):
 		return (text or '').replace("\n", " ").replace("\r", " ").replace("\t", " ").strip()
 
-	def getName(self):
-		return "EMBY"
 
 	def init(self, extend):
 		try:
@@ -119,7 +116,19 @@ class Spider(Spider):
 		result['total'] = total
 		return result
 
-	def detailContent(self, did):
+	def detailContent(self, ids):
+		if not ids:
+			return {'list': []}
+		responses = [self._detail(video_id) for video_id in ids]
+		failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+		if failed:
+			return failed
+		first = responses[0]
+		if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+			return {**first, "list": [item for response in responses for item in response["list"]]}
+		return first
+
+	def _detail(self, video_id):
 		try:
 			embyInfos = self.getAccessToken()
 		except:
@@ -127,7 +136,7 @@ class Spider(Spider):
 
 		header = self.header.copy()
 		header['Content-Type'] = "application/json; charset=UTF-8"
-		url = f"{self.baseUrl}/emby/Users/{embyInfos['User']['Id']}/Items/{did[0]}"
+		url = f"{self.baseUrl}/emby/Users/{embyInfos['User']['Id']}/Items/{video_id}"
 		params = {
 			"X-Emby-Client": embyInfos['SessionInfo']['Client'],
 			"X-Emby-Device-Name": embyInfos['SessionInfo']['DeviceName'],
@@ -142,9 +151,9 @@ class Spider(Spider):
 			raise RuntimeError(videoInfos_response["error"])
 		videoInfos = json.loads(videoInfos_response["content"])
 		vod = {
-			"vod_id": did[0],
+			"vod_id": video_id,
 			"vod_name": videoInfos['Name'],
-			"vod_pic": f'{self.baseUrl}/emby/Items/{did[0]}/Images/Primary?maxWidth=400&tag={videoInfos["ImageTags"]["Primary"]}&quality=90' if 'Primary' in videoInfos['ImageTags'] else '',
+			"vod_pic": f'{self.baseUrl}/emby/Items/{video_id}/Images/Primary?maxWidth=400&tag={videoInfos["ImageTags"]["Primary"]}&quality=90' if 'Primary' in videoInfos['ImageTags'] else '',
 			"type_name": videoInfos['Genres'][0] if len(videoInfos['Genres']) > 0 else '',
 			"vod_year": videoInfos['ProductionYear'] if 'ProductionYear' in videoInfos else '',
 			"vod_content": videoInfos['Overview'].replace('\xa0', ' ').replace('\n\n', '\n').strip() if 'Overview' in videoInfos else '',
@@ -154,7 +163,7 @@ class Spider(Spider):
 		if not videoInfos['IsFolder']:
 			playUrl += f"{videoInfos['Name'].strip()}${videoInfos['Id']}#"
 		else:
-			url = f"{self.baseUrl}/emby/Shows/{did[0]}/Seasons"
+			url = f"{self.baseUrl}/emby/Shows/{video_id}/Seasons"
 			params.update(
 				{
 					"UserId": embyInfos['User']['Id'],
@@ -187,7 +196,7 @@ class Spider(Spider):
 			else:
 				url = f"{self.baseUrl}/emby/Users/{embyInfos['User']['Id']}/Items"
 				params = {
-					"ParentId": did[0],
+					"ParentId": video_id,
 					"Fields": "BasicSyncInfo,CanDelete,Container,PrimaryImageAspectRatio,ProductionYear,CommunityRating,CriticRating",
 					"ImageTypeLimit": "1",
 					"StartIndex": "0",
@@ -298,8 +307,6 @@ class Spider(Spider):
 		}
 		return result
 
-	def proxy(self, params):
-		pass
 
 	def getAccessToken(self):
 		embyInfos = getattr(self, "_emby_infos", None)

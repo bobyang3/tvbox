@@ -4,17 +4,16 @@ import re
 import sys
 import threading
 from Crypto.Hash import MD5
-sys.path.append("..")
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
 from urllib.parse import quote, urlparse
 from base64 import b64encode, b64decode
 import json
 import time
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.host = self.gethost()
@@ -83,7 +82,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        body = f"vod_id={ids[0]}"
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        body = f"vod_id={video_id}"
         data = self.getdata("/api.php/getappapi.index/vodDetail", body)
         vod = data["vod"]
         play = []
@@ -134,8 +145,8 @@ class Spider(Spider):
         result["header"] = h
         return result
 
-    def proxy(self, param):
-        return self.Mlocal(param)
+    def proxy(self, params):
+        return self.Mlocal(params)
 
     def gethost(self):
         headers = {
@@ -217,7 +228,7 @@ class Spider(Spider):
         return json.loads(data1)
 
     def Mproxy(self, url):
-        return f"{self.getProxyUrl()}&url={self.e64(url)}&type=m3u8"
+        return self.proxyUrl({"url": self.e64(url), "type": "m3u8"})
 
     def Mlocal(self, param, header=None):
         url = self.d64(param["url"])

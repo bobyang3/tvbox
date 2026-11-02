@@ -5,19 +5,16 @@ import sys
 from urllib.parse import urlparse
 import base64
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.host=self.gethost()
         self.headers.update({'referer': f'{self.host}/'})
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -68,7 +65,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data=self.getpq(ids[0])
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        data=self.getpq(video_id)
         vod = {
             'vod_remarks': data('.grid_box.v_info_box p').text(),
             'vod_content': data('.p_txt.show_part').text().split('\n')[0],
@@ -136,8 +145,6 @@ class Spider(Spider):
         }
         return  {'parse': p, 'url': url, 'header': phd}
 
-    def proxy(self, param):
-        pass
 
     def liveContent(self, url):
         pass

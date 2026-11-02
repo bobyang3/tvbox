@@ -13,11 +13,10 @@ from pyquery import PyQuery as pq
 from base64 import b64decode, b64encode
 from pprint import pprint
 from urllib.parse import urlparse, quote, unquote
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend="{}"):
         self.domin='https://cg51.com'
@@ -34,8 +33,6 @@ class Spider(Spider):
 
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -85,7 +82,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        url=ids[0] if ids[0].startswith("http") else f"{self.host}{ids[0]}"
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        url=video_id if video_id.startswith("http") else f"{self.host}{video_id}"
         data = pq(self._request(url, {"headers": self.headers, "buffer": 3})["content"])
         vod = {'vod_play_from': '51吸瓜'}
         did = data('script[data-api]').attr('data-api')
@@ -118,14 +127,14 @@ class Spider(Spider):
         did,pid=id.split('_dm_')
         p=0 if re.search(r'\.(m3u8|mp4|flv|ts|mkv|mov|avi|webm)', pid) else 1
         if not p:
-            pid=f"{self.getProxyUrl()}&pdid={quote(id)}&type=m3u8"
+            pid = self.proxyUrl({"pdid": quote(id), "type": "m3u8"})
         return  {'parse': p, 'url': pid, 'header': self.headers}
 
-    def proxy(self, param):
+    def proxy(self, params):
         try:
-            xtype=param.get('type','')
+            xtype=params.get('type','')
             if 'm3u8' in xtype:
-                path,url=unquote(param['pdid']).split('_dm_')
+                path,url=unquote(params['pdid']).split('_dm_')
                 data = self._request(url, {"headers": self.headers, "timeout": 10000})["content"]
                 lines = data.strip().split('\n')
                 times=0.0
@@ -137,7 +146,7 @@ class Spider(Spider):
                 print('[INFO] 获取视频时长成功', times)
                 return [200, 'text/plain', data]
             elif 'xdm' in xtype:
-                url=f"{self.host}{unquote(param['path'])}"
+                url=f"{self.host}{unquote(params['path'])}"
                 res = self.net.json(url, {"headers": self.headers, "timeout": 10000})
                 dms=[]
                 for k in res:
@@ -153,8 +162,8 @@ class Spider(Spider):
                                     dms.append(ctext.split(' ',1)[-1].strip())
                                 else:
                                     dms.append(ctext)
-                return self.xml(dms,int(param['times']))
-            url=self.d64(param['url'])
+                return self.xml(dms,int(params['times']))
+            url=self.d64(params['url'])
             match = re.search(r"loadBannerDirect\('([^']*)'", url)
             if match:
                 url=match.group(1)
@@ -167,7 +176,7 @@ class Spider(Spider):
     def some_background_task(self,path,times):
         try:
             time.sleep(1)
-            purl=f"{self.getProxyUrl()}&path={quote(path)}&times={times}&type=xdm"
+            purl = self.proxyUrl({"path": quote(path), "times": times, "type": "xdm"})
             self._request(
                 f"http://127.0.0.1:9978/action?do=refresh&type=danmaku&path={quote(purl)}",
                 {"timeout": 5000},
@@ -349,7 +358,7 @@ class Spider(Spider):
             videos.append({
                 'vod_id': p.eq(c)('a').attr('href'),
                 'vod_name': p.eq(c).text(),
-                'vod_pic': f"{self.getProxyUrl()}&url={self.e64(p.eq(c+1)('img').attr('data-xkrkllgl'))}",
+                'vod_pic': self.proxyUrl({"url": self.e64(p.eq(c+1)('img').attr('data-xkrkllgl'))}),
                 'vod_remarks':x.text()
                 })
         return videos
@@ -413,7 +422,7 @@ class Spider(Spider):
                 videos.append({
                     'vod_id': f"{a}{'@folder' if l else ''}",
                     'vod_name': b.replace('\n', ' '),
-                    'vod_pic': f"{self.getProxyUrl()}&url={self.e64(k('script').text())}&type=img",
+                    'vod_pic': self.proxyUrl({"url": self.e64(k('script').text()), "type": "img"}),
                     'vod_remarks': c,
                     'vod_tag':'folder' if l else '',
                     'style': {"type": "rect", "ratio": 1.33}

@@ -8,10 +8,9 @@ from base64 import b64decode, b64encode
 from urllib.parse import urlparse
 
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         '''
@@ -54,8 +53,6 @@ class Spider(Spider):
         self.session.proxies.update(self.proxies)
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -179,8 +176,20 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        url = f"{self.host}{ids[0]}"
-        data = self.getpq(ids[0])
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        url = f"{self.host}{video_id}"
+        data = self.getpq(video_id)
         vn = data('meta[property="og:title"]').attr('content')
         dtext = data('.userInfo .usernameWrap a')
         pdtitle = '[a=cr:' + json.dumps(
@@ -219,9 +228,9 @@ class Spider(Spider):
         if '.m3u8' in ids[1]: ids[1] = self._proxy_url(ids[1], 'm3u8')
         return {'parse': int(ids[0]), 'url': ids[1], 'header': self.headers}
 
-    def proxy(self, param):
-        url = self.d64(param.get('url'))
-        if param.get('type') == 'm3u8':
+    def proxy(self, params):
+        url = self.d64(params.get('url'))
+        if params.get('type') == 'm3u8':
             return self.m3Proxy(url)
         else:
             return self.tsProxy(url)
@@ -297,5 +306,5 @@ class Spider(Spider):
             return None
 
     def _proxy_url(self, data, type='img'):
-        if data and len(self.proxies):return f"{self.getProxyUrl()}&url={self.e64(data)}&type={type}"
+        if data and len(self.proxies):return self.proxyUrl({"url": self.e64(data), "type": type})
         else:return data

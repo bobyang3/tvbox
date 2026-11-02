@@ -6,19 +6,16 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import quote
 from Crypto.Hash import MD5
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.session = self.net.session()
         self.cookies = self.cookie.copy()
         self.get_ctoken()
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -139,8 +136,20 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         try:
-            data = self._get_json(f'{self.ihost}/v_getvideo_info/?showId={ids[0]}')
+            data = self._get_json(f'{self.ihost}/v_getvideo_info/?showId={video_id}')
             v=data['data']
             vod = {
                 'type_name': v.get('showVideotype'),
@@ -151,7 +160,7 @@ class Spider(Spider):
                 'vod_play_from': '优酷',
                 'vod_play_url': ''
             }
-            params={"biz":"new_detail_web2","videoId":v.get('vid'),"scene":"web_page","componentVersion":"3","ip":data.get('ip'),"debug":0,"utdid":"ZYmGMAAAACkDAMU8hbiMmYdd","userId":0,"platform":"pc","nextSession":"","gray":0,"source":"pcNoPrev","showId":ids[0]}
+            params={"biz":"new_detail_web2","videoId":v.get('vid'),"scene":"web_page","componentVersion":"3","ip":data.get('ip'),"debug":0,"utdid":"ZYmGMAAAACkDAMU8hbiMmYdd","userId":0,"platform":"pc","nextSession":"","gray":0,"source":"pcNoPrev","showId":video_id}
             sdata,index=self.getinfo(params)
             pdata=sdata['nodes']
             if index > len(pdata):
@@ -203,8 +212,6 @@ class Spider(Spider):
     def playerContent(self, flag, id, vipFlags):
         return  {'jx':1,'parse': 1, 'url': f"{self.ihost}/video?vid={id}", 'header': ''}
 
-    def proxy(self, param):
-        pass
 
     def cf(self,params,b=False):
         response = self._get_json(

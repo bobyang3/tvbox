@@ -2,32 +2,17 @@
 # by @嗷呜
 # 温馨提示：搜索只能搜拼音联想
 # 播放需要挂代理
-import sys
 import time
 import uuid
 from Crypto.Hash import MD5
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.uid = self.getuid()
         self.token, self.code = self.getuserinfo()
-        pass
-
-    def getName(self):
-        pass
-
-    def isVideoFormat(self, url):
-        pass
-
-    def manualVideoCheck(self):
-        pass
-
-    def destroy(self):
-        pass
 
     host = 'https://tvapi211.magicetech.com'
 
@@ -35,8 +20,7 @@ class Spider(Spider):
 
     def homeContent(self, filter):
         body = {'token': self.token, 'authcode': self.code}
-        data = self.post(f'{self.host}/hr_1_1_0/apptvapi/web/index.php/video/filter-header', json=self.getbody(body),
-                         headers=self.headers).json()
+        data = self._api_json('video/filter-header', body)
         result = {}
         classes = []
         filters = {}
@@ -59,16 +43,14 @@ class Spider(Spider):
 
     def homeVideoContent(self):
         body = {'token': self.token, 'authcode': self.code}
-        data = self.post(f'{self.host}/hr_1_1_0/apptvapi/web/index.php/video/index-tv', json=self.getbody(body),
-                         headers=self.headers).json()
+        data = self._api_json('video/index-tv', body)
         return {'list': self.getlist(data['data'][0]['banner'])}
 
     def categoryContent(self, tid, pg, filter, extend):
         body = {'token': self.token, 'authcode': self.code, 'channel_id': tid, 'area': extend.get('area', '0'),
                 'year': extend.get('year', '0'), 'sort': extend.get('sort', '0'), 'tag': extend.get('tag', 'hot'),
                 'status': extend.get('status', '0'), 'page_num': pg, 'page_size': '24'}
-        data = self.post(f'{self.host}/hr_1_1_0/apptvapi/web/index.php/video/filter-video', json=self.getbody(body),
-                         headers=self.headers).json()
+        data = self._api_json('video/filter-video', body)
         result = {}
         result['list'] = self.getlist(data['data']['list'])
         result['page'] = pg
@@ -78,10 +60,23 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        ids = ids[0].split('@')
-        body = {'token': self.token, 'authcode': self.code, 'channel_id': ids[0], 'video_id': ids[1]}
-        data = self.post(f'{self.host}/hr_1_1_0/apptvapi/web/index.php/video/detail', json=self.getbody(body),
-                         headers=self.headers).json()
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        return {
+            **responses[0],
+            'list': [item for response in responses for item in response['list']],
+        }
+
+    def _detail(self, video_id):
+        channel_id, video_id = video_id.split('@', 1)
+        body = {
+            'token': self.token,
+            'authcode': self.code,
+            'channel_id': channel_id,
+            'video_id': video_id,
+        }
+        data = self._api_json('video/detail', body)
         vdata = {}
         for k in data['data']['chapters']:
             i = k['sourcelist']
@@ -100,8 +95,7 @@ class Spider(Spider):
 
     def searchContent(self, key, quick, pg="1"):
         body = {'token': self.token, 'authcode': self.code, 'keyword': key, 'page_num': pg}
-        data = self.post(f'{self.host}/hr_1_1_0/apptvapi/web/index.php/search/letter-result', json=self.getbody(body),
-                         headers=self.headers).json()
+        data = self._api_json('search/letter-result', body)
         return {'list': self.getlist(data['data']['list'])}
 
     def playerContent(self, flag, id, vipFlags):
@@ -118,21 +112,27 @@ class Spider(Spider):
         }
         return result
 
-    def localProxy(self, param):
-        pass
-
     def getuserinfo(self):
-        data = self.post(f'{self.host}/hr_1_1_0/apptvapi/web/index.php/user/auth-login', json=self.getbody(),
-                         headers=self.headers).json()
+        data = self._api_json('user/auth-login')
         v = data['data']
         return v['user_token'], v['authcode']
 
     def getuid(self):
-        uid = self.getCache('uid')
+        uid = self.local.get('uid')
         if not uid:
             uid = str(uuid.uuid4())
-            self.setCache('uid', uid)
+            self.local.set('uid', uid)
         return uid
+
+    def _api_json(self, path, body=None):
+        url = f'{self.host}/hr_1_1_0/apptvapi/web/index.php/{path}'
+        return self.net.json(url, {
+            'method': 'POST',
+            'postType': 'json',
+            'data': self.getbody(body),
+            'headers': self.headers,
+            'timeout': 5000,
+        })
 
     def getbody(self, json_data=None):
         if json_data is None: json_data = {}
@@ -163,4 +163,3 @@ class Spider(Spider):
                 'vod_remarks': i.get('flag'),
             })
         return videos
-

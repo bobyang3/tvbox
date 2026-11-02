@@ -13,11 +13,10 @@ from urllib.parse import urlparse
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         try:self.proxies = json.loads(extend)
@@ -36,8 +35,6 @@ class Spider(Spider):
         print(f"使用站点: {self.host}")
         pass
 
-    def getName(self):
-        return "🌈 老僧酿酒、吃瓜群众"
 
     def isVideoFormat(self, url):
         # Treat direct media formats as playable without parsing
@@ -144,8 +141,20 @@ class Spider(Spider):
             return {'list': [], 'page': pg, 'pagecount': 1, 'limit': 90, 'total': 0}
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         try:
-            url = f"{self.host}{ids[0]}" if not ids[0].startswith('http') else ids[0]
+            url = f"{self.host}{video_id}" if not video_id.startswith('http') else video_id
             response = requests.get(url, headers=self.headers, proxies=self.proxies, timeout=15)
             
             if response.status_code != 200:
@@ -222,7 +231,7 @@ class Spider(Spider):
             
         except Exception as e:
             print(f"detailContent error: {e}")
-            return {'list': [{'vod_play_from': '老僧酿酒、吃瓜群众', 'vod_play_url': f'详情页加载失败${ids[0] if ids else ""}'}]}
+            return {'list': [{'vod_play_from': '老僧酿酒、吃瓜群众', 'vod_play_url': f'详情页加载失败${video_id if video_id else ""}'}]}
 
     def searchContent(self, key, quick, pg="1"):
         try:
@@ -252,15 +261,15 @@ class Spider(Spider):
         print(f"播放请求: parse={p}, url={url}")
         return {'parse': p, 'url': url, 'header': self.headers}
 
-    def proxy(self, param):
-        if param.get('type') == 'img':
-            res=requests.get(param['url'], headers=self.headers, proxies=self.proxies, timeout=10)
+    def proxy(self, params):
+        if params.get('type') == 'img':
+            res=requests.get(params['url'], headers=self.headers, proxies=self.proxies, timeout=10)
             return [200,res.headers.get('Content-Type'),self.aesimg(res.content)]
-        elif param.get('type') == 'm3u8':return self.m3Proxy(param['url'])
-        else:return self.tsProxy(param['url'])
+        elif params.get('type') == 'm3u8':return self.m3Proxy(params['url'])
+        else:return self.tsProxy(params['url'])
 
     def _proxy_url(self, data, type='m3u8'):
-        if data and len(self.proxies):return f"{self.getProxyUrl()}&url={self.e64(data)}&type={type}"
+        if data and len(self.proxies):return self.proxyUrl({"url": self.e64(data), "type": type})
         else:return data
 
     def m3Proxy(self, url):
@@ -376,7 +385,7 @@ class Spider(Spider):
             videos.append({
                 'vod_id': p.eq(c)('a').attr('href'),
                 'vod_name': p.eq(c).text(),
-                'vod_pic': f"{self.getProxyUrl()}&url={p.eq(c+1)('img').attr('data-xkrkllgl')}&type=img",
+                'vod_pic': self.proxyUrl({"url": p.eq(c+1)('img').attr('data-xkrkllgl'), "type": "img"}),
                 'vod_remarks':x.text()
                 })
         return videos
@@ -385,7 +394,7 @@ class Spider(Spider):
         match = re.search(r"loadBannerDirect\('([^']+)'", text)
         if match:
             url = match.group(1)
-            return f"{self.getProxyUrl()}&url={url}&type=img"
+            return self.proxyUrl({"url": url, "type": "img"})
         else:
             return ''
 

@@ -6,13 +6,10 @@ import hashlib
 import re
 import sys
 import time
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
-    def getName(self):
-        return "JieYingShi"
+class Spider(BaseSpider):
 
     def init(self, extend):
         self.home_url = 'https://www.hkybqufgh.com'
@@ -61,8 +58,20 @@ class Spider(Spider):
         return {'list': data, 'parse': 0, 'jx': 0}
 
 
-    def detailContent(self, did):
-        ids = did[0]
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        ids = video_id
         data = self.get_detail_data(ids)
         return {"list": data, 'parse': 0, 'jx': 0}
 
@@ -77,8 +86,6 @@ class Spider(Spider):
         url = self.get_play_data(pid)
         return {"url": url, "header": self.headers, "parse": 1, "jx": 0}
 
-    def proxy(self, params):
-        pass
 
     def destroy(self):
         return '正在Destroy'

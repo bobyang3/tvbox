@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 import time
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
-    def getName(self):
-        return "Cam4直播"
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.base = "https://zh.cam4.com"
@@ -75,7 +73,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        id = ids[0]
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        id = video_id
         vod = {
             "vod_id": id,
             "vod_name": "Cam4直播",

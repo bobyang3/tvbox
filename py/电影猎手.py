@@ -1,9 +1,6 @@
 # coding=utf-8
 # !/usr/bin/python
 # by嗷呜(finally)
-import sys
-import os
-sys.path.append("..")
 import re
 import hashlib
 import hmac
@@ -16,29 +13,13 @@ from Crypto.Cipher import PKCS1_v1_5, AES
 from base64 import b64encode, b64decode
 import json
 import time
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
-
-    def getName(self):
-        return "电影猎手"
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.device = self.device_id()
         self.host = self.gethost()
-        pass
-
-    def isVideoFormat(self, url):
-        pass
-
-    def manualVideoCheck(self):
-        pass
-
-    def action(self, action):
-        pass
-
-    def destroy(self):
-        pass
 
     t = str(int(time.time()))
 
@@ -47,7 +28,15 @@ class Spider(Spider):
         filters = {}
         classes = []
         bba = self.url()
-        data = self.fetch(f"{self.host}/api/v1/app/config?pack={bba[0]}&signature={bba[1]}", headers=self.header()).text
+        response = self.net.req(
+            f"{self.host}/api/v1/app/config?pack={bba[0]}&signature={bba[1]}",
+            {"headers": self.header()},
+        )
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']}")
+        data = response["content"]
         data1 = self.aes(data)
         dy = {"class":"类型","area":"地区","lang":"语言","year":"年份","letter":"字母","by":"排序","sort":"排序"}
         data1['data']['movie_screen']['sort'].pop(0)
@@ -83,7 +72,7 @@ class Spider(Spider):
     def homeVideoContent(self):
         bba = self.url()
         url = f'{self.host}/api/v1/movie/index_recommend?pack={bba[0]}&signature={bba[1]}'
-        data = self.fetch(url, headers=self.header()).json()
+        data = self.net.json(url, {"headers": self.header()})
         videos = []
         for item in data['data']:
             if len(item['list']) > 0:
@@ -103,7 +92,7 @@ class Spider(Spider):
         list = []
         bba = self.url(body)
         url = f"{self.host}/api/v1/movie/screen/list?pack={bba[0]}&signature={bba[1]}"
-        data = self.fetch(url, headers=self.header()).json()['data']['list']
+        data = self.net.json(url, {"headers": self.header()})['data']['list']
         for item in data:
             list.append(self.voides(item))
         result["list"] = list
@@ -114,10 +103,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        body = {"id": ids[0]}
+        if not ids:
+            return {"list": []}
+        responses = [self._detail(video_id) for video_id in ids]
+        return {
+            **responses[0],
+            "list": [item for response in responses for item in response["list"]],
+        }
+
+    def _detail(self, video_id):
+        body = {"id": video_id}
         bba = self.url(body)
         url = f'{self.host}/api/v1/movie/detail?pack={bba[0]}&signature={bba[1]}'
-        data = self.fetch(url, headers=self.header()).json()['data']
+        data = self.net.json(url, {"headers": self.header()})['data']
         video = {'vod_name': data.get('name'),'type_name': data.get('type_name'),'vod_year': data.get('year'),'vod_area': data.get('area'),'vod_remarks': data.get('dynami'),'vod_content': data.get('content')}
         play = []
         names = []
@@ -129,7 +127,7 @@ class Spider(Spider):
                 names.append(name)
                 play.append(self.playeach(itt['list']))
             else:
-                tasks.append({"movie_id": ids[0], "from_code": itt["code"]})
+                tasks.append({"movie_id": video_id, "from_code": itt["code"]})
                 names.append(name)
         if tasks:
             with ThreadPoolExecutor(max_workers=len(tasks)) as executor:
@@ -144,12 +142,12 @@ class Spider(Spider):
         result = {"list": [video]}
         return result
 
-    def searchContent(self, key, quick, pg=1):
+    def searchContent(self, key, quick, pg="1"):
         body = {"keyword": key, "sort": "", "type_id": "0", "page": str(pg), "pageSize": "10",
                 "res_type": "by_movie_name"}
         bba = self.url(body)
         url = f"{self.host}/api/v1/movie/search?pack={bba[0]}&signature={bba[1]}"
-        data = self.fetch(url, headers=self.header()).json()['data'].get('list')
+        data = self.net.json(url, {"headers": self.header()})['data'].get('list')
         videos = []
         for it in data:
             try:
@@ -162,33 +160,49 @@ class Spider(Spider):
     def playerContent(self, flag, id, vipFlags):
         url = id
         if "m3u8" not in url and "mp4" not in url:
-            try:
-                add = id.split('|||')
-                data = {"from_code": add[0], "play_url": add[1], "episode_id": add[2], "type": "play"}
-                bba = self.url(data)
-                data2 = self.fetch(f"{self.host}/api/v1/movie_addr/parse_url?pack={bba[0]}&signature={bba[1]}",
-                                   headers=self.header()).json()['data']
-                url = data2.get('play_url') or data2.get('download_url')
-                try:
-                    url1 = self.fetch(url, headers=self.header(), allow_redirects=False).headers['Location']
-                    if url1 and "http" in url1:
-                        url = url1
-                except:
-                    pass
-            except Exception as e:
-                pass
+            add = id.split('|||')
+            data = {"from_code": add[0], "play_url": add[1], "episode_id": add[2], "type": "play"}
+            bba = self.url(data)
+            data2 = self.net.json(
+                f"{self.host}/api/v1/movie_addr/parse_url?pack={bba[0]}&signature={bba[1]}",
+                {"headers": self.header()},
+            )['data']
+            url = data2.get('play_url') or data2.get('download_url')
+            response = self.net.req(
+                url,
+                {"headers": self.header(), "redirect": 0},
+            )
+            if response.get("error"):
+                raise RuntimeError(response["error"])
+            code = response["code"]
+            if 300 <= code < 400:
+                url1 = response["headers"].get("Location") or response["headers"].get("location")
+                if not url1:
+                    raise RuntimeError(f"HTTP {code} response has no Location header")
+                if "http" in url1:
+                    url = url1
+            elif not 200 <= code < 300:
+                raise RuntimeError(f"HTTP {code}")
         if '.jpg' in url or '.jpeg' in url or '.png' in url:
-            url = self.getProxyUrl() + "&url=" + b64encode(url.encode('utf-8')).decode('utf-8') + "&type=m3u8"
+            url = self.getProxyUrl({
+                "url": b64encode(url.encode('utf-8')).decode('utf-8'),
+                "type": "m3u8",
+            })
         result = {}
         result["parse"] = 0
         result["url"] = url
         result["header"] = {'user-agent': 'okhttp/4.9.2'}
         return result
 
-    def localProxy(self, param):
-        url = b64decode(param["url"]).decode('utf-8')
+    def proxy(self, params):
+        url = b64decode(params["url"]).decode('utf-8')
         durl = url[:url.rfind('/')]
-        data = self.fetch(url, headers=self.header()).content.decode("utf-8")
+        response = self.net.req(url, {"headers": self.header()})
+        if response.get("error"):
+            raise RuntimeError(response["error"])
+        if not 200 <= response["code"] < 300:
+            raise RuntimeError(f"HTTP {response['code']}")
+        data = response["content"]
         lines = data.strip().split('\n')
         for index, string in enumerate(lines):
             # if 'URI="' in string and 'http' not in string:
@@ -197,7 +211,7 @@ class Spider(Spider):
             if '#EXT' not in string and 'http' not in string:
                 lines[index] = durl + ('' if string.startswith('/') else '/') + string
         data = '\n'.join(lines)
-        return [200, "application/vnd.apple.mpegur", data]
+        return [200, "application/vnd.apple.mpegurl", data, {}]
 
     def device_id(self):
         characters = string.ascii_lowercase + string.digits
@@ -209,7 +223,10 @@ class Spider(Spider):
             'User-Agent': 'okhttp/4.9.2',
             'Connection': 'Keep-Alive',
         }
-        response = self.fetch('https://app-site.ecoliving168.com/domain_v5.json', headers=headers).json()
+        response = self.net.json(
+            'https://app-site.ecoliving168.com/domain_v5.json',
+            {"headers": headers},
+        )
         url = response['api_service'].replace('/api/', '')
         return url
 
@@ -240,13 +257,10 @@ class Spider(Spider):
         return result, sign
 
     def playlist(self, body):
-        try:
-            bba = self.url(body)
-            url = f'{self.host}/api/v1/movie_addr/list?pack={bba[0]}&signature={bba[1]}'
-            data = self.fetch(url, headers=self.header()).json()['data']
-            return self.playeach(data)
-        except Exception:
-            return []
+        bba = self.url(body)
+        url = f'{self.host}/api/v1/movie_addr/list?pack={bba[0]}&signature={bba[1]}'
+        data = self.net.json(url, {"headers": self.header()})['data']
+        return self.playeach(data)
 
     def playeach(self,data):
         play_urls = []

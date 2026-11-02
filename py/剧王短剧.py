@@ -13,7 +13,7 @@ from Crypto.Util.Padding import pad
 from urllib.parse import unquote
 from Crypto.Cipher import ARC4
 from urllib.parse import quote
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 from Crypto.Cipher import AES
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -29,7 +29,6 @@ import sys
 import re
 import os
 
-sys.path.append('..')
 
 xurl = "https://djw1.com"
 
@@ -37,12 +36,10 @@ headerx = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36'
           }
 
-class Spider(Spider):
+class Spider(BaseSpider):
     global xurl
     global headerx
 
-    def getName(self):
-        return "首页"
 
     def init(self, extend):
         pass
@@ -192,7 +189,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        did = ids[0]
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        did = video_id
         result = {}
         videos = []
         xianlu = ''

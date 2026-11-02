@@ -4,19 +4,16 @@ import json
 import sys
 from base64 import b64decode, b64encode
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.host = self.gethost()
         self.headers['referer'] = f'{self.host}/'
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -127,12 +124,24 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data = self.getpq(ids[0])
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        data = self.getpq(video_id)
         link = data('link[rel="preload"][as="fetch"][crossorigin="true"]').attr('href')
         if  link:
             ggggx = f"多音画$666_{link}"
         else:
-            ggggx = f"嗅探${ids[0]}"
+            ggggx = f"嗅探${video_id}"
         vn = data('meta[property="og:title"]').attr('content')
         dtext = data('#video-tags-list-container')
         href = dtext('a').attr('href')
@@ -164,13 +173,11 @@ class Spider(Spider):
             p,url=0,id[4:]
         return {'parse': p, 'url': url, 'header': headers}
 
-    def proxy(self, param):
-        pass
 
     def gethost(self):
         try:
             response = self.net.req('https://xhamster.com', {"headers": self.headers, "redirect": 0, "timeout": 5000})
-            return response.headers['Location']
+            return response["headers"]['Location']
         except Exception as e:
             print(f"获取主页失败: {str(e)}")
             return "https://zn.xhamster.com"

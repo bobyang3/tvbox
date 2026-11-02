@@ -10,11 +10,10 @@ from urllib.parse import quote
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 from Crypto.Util.Padding import unpad
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.did = self.getdid()
@@ -38,7 +37,7 @@ class Spider(Spider):
     ua='Mozilla/5.0 (Linux; Android 11; M2012K10C Build/RP1A.200720.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36;SuiRui/twitter/ver=1.4.4'
 
     def homeContent(self, filter):
-        data = self.fetch(f'{self.host}/api/video/classifyList', headers=self.headers()).json()['encData']
+        data = self.net.json(f'{self.host}/api/video/classifyList', {'headers': self.headers()})['encData']
         data1 = self.aes(data)
         result = {'filters': {"1": [{"key": "fl", "name": "分类",
                                      "value": [{"n": "最近更新", "v": "1"}, {"n": "最多播放", "v": "2"},
@@ -84,7 +83,7 @@ class Spider(Spider):
             path = f'/api/video/queryPersonVideoByType?pageSize=20&page={pg}&userId={tid.replace("click", "")}'
         if tid == 'jx':
             path = f'/api/video/getRankVideos?pageSize=20&page={pg}&type={extend.get("type", "1")}'
-        data = self.fetch(f'{self.host}{path}', headers=self.headers()).json()['encData']
+        data = self.net.json(f'{self.host}{path}', {'headers': self.headers()})['encData']
         data1 = self.aes(data)['data']
         result = {}
         videos = []
@@ -92,7 +91,7 @@ class Spider(Spider):
             id = f'{k.get("videoId")}?{k.get("userId")}?{k.get("nickName")}'
             if 'click' in tid:
                 id = id + 'click'
-            videos.append({"vod_id": id, 'vod_name': k.get('title'), 'vod_pic': self.getProxyUrl() + f"&url={k.get('coverImg')[0]}",
+            videos.append({"vod_id": id, 'vod_name': k.get('title'), 'vod_pic': self.proxyUrl({"url": k.get('coverImg')[0]}),
                            'vod_remarks': self.dtim(k.get('playTime')),'style': {"type": "rect", "ratio": 1.33}})
         result["list"] = videos
         result["page"] = pg
@@ -102,12 +101,24 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        vid = ids[0].replace('click', '').split('?')
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        vid = video_id.replace('click', '').split('?')
         path = f'/api/video/can/watch?videoId={vid[0]}'
-        data = self.fetch(f'{self.host}{path}', headers=self.headers()).json()['encData']
+        data = self.net.json(f'{self.host}{path}', {'headers': self.headers()})['encData']
         data1 = self.aes(data)['playPath']
         clj = '[a=cr:' + json.dumps({'id': vid[1] + 'click', 'name': vid[2]}) + '/]' + vid[2] + '[/a]'
-        if 'click' in ids[0]:
+        if 'click' in video_id:
             clj = vid[2]
         vod = {'vod_director': clj, 'vod_play_from': "推特", 'vod_play_url': vid[2] + "$" + data1}
         result = {"list": [vod]}
@@ -115,13 +126,13 @@ class Spider(Spider):
 
     def searchContent(self, key, quick, pg='1'):
         path = f'/api/search/keyWord?pageSize=20&page={pg}&searchWord={quote(key)}&searchType=1'
-        data = self.fetch(f'{self.host}{path}', headers=self.headers()).json()['encData']
+        data = self.net.json(f'{self.host}{path}', {'headers': self.headers()})['encData']
         data1 = self.aes(data)['videoList']
         result = {}
         videos = []
         for k in data1:
             id = f'{k.get("videoId")}?{k.get("userId")}?{k.get("nickName")}'
-            videos.append({"vod_id": id, 'vod_name': k.get('title'), 'vod_pic': self.getProxyUrl() + f"&url={k.get('coverImg')[0]}",
+            videos.append({"vod_id": id, 'vod_name': k.get('title'), 'vod_pic': self.proxyUrl({"url": k.get('coverImg')[0]}),
                            'vod_remarks': self.dtim(k.get('playTime')), 'style': {"type": "rect", "ratio": 1.33}})
         result["list"] = videos
         result["page"] = pg
@@ -133,8 +144,8 @@ class Spider(Spider):
     def playerContent(self, flag, id, vipFlags):
         return {"parse": 0, "url": id, "header": self.headers()}
 
-    def localProxy(self, param):
-        return self.imgs(param)
+    def proxy(self, params):
+        return self.imgs(params)
 
     def getsign(self):
         t = str(int(time.time() * 1000))
@@ -191,19 +202,20 @@ class Spider(Spider):
                 'code': '##X-4m6Goo4zzPi1hF##',
                 'chCode': 'tt09'
             }
-            response = self.post(url, json=data, headers=headers)
+            # TODO: Review POST migration - may need postType and method options
+            response = self.net.req(url, {"method": "POST", "postType": "json", "data": data, 'headers': headers})
             response.raise_for_status()
-            data1 = response.json()['data']
+            data1 = json.loads(response["content"])['data']
             return data1['token'], data1['imgDomain'], current_domain
         except Exception as e:
             return self.gettoken(i + 1, max_attempts)
 
     def getdid(self):
-        did = self.getCache('did')
+        did = self.local.get('did')
         if not did:
             t = str(int(time.time()))
             did = self.md5(t)
-            self.setCache('did', did)
+            self.local.set('did', did)
         return did
 
     def md5(self, text):
@@ -214,9 +226,9 @@ class Spider(Spider):
     def imgs(self, param):
         headers = {'User-Agent': self.ua}
         url = param['url']
-        data = self.fetch(f"{self.phost}{url}",headers=headers)
-        bdata = self.img(data.content, 100, '2020-zq3-888')
-        return [200, data.headers.get('Content-Type'), bdata]
+        data = self.net.req(f"{self.phost}{url}", {'headers': headers, "buffer": 3})
+        bdata = self.img(data["content"], 100, '2020-zq3-888')
+        return [200, data["headers"].get('Content-Type'), bdata]
 
     def img(self, data: bytes, length: int, key: str):
         GIF = b'\x47\x49\x46'

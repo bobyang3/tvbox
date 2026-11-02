@@ -1,8 +1,7 @@
 # coding=utf-8
 #!/usr/bin/python
 import sys
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 import json
 import time
 import urllib.parse
@@ -10,9 +9,7 @@ import re
 from lxml import etree
 import base64
 
-class Spider(Spider):
-    def getName(self):
-        return "韩国色情电影"
+class Spider(BaseSpider):
 
     def init(self, extend):
         print("=============韩国色情电影初始化===========")
@@ -66,8 +63,20 @@ class Spider(Spider):
         result['total'] = 999999
         return result
 
-    def detailContent(self, array):
-        tid = array[0]
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        tid = video_id
         url = 'https://koreanpornmovie.com/{0}'.format(tid)
         response = self.net.req(url)
         if response.get("error"):
@@ -289,6 +298,6 @@ class Spider(Spider):
     def manualVideoCheck(self):
         return True
 
-    def proxy(self, param):
+    def proxy(self, params):
         action = {}
         return []

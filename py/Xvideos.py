@@ -5,17 +5,14 @@ import re
 import sys
 from pyquery import PyQuery as pq
 from base64 import b64decode, b64encode
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
     def init(self, extend=""):
         self.headers['referer']=f'{self.host}/'
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -159,8 +156,20 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        url = f"{self.host}{ids[0]}"
-        data = self.getpq(ids[0])
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        url = f"{self.host}{video_id}"
+        data = self.getpq(video_id)
         vn=data('meta[property="og:title"]').attr('content')
         dtext=data('.main-uploader a')
         href=dtext.attr('href')
@@ -234,8 +243,6 @@ class Spider(Spider):
         ids=self.d64(id).split('@@@@')
         return {'parse': int(ids[0]), 'url': ids[1], 'header': headers}
 
-    def proxy(self, param):
-        pass
 
     def e64(self, text):
         try:

@@ -1,8 +1,7 @@
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 import re,sys,json
-sys.path.append('..')
 
-class Spider(Spider):
+class Spider(BaseSpider):
     api_host = 'https://api.jinlidj.com'
     origin = 'https://www.jinlidj.com'
     api_path = '/api/search'
@@ -53,7 +52,19 @@ class Spider(Spider):
         return {'list': videos}
 
     def detailContent(self, ids):
-        response = self.net.json(f'{self.api_host}/api/detail/{ids[0]}', {
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        response = self.net.json(f'{self.api_host}/api/detail/{video_id}', {
             "method": "POST", "postType": "json", "data": {},
             "headers": self.headers,
         })
@@ -143,8 +154,6 @@ class Spider(Spider):
     def init(self, extend=''):
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -153,7 +162,4 @@ class Spider(Spider):
         pass
 
     def destroy(self):
-        pass
-
-    def proxy(self, param):
         pass

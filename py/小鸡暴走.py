@@ -4,18 +4,15 @@ import json
 import sys
 from base64 import b64decode, b64encode
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.host = self.gethost()
         self.headers['referer'] = f'{self.host}/'
 
-    def getName(self):
-        return "minijj"
 
     def isVideoFormat(self, url):
         pass
@@ -125,12 +122,24 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data = self.getpq(ids[0])
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        data = self.getpq(video_id)
         full_title = data('title').text().split(' - ')[0]
         vn = full_title.split('線上觀看')[0].split('手機播放')[0].rstrip(',')
 
         vod = {
-            'vod_id': ids[0],
+            'vod_id': video_id,
             'vod_name': vn,
             'vod_pic': data('.vod-pic').attr('data-original') or '',
             'vod_remarks': data('.meta-post').eq(0).text().replace('', '').replace('', '').strip() or '',
@@ -200,8 +209,6 @@ class Spider(Spider):
         
         return {'parse': 1, 'url': id, 'header': headers}
 
-    def proxy(self, param):
-        pass
 
     def gethost(self):
         try:

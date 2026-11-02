@@ -15,48 +15,17 @@
  * 提示 ext文件格式为json列表,name,url参数
  *	取消加密,减少性能问题
  */
+import { Spider } from 'catvod';
+
 String.prototype.rstrip = function (chars) {
 	let regex = new RegExp(chars + "$");
 	return this.replace(regex, "");
 };
 const request_timeout = 5000;
-const RKEY = 'live2cms'; // 源的唯一标识
 const VERSION = 'live2cms 20230619';
 const UA = 'Mozilla/5.0'; //默认请求ua
-const __ext = {data_dict:{}};
 const tips = `\n道长直播转点播js-当前版本${VERSION}`;
 const def_pic = 'https://avatars.githubusercontent.com/u/97389433?s=120&v=4';
-
-/**
- * 存在数据库配置表里, key字段对应值value,没有就新增,有就更新,调用此方法会清除key对应的内存缓存
- * @param k 键
- * @param v 值
- */
-function setItem(k,v){
-    local.set(RKEY,k,v);
-    console.log(`规则${RKEY}设置${k} => ${v}`)
-}
-
-/**
- *  获取数据库配置表对应的key字段的value，没有这个key就返回value默认传参.需要有缓存,第一次获取后会存在内存里
- * @param k 键
- * @param v 值
- * @returns {*}
- */
-function getItem(k,v){
-    return local.get(RKEY,k) || v;
-}
-
-/**
- *  删除数据库key对应的一条数据,并清除此key对应的内存缓存
- * @param k
- */
-function clearItem(k){
-    local.delete(RKEY,k);
-}
-
-var showMode = getItem('showMode','groups'); // groups按组分类显示 all全部一条线路展示
-var groupDict = JSON.parse(getItem('groupDict','{}')); // 搜索分组字典
 
 /**
  * 打印日志
@@ -210,68 +179,56 @@ function gen_group_dict(arr,parse){
 	return dict
 }
 
-const http = function (url, options = {}) {
-	if(options.method ==='POST' && options.data){
-		options.body = JSON.stringify(options.data);
-		options.headers = Object.assign({'content-type':'application/json'}, options.headers);
-	}
-	options.timeout = request_timeout;
-	if(!options.headers){
-		options.headers = {};
-	}
-	let keys = Object.keys(options.headers).map(it=>it.toLowerCase());
-	if(!keys.includes('referer')){
-		options.headers['Referer'] = getHome(url);
-	}
-	if(!keys.includes('user-agent')){
-		options.headers['User-Agent'] = UA;
-	}
-	console.log(JSON.stringify(options.headers));
-	try {
-		const res = req(url, options);
-		// if(options.headers['Authorization']){
-		// 	console.log(res.content);
-		// }
-		res.json = () => res&&res.content ? JSON.parse(res.content) : null;
-		res.text = () => res&&res.content ? res.content:'';
-		return res
-	}catch (e) {
-		return {
-			json() {
-				return null
-			}, text() {
-				return ''
-			}
+export default class extends Spider {
+	async request(url, options = {}) {
+		if (options.method === 'POST' && options.data !== undefined) {
+			options.postType = 'json';
+			options.headers = Object.assign({'content-type': 'application/json'}, options.headers);
 		}
+		options.timeout = request_timeout;
+		options.headers = options.headers || {};
+		const keys = Object.keys(options.headers).map(it => it.toLowerCase());
+		if (!keys.includes('referer')) options.headers.Referer = getHome(url);
+		if (!keys.includes('user-agent')) options.headers['User-Agent'] = UA;
+		const response = await this.net.req(url, options);
+		if (response.error) throw new Error(response.error);
+		if (response.code < 200 || response.code >= 300) {
+			throw new Error(`HTTP ${response.code}`);
+		}
+		const content = response.content || '';
+		return {
+			json: () => content ? JSON.parse(content) : null,
+			text: () => content,
+		};
 	}
-};
-["get", "post"].forEach(method => {
-    http[method] = function (url, options = {}) {
-        return http(url, Object.assign(options, {method: method.toUpperCase()}));
-    }
-});
 
-function init(ext) {
+	async init(extend) {
 	console.log("当前版本号:"+VERSION);
 	let data;
-	if (typeof ext == 'object'){
-		data = ext;
-		print('live ext:object');
-	} else if (typeof ext == 'string') {
-		if (ext.startsWith('http')) {
-			let ext_paramas = ext.split(';');
-			let data_url = ext_paramas[0];
-			print(data_url);
-			data = http.get(data_url).json();
+	if (typeof extend === 'string') {
+		const dataUrl = extend.split(';')[0];
+		if (dataUrl.startsWith('http')) {
+			print(dataUrl);
+			data = (await this.request(dataUrl)).json();
+		} else {
+			data = JSON.parse(extend);
 		}
+	} else if (Array.isArray(extend)) {
+		data = extend;
 	}
     print(data);
-    __ext.data = data;
+    this.data = data;
+	this.data_dict = {};
+	this.showMode = this.local.get('showMode', 'groups') || 'groups';
+	const storedGroupDict = this.local.get('groupDict', {});
+	this.groupDict = typeof storedGroupDict === 'string'
+		? JSON.parse(storedGroupDict)
+		: storedGroupDict || {};
 	print('init执行完毕');
 }
 
-function home(filter) {
-	let classes = __ext.data.map(it => ({
+	homeContent(filter) {
+	let classes = this.data.map(it => ({
 		type_id: it.url,
 		type_name: it.name,
 	}));
@@ -284,20 +241,20 @@ function home(filter) {
 		filter_dict[it.type_id] = filters;
 	});
 	print(classes);
-	return JSON.stringify({ 'class': classes,'filters': filter_dict});
+	return { 'class': classes,'filters': filter_dict};
 }
 
-function homeVod(params) {
-	let _get_url = __ext.data[0].url;
+	async homeVideoContent(params) {
+	let _get_url = this.data[0].url;
 	let html;
-    if(__ext.data_dict[_get_url]){
-        html = __ext.data_dict[_get_url];
+    if(this.data_dict[_get_url]){
+        html = this.data_dict[_get_url];
     }else{
-        html = http.get(_get_url).text();
+        html = (await this.request(_get_url)).text();
 		if(/#EXTM3U/.test(html)){
 			html = convertM3uToNormal(html);
 		}
-        __ext.data_dict[_get_url] = html;
+        this.data_dict[_get_url] = html;
     }
     // let arr = html.match(/.*?,#[\s\S].*?#/g);
 	let arr = html.match(/.*?[,，]#[\s\S].*?#/g); // 可能存在中文逗号
@@ -316,30 +273,30 @@ function homeVod(params) {
 	}catch (e) {
 		print('Live2cms获取首页推荐发送错误:'+e.message);
 	}
-	return JSON.stringify({ 'list': _list });
+	return { 'list': _list };
 }
 
-function category(tid, pg, filter, extend) {
+	async categoryContent(tid, pg, filter, extend) {
 	let fl = filter?extend:{};
 	if(fl.show){
-		showMode = fl.show;
-		setItem('showMode',showMode);
+		this.showMode = fl.show;
+		this.local.set('showMode', this.showMode);
 	}
 	if(parseInt(pg)>1){
-		return JSON.stringify({
+		return {
 		'list': [],
-	});
+	};
 	}
     let _get_url = tid;
     let html;
-    if(__ext.data_dict[_get_url]){
-        html = __ext.data_dict[_get_url];
+    if(this.data_dict[_get_url]){
+        html = this.data_dict[_get_url];
     }else{
-        html = http.get(_get_url).text();
+        html = (await this.request(_get_url)).text();
 		if(/#EXTM3U/.test(html)){
 			html = convertM3uToNormal(html);
 		}
-        __ext.data_dict[_get_url] = html;
+        this.data_dict[_get_url] = html;
     }
     // let arr = html.match(/.*?[,，]#[\s\S].*?#/g);
     let arr = html.match(/.*?[,，]#[\s\S].*?#/g); // 可能存在中文逗号
@@ -360,16 +317,22 @@ function category(tid, pg, filter, extend) {
 		print('Live2cms获取一级分类页发生错误:'+e.message);
 	}
 
-	return JSON.stringify({
+	return {
 		'page': 1,
 		'pagecount': 1,
 		'limit': _list.length,
 		'total': _list.length,
 		'list': _list,
-	});
+	};
 }
 
-function detail(tid) { // ⛵  港•澳•台
+	async detailContent(ids) {
+		if (!ids.length) return {list: []};
+		const responses = await this.net.map(ids, id => this.detailItem(id), 4);
+		return {...responses[0], list: responses.flatMap(response => response.list)};
+	}
+
+	async detailItem(tid) { // ⛵  港•澳•台
     let _get_url = tid.split('$')[0];
     let _tab = tid.split('$')[1];
 	if(tid.includes('#search#')){
@@ -380,9 +343,9 @@ function detail(tid) { // ⛵  港•澳•台
 		// let vod_play_url = vod_name+'$'+_get_url;
 		// print(vod_play_url);
 
-		let vod_play_url = groupDict[_get_url].map(x=>x.replace(',','$')).join('#');
+		let vod_play_url = this.groupDict[_get_url].map(x=>x.replace(',','$')).join('#');
 
-		return JSON.stringify({
+		return {
 			list: [{
 				vod_id: tid,
         		vod_name: '搜索:'+vod_name,
@@ -394,17 +357,17 @@ function detail(tid) { // ⛵  港•澳•台
         		vod_director: tips,
         		vod_remarks: `道长直播转点播js-当前版本${VERSION}`,
 			}]
-		});
+		};
 	}
     let html;
-    if(__ext.data_dict[_get_url]){
-        html = __ext.data_dict[_get_url];
+    if(this.data_dict[_get_url]){
+        html = this.data_dict[_get_url];
     }else{
-        html = http.get(_get_url).text();
+        html = (await this.request(_get_url)).text();
 		if(/#EXTM3U/.test(html)){
 			html = convertM3uToNormal(html);
 		}
-        __ext.data_dict[_get_url] = html;
+        this.data_dict[_get_url] = html;
     }
     // let a = new RegExp(`.*?${_tab},#[\\s\\S].*?#`);
     let a = new RegExp(`.*?${_tab.replace('(','\\(').replace(')','\\)')}[,，]#[\\s\\S].*?#`);
@@ -424,11 +387,11 @@ function detail(tid) { // ⛵  港•澳•台
         }
     });
 
-    let vod_name = __ext.data.find(x=>x.url===_get_url).name;
+    let vod_name = this.data.find(x=>x.url===_get_url).name;
 	let vod_play_url;
 	let vod_play_from;
 
-	if(showMode==='groups'){
+	if(this.showMode==='groups'){
 		let groups = splitArray(_list,x=>x.split('$')[0]);
 		let tabs = [];
 		for(let i=0;i<groups.length;i++){
@@ -456,36 +419,36 @@ function detail(tid) { // ⛵  港•澳•台
         vod_remarks: `道长直播转点播js-当前版本${VERSION}`,
     };
 
-    return JSON.stringify({
+    return {
         list: [vod]
-    });
+    };
 }
 
-function play(flag, id, flags) {
+	playerContent(flag, id, vipFlags) {
     let vod = {
 		'parse': /m3u8/.test(id)?0:1,
 		'playUrl': '',
 		'url': id
 	};
     print(vod);
-	return JSON.stringify(vod);
+	return vod;
 }
 
-function search(wd, quick) {
-	let _get_url = __ext.data[0].url;
+	async searchContent(wd, quick, pg = "1") {
+	let _get_url = this.data[0].url;
 	let html;
-    if(__ext.data_dict[_get_url]){
-        html = __ext.data_dict[_get_url];
+    if(this.data_dict[_get_url]){
+        html = this.data_dict[_get_url];
     }else{
-        html = http.get(_get_url).text();
+        html = (await this.request(_get_url)).text();
 		if(/#EXTM3U/.test(html)){
 			html = convertM3uToNormal(html);
 		}
-        __ext.data_dict[_get_url] = html;
+        this.data_dict[_get_url] = html;
     }
 	let str='';
-	Object.keys(__ext.data_dict).forEach(()=>{
-		str+=__ext.data_dict[_get_url];
+	Object.keys(this.data_dict).forEach(()=>{
+		str+=this.data_dict[_get_url];
 	});
 	let links = str.split('\n').filter(it=>it.trim() && it.includes(',') && it.split(',')[1].trim().startsWith('http'));
 	links = links.map(it=>it.trim());
@@ -496,9 +459,9 @@ function search(wd, quick) {
 	print('过滤后:'+plays.length);
 	print(plays);
 	let new_group = gen_group_dict(plays);
-	groupDict = Object.assign(groupDict,new_group);
+	this.groupDict = Object.assign(this.groupDict,new_group);
 	// 搜索分组结果存至本地方便二级调用
-	setItem('groupDict',JSON.stringify(groupDict));
+	this.local.set('groupDict', this.groupDict);
 	let _list = [];
 
 
@@ -510,25 +473,15 @@ function search(wd, quick) {
 	// 	})
 	// });
 
-	Object.keys(groupDict).forEach((it)=>{
+	Object.keys(this.groupDict).forEach((it)=>{
 		_list.push({
 			'vod_name':it,
 			'vod_id':it+'$'+wd+'#search#',
 			'vod_pic':def_pic,
 		});
 	});
-	return JSON.stringify({
+	return {
 			'list': _list
-    });
+    };
 }
-
-// 导出函数对象
-export default {
-	init: init,
-	home: home,
-	homeVod: homeVod,
-	category: category,
-	detail: detail,
-	play: play,
-	search: search
 }

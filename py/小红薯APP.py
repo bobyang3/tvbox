@@ -9,11 +9,10 @@ from base64 import b64decode
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 from Crypto.Util.Padding import unpad
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         self.did = self.getdid()
@@ -32,7 +31,7 @@ class Spider(Spider):
     hs = ['fhoumpjjih', 'dyfcbkggxn', 'rggwiyhqtg', 'bpbbmplfxc']
 
     def homeContent(self, filter):
-        data = self.fetch(f'{self.host}/api/video/queryClassifyList?mark=4', headers=self.headers()).json()['encData']
+        data = self.net.json(f'{self.host}/api/video/queryClassifyList?mark=4', {'headers': self.headers()})['encData']
         data1 = self.aes(data)
         result = {}
         classes = []
@@ -48,10 +47,10 @@ class Spider(Spider):
         path=f'/api/short/video/getShortVideos?classifyId={tid}&videoMark=4&page={pg}&pageSize=20'
         result = {}
         videos = []
-        data=self.fetch(f'{self.host}{path}', headers=self.headers()).json()['encData']
+        data=self.net.json(f'{self.host}{path}', {'headers': self.headers()})['encData']
         vdata=self.aes(data)
         for k in vdata['data']:
-            videos.append({"vod_id": k['videoId'], 'vod_name': k.get('title'), 'vod_pic': self.getProxyUrl() + '&url=' + k['coverImg'],
+            videos.append({"vod_id": k['videoId'], 'vod_name': k.get('title'), 'vod_pic': self.proxyUrl({"url": k['coverImg']}),
                            'vod_remarks': self.dtim(k.get('playTime')),'style': {"type": "rect", "ratio": 1.33}})
         result["list"] = videos
         result["page"] = pg
@@ -61,8 +60,20 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        path = f'/api/video/getVideoById?videoId={ids[0]}'
-        data = self.fetch(f'{self.host}{path}', headers=self.headers()).json()['encData']
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        path = f'/api/video/getVideoById?videoId={video_id}'
+        data = self.net.json(f'{self.host}{path}', {'headers': self.headers()})['encData']
         v = self.aes(data)
         d=f'{v["title"]}$auth_key={v["authKey"]}&path={v["videoUrl"]}'
         vod = {'vod_name': v["title"], 'type_name': ''.join(v.get('tagTitles',[])),'vod_play_from': v.get('nickName') or "小红书官方", 'vod_play_url': d}
@@ -79,8 +90,8 @@ class Spider(Spider):
         result = {"parse": 0, "url": f"{self.host}/api/m3u8/decode/authPath?{id}", "header":  h}
         return result
 
-    def localProxy(self, param):
-        return self.action(param)
+    def proxy(self, params):
+        return self.action(params)
 
     def md5(self, text):
         h = MD5.new()
@@ -114,11 +125,11 @@ class Spider(Spider):
             return ''
 
     def getdid(self):
-        did = self.getCache('did')
+        did = self.local.get('did')
         if not did:
             t = str(int(time.time()))
             did = self.md5(t)
-            self.setCache('did', did)
+            self.local.set('did', did)
         return did
 
     def getsign(self):
@@ -136,9 +147,8 @@ class Spider(Spider):
                 'User-Agent': 'Mozilla/5.0 (Linux; Android 11; M2012K10C Build/RP1A.200720.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36;SuiRui/xhs/ver=1.2.6',
                 'deviceid': self.did, 't': t, 's': sign, }
             data = {'deviceId': self.did, 'tt': 'U', 'code': '', 'chCode': 'dafe13'}
-            data1 = self.post(url, json=data, headers=headers)
-            data1.raise_for_status()
-            data2 = data1.json()['data']
+            data1 = self.net.json(url, {"method": "POST", "postType": "json", "data": data, 'headers': headers})
+            data2 = data1['data']
             return data2['token'], data2['imgDomain'],current_domain
         except:
             return self.gettoken(i+1, max_attempts)
@@ -153,9 +163,9 @@ class Spider(Spider):
     def action(self, param):
         headers = {
             'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 11; M2012K10C Build/RP1A.200720.011)'}
-        data = self.fetch(f'{self.phost}{param["url"]}', headers=headers)
-        type=data.headers.get('Content-Type').split(';')[0]
-        base64_data = self.img(data.content, 100, '2020-zq3-888')
+        data = self.net.req(f'{self.phost}{param["url"]}', {'headers': headers, "buffer": 3})
+        type=data["headers"].get('Content-Type').split(';')[0]
+        base64_data = self.img(data["content"], 100, '2020-zq3-888')
         return [200, type, base64_data]
 
     def img(self, data: bytes, length: int, key: str):

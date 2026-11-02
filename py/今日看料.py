@@ -11,11 +11,10 @@ from base64 import b64decode, b64encode
 from urllib.parse import urlparse, quote
 
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         try:self.proxies = json.loads(extend)
@@ -34,8 +33,6 @@ class Spider(Spider):
         print(f"使用站点: {self.host}")
         pass
 
-    def getName(self):
-        return "🌈 今日看料"
 
     def isVideoFormat(self, url):
         # Treat direct media formats as playable without parsing
@@ -308,8 +305,20 @@ class Spider(Spider):
         return 99999
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         try:
-            url = f"{self.host}{ids[0]}" if not ids[0].startswith('http') else ids[0]
+            url = f"{self.host}{video_id}" if not video_id.startswith('http') else video_id
             response = requests.get(url, headers=self.headers, proxies=self.proxies, timeout=15)
             
             if response.status_code != 200:
@@ -401,7 +410,7 @@ class Spider(Spider):
             
         except Exception as e:
             print(f"detailContent error: {e}")
-            return {'list': [{'vod_play_from': '今日看料', 'vod_play_url': f'详情页加载失败${ids[0] if ids else ""}'}]}
+            return {'list': [{'vod_play_from': '今日看料', 'vod_play_url': f'详情页加载失败${video_id if video_id else ""}'}]}
 
     def searchContent(self, key, quick, pg="1"):
         try:
@@ -488,10 +497,10 @@ class Spider(Spider):
         print(f"播放请求: parse={p}, url={url}")
         return {'parse': p, 'url': url, 'header': self.headers}
 
-    def proxy(self, param):
+    def proxy(self, params):
         try:
-            if param.get('type') == 'img':
-                img_url = self.d64(param['url'])
+            if params.get('type') == 'img':
+                img_url = self.d64(params['url'])
                 if not img_url.startswith(('http://', 'https://')):
                     if img_url.startswith('/'):
                         img_url = f"{self.host}{img_url}"
@@ -500,17 +509,17 @@ class Spider(Spider):
                 
                 res = requests.get(img_url, headers=self.headers, proxies=self.proxies, timeout=10)
                 return [200, res.headers.get('Content-Type', 'image/jpeg'), res.content]
-            elif param.get('type') == 'm3u8':
-                return self.m3Proxy(param['url'])
+            elif params.get('type') == 'm3u8':
+                return self.m3Proxy(params['url'])
             else:
-                return self.tsProxy(param['url'])
+                return self.tsProxy(params['url'])
         except Exception as e:
             print(f"localProxy error: {e}")
             return [500, "text/plain", f"Proxy error: {str(e)}".encode()]
 
     def _proxy_url(self, data, type='m3u8'):
         if data and len(self.proxies):
-            return f"{self.getProxyUrl()}&url={self.e64(data)}&type={type}"
+            return self.proxyUrl({"url": self.e64(data), "type": type})
         else:
             return data
 
@@ -668,7 +677,7 @@ class Spider(Spider):
                         url = f"{self.host}{url}"
                     else:
                         url = f"{self.host}/{url}"
-                return f"{self.getProxyUrl()}&url={self.e64(url)}&type=img"
+                return self.proxyUrl({"url": self.e64(url), "type": "img"})
         
         # 方式2: 从背景图片中提取
         bg_elem = article_elem.find('.blog-background')
@@ -683,7 +692,7 @@ class Spider(Spider):
                             img_url = f"{self.host}{img_url}"
                         else:
                             img_url = f"{self.host}/{img_url}"
-                    return f"{self.getProxyUrl()}&url={self.e64(img_url)}&type=img"
+                    return self.proxyUrl({"url": self.e64(img_url), "type": "img"})
         
         # 方式3: 从图片标签中提取
         img_elem = article_elem.find('img')
@@ -695,7 +704,7 @@ class Spider(Spider):
                         data_src = f"{self.host}{data_src}"
                     else:
                         data_src = f"{self.host}/{data_src}"
-                return f"{self.getProxyUrl()}&url={self.e64(data_src)}&type=img"
+                return self.proxyUrl({"url": self.e64(data_src), "type": "img"})
             
             src = img_elem.attr('src')
             if src:
@@ -704,7 +713,7 @@ class Spider(Spider):
                         src = f"{self.host}{src}"
                     else:
                         src = f"{self.host}/{src}"
-                return f"{self.getProxyUrl()}&url={self.e64(src)}&type=img"
+                return self.proxyUrl({"url": self.e64(src), "type": "img"})
         
         return ''
 

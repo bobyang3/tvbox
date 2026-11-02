@@ -9,17 +9,14 @@ import json
 from io import BytesIO
 from pyquery import PyQuery as pq
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
     def init(self, extend=""):
         self.name = "黄色仓库"
         self.host = self.getDynamicHost()
         self.classes = self.preprocessClasses()
         
-    def getName(self):
-        return self.name
     
     def getDynamicHost(self):
         """动态获取主机地址"""
@@ -248,11 +245,23 @@ class Spider(Spider):
         print("未找到m3u8播放链接")
         return m3u8_urls
 
-    def detailContent(self, array):
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         """二级详情页面解析 - 修复播放链接提取及简介使用标题"""
         result = {}
         try:
-            vid = array[0]
+            vid = video_id
             # 确保vid是完整URL
             if not vid.startswith('http'):
                 vid = self.getFullUrl(vid)
@@ -301,7 +310,7 @@ class Spider(Spider):
             
             # 用视频标题作为简介，避免没有简介内容
             vod = {
-                "vod_id": array[0],  # 保持原始ID
+                "vod_id": video_id,  # 保持原始ID
                 "vod_name": title,
                 "vod_pic": self.getFullUrl(pic) if pic else "",
                 "vod_content": title,  # 用标题当简介
@@ -318,12 +327,12 @@ class Spider(Spider):
             traceback.print_exc()
             # 返回基础信息
             result['list'] = [{
-                "vod_id": array[0],
+                "vod_id": video_id,
                 "vod_name": "未知标题",
                 "vod_pic": "",
                 "vod_content": "",
                 "vod_play_from": "默认线路",
-                "vod_play_url": f"详情页线路${array[0]}"
+                "vod_play_url": f"详情页线路${video_id}"
             }]
             
         return result
@@ -465,6 +474,6 @@ class Spider(Spider):
         "Referer": "https://hsck123.com/"
     }
 
-    def proxy(self, param):
+    def proxy(self, params):
         action = {}
         return action

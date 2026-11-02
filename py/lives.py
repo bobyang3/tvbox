@@ -7,12 +7,11 @@ import time
 from base64 import b64decode, b64encode
 from urllib.parse import parse_qs
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 from concurrent.futures import ThreadPoolExecutor
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         tid = 'douyin'
@@ -36,8 +35,6 @@ class Spider(Spider):
         self.dyheaders = headers
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -386,7 +383,19 @@ class Spider(Spider):
             return vdata, 9999
 
     def detailContent(self, ids):
-        ids = ids[0].split('@@')
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        ids = video_id.split('@@')
         if ids[0] == 'wangyi':
             vod = self.wyccDetail(ids)
         elif ids[0] == 'bili':
@@ -722,8 +731,6 @@ class Spider(Spider):
         except Exception as e:
             print(f"Error fetching {quality['name']}: {str(e)}")
 
-    def proxy(self, param):
-        pass
 
     def e64(self, text):
         try:

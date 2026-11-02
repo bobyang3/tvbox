@@ -9,17 +9,14 @@ from urllib.parse import urlparse, urlunparse
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 from Crypto.Util.Padding import unpad, pad
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -59,7 +56,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data={"limit":1,"filter":[f"video_id = {ids[0]}"],"lang":"zh-cn","route":"/videos/search"}
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        data={"limit":1,"filter":[f"video_id = {video_id}"],"lang":"zh-cn","route":"/videos/search"}
         res = self.getdata(data)[0]
         purl=urlunparse(urlparse(self.phost)._replace(path=urlparse(res.get('video_url')).path))
         vod = {
@@ -80,23 +89,23 @@ class Spider(Spider):
 
     def playerContent(self, flag, id, vipFlags):
         if id.endswith('.mpd'):
-            id=f"{self.getProxyUrl()}&url={self.e64(id)}&type=mpd"
+            id = self.proxyUrl({"url": self.e64(id), "type": "mpd"})
         return  {'parse': 0, 'url': id, 'header':self.headers}
 
-    def proxy(self, param):
-        if param.get('type') and param['type']=='mpd':
-            url = self.d64(param.get('url'))
+    def proxy(self, params):
+        if params.get('type') and params['type']=='mpd':
+            url = self.d64(params.get('url'))
             ids=url.split('/')
             id=f"{ids[-3]}/{ids[-2]}/"
-            xpu = f"{self.getProxyUrl()}&path=".replace('&', '&amp;')
+            xpu = f"{self.proxyUrl({'path': ''})}&path=".replace('&', '&amp;')
             data = self.net.req(url, {"headers": self.headers, "timeout": 5000})["content"]
             data = data.replace('initialization="', f'initialization="{xpu}{id}').replace('media="',f'media="{xpu}{id}')
             return [200,'application/octet-stream',data]
         else:
-            hsign=self.md5(f"AjPuom638LmWfWyeM5YueKuJ9PuWLdRn/mpd/{param.get('path')}1767196800")
+            hsign=self.md5(f"AjPuom638LmWfWyeM5YueKuJ9PuWLdRn/mpd/{params.get('path')}1767196800")
             bytes_data = bytes.fromhex(hsign)
             sign = b64encode(bytes_data).decode('utf-8').replace('=','').replace('+','-').replace('/','_')
-            url=f"{self.phost}/mpd/{param.get('path')}?sign={sign}&expire=1767196800"
+            url=f"{self.phost}/mpd/{params.get('path')}?sign={sign}&expire=1767196800"
             return [302,'text/plain',None,{'Location':url}]
 
     def liveContent(self, url):

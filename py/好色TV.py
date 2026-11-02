@@ -5,12 +5,9 @@ import threading
 import time
 from pyquery import PyQuery as pq
 
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
-    def getName(self):
-        return self.name
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         # 基础配置
@@ -255,11 +252,23 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         try:
-            if not ids or not ids[0]:
+            if not video_id or not video_id:
                 return {'list': []}
             
-            vod_id = ids[0].strip()
+            vod_id = video_id.strip()
             if not vod_id.endswith('.htm'):
                 vod_id += '.htm'
             url = f"{self.host}{vod_id.lstrip('/')}"
@@ -395,7 +404,7 @@ class Spider(Spider):
             traceback.print_exc()
             return {'list': []}
 
-    def searchContent(self, key, quick, pg=1):
+    def searchContent(self, key, quick, pg="1"):
         try:
             # 关键词合法性校验
             if not key.strip():
@@ -522,9 +531,9 @@ class Spider(Spider):
             'double': True
         }
 
-    def proxy(self, param):
+    def proxy(self, params):
         try:
-            url = param['url']
+            url = params['url']
             if url and not url.startswith(('http://', 'https://')):
                 url = f"{self.host.rstrip('/')}/{url.lstrip('/')}"
             

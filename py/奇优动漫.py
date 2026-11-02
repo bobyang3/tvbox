@@ -1,18 +1,15 @@
 # coding=utf-8
 #!/usr/bin/python
 import sys
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 import json
 import urllib.parse
 import re
 from lxml import etree
 from urllib.parse import urljoin
 
-class Spider(Spider):
+class Spider(BaseSpider):
     
-    def getName(self):
-        return "奇优影院"
     
     def init(self, extend):
         pass
@@ -41,8 +38,8 @@ class Spider(Spider):
     
     def homeVideoContent(self):
         try:
-            rsp = self.fetch("http://qiyoudy5.com/")
-            root = self.parse_html(rsp.content)
+            rsp = self.net.req("http://qiyoudy5.com/")
+            root = self.parse_html(rsp["content"])
             if not root:
                 return {'list': []}
             
@@ -78,8 +75,8 @@ class Spider(Spider):
         try:
             order = extend.get('by', 'time') if extend else 'time'
             url = f'http://qiyoudy5.com/list/{tid}_{pg}.html?order={order}'
-            rsp = self.fetch(url)
-            root = self.parse_html(rsp.content)
+            rsp = self.net.req(url)
+            root = self.parse_html(rsp["content"])
             
             if not root:
                 return {'list': [], 'page': pg, 'pagecount': 1, 'limit': 90, 'total': 0}
@@ -114,12 +111,24 @@ class Spider(Spider):
         except:
             return {'list': [], 'page': pg, 'pagecount': 1, 'limit': 90, 'total': 0}
     
-    def detailContent(self, array):
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         try:
-            tid = array[0]
+            tid = video_id
             url = f'http://qiyoudy5.com{tid}'
-            rsp = self.fetch(url)
-            root = self.parse_html(rsp.content)
+            rsp = self.net.req(url)
+            root = self.parse_html(rsp["content"])
             
             if not root:
                 return {'list': []}
@@ -181,7 +190,7 @@ class Spider(Spider):
         except:
             return {'list': []}
     
-    def searchContent(self, key, quick, page='1'):
+    def searchContent(self, key, quick, pg="1", page='1'):
         try:
             url = "http://qiyoudy5.com/search.php"
             # 修复：使用正确的参数名和变量
@@ -197,9 +206,10 @@ class Spider(Spider):
             }
             
             # 修复：只发送一次POST请求，删除重复的请求
-            rsp = self.post(url, data=post_data, headers=headers)
+            # TODO: Review POST migration - may need postType and method options
+            rsp = self.net.req(url, {"method": "POST", "postType": "form", "data": post_data, 'headers': headers})
             
-            root = self.parse_html(rsp.content)
+            root = self.parse_html(rsp["content"])
             
             if not root:
                 return {'list': []}
@@ -288,8 +298,8 @@ class Spider(Spider):
     def playerContent(self, flag, id, vipFlags):
         try:
             url = f"http://qiyoudy5.com{id}"
-            rsp = self.fetch(url)
-            _, html_content = self.parse_html(rsp.content, return_content=True)
+            rsp = self.net.req(url, {"buffer": 3})
+            _, html_content = self.parse_html(rsp["content"], return_content=True)
             
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
@@ -305,8 +315,8 @@ class Spider(Spider):
                     if not api_url.startswith('http'):
                         api_url = "http://api.yongfan99.com:81/" + api_url
                     try:
-                        api_rsp = self.fetch(api_url, headers=headers)
-                        m3u8_match = re.search(r'http[s]?://[^\s"\']+\.m3u8[^\s"\']*', api_rsp.text)
+                        api_rsp = self.net.req(api_url, {'headers': headers})
+                        m3u8_match = re.search(r'http[s]?://[^\s"\']+\.m3u8[^\s"\']*', api_rsp["content"])
                         if m3u8_match:
                             return {"parse": 0, "playUrl": "", "url": m3u8_match.group(0), "header": headers}
                     except:
@@ -318,8 +328,8 @@ class Spider(Spider):
                     if not iframe_src.startswith('http'):
                         iframe_src = urljoin(url, iframe_src)
                     try:
-                        iframe_rsp = self.fetch(iframe_src, headers=headers)
-                        m3u8_match = re.search(r'http[s]?://[^\s"\']+\.m3u8[^\s"\']*', iframe_rsp.text)
+                        iframe_rsp = self.net.req(iframe_src, {'headers': headers})
+                        m3u8_match = re.search(r'http[s]?://[^\s"\']+\.m3u8[^\s"\']*', iframe_rsp["content"])
                         if m3u8_match:
                             return {"parse": 0, "playUrl": "", "url": m3u8_match.group(0), "header": headers}
                     except:
@@ -374,6 +384,3 @@ class Spider(Spider):
 
     def manualVideoCheck(self):
         return True
-
-    def localProxy(self, param):
-        return {}

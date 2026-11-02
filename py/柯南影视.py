@@ -4,19 +4,16 @@ import re
 import sys
 from urllib.parse import quote, urlparse
 from Crypto.Hash import SHA256
-sys.path.append("..")
 import json
 import time
 from pyquery import PyQuery as pq
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -73,7 +70,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data = self.getpq(self.net.req(f"{self.host}/list/{ids[0]}/", {"headers": self.headers, "timeout": 5000})["content"])
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        data = self.getpq(self.net.req(f"{self.host}/list/{video_id}/", {"headers": self.headers, "timeout": 5000})["content"])
         v=data('.detail-info.lightSpeedIn .slide-info')
         vod = {
             'vod_year': v.eq(-1).text().split(':',1)[-1],
@@ -169,8 +178,6 @@ class Spider(Spider):
             p,url=1,f"{self.host}{id}"
         return {"parse": p, "url": url, "header": h}
 
-    def proxy(self, param):
-        pass
 
     def getlist(self,data):
         videos=[]

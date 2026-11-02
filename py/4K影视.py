@@ -2,17 +2,14 @@
 # by @嗷呜
 import sys
 from pyquery import PyQuery as pq
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
 
-class Spider(Spider):
+class Spider(BaseSpider):
 
     def init(self, extend=""):
         pass
 
-    def getName(self):
-        pass
 
     def isVideoFormat(self, url):
         pass
@@ -61,7 +58,19 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
-        data=self.getpq(ids[0])
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
+        data=self.getpq(video_id)
         v=data('#videoinfo')
         vod = {
             'type_name': v('#MainContent_tags.tags a').text(),
@@ -74,10 +83,10 @@ class Spider(Spider):
         vlist=data('#rtlist li')
         if vlist:
             c=[f"{i('span').text()}${i('a').attr('href')}" for i in list(vlist.items())[1:]]
-            c.insert(0,f"{vlist.eq(0)('span').text()}${ids[0]}")
+            c.insert(0,f"{vlist.eq(0)('span').text()}${video_id}")
             vod['vod_play_url'] = '#'.join(c)
         else:
-            vod['vod_play_url'] = f"{data('#tophead h1').text()}${ids[0]}"
+            vod['vod_play_url'] = f"{data('#tophead h1').text()}${video_id}"
         return {'list':[vod]}
 
     def searchContent(self, key, quick, pg="1"):
@@ -99,8 +108,6 @@ class Spider(Spider):
         }
         return  {'parse': p, 'url': url, 'header': headers}
 
-    def proxy(self, param):
-        pass
 
     def liveContent(self, url):
         pass

@@ -7,10 +7,9 @@ from lxml import etree
 import json
 import re
 from urllib.parse import urlencode
-sys.path.append('..')
-from base.spider import Spider
+from base.spider import Spider as BaseSpider
 
-class Spider(Spider):
+class Spider(BaseSpider):
     def __init__(self):
         self.home_url = 'https://www.nivod.cc'
         self.headers = {
@@ -25,8 +24,6 @@ class Spider(Spider):
     def init(self, extend=""):
         pass
 
-    def getName(self):
-        return "泥視頻.CC"
 
     def getDependence(self):
         return []
@@ -173,9 +170,21 @@ class Spider(Spider):
         
         return result
 
-    def detailContent(self, array):
+    def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
         result = {'list': []}
-        ids = array[0]
+        ids = video_id
         detail_url = f"{self.home_url}{ids}"
         try:
             res = self.net.req(detail_url, {"headers": self.headers})
@@ -306,7 +315,7 @@ class Spider(Spider):
             result = {'url': '', 'parse': 0}
         return result
 
-    def proxy(self, param):
+    def proxy(self, params):
         return [200, "video/MP2T", {}, b""]
 
     def destroy(self):

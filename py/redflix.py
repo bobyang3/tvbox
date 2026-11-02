@@ -9,8 +9,8 @@ import re
 import sys
 import os
 from pyquery import PyQuery as pq
-from base.spider import Spider
-class Spider(Spider):
+from base.spider import Spider as BaseSpider
+class Spider(BaseSpider):
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
@@ -46,8 +46,6 @@ class Spider(Spider):
         })
         pass
 
-    def getName(self):
-        return "Redflix"
 
     def isVideoFormat(self, url):
         return '.m3u8' in url or '.mp4' in url
@@ -97,8 +95,20 @@ class Spider(Spider):
         return result
 
     def detailContent(self, ids):
+        if not ids:
+            return {'list': []}
+        responses = [self._detail(video_id) for video_id in ids]
+        failed = next((response for response in responses if isinstance(response, dict) and response.get("msg") and not response.get("list")), None)
+        if failed:
+            return failed
+        first = responses[0]
+        if all(isinstance(response, dict) and isinstance(response.get("list"), list) for response in responses):
+            return {**first, "list": [item for response in responses for item in response["list"]]}
+        return first
+
+    def _detail(self, video_id):
        
-        path = ids[0]
+        path = video_id
         v = self.net.json(f'{self.chost}{path}', {
             "params": {'api_key': self.token, 'language': 'en-US', 'append_to_response': 'videos'},
             "headers": self.headers,
